@@ -1,0 +1,115 @@
+import React from 'react';
+import { SkillState } from '../types';
+import { CheckCircle2, AlertCircle, HelpCircle, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+export interface SkillChipProps {
+  name: string;
+  nameTamil?: string;
+  state: SkillState;
+  score?: number;
+  level?: number;
+  evidenceCount?: number;
+  showEvidenceBadge?: boolean;
+  className?: string;
+  onClick?: () => void;
+}
+
+export const SkillChip: React.FC<SkillChipProps> = ({
+  name,
+  nameTamil,
+  state,
+  score,
+  level = 1,
+  evidenceCount = 0,
+  showEvidenceBadge = true,
+  className = '',
+  onClick
+}) => {
+  const { t } = useTranslation();
+
+  const config = {
+    strong: {
+      label: t('skills.strong'),
+      icon: <CheckCircle2 className="w-3.5 h-3.5 text-forest-600 dark:text-forest-400" />,
+      badgeBg: 'bg-forest-50 text-forest-800 border-forest-200 dark:bg-forest-950/70 dark:text-forest-200 dark:border-forest-800/80',
+      dotColor: 'bg-forest-600 dark:bg-forest-400',
+    },
+    develop: {
+      label: t('skills.develop'),
+      icon: <ArrowUpRight className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />,
+      badgeBg: 'bg-gold-50 text-gold-800 border-gold-200 dark:bg-gold-950/70 dark:text-gold-200 dark:border-gold-800/80',
+      dotColor: 'bg-gold-600 dark:bg-gold-400',
+    },
+    not_assessed: {
+      label: t('skills.notAssessed'),
+      icon: <HelpCircle className="w-3.5 h-3.5 text-warm-subtle dark:text-night-muted" />,
+      badgeBg: 'bg-warm-100 text-warm-muted border-warm-border dark:bg-night-100 dark:text-night-muted dark:border-night-border',
+      dotColor: 'bg-warm-subtle dark:bg-night-muted',
+    },
+    gap: {
+      label: t('skills.gap'),
+      icon: <AlertCircle className="w-3.5 h-3.5 text-terracotta-600 dark:text-terracotta-400" />,
+      badgeBg: 'bg-terracotta-50 text-terracotta-800 border-terracotta-200 dark:bg-terracotta-950/70 dark:text-terracotta-200 dark:border-terracotta-800/80',
+      dotColor: 'bg-terracotta-600 dark:bg-terracotta-400',
+    }
+  }[state];
+
+  return (
+    <div
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      className={`inline-flex flex-col p-2.5 rounded-2xl border transition-all duration-200 ${
+        config.badgeBg
+      } ${
+        onClick ? 'cursor-pointer hover:shadow-warm-md hover:scale-[1.02] active:scale-[0.98]' : ''
+      } ${className}`}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5">
+          {config.icon}
+          <span className="text-[11px] font-semibold tracking-wide uppercase">{config.label}</span>
+        </div>
+
+        {score !== undefined && (
+          <span className="text-xs font-bold px-1.5 py-0.5 rounded-md bg-white/70 dark:bg-black/40 shadow-xs">
+            {score}%
+          </span>
+        )}
+      </div>
+
+      <div className="mt-1">
+        {nameTamil && (
+          <div className="font-tamil text-[11px] text-warm-muted dark:text-night-muted leading-tight">
+            {nameTamil}
+          </div>
+        )}
+        <div className="text-sm font-semibold text-warm-ink dark:text-night-ink line-clamp-1">
+          {name}
+        </div>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between text-[11px] pt-1.5 border-t border-black/5 dark:border-white/5">
+        {/* Level indicator dots */}
+        <div className="flex items-center gap-1" title={`Level ${level} of 5`}>
+          <span className="text-[10px] text-warm-muted dark:text-night-muted mr-1">Lvl {level}</span>
+          {[1, 2, 3, 4, 5].map((dot) => (
+            <span
+              key={dot}
+              className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                dot <= level ? config.dotColor : 'bg-black/10 dark:bg-white/10'
+              }`}
+            />
+          ))}
+        </div>
+
+        {showEvidenceBadge && evidenceCount > 0 && (
+          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-forest-700 dark:text-forest-400">
+            <ShieldCheck className="w-3 h-3" /> {evidenceCount} {evidenceCount === 1 ? 'proof' : 'proofs'}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};

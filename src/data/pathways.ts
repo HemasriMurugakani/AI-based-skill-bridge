@@ -1,0 +1,281 @@
+import { Pathway } from '../types';
+
+export const pathways: Pathway[] = [
+  {
+    id: 'junior-web-dev',
+    title: 'Junior Web Developer',
+    titleTamil: 'இளநிலை இணைய மென்பொருள் உருவாக்குநர்',
+    category: 'academic',
+    tagline: 'From semantic HTML to full-stack reactive apps with real-world proof',
+    description: 'Master core web fundamentals, responsive CSS layouts, modern TypeScript, state management, and API integration verified by reproducible code submissions.',
+    totalModules: 8,
+    estimatedWeeks: 12,
+    color: '#8B1E14',
+    iconName: 'Code',
+    targetRoles: ['Junior Frontend Dev', 'React Developer', 'Web Assistant', 'Technical Trainee'],
+    skills: [
+      {
+        id: 'web-html-semantics',
+        name: 'Semantic HTML & Accessibility',
+        nameTamil: 'அர்த்தமுள்ள HTML & அணுகல்தன்மை',
+        category: 'Frontend Core',
+        level: 4,
+        state: 'strong',
+        score: 88,
+        evidenceCount: 3,
+        lastAssessed: '2 days ago',
+        description: 'Building accessible DOM trees, ARIA landmarks, keyboard-friendly navigation, and Lighthouse audits >95.',
+        rubricCriteria: ['Semantic landmarks used', 'Full keyboard navigation', 'Screen reader labels present', 'Valid color contrast']
+      },
+      {
+        id: 'web-responsive-css',
+        name: 'Responsive CSS & Flex/Grid',
+        nameTamil: 'நெகிழ்வான CSS மற்றும் கட்டமைப்பு',
+        category: 'Styling',
+        level: 3,
+        state: 'develop',
+        score: 72,
+        evidenceCount: 2,
+        lastAssessed: '5 days ago',
+        description: 'Modern flexbox, CSS Grid layouts, container queries, and mobile-first fluid design systems.',
+        rubricCriteria: ['No horizontal scroll on 320px', 'Fluid typography', 'CSS Grid 2D layout mastery', 'Subtle micro-animations']
+      },
+      {
+        id: 'web-javascript-dom',
+        name: 'JavaScript & DOM Manipulation',
+        nameTamil: 'ஜாவாஸ்கிரிப்ட் மற்றும் DOM கையாளுதல்',
+        category: 'Core Logic',
+        level: 4,
+        state: 'strong',
+        score: 85,
+        evidenceCount: 4,
+        lastAssessed: 'Yesterday',
+        description: 'Async/await, event delegation, closures, fetch API error handling, and robust DOM state reconciliation.',
+        rubricCriteria: ['Clean asynchronous error handling', 'Event delegation patterns', 'Memory leak prevention', 'Pure helper functions']
+      },
+      {
+        id: 'web-react-components',
+        name: 'React Components & Hooks',
+        nameTamil: 'ரியாக்ட் கூறுகள் மற்றும் ஹூக்ஸ்',
+        category: 'Modern UI',
+        level: 3,
+        state: 'develop',
+        score: 68,
+        evidenceCount: 2,
+        lastAssessed: '1 week ago',
+        description: 'Declarative component design, custom hooks, useEffect cleanups, and predictable UI state machines.',
+        rubricCriteria: ['Proper hook dependency arrays', 'Memoization where needed', 'Reusable atomic components', 'State co-location']
+      },
+      {
+        id: 'web-rest-apis',
+        name: 'REST API & State Caching',
+        nameTamil: 'REST தரவுத்தொடர்பு & சேமிப்பு',
+        category: 'Data & State',
+        level: 2,
+        state: 'gap',
+        score: 42,
+        evidenceCount: 1,
+        lastAssessed: '2 weeks ago',
+        description: 'Handling pagination, optimistic mutations, caching strategies, and robust retry logic.',
+        rubricCriteria: ['Loading and empty state handling', 'Server error toasts', 'Debounced input searches', 'Zod payload validation']
+      },
+      {
+        id: 'web-git-workflows',
+        name: 'Git Version Control & PRs',
+        nameTamil: 'கிட் பதிப்புக் கட்டுப்பாடு',
+        category: 'Engineering Tooling',
+        level: 1,
+        state: 'not_assessed',
+        evidenceCount: 0,
+        description: 'Branching models, atomic commits, pull request etiquette, and conflict resolution.',
+        rubricCriteria: ['Conventional commits', 'Meaningful PR descriptions', 'Clean merge commits', 'Branch hygiene']
+      }
+    ]
+  },
+  {
+    id: 'tailoring-craft',
+    title: 'Tailoring & Garment Construction',
+    titleTamil: 'தையற்கலை & ஆடை வடிவமைப்பு',
+    category: 'vocational',
+    tagline: 'From measurement tape to export-grade garment assembly and finishing',
+    description: 'Learn pattern drafting, precision scissor cutting, seam tolerances, neckline piping, and industrial sewing machine maintenance proven with step-by-step photographic inspection.',
+    totalModules: 6,
+    estimatedWeeks: 8,
+    color: '#B8761A',
+    iconName: 'Scissors',
+    targetRoles: ['Boutique Tailor', 'Garment Finishing Master', 'Sample Maker', 'Apparel Quality Inspector'],
+    skills: [
+      {
+        id: 'tailor-body-measurement',
+        name: 'Body Measurement & Ease Allowances',
+        nameTamil: 'உடல் அளவீடு & தையல் தளர்வு கணக்கீடு',
+        category: 'Pattern Prep',
+        level: 4,
+        state: 'strong',
+        score: 91,
+        evidenceCount: 5,
+        lastAssessed: '1 day ago',
+        description: 'Precise bust, waist, hip, shoulder slope, and dart placement measurements with standardized ease charts.',
+        rubricCriteria: ['Accurate tape position', 'Consistent 1.5-inch ease allowance', 'Correct armhole curvature record', 'Client measurement sheet neatness']
+      },
+      {
+        id: 'tailor-blouse-drafting',
+        name: 'Katori & 4-Dart Blouse Drafting',
+        nameTamil: 'கட்டோரி & 4-டாட் ரவிக்கை வரைவு முறை',
+        category: 'Cutting Craft',
+        level: 4,
+        state: 'strong',
+        score: 87,
+        evidenceCount: 4,
+        lastAssessed: '3 days ago',
+        description: 'Drafting paper patterns with grain-line alignment, seam margins, and cup depth proportions.',
+        rubricCriteria: ['Grain-line straight on fabric fold', 'Precise notch cuts on seam margins', 'Smooth neck curve without puckers', 'Dart apex alignment']
+      },
+      {
+        id: 'tailor-machine-stitching',
+        name: 'Lockstitch Sewing & Tension Control',
+        nameTamil: 'தையல் இயந்திர இயக்கம் & நூல் அழுத்தம் கட்டுப்பாடு',
+        category: 'Assembly',
+        level: 3,
+        state: 'develop',
+        score: 74,
+        evidenceCount: 3,
+        lastAssessed: '4 days ago',
+        description: 'Even 10-stitches-per-inch lockstitching, bobbin tension balancing, and back-tack anchoring.',
+        rubricCriteria: ['Balanced top/bobbin thread tension', 'Uniform 1/4 inch seam margins', 'Clean corner pivots', 'No skipped stitches']
+      },
+      {
+        id: 'tailor-piping-finishing',
+        name: 'Bias Binding & Neckline Piping',
+        nameTamil: 'கழுத்து பைப்பிங் & அழகிய விளிம்பு தையல்',
+        category: 'Finishing',
+        level: 2,
+        state: 'gap',
+        score: 45,
+        evidenceCount: 1,
+        lastAssessed: '6 days ago',
+        description: 'True 45-degree bias strip cutting, thread-cord insertion, and puckering-free curved neckline attachment.',
+        rubricCriteria: ['True 45-degree fabric angle', 'Uniform cord diameter throughout', 'Invisible stitch on front', 'Zero gather or neck stretching']
+      },
+      {
+        id: 'tailor-press-ironing',
+        name: 'Steam Pressing & Seam Opening',
+        nameTamil: 'நீராவி அயர்னிங் & தையல் விரிப்பு',
+        category: 'Quality Control',
+        level: 1,
+        state: 'not_assessed',
+        evidenceCount: 0,
+        description: 'Professional seam flattening with tailor ham, bust shaping, and export packaging fold.',
+        rubricCriteria: ['Open seam pressed flat', 'No fabric shine marks', 'Crisp hems', 'Sleeve shape retention']
+      }
+    ]
+  },
+  {
+    id: 'electrician-trade',
+    title: 'Domestic & Commercial Electrician',
+    titleTamil: 'மின்சார வல்லுநர் (Domestic & Commercial)',
+    category: 'vocational',
+    tagline: 'Safe conduit wiring, distribution boards, earthing & fault tracing',
+    description: 'Master Indian Electricity Rules (IER), 3-phase load calculations, MCB/ELCB tripping tests, and safe home automation wiring verified by photo inspections.',
+    totalModules: 7,
+    estimatedWeeks: 10,
+    color: '#2F7D4F',
+    iconName: 'Zap',
+    isStub: true,
+    targetRoles: ['Domestic Wireman', 'Solar Installation Tech', 'Maintenance Electrician', 'Substation Helper'],
+    skills: [
+      {
+        id: 'elec-safety-tools',
+        name: 'Electrical Safety & PPE (IS 5216)',
+        nameTamil: 'மின் பாதுகாப்பு & உபகரண பயன்பாடு',
+        category: 'Safety Standard',
+        level: 4,
+        state: 'strong',
+        score: 95,
+        evidenceCount: 2,
+        lastAssessed: '3 days ago',
+        description: 'De-energizing protocols, lock-out tag-out (LOTO), insulated tools check, and rubber mat usage.',
+        rubricCriteria: ['Insulation test passed', 'LOTO compliance', 'Earthing continuity check', 'Hazard identification']
+      },
+      {
+        id: 'elec-conduit-wiring',
+        name: 'PVC Conduit & Loop-in Wiring',
+        nameTamil: 'குழாய் வழி மின் கம்பி இணைப்பு',
+        category: 'Installation',
+        level: 2,
+        state: 'develop',
+        score: 62,
+        evidenceCount: 1,
+        lastAssessed: '1 week ago',
+        description: 'Conduit bending, color-coded phase-neutral-earth pulling, and two-way staircase switch wiring.',
+        rubricCriteria: ['Phase through switch rule', 'Color code compliance', 'Terminal torque tight', 'Conduit saddle spacing']
+      },
+      {
+        id: 'elec-earthing-testing',
+        name: 'Pipe/Plate Earthing & Earth Resistance Test',
+        nameTamil: 'பூமி இணைப்பு & மின்தடை சோதனை',
+        category: 'Safety & Protection',
+        level: 1,
+        state: 'not_assessed',
+        evidenceCount: 0,
+        description: 'Earth pit preparation with charcoal/salt and Megger meter earth resistance measurement under 5 ohms.',
+        rubricCriteria: ['Pit depth accuracy', 'Megger fall-of-potential test', 'Electrode corrosion proofing', 'Value < 5 ohms']
+      }
+    ]
+  },
+  {
+    id: 'data-analyst',
+    title: 'Data Analyst & BI Specialist',
+    titleTamil: 'தரவு ஆய்வாளர் & வணிக நுண்ணறிவு',
+    category: 'academic',
+    tagline: 'Extract, clean, analyze, and build executive dashboards that drive action',
+    description: 'Transform messy tabular data with SQL queries, Excel Power Query, Python pandas, and interactive PowerBI/Tableau charts backed by reproducible notebooks.',
+    totalModules: 8,
+    estimatedWeeks: 10,
+    color: '#4F46E5',
+    iconName: 'BarChart3',
+    isStub: true,
+    targetRoles: ['Junior Data Analyst', 'MIS Executive', 'Business Ops Analyst', 'Data QA Associate'],
+    skills: [
+      {
+        id: 'data-sql-queries',
+        name: 'SQL Aggregations, Joins & Window Functions',
+        nameTamil: 'SQL தரவு வினவல் & பகுப்பாய்வு',
+        category: 'Database Querying',
+        level: 3,
+        state: 'strong',
+        score: 82,
+        evidenceCount: 3,
+        lastAssessed: 'Yesterday',
+        description: 'Writing complex multi-table joins, subqueries, CTEs, and window partition functions for business KPI extraction.',
+        rubricCriteria: ['Query indexing awareness', 'Correct join types', 'Window function partitioning', 'Clean syntax formatting']
+      },
+      {
+        id: 'data-excel-powerquery',
+        name: 'Advanced Excel & Power Query Automation',
+        nameTamil: 'எக்செல் மற்றும் பவர் குவெரி',
+        category: 'Spreadsheets',
+        level: 3,
+        state: 'develop',
+        score: 70,
+        evidenceCount: 2,
+        lastAssessed: '4 days ago',
+        description: 'Automating multi-file imports, pivot summaries, XLOOKUP models, and executive chart dashboards.',
+        rubricCriteria: ['Dynamic formula references', 'Power Query clean steps', 'Automated refresh flow', 'Executive summary KPI layout']
+      },
+      {
+        id: 'data-python-pandas',
+        name: 'Python Data Cleaning & Storytelling',
+        nameTamil: 'பைதான் தரவு சுத்திகரிப்பு',
+        category: 'Programming',
+        level: 1,
+        state: 'gap',
+        score: 35,
+        evidenceCount: 1,
+        lastAssessed: '2 weeks ago',
+        description: 'Handling missing values, outlier detection, seaborn visual charts, and storytelling writeups.',
+        rubricCriteria: ['Pandas vectorized operations', 'Outlier remediation logic', 'Descriptive chart annotations', 'Actionable takeaway summary']
+      }
+    ]
+  }
+];

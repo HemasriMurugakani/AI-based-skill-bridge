@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" rx="42" fill="#7A1A12"/>
+  <rect x="6" y="6" width="180" height="180" rx="36" fill="none" stroke="#E8B23A" stroke-width="2" stroke-opacity="0.3"/>
+  <!-- Arch bridge motif -->
+  <path d="M24 138 C58 62, 134 62, 168 138" stroke="#E8B23A" stroke-width="11" stroke-linecap="round" fill="none"/>
+  <!-- Vertical suspension pillars -->
+  <path d="M58 138 V96 M96 138 V76 M134 138 V96" stroke="#FBF0D3" stroke-width="8" stroke-linecap="round"/>
+  <!-- Lotus & Civic node points -->
+  <circle cx="96" cy="56" r="12" fill="#E8B23A"/>
+  <circle cx="96" cy="138" r="8" fill="#2F7D4F"/>
+  <circle cx="38" cy="138" r="6" fill="#E8B23A"/>
+  <circle cx="154" cy="138" r="6" fill="#E8B23A"/>
+</svg>

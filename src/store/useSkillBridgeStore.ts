@@ -150,7 +150,7 @@ export const useSkillBridgeStore = create<SkillBridgeState>()(
       offlineCacheSizeMB: 4.2,
       theme: 'light',
       language: 'en',
-      isOfflineDemo: true, // Default to true for resilient hackathon evaluation
+      isOfflineDemo: false,
       isGuidedDemoOpen: false,
       activeTab: 'home',
       hasUnreadNotifications: true,
@@ -488,7 +488,7 @@ export const useSkillBridgeStore = create<SkillBridgeState>()(
           offlineCacheSizeMB: 4.2,
           theme: 'light',
           language: 'en',
-          isOfflineDemo: true,
+          isOfflineDemo: false,
           activeTab: 'home',
           hasUnreadNotifications: true,
         });

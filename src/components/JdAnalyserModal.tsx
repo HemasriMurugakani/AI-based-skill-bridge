@@ -5,6 +5,8 @@ import { fallbackJdExtract, JdExtractResponse } from '../data/fallbacks';
 import { AIThinking } from './AIThinking';
 import { ProgressRing } from './ProgressRing';
 import { TrustLabel } from './TrustLabel';
+import { extractJobDescriptionWithGemini, isGeminiConfigured } from '../services/gemini';
+import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 
 interface JdAnalyserModalProps {
   isOpen: boolean;
@@ -44,6 +46,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
   onNavigateToRoadmap
 }) => {
   const { i18n } = useTranslation();
+  const { isOfflineDemo } = useSkillBridgeStore();
   const isTa = i18n.language === 'ta';
   const [inputText, setInputText] = useState(sampleJds[0].text);
   const [isAnalysing, setIsAnalysing] = useState(false);
@@ -51,12 +54,37 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleAnalyse = () => {
+  const handleAnalyse = async () => {
     setIsAnalysing(true);
-    setTimeout(() => {
+    try {
+      if (!isOfflineDemo && isGeminiConfigured) {
+        const payload = await extractJobDescriptionWithGemini(inputText, i18n.language as 'en' | 'ta' | 'fr' | 'hi');
+        setResult({
+          jobTitle: payload.role,
+          companyName: payload.company || 'Not specified',
+          pathwayRecommendation: payload.role,
+          extractedSkills: payload.requiredSkills.map(skill => ({
+            skillName: skill.name,
+            requiredLevel: skill.importance === 'must' ? 4 : 3,
+            importance: skill.importance === 'must' ? 'Mandatory' : 'Preferred',
+            category: skill.category
+          })),
+          matchedExistingSkills: [],
+          detectedSkillGaps: payload.requiredSkills.map(skill => skill.name),
+          readinessEstimate: 0,
+          summaryTamil: payload.softSkills.join(' • '),
+          summaryEnglish: `${payload.softSkills.join(' • ')}${payload.eligibility.length ? ` Eligibility: ${payload.eligibility.join(' • ')}` : ''}`
+        });
+        return;
+      }
       setIsAnalysing(false);
       setResult(fallbackJdExtract);
-    }, 1600);
+    } catch (err) {
+      console.warn('Gemini JD analysis failed. Showing the local sample result.', err);
+      setResult(fallbackJdExtract);
+    } finally {
+      setIsAnalysing(false);
+    }
   };
 
   return (

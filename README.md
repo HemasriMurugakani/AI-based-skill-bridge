@@ -253,7 +253,16 @@ Tested and verified with **zero horizontal scroll (`overflow-x: hidden`)**:
 
 ## ⚠️ Current Limitations & Design Trade-offs
 
-1. **Client-Side Simulation Mode**: When no external AI API key (Anthropic Claude or OpenAI) is configured in environment variables, the platform defaults to 100% deterministic local mock responses.
+### Gemini live AI setup
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `VITE_GEMINI_API_KEY` to the Gemini API key supplied for this deployment.
+3. Optionally set `VITE_GEMINI_MODELS` to a comma-separated model fallback order. The configured order is `gemini-3.6-flash`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`, `gemini-2.0-flash-lite`, then `gemini-3.8-flash`.
+4. Restart Vite with `npm run dev`, then switch **Offline: ON** to **Offline: OFF** in the top navigation.
+
+Live Gemini responses power the AI Coach, JD analyzer, and interview answer scoring. The key is exposed to the browser because this is a Vite client application; for production, route requests through a server-side proxy and keep the key there. If the key is missing, Gemini rejects the request, or Offline mode is enabled, the existing validated local fallback responses are used.
+
+1. **Client-Side Simulation Mode**: When `VITE_GEMINI_API_KEY` is not configured, the platform defaults to 100% deterministic local mock responses.
 2. **In-Memory Demonstration State**: State is preserved during navigation via Zustand, but resetting the prototype via the navbar resets candidate records to default demo data.
 3. **Web Speech API Compatibility**: Voice viva and interview speech transcription depend on the browser's native `webkitSpeechRecognition` or `SpeechRecognition` API. On unsupported browsers (older Safari/Firefox), clean text input fallbacks are provided.
 4. **Local Camera Photo Uploads**: Photo evidence analysis performs mock computer vision checks for fabric stitching and conduit alignments rather than running a live cloud CV pipeline.

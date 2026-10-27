@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import { Language, Persona } from '../types';
 import i18n from '../i18n';
+import {
+  extractJobDescriptionWithGemini,
+  getGeminiCoachAnswer,
+  isGeminiConfigured,
+  scoreInterviewWithGemini
+} from './gemini';
 
 // Strict Zod schema for /api/jd-extract
 export const JdSkillItemSchema = z.object({
@@ -166,6 +172,11 @@ export async function extractJobDescription(
 
   // Attempt live API proxy call
   try {
+    if (isGeminiConfigured) {
+      const data = await extractJobDescriptionWithGemini(jdText, currentLang);
+      return { data, isLive: true };
+    }
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout rule
 
@@ -1122,6 +1133,11 @@ export async function scoreInterviewTranscript(
   }
 
   try {
+    if (isGeminiConfigured) {
+      const data = await scoreInterviewWithGemini(params);
+      return { data, isLive: true };
+    }
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 6000);
 
@@ -1147,47 +1163,18 @@ export async function scoreInterviewTranscript(
   }
 }
 
-/**
- * AI Coach Response Generator with localized answers across en, ta, fr, and hi
- */
-export function getCoachAnswer(
+export async function getCoachAnswerLive(
   query: string,
   persona: Persona,
-  language?: Language
-): { text: string } {
-  const currentLang = language || (i18n.language as Language) || 'en';
-  const q = query.toLowerCase();
-
-  if (q.includes('bubbling') || q.includes('dom') || q.includes('நிகழ்வு') || q.includes('इवेंट') || q.includes('bouillonnement')) {
-    const answers: Record<Language, string> = {
-      en: 'DOM Event Delegation works through event bubbling: instead of adding 500 event listeners on each item, you attach 1 listener to the parent <ul> container. When a user clicks, the event bubbles upward through parent elements. In event.target you read which exact item was clicked. This saves device memory, prevents memory leaks, and handles dynamically added items automatically!',
-      ta: 'பெற்றோர் <ul> பட்டியலில் ஒரே ஒரு listener வைப்பதன் மூலம் 500 உறுப்புகளுக்கும் நினைவகப் பயன்பாடு மிச்சமாகிறது. நிகழ்வு மேல்நோக்கி பரவுவதால் (bubbling) புதிய உறுப்புகள் சேர்க்கப்பட்டாலும் தானாகவே செயல்படும்! event.target மூலம் எந்த உறுப்பு கிளிக் செய்யப்பட்டது என்பதை துல்லியமாக அறியலாம்.',
-      fr: 'La délégation d\'événements DOM s\'appuie sur le bouillonnement (bubbling) : au lieu d\'attacher 500 écouteurs sur chaque élément, vous en attachez 1 seul au conteneur parent <ul>. Lors du clic, l\'événement remonte l\'arborescence. Grâce à event.target, vous identifiez l\'élément cliqué, économisant la mémoire et gérant dynamiquement les nouveaux nœuds !',
-      hi: 'DOM इवेंट डेलिगेशन इवेंट बबलिंग के जरिए काम करता है: हर एलिमेंट पर 500 अलग-अलग लिसनर लगाने के बजाय पैरेंट <ul> कंटेनर पर केवल 1 लिसनर लगाते हैं। क्लिक करने पर इवेंट ऊपर बबल होता है और event.target से पता चलता है कि किस आइटम पर क्लिक किया गया। इससे मेमोरी बचती है!'
-    };
-    return { text: answers[currentLang] || answers.en };
+  language: Language,
+  isOfflineDemo: boolean
+): Promise<{ text: string; isLive: boolean }> {
+  if (isOfflineDemo) {
+    throw new Error('Live AI Coach is disabled while Offline mode is enabled.');
+  }
+  if (!isGeminiConfigured) {
+    throw new Error('Gemini is not configured. Add VITE_GEMINI_API_KEY to .env.local.');
   }
 
-  if (q.includes('puckering') || q.includes('blouse') || q.includes('stitching') || q.includes('தையல்') || q.includes('சுருக்கம்') || q.includes('सिलाई') || q.includes('plis')) {
-    const answers: Record<Language, string> = {
-      en: 'To eliminate neck puckering in lightweight silk/chiffon: 1) Switch from standard 14/16 needle down to size 9 or 11 ball-point needle. 2) Cut the bias strip at strictly 45 degrees so the weave expands uniformly. 3) Loosen your upper thread tension dial by 1 full number, and place tissue paper beneath delicate fabric while stitching!',
-      ta: 'மெல்லிய பட்டு மற்றும் சிஃப்பான் துணிகளில் கழுத்து சுருக்கத்தை தவிர்க்க: 1) ஊசி அளவை 9 அல்லது 11 ஆக மாற்றவும். 2) கழுத்து பைப்பிங் நாடாவை சரியான 45 பாகை கோணத்தில் வெட்டவும். 3) மேல் நூல் அழுத்தத்தை குறைத்து, தையல் போடும்போது துணியின் கீழ் மெல்லிய காகிதம் வைத்து தைக்கவும்!',
-      fr: 'Pour éliminer les plis au col sur mousseline ou soie : 1) Remplacez l\'aiguille standard par une aiguille fine taille 9 ou 11 à pointe bille. 2) Coupez la bande de biais strictement à 45 degrés pour une élasticité uniforme. 3) Desserrez la tension du fil supérieur d\'un cran et placez du papier de soie sous le tissu délicat pendant la couture !',
-      hi: 'हल्के सिल्क या शिफॉन पर नेकलाइन सिकुड़न हटाने के लिए: 1) सुई का आकार 9 या 11 बॉल-पॉइंट में बदलें। 2) बायस पट्टी को ठीक 45 डिग्री पर काटें ताकि खिंचाव एकसमान रहे। 3) ऊपरी धागे का तनाव 1 नंबर कम करें और सिलाई के दौरान नाजुक कपड़े के नीचे टिशू पेपर रखें!'
-    };
-    return { text: answers[currentLang] || answers.en };
-  }
-
-  // General readiness / career guidance answer
-  const answers: Record<Language, string> = {
-    en: `Based on your verified ${persona.readinessScore}% readiness score, your strongest assets are semantic accessibility and core craft accuracy. Your single immediate action is to bridge REST API caching with challenge #3 to push your match above 90% for local employers!`,
-    ta: `உங்கள் சரிபார்க்கப்பட்ட ${persona.readinessScore}% தயார்நிலை மதிப்பெண் அடிப்படையில், சிமென்டிக் கட்டமைப்பு மற்றும் அடிப்படைக் கைவினை உங்கள் சிறந்த பலங்கள். சவால் #3 (REST API கேஷிங்) முடித்தால் உங்கள் வாய்ப்பு 90% க்கும் மேல் உயரும்!`,
-    fr: `D'après votre score de préparation vérifié de ${persona.readinessScore}%, vos atouts majeurs sont l'accessibilité sémantique et la rigueur technique. Votre action prioritaire est de valider le défi #3 pour propulser votre profil au-dessus de 90% de correspondance !`,
-    hi: `आपके सत्यापित ${persona.readinessScore}% तैयारी स्कोर के आधार पर, सिमेंटिक एक्सेसिबिलिटी और कोर शिल्प आपकी मुख्य ताकतें हैं। स्थानीय नियोक्ताओं के साथ 90%+ मैच हासिल करने के लिए चुनौती #3 पूरी करें!`
-  };
-  return { text: answers[currentLang] || answers.en };
+  return { text: await getGeminiCoachAnswer(query, persona, language), isLive: true };
 }
-
-
-
-

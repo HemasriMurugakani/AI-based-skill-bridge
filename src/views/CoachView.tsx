@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, type ReactNode } from 'react';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { useTranslation } from 'react-i18next';
 import { AIThinking } from '../components/AIThinking';
 import { StatusPill } from '../components/StatusPill';
 import { TrustLabel } from '../components/TrustLabel';
-import { getCoachAnswer } from '../services/api';
+import { getCoachAnswerLive } from '../services/api';
 import { Language } from '../types';
 import {
   Send,
@@ -19,8 +19,94 @@ interface ChatMessage {
   timestamp: string;
 }
 
+function renderInlineMarkdown(text: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+  });
+}
+
+function renderCoachMessage(text: string): ReactNode {
+  const normalizedText = text
+    .replace(/\r\n/g, '\n')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/---\s*(?=###?)/g, '\n\n')
+    .replace(/###\s*/g, '\n\n')
+    .replace(/\*\*/g, '')
+    .replace(/\]\s*(?=\[)/g, ']\n')
+    .replace(/\s+\[\s*\]\s*/g, '\n- [ ] ')
+    .replace(/\.\s+(?=\*\*[^*]+\*\*)/g, '.\n\n')
+    .replace(/\s+(?=\*\*[^*]+\*\*)/g, '\n\n')
+    .replace(/\s+\*(?!\*)\s*/g, '\n- ')
+    .replace(/(^|[.!?:])\s*\*(?!\*)\s*(?=[A-Z0-9])/gm, '$1\n- ')
+    .replace(/\s+(?=\d+\.\s+)/g, '\n')
+    .replace(/([a-z)])(?=[A-Z][A-Za-z ]+:)/g, '$1\n')
+    .replace(/\n{3,}/g, '\n\n');
+
+  const lines = normalizedText.split('\n').map(line => line.trim()).filter(Boolean);
+  const content: ReactNode[] = [];
+  let bulletItems: string[] = [];
+  let numberedItems: string[] = [];
+
+  const flushBullets = () => {
+    if (!bulletItems.length) return;
+    content.push(
+      <ul key={`bullets-${content.length}`} className="list-disc pl-5 space-y-2">
+        {bulletItems.map((item, index) => (
+          <li key={index}>{renderInlineMarkdown(item)}</li>
+        ))}
+      </ul>
+    );
+    bulletItems = [];
+  };
+
+  const flushNumbered = () => {
+    if (!numberedItems.length) return;
+    content.push(
+      <ol key={`numbered-${content.length}`} className="list-decimal pl-5 space-y-2">
+        {numberedItems.map((item, index) => (
+          <li key={index}>{renderInlineMarkdown(item)}</li>
+        ))}
+      </ol>
+    );
+    numberedItems = [];
+  };
+
+  lines.forEach((line, index) => {
+    if (line.startsWith('- ')) {
+      flushNumbered();
+      bulletItems.push(line.slice(2).trim());
+      return;
+    }
+    const numberedMatch = line.match(/^\d+\.\s+(.+)/);
+    if (numberedMatch) {
+      flushBullets();
+      numberedItems.push(numberedMatch[1].trim());
+      return;
+    }
+    flushBullets();
+    flushNumbered();
+    content.push(
+      <p key={`paragraph-${index}`} className={content.length ? 'mt-2' : undefined}>
+        {renderInlineMarkdown(line)}
+      </p>
+    );
+  });
+  flushBullets();
+  flushNumbered();
+
+  return <div className="space-y-2.5">{content}</div>;
+}
+
 export const CoachView: React.FC = () => {
-  const { getPersona, getCurrentPathway } = useSkillBridgeStore();
+  const { getPersona, getCurrentPathway, isOfflineDemo } = useSkillBridgeStore();
   const { t, i18n } = useTranslation();
   const persona = getPersona();
   const pathway = getCurrentPathway();
@@ -83,7 +169,7 @@ export const CoachView: React.FC = () => {
     }
   ];
 
-  const handleSendMessage = (textToSend?: string) => {
+  const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || inputMessage;
     if (!query.trim()) return;
 
@@ -97,20 +183,36 @@ export const CoachView: React.FC = () => {
     setMessages(prev => [...prev, userMsg]);
     setInputMessage('');
     setIsThinking(true);
-
-    setTimeout(() => {
-      setIsThinking(false);
-      const { text: reply } = getCoachAnswer(query, persona, currentLang);
-
+    try {
+      const { text: reply } = await getCoachAnswerLive(query, persona, currentLang, isOfflineDemo);
       const aiMsg: ChatMessage = {
         id: `a-${Date.now()}`,
         sender: 'assistant',
         text: reply,
         timestamp: 'Just now'
       };
-
       setMessages(prev => [...prev, aiMsg]);
-    }, 1200);
+    } catch (err) {
+      console.error('Failed to generate coach response:', err);
+      const reason = err instanceof Error ? ` ${err.message}` : '';
+      const errorMessage = currentLang === 'ta'
+        ? `நேரடி Gemini AI பதில் கிடைக்கவில்லை.${reason} Offline mode-ஐ அணைத்து, Gemini API key-ஐ சரிபார்க்கவும்.`
+        : currentLang === 'hi'
+        ? `लाइव Gemini AI उत्तर उपलब्ध नहीं है।${reason} Offline mode बंद करें और Gemini API key जांचें।`
+        : currentLang === 'fr'
+        ? `La réponse Gemini en direct est indisponible.${reason} Désactivez le mode hors ligne et vérifiez la clé API Gemini.`
+        : `No live Gemini response is available.${reason}${reason.includes('(503)') || reason.includes('(429)')
+          ? ' Gemini is temporarily busy; please try again shortly.'
+          : ' Check that Offline mode is OFF and your Gemini API key is configured.'}`;
+      setMessages(prev => [...prev, {
+        id: `e-${Date.now()}`,
+        sender: 'assistant',
+        text: errorMessage,
+        timestamp: 'Just now'
+      }]);
+    } finally {
+      setIsThinking(false);
+    }
   };
 
   return (
@@ -185,7 +287,7 @@ export const CoachView: React.FC = () => {
                       : 'bg-[#173B67] text-white shadow-soft'
                   }`}
                 >
-                  <p>{msg.text}</p>
+                  {renderCoachMessage(msg.text)}
                   <div
                     className={`mt-1 text-[10px] text-right ${
                       isAI ? 'text-[#526174]' : 'text-white/70'

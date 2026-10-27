@@ -204,6 +204,18 @@
   outline-offset: 2px;
 }
 
+/* Allow users to select and copy any visible website text. */
+body,
+body * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+::selection {
+  background: #EAF5FC;
+  color: #173B67;
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

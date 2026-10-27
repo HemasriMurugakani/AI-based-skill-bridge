@@ -164,36 +164,36 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
   const [activeNode, setActiveNode] = useState<MapNode>(mapNodes[2]); // Default Salem / Lakshmi context
 
   return (
-    <div className={`p-4 sm:p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-md flex flex-col justify-between ${className}`}>
+    <div className={`p-4 sm:p-5 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft flex flex-col justify-between ${className}`}>
       {/* Header with View Toggle */}
-      <div className="flex items-center justify-between gap-2 pb-3 border-b border-warm-border/60 dark:border-night-border/60">
+      <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0] dark:border-night-border/60">
         <div>
-          <div className="text-[10px] font-bold tracking-wider text-warm-muted dark:text-night-muted uppercase">
+          <div className="text-[10px] font-bold tracking-wider text-[#526174] dark:text-night-muted uppercase">
             Interactive Province Map
           </div>
-          <h3 className="text-sm font-bold font-heritage text-warm-ink dark:text-night-ink">
+          <h3 className="text-sm font-bold text-[#173B67] dark:text-white">
             {mapMode === 'live' ? 'Live Verified Proof Clusters' : 'Vocational Heritage & Craft Traditions'}
           </h3>
         </div>
 
         {/* Toggle Pill */}
-        <div className="flex items-center p-0.5 rounded-full bg-parchment-200 dark:bg-night-100 border border-warm-border/80 text-xs font-semibold">
+        <div className="flex items-center p-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 border border-[#BAE6FD] text-xs font-semibold">
           <button
             onClick={() => setMapMode('live')}
-            className={`px-2.5 py-1 rounded-full text-[11px] transition-all ${
+            className={`px-2.5 py-1 rounded-full text-[11px] transition-all cursor-pointer ${
               mapMode === 'live'
-                ? 'bg-maroon-700 text-white shadow-xs'
-                : 'text-warm-muted hover:text-warm-ink dark:hover:text-night-ink'
+                ? 'bg-[#173B67] text-white shadow-xs'
+                : 'text-[#526174] hover:text-[#173B67] dark:hover:text-night-ink'
             }`}
           >
             Live proofs
           </button>
           <button
             onClick={() => setMapMode('heritage')}
-            className={`px-2.5 py-1 rounded-full text-[11px] transition-all ${
+            className={`px-2.5 py-1 rounded-full text-[11px] transition-all cursor-pointer ${
               mapMode === 'heritage'
-                ? 'bg-gold-600 text-white shadow-xs'
-                : 'text-warm-muted hover:text-warm-ink dark:hover:text-night-ink'
+                ? 'bg-[#62B6E8] text-[#173B67] font-bold shadow-xs'
+                : 'text-[#526174] hover:text-[#173B67] dark:hover:text-night-ink'
             }`}
           >
             Heritage
@@ -202,13 +202,10 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
       </div>
 
       {/* SVG Stylized Map Display */}
-      <div className="relative my-3 flex items-center justify-center bg-parchment-100/50 dark:bg-night-100/40 rounded-xl p-2 overflow-hidden border border-warm-border/40 min-h-[290px]">
-        {/* Kolam geometric background grid in map */}
-        <div className="absolute inset-0 kolam-pattern-bg opacity-30 pointer-events-none" />
-
+      <div className="relative my-3 flex items-center justify-center bg-[#F8FAFC] dark:bg-night-100/40 rounded-xl p-2 overflow-hidden border border-[#E2E8F0]/60 min-h-[290px]">
         <svg
           viewBox="30 110 210 320"
-          className="w-full h-72 sm:h-80 drop-shadow-sm select-none"
+          className="w-full h-72 sm:h-80 drop-shadow-xs select-none"
         >
           {/* Faint Peninsula outline of Tamil Nadu & South India */}
           <path
@@ -225,7 +222,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                L 65 260 
                L 55 190 Z"
             fill="currentColor"
-            className="text-parchment-200/90 dark:text-night-50/60"
+            className="text-sky-100/80 dark:text-night-50/60"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeDasharray="4 3"
@@ -236,7 +233,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
             d="M 125 250 L 180 200 M 125 250 L 115 290 M 115 290 L 135 335 M 135 335 L 120 390 M 125 250 L 150 280 M 150 280 L 175 275"
             stroke="currentColor"
             strokeWidth="0.8"
-            className="text-warm-border/70 dark:text-night-border/70"
+            className="text-sky-200/70 dark:text-night-border/70"
             fill="none"
           />
 
@@ -259,7 +256,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                   <circle
                     r={bubbleSize + 6}
                     fill="none"
-                    stroke={mapMode === 'live' ? '#7A1A12' : '#B8761A'}
+                    stroke={mapMode === 'live' ? '#173B67' : '#62B6E8'}
                     strokeWidth="1.5"
                     className="animate-ping opacity-60"
                   />
@@ -268,7 +265,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                 {/* Outer cluster halo */}
                 <circle
                   r={bubbleSize + 3}
-                  fill={mapMode === 'live' ? '#8B1E14' : '#E8B23A'}
+                  fill={mapMode === 'live' ? '#173B67' : '#62B6E8'}
                   opacity={isSelected ? 0.35 : 0.18}
                   className="transition-all duration-200 group-hover:scale-125"
                 />
@@ -276,7 +273,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                 {/* Main Node Bubble */}
                 <circle
                   r={bubbleSize}
-                  fill={mapMode === 'live' ? '#7A1A12' : '#B8761A'}
+                  fill={mapMode === 'live' ? '#173B67' : '#62B6E8'}
                   stroke="#FFFFFF"
                   strokeWidth="1.5"
                   className="transition-transform duration-200 group-hover:scale-110 drop-shadow-xs"
@@ -294,8 +291,8 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                   textAnchor="middle"
                   className={`text-[9px] font-bold select-none transition-colors ${
                     isSelected
-                      ? 'fill-maroon-900 dark:fill-gold-300 font-extrabold'
-                      : 'fill-warm-muted dark:fill-night-muted'
+                      ? 'fill-[#173B67] dark:fill-sky-300 font-extrabold'
+                      : 'fill-[#526174] dark:fill-night-muted'
                   }`}
                 >
                   {node.name.split(' ')[0]}
@@ -306,27 +303,27 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
         </svg>
 
         {/* Floating Node Inspection Tooltip Card */}
-        <div className="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl bg-white/95 dark:bg-night-card/95 backdrop-blur-md border border-warm-border dark:border-night-border shadow-warm-sm flex items-center justify-between gap-3 text-xs">
+        <div className="absolute bottom-2 left-2 right-2 p-2.5 rounded-card bg-white/95 dark:bg-night-card/95 backdrop-blur-md border border-[#E2E8F0] dark:border-night-border shadow-soft flex items-center justify-between gap-3 text-xs">
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-bold text-warm-ink dark:text-night-ink">{activeNode.name}</span>
-              <span className="font-tamil text-[11px] text-warm-muted">({activeNode.nameTamil})</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-gold-100 dark:bg-gold-950 text-gold-900 dark:text-gold-200 font-bold">
+              <span className="font-bold text-[#173B67] dark:text-white">{activeNode.name}</span>
+              <span className="font-tamil text-[11px] text-[#526174]">({activeNode.nameTamil})</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
                 Avg {activeNode.rubricAvg}%
               </span>
             </div>
 
-            <div className="text-[11px] text-warm-muted dark:text-night-muted mt-0.5 line-clamp-1">
+            <div className="text-[11px] text-[#526174] dark:text-night-muted mt-0.5 line-clamp-1">
               {mapMode === 'live' ? (
                 <>
-                  <span className="font-semibold text-maroon-700 dark:text-gold-400">
+                  <span className="font-semibold text-[#173B67] dark:text-sky-300">
                     {activeNode.liveProofs.toLocaleString()} verified proofs
                   </span>
                   {' '}• Top: {activeNode.topSkill}
                 </>
               ) : (
                 <>
-                  <span className="font-semibold text-gold-700 dark:text-gold-300">
+                  <span className="font-semibold text-[#173B67] dark:text-sky-300">
                     {activeNode.heritageCraft}
                   </span>
                   {' '}• {activeNode.heritageCategory}

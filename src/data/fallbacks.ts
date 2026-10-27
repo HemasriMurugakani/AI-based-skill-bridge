@@ -82,7 +82,7 @@ export const fallbackRubricFeedback: RubricFeedbackResponse = {
       scoreGiven: 36,
       maxScore: 40,
       observations: "Tab cycle traverses all interactive controls smoothly. Visible outline on :focus-visible.",
-      strengths: "Custom gold focus ring (outline: 2px solid #B8761A) maintains WCAG AA contrast against parchment.",
+      strengths: "Custom sky blue focus ring (outline: 2px solid #62B6E8) maintains WCAG AA contrast against clean surface.",
       actionableImprovement: "Trap keyboard focus when the mobile drawer overlay is opened."
     },
     {

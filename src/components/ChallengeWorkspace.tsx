@@ -166,8 +166,8 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
   <!-- Resolved: Removed rigid width; implemented clamp(14px, 3vw, 24px) padding & flex: 1 1 280px -->
   <section class="profile-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); width: 100%; max-width: 900px; padding: clamp(12px, 3vw, 24px);">
     <article class="profile-card" style="max-width: 100%; min-width: 0;">
-      <h2 style="font-size: clamp(1.25rem, 2.5vw, 1.75rem); color: #1A1210;">Lakshmi · Master Silk Weaver</h2>
-      <p style="color: #4A3B32;">Salem Silk Cluster Specialist · 5.4:1 contrast</p>
+      <h2 style="font-size: clamp(1.25rem, 2.5vw, 1.75rem); color: #173B67;">Lakshmi · Master Silk Weaver</h2>
+      <p style="color: #526174;">Salem Silk Cluster Specialist · 6.5:1 contrast</p>
     </article>
   </section>
 </main>`
@@ -246,7 +246,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
           particleCount: 65,
           spread: 75,
           origin: { y: 0.6 },
-          colors: ['#7A1A12', '#B8761A', '#E8B23A', '#2F7D4F']
+          colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
         });
       }
 
@@ -274,11 +274,11 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* 1. Header with Breadcrumb & Status */}
-      <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm">
+      <div className="p-6 rounded-card bg-white border border-[#E2E8F0] shadow-soft">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-warm-muted hover:text-maroon-700 transition-colors cursor-pointer w-fit"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#526174] hover:text-[#173B67] transition-colors cursor-pointer w-fit"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to All Challenges</span>
@@ -286,11 +286,11 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
           <div className="flex items-center gap-2 flex-wrap">
             <StatusPill status="ai_reviewed" />
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-gold-100 text-gold-900 font-bold capitalize">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] font-bold capitalize">
               {challenge.difficulty}
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-forest-100 text-forest-900 font-bold flex items-center gap-1">
-              <Award className="w-3.5 h-3.5 text-forest-700" />
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 font-bold flex items-center gap-1">
+              <Award className="w-3.5 h-3.5 text-emerald-600" />
               +{challenge.points} XP
             </span>
             <TrustLabel type="ai-disclaimer" />
@@ -298,18 +298,18 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
         </div>
 
         <div className="max-w-3xl">
-          <div className="text-xs font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400 mb-1">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#62B6E8] mb-1">
             Challenge Workspace
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67]">
             {challenge.title}
           </h1>
           {challenge.titleTamil && (
-            <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+            <div className="font-tamil text-sm text-[#526174] mt-0.5">
               {challenge.titleTamil}
             </div>
           )}
-          <p className="mt-2 text-xs sm:text-sm text-warm-muted dark:text-night-muted leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-[#526174] leading-relaxed">
             {challenge.description}
           </p>
         </div>
@@ -320,34 +320,34 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
         {/* Left Column: Requirements, Rubric & Guidelines (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Required Skills Card */}
-          <div className="p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-xs space-y-3">
-            <div className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wider flex items-center gap-2">
-              <Layers className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
+          <div className="p-5 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-3">
+            <div className="text-xs font-bold text-[#173B67] uppercase tracking-wider flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#173B67]" />
               <span>Required Competencies</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink border border-warm-border">
+              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
                 {challenge.skillName}
               </span>
-              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-gold-100 dark:bg-gold-950/60 text-gold-900 dark:text-gold-300 border border-gold-300">
+              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
                 WCAG 2.1 AA
               </span>
-              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-forest-100 dark:bg-forest-950/60 text-forest-900 dark:text-forest-300 border border-forest-300">
+              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-300">
                 Rubric-Verified
               </span>
             </div>
           </div>
 
           {/* Submission Instructions */}
-          <div className="p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-xs space-y-3">
-            <div className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wider flex items-center gap-2">
-              <FileText className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
+          <div className="p-5 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-3">
+            <div className="text-xs font-bold text-[#173B67] uppercase tracking-wider flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#173B67]" />
               <span>Submission Deliverables</span>
             </div>
-            <ul className="space-y-2 text-xs text-warm-muted dark:text-night-muted">
+            <ul className="space-y-2 text-xs text-[#526174]">
               {challenge.instructions.map((inst, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <span className="w-4 h-4 rounded-full bg-maroon-100 text-maroon-800 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-4 h-4 rounded-full bg-[#EAF5FC] text-[#173B67] text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
                   <span className="leading-relaxed">{inst}</span>
@@ -357,18 +357,18 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
           </div>
 
           {/* VISIBLE Rubric Table */}
-          <div className="p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-xs space-y-3">
+          <div className="p-5 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-3">
             <div className="flex items-center justify-between">
-              <div className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wider flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-forest-600" />
+              <div className="text-xs font-bold text-[#173B67] uppercase tracking-wider flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Visible Rubric Table</span>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-forest-100 text-forest-900">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
                 Passing: ≥80%
               </span>
             </div>
 
-            <p className="text-[11px] text-warm-muted dark:text-night-muted leading-relaxed">
+            <p className="text-[11px] text-[#526174] leading-relaxed">
               Every submission is evaluated transparently against these weighted criteria by /api/rubric-feedback.
             </p>
 
@@ -376,17 +376,17 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
               {challenge.rubric.map((r, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-white dark:bg-night-100 border border-warm-border/70 dark:border-night-border/70 text-xs space-y-1"
+                  className="p-3 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] text-xs space-y-1"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-warm-ink dark:text-night-ink">
+                    <span className="font-bold text-[#173B67]">
                       {r.criterion}
                     </span>
-                    <span className="font-extrabold text-maroon-700 dark:text-gold-400 px-1.5 py-0.5 rounded bg-maroon-50 dark:bg-night-card text-[11px]">
+                    <span className="font-extrabold text-[#173B67] px-1.5 py-0.5 rounded bg-[#EAF5FC] border border-[#BAE6FD] text-[11px]">
                       {r.weight}% Weight
                     </span>
                   </div>
-                  <div className="text-[11px] text-warm-muted dark:text-night-muted leading-relaxed">
+                  <div className="text-[11px] text-[#526174] leading-relaxed">
                     {r.description}
                   </div>
                 </div>
@@ -398,14 +398,14 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
         {/* Right Column: Multi-Modal Evidence Input or Feedback Results (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Quick Evaluator Simulation Buttons */}
-          <div className="p-4 rounded-2xl bg-parchment-100/80 dark:bg-night-100/80 border border-gold-300/70 dark:border-gold-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="p-4 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-gold-600 shrink-0" />
+              <Sparkles className="w-4 h-4 text-[#62B6E8] shrink-0" />
               <div>
-                <span className="font-bold text-warm-ink dark:text-night-ink">
+                <span className="font-bold text-[#173B67]">
                   Hackathon Evaluation Bar:
                 </span>
-                <span className="text-[11px] text-warm-muted ml-1">
+                <span className="text-[11px] text-[#526174] ml-1">
                   Test v1 (fails with feedback) vs v2 (revised with delta)
                 </span>
               </div>
@@ -417,10 +417,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={loadV1WebDraft}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold border transition-colors cursor-pointer ${
+                    className={`px-3 py-1 rounded-btn text-[11px] font-bold border transition-colors cursor-pointer ${
                       currentVersion === 1
-                        ? 'bg-terracotta-700 text-white border-terracotta-800'
-                        : 'bg-white text-warm-ink border-warm-border hover:bg-parchment-200'
+                        ? 'bg-rose-600 text-white border-rose-700'
+                        : 'bg-white text-[#173B67] border-[#E2E8F0] hover:bg-[#EAF5FC]'
                     }`}
                   >
                     Load v1 Draft (74%)
@@ -428,10 +428,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={loadV2WebRevised}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold border transition-colors cursor-pointer ${
+                    className={`px-3 py-1 rounded-btn text-[11px] font-bold border transition-colors cursor-pointer ${
                       currentVersion === 2
-                        ? 'bg-forest-700 text-white border-forest-800'
-                        : 'bg-white text-warm-ink border-warm-border hover:bg-parchment-200'
+                        ? 'bg-emerald-600 text-white border-emerald-700'
+                        : 'bg-white text-[#173B67] border-[#E2E8F0] hover:bg-[#EAF5FC]'
                     }`}
                   >
                     Load v2 Revised (98%)
@@ -444,10 +444,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={loadV1CommDraft}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold border transition-colors cursor-pointer ${
+                    className={`px-3 py-1 rounded-btn text-[11px] font-bold border transition-colors cursor-pointer ${
                       currentVersion === 1
-                        ? 'bg-terracotta-700 text-white border-terracotta-800'
-                        : 'bg-white text-warm-ink border-warm-border hover:bg-parchment-200'
+                        ? 'bg-rose-600 text-white border-rose-700'
+                        : 'bg-white text-[#173B67] border-[#E2E8F0] hover:bg-[#EAF5FC]'
                     }`}
                   >
                     Load v1 Draft (72%)
@@ -455,10 +455,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={loadV2CommRevised}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold border transition-colors cursor-pointer ${
+                    className={`px-3 py-1 rounded-btn text-[11px] font-bold border transition-colors cursor-pointer ${
                       currentVersion === 2
-                        ? 'bg-forest-700 text-white border-forest-800'
-                        : 'bg-white text-warm-ink border-warm-border hover:bg-parchment-200'
+                        ? 'bg-emerald-600 text-white border-emerald-700'
+                        : 'bg-white text-[#173B67] border-[#E2E8F0] hover:bg-[#EAF5FC]'
                     }`}
                   >
                     Load v2 Polished (96%)
@@ -470,7 +470,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
           {/* Evaluating Thinking State */}
           {isEvaluating && (
-            <div className="p-8 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border shadow-warm-md text-center">
+            <div className="p-8 rounded-card bg-white border border-[#E2E8F0] shadow-soft text-center">
               <AIThinking
                 stage="evaluating_proof"
                 labelEnglish="Calling /api/rubric-feedback: Parsing code landmarks, viewport constraints, and rubric weights..."
@@ -481,21 +481,21 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
           {/* Interactive Evidence Input Form (When not evaluating and no active feedback view) */}
           {!isEvaluating && !activeFeedback && (
-            <div id="workspace-submission-card" className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm space-y-5">
+            <div id="workspace-submission-card" className="p-6 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold font-heritage text-warm-ink dark:text-night-ink flex items-center gap-2">
-                  <Code className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
+                <h3 className="text-base font-bold text-[#173B67] flex items-center gap-2">
+                  <Code className="w-4 h-4 text-[#173B67]" />
                   <span>Submit Proof Evidence (Version {currentVersion})</span>
                 </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-parchment-200 dark:bg-night-100">
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67]">
                   {currentVersion === 1 ? 'Initial Submission' : 'Revised Submission (v2)'}
                 </span>
               </div>
 
               {/* 1. Project Link Input */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-warm-ink dark:text-night-ink flex items-center gap-1.5">
-                  <LinkIcon className="w-3.5 h-3.5 text-maroon-700" />
+                <label className="block text-xs font-bold text-[#173B67] flex items-center gap-1.5">
+                  <LinkIcon className="w-3.5 h-3.5 text-[#173B67]" />
                   <span>Project Link (GitHub Repository / Live Deploy URL)</span>
                 </label>
                 <input
@@ -503,36 +503,36 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   value={projectUrl}
                   onChange={(e) => setProjectUrl(e.target.value)}
                   placeholder="https://github.com/username/project-repo"
-                  className="w-full px-3.5 py-2.5 rounded-xl text-xs bg-white dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-btn text-xs bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] font-mono"
                 />
               </div>
 
               {/* 2. Screenshot Upload / Preview */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-warm-ink dark:text-night-ink flex items-center justify-between">
+                <label className="block text-xs font-bold text-[#173B67] flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
-                    <Camera className="w-3.5 h-3.5 text-forest-600" />
+                    <Camera className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Visual Screenshot / Craft Inspection Photo</span>
                   </span>
-                  <span className="text-[10px] text-warm-muted">Verified aspect containment</span>
+                  <span className="text-[10px] text-[#526174]">Verified aspect containment</span>
                 </label>
 
                 {screenshotUrl ? (
-                  <div className="relative rounded-2xl overflow-hidden border border-warm-border/80 bg-black/5 dark:bg-black/40">
+                  <div className="relative rounded-card overflow-hidden border border-[#E2E8F0] bg-black/5">
                     <img
                       src={screenshotUrl}
                       alt="Submission screenshot preview"
                       className="w-full h-44 object-cover object-top"
                     />
-                    <div className="absolute bottom-2 left-2 right-2 p-2 rounded-xl bg-black/75 backdrop-blur-xs text-white text-[11px] flex items-center justify-between">
-                      <span className="flex items-center gap-1 text-forest-400 font-semibold">
+                    <div className="absolute bottom-2 left-2 right-2 p-2 rounded-btn bg-black/75 backdrop-blur-xs text-white text-[11px] flex items-center justify-between">
+                      <span className="flex items-center gap-1 text-emerald-400 font-semibold">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Screenshot Attached</span>
                       </span>
                       <button
                         type="button"
                         onClick={() => setScreenshotUrl('')}
-                        className="text-[10px] text-warm-muted hover:text-white"
+                        className="text-[10px] text-white/80 hover:text-white"
                       >
                         Change
                       </button>
@@ -545,10 +545,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                         'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80'
                       )
                     }
-                    className="p-6 rounded-2xl border-2 border-dashed border-warm-border dark:border-night-border text-center hover:bg-parchment-100 cursor-pointer transition-colors"
+                    className="p-6 rounded-card border-2 border-dashed border-[#E2E8F0] text-center hover:bg-[#F8FAFC] cursor-pointer transition-colors"
                   >
-                    <Upload className="w-6 h-6 text-warm-muted mx-auto mb-1" />
-                    <span className="text-xs font-semibold text-warm-ink dark:text-night-ink">
+                    <Upload className="w-6 h-6 text-[#526174] mx-auto mb-1" />
+                    <span className="text-xs font-semibold text-[#173B67]">
                       Click to attach demonstration screenshot
                     </span>
                   </div>
@@ -557,28 +557,28 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
               {/* 3. Written Code / Technical Explanation */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-warm-ink dark:text-night-ink flex items-center justify-between">
+                <label className="block text-xs font-bold text-[#173B67] flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
-                    <FileText className="w-3.5 h-3.5 text-gold-600" />
+                    <FileText className="w-3.5 h-3.5 text-[#62B6E8]" />
                     <span>Technical Architecture & Layout Explanation</span>
                   </span>
-                  <span className="text-[10px] text-warm-muted font-mono">HTML / CSS / Markdown</span>
+                  <span className="text-[10px] text-[#526174] font-mono">HTML / CSS / Markdown</span>
                 </label>
                 <textarea
                   rows={6}
                   value={writtenExplanation}
                   onChange={(e) => setWrittenExplanation(e.target.value)}
                   placeholder="Explain your responsive fluid design choices, ARIA landmark tagging, and how you ensured zero side-scroll..."
-                  className="w-full p-3 rounded-xl text-xs bg-white dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500 font-mono leading-relaxed"
+                  className="w-full p-3 rounded-btn text-xs bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] font-mono leading-relaxed"
                 />
               </div>
 
               {/* 4. Voice-Recorded Intro (Highlighted for communication challenge) */}
-              <div className="p-4 rounded-2xl bg-parchment-100/60 dark:bg-night-100/60 border border-warm-border/80 space-y-3">
+              <div className="p-4 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Mic className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
-                    <span className="text-xs font-bold text-warm-ink dark:text-night-ink">
+                    <Mic className="w-4 h-4 text-[#173B67]" />
+                    <span className="text-xs font-bold text-[#173B67]">
                       Voice Defense or Spoken Pitch (Web Speech API)
                     </span>
                   </div>
@@ -587,10 +587,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                     <button
                       type="button"
                       onClick={() => setRecordingLang('ta-IN')}
-                      className={`px-2 py-0.5 rounded font-tamil ${
+                      className={`px-2 py-0.5 rounded-btn font-tamil ${
                         recordingLang === 'ta-IN'
-                          ? 'bg-maroon-700 text-white'
-                          : 'text-warm-muted hover:text-warm-ink'
+                          ? 'bg-[#173B67] text-white'
+                          : 'text-[#526174] hover:text-[#173B67]'
                       }`}
                     >
                       தமிழ்
@@ -598,10 +598,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                     <button
                       type="button"
                       onClick={() => setRecordingLang('en-IN')}
-                      className={`px-2 py-0.5 rounded ${
+                      className={`px-2 py-0.5 rounded-btn ${
                         recordingLang === 'en-IN'
-                          ? 'bg-maroon-700 text-white'
-                          : 'text-warm-muted hover:text-warm-ink'
+                          ? 'bg-[#173B67] text-white'
+                          : 'text-[#526174] hover:text-[#173B67]'
                       }`}
                     >
                       EN
@@ -613,10 +613,10 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={toggleVoiceRecording}
-                    className={`px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-btn text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
                       isRecording
-                        ? 'bg-red-600 text-white shadow-warm-md animate-pulse ring-4 ring-red-300'
-                        : 'bg-gold-500 hover:bg-gold-400 text-maroon-950 font-extrabold'
+                        ? 'bg-rose-600 text-white shadow-soft animate-pulse ring-4 ring-rose-200'
+                        : 'bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-extrabold'
                     }`}
                   >
                     {isRecording ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
@@ -629,7 +629,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                       {[12, 24, 16, 28, 14, 22].map((height, i) => (
                         <div
                           key={i}
-                          className="w-1 bg-red-600 rounded-full animate-bounce"
+                          className="w-1 bg-rose-600 rounded-full animate-bounce"
                           style={{
                             height: `${height}px`,
                             animationDelay: `${i * 120}ms`
@@ -645,7 +645,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   value={audioTranscript}
                   onChange={(e) => setAudioTranscript(e.target.value)}
                   placeholder="Spoken transcript appears here in real-time. You can also edit manually in Tamil or English..."
-                  className="w-full p-3 rounded-xl text-xs bg-white dark:bg-night-card border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500 leading-relaxed"
+                  className="w-full p-3 rounded-btn text-xs bg-white border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] leading-relaxed"
                 />
               </div>
 
@@ -653,9 +653,9 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
               <button
                 type="button"
                 onClick={handleSubmitForReview}
-                className="w-full py-3.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-extrabold text-xs shadow-warm-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] cursor-pointer"
+                className="w-full py-3.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-extrabold text-xs shadow-soft flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-gold-300" />
+                <Sparkles className="w-4 h-4 text-[#173B67]" />
                 <span>Submit for AI Rubric Evaluation ({currentVersion === 1 ? 'v1' : 'v2'})</span>
               </button>
             </div>
@@ -666,16 +666,16 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
             <div id="workspace-rubric-card" className="space-y-6 animate-in fade-in duration-300">
               {/* Header Score Card */}
               <div
-                className={`p-6 rounded-card-lg border shadow-warm-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                className={`p-6 rounded-card border shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                   activeFeedback.overall >= 80
-                    ? 'bg-forest-50 dark:bg-forest-950/60 border-forest-300 dark:border-forest-700'
-                    : 'bg-terracotta-50 dark:bg-terracotta-950/60 border-terracotta-300 dark:border-terracotta-700'
+                    ? 'bg-emerald-50 border-emerald-300'
+                    : 'bg-rose-50 border-rose-300'
                 }`}
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl text-white shadow-warm-sm shrink-0 ${
-                      activeFeedback.overall >= 80 ? 'bg-forest-700' : 'bg-terracotta-700'
+                    className={`w-16 h-16 rounded-card flex items-center justify-center font-black text-2xl text-white shadow-soft shrink-0 ${
+                      activeFeedback.overall >= 80 ? 'bg-emerald-600' : 'bg-rose-600'
                     }`}
                   >
                     {activeFeedback.overall}%
@@ -684,17 +684,17 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <div>
                     <div className="flex items-center gap-2">
                       <StatusPill status="ai_reviewed" />
-                      <span className="text-xs font-bold uppercase tracking-wide text-warm-muted">
+                      <span className="text-xs font-bold uppercase tracking-wide text-[#526174]">
                         Version {activeFeedback.version || currentVersion} Evaluation
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold font-heritage text-warm-ink dark:text-night-ink mt-0.5">
+                    <h3 className="text-lg font-bold text-[#173B67] mt-0.5">
                       {activeFeedback.overall >= 80
                         ? 'Mastery Proof Verified!'
                         : 'Needs Revision & Resubmission'}
                     </h3>
-                    <p className="text-xs text-warm-muted dark:text-night-muted">
+                    <p className="text-xs text-[#526174]">
                       {activeFeedback.overall >= 80
                         ? 'Congratulations! Submission met all production accessibility & rubric standards.'
                         : 'Identified specific layout fixes. Apply the recommendations below to unlock your badge!'}
@@ -706,7 +706,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <button
                     type="button"
                     onClick={handleStartRevisionV2}
-                    className="px-5 py-2.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs shadow-warm-sm flex items-center gap-1.5 transition-transform hover:scale-105 shrink-0 cursor-pointer"
+                    className="px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-bold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 shrink-0 cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Revise & Resubmit (v2)</span>
@@ -715,31 +715,31 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
               </div>
 
               {/* Quick Viva Defense Card */}
-              <div className="p-5 rounded-2xl bg-parchment-100/90 dark:bg-night-100 border-2 border-gold-400 dark:border-gold-600 shadow-warm-sm space-y-3">
+              <div className="p-5 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] shadow-soft space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold-200/70 dark:bg-gold-950/80 border border-gold-300 text-gold-900 dark:text-gold-200 text-[10px] font-bold uppercase tracking-wider mb-1">
-                      <Sparkles className="w-3 h-3 text-gold-600" />
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] text-[10px] font-bold uppercase tracking-wider mb-1">
+                      <Sparkles className="w-3 h-3 text-[#62B6E8]" />
                       <span>Authenticity Defense</span>
                     </div>
-                    <h4 className="text-base sm:text-lg font-bold font-heritage text-maroon-900 dark:text-gold-200">
+                    <h4 className="text-base sm:text-lg font-bold text-[#173B67]">
                       Quick viva: prove this is your work
                     </h4>
-                    <div className="font-tamil text-xs text-warm-muted dark:text-night-muted">
+                    <div className="font-tamil text-xs text-[#526174]">
                       விரைவு வாய்மொழி விளக்கம்: இது உங்கள் சொந்த உழைப்பு என்பதை நிரூபியுங்கள்
                     </div>
                   </div>
 
                   {existingViva ? (
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-1 rounded-full bg-forest-100 dark:bg-forest-900/60 border border-forest-300 text-forest-800 dark:text-forest-200 text-xs font-bold flex items-center gap-1">
-                        <ShieldCheck className="w-4 h-4 text-forest-600" />
+                      <span className="px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-1">
+                        <ShieldCheck className="w-4 h-4 text-emerald-600" />
                         <span>Viva completed</span>
                       </span>
                       <button
                         type="button"
                         onClick={() => setIsVivaModalOpen(true)}
-                        className="px-3.5 py-1.5 rounded-full bg-parchment-200 dark:bg-night-200 border border-warm-border text-xs font-semibold hover:bg-parchment-300 transition-colors cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-btn bg-white border border-[#E2E8F0] text-xs font-semibold hover:bg-[#EAF5FC] text-[#173B67] transition-colors cursor-pointer"
                       >
                         Review Defense
                       </button>
@@ -748,50 +748,50 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                     <button
                       type="button"
                       onClick={() => setIsVivaModalOpen(true)}
-                      className="px-5 py-2.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs shadow-warm-sm flex items-center gap-1.5 transition-transform hover:scale-105 shrink-0 cursor-pointer"
+                      className="px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-bold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 shrink-0 cursor-pointer"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-gold-300" />
+                      <Sparkles className="w-3.5 h-3.5 text-[#173B67]" />
                       <span>Start Quick Viva (3 Questions) →</span>
                     </button>
                   )}
                 </div>
 
                 {/* Mandated Screen Explanation */}
-                <div className="p-3 rounded-xl bg-gold-50 dark:bg-gold-950/40 border border-gold-200 dark:border-gold-800/60 text-xs flex items-start gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-gold-700 dark:text-gold-400 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-card bg-[#EAF5FC] border border-[#BAE6FD] text-xs flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-[#62B6E8] shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-extrabold text-maroon-900 dark:text-gold-300">
+                    <div className="font-extrabold text-[#173B67]">
                       Why we ask: skills should be yours, not copied.
                     </div>
-                    <div className="font-tamil text-[11px] text-maroon-800/80 dark:text-gold-400/90 font-medium">
+                    <div className="font-tamil text-[11px] text-[#526174] font-medium">
                       ஏன் கேட்கிறோம்: திறன்கள் உங்களுடையதாக இருக்க வேண்டும், நகலெடுக்கப்பட்டதாக அல்ல.
                     </div>
-                    <div className="text-[11px] text-warm-muted dark:text-night-muted mt-0.5">
+                    <div className="text-[11px] text-[#526174] mt-0.5">
                       Answer 3 rapid questions about your design and code choices by text or voice (Tamil/English). Results are attached to your Skill Passport.
                     </div>
                   </div>
                 </div>
 
                 {existingViva && (
-                  <div className="p-3 rounded-xl bg-white/80 dark:bg-night-card border border-warm-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                  <div className="p-3 rounded-btn bg-white border border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold">Authenticity confidence:</span>
+                      <span className="font-bold text-[#173B67]">Authenticity confidence:</span>
                       <span
                         className={`px-2.5 py-0.5 rounded-full text-xs font-black ${
                           existingViva.authenticityConfidence === 'Consistent'
-                            ? 'bg-forest-100 text-forest-800 border border-forest-300'
-                            : 'bg-gold-100 text-gold-800 border border-gold-300'
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                            : 'bg-amber-100 text-amber-800 border border-amber-300'
                         }`}
                       >
                         {existingViva.authenticityConfidence}
                       </span>
-                      <span className="text-warm-muted">• Average understanding: {existingViva.averageScore}%</span>
+                      <span className="text-[#526174]">• Average understanding: {existingViva.averageScore}%</span>
                     </div>
 
                     <button
                       type="button"
                       onClick={() => setActiveTab('passport')}
-                      className="text-xs font-bold text-maroon-700 dark:text-gold-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      className="text-xs font-bold text-[#62B6E8] hover:text-[#173B67] flex items-center gap-1 cursor-pointer"
                     >
                       <span>View in Passport</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -802,77 +802,76 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
               {/* Version 1 vs Version 2 Improvement Delta (When v2 exists) */}
               {showDeltaComparison && v1Feedback && v2Feedback && (
-                <div className="p-5 rounded-2xl bg-gold-50/90 dark:bg-gold-950/60 border border-gold-300 dark:border-gold-700 shadow-xs space-y-3">
+                <div className="p-5 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] shadow-soft space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-gold-700" />
-                      <span className="text-xs font-bold uppercase tracking-wider text-gold-950 dark:text-gold-200">
+                      <TrendingUp className="w-4 h-4 text-[#62B6E8]" />
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#173B67]">
                         Version 1 vs Version 2 Improvement Delta
                       </span>
                     </div>
-                    <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-forest-600 text-white">
+                    <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-600 text-white">
                       +{v2Feedback.overall - v1Feedback.overall}% Score Delta
                     </span>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
-                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-night-card border border-gold-200">
-                      <div className="text-[10px] text-warm-muted">v1 Overall</div>
-                      <div className="text-base font-bold text-terracotta-700">{v1Feedback.overall}%</div>
+                    <div className="p-2.5 rounded-btn bg-white border border-[#E2E8F0]">
+                      <div className="text-[10px] text-[#526174]">v1 Overall</div>
+                      <div className="text-base font-bold text-rose-600">{v1Feedback.overall}%</div>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-night-card border border-gold-200">
-                      <div className="text-[10px] text-warm-muted">v2 Revised</div>
-                      <div className="text-base font-bold text-forest-700">{v2Feedback.overall}%</div>
+                    <div className="p-2.5 rounded-btn bg-white border border-[#E2E8F0]">
+                      <div className="text-[10px] text-[#526174]">v2 Revised</div>
+                      <div className="text-base font-bold text-emerald-600">{v2Feedback.overall}%</div>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-night-card border border-gold-200">
-                      <div className="text-[10px] text-warm-muted">Skills Upgraded</div>
-                      <div className="text-base font-bold text-warm-ink">Strong ✓</div>
+                    <div className="p-2.5 rounded-btn bg-white border border-[#E2E8F0]">
+                      <div className="text-[10px] text-[#526174]">Skills Upgraded</div>
+                      <div className="text-base font-bold text-[#173B67]">Strong ✓</div>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-night-card border border-gold-200">
-                      <div className="text-[10px] text-warm-muted">Status</div>
-                      <div className="text-base font-bold text-forest-700">Verified Seal</div>
+                    <div className="p-2.5 rounded-btn bg-white border border-[#E2E8F0]">
+                      <div className="text-[10px] text-[#526174]">Status</div>
+                      <div className="text-base font-bold text-emerald-600">Verified Seal</div>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Badge Unlock Celebration Banner (If passed) */}
               {badgeUnlockedId && (
-                <div className="p-5 rounded-2xl bg-gold-100/90 dark:bg-gold-950/70 border-2 border-gold-400 shadow-warm-md flex items-center justify-between gap-4 animate-in zoom-in-95 duration-300">
+                <div className="p-5 rounded-card bg-[#EAF5FC] border-2 border-[#BAE6FD] shadow-soft flex items-center justify-between gap-4 animate-in zoom-in-95 duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-gold-500 text-maroon-950 flex items-center justify-center font-bold shadow-xs shrink-0 ring-4 ring-gold-300">
+                    <div className="w-12 h-12 rounded-full bg-[#62B6E8] text-[#173B67] flex items-center justify-center font-bold shadow-soft shrink-0 ring-4 ring-[#BAE6FD]">
                       <Award className="w-6 h-6" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-gold-900 dark:text-gold-300">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#173B67]">
                         ⭐ Official Badge Unlocked!
                       </div>
-                      <h4 className="text-sm font-extrabold text-warm-ink dark:text-night-ink">
+                      <h4 className="text-sm font-extrabold text-[#173B67]">
                         {isWebProfile
                           ? 'Profile Craftsman Badge'
                           : isCommIntro
                           ? 'Professional Voice Communicator Badge'
                           : 'WCAG Accessibility Champion'}
                       </h4>
-                      <p className="text-[11px] text-warm-muted dark:text-night-muted">
+                      <p className="text-[11px] text-[#526174]">
                         Evidence backed: Authenticated with tamper-evident cryptographic hash in Skill Passport.
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-maroon-700 text-white shrink-0">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#173B67] text-white shrink-0">
                     Passport Updated
                   </span>
                 </div>
               )}
 
               {/* Animated Per-Criterion Progress Bars */}
-              <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-xs space-y-4">
+              <div className="p-6 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-4">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wider">
+                  <h4 className="text-xs font-bold text-[#173B67] uppercase tracking-wider">
                     Per-Criterion Rubric Breakdown
                   </h4>
-                  <span className="text-[10px] text-warm-muted">Animated Score Weighting</span>
+                  <span className="text-[10px] text-[#526174]">Animated Score Weighting</span>
                 </div>
 
                 <div className="space-y-4">
@@ -883,37 +882,37 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                     return (
                       <div key={idx} className="space-y-1.5 text-xs">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-warm-ink dark:text-night-ink">
+                          <span className="font-bold text-[#173B67]">
                             {c.name}
                           </span>
-                          <span className="font-extrabold text-maroon-800 dark:text-gold-400">
+                          <span className="font-extrabold text-[#173B67]">
                             {c.score} / {c.max} ({percentage}%)
                           </span>
                         </div>
 
                         {/* Animated Bar */}
-                        <div className="h-2.5 w-full rounded-full bg-warm-200 dark:bg-night-100 overflow-hidden">
+                        <div className="h-2.5 w-full rounded-full bg-[#EAF5FC] overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${percentage}%` }}
                             transition={{ duration: 0.8, delay: idx * 0.15 }}
                             className={`h-full rounded-full ${
                               isPassing
-                                ? 'bg-forest-600'
+                                ? 'bg-emerald-600'
                                 : percentage >= 60
-                                ? 'bg-gold-500'
-                                : 'bg-terracotta-600'
+                                ? 'bg-[#62B6E8]'
+                                : 'bg-rose-500'
                             }`}
                           />
                         </div>
 
                         {/* Evidence & Fix Note */}
-                        <div className="p-2.5 rounded-xl bg-white dark:bg-night-100 border border-warm-border/60 text-[11px] space-y-1 mt-1.5">
-                          <div className="text-warm-muted leading-relaxed">
-                            <strong className="text-warm-ink dark:text-night-ink">Evidence detected: </strong>
+                        <div className="p-2.5 rounded-btn bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] space-y-1 mt-1.5">
+                          <div className="text-[#526174] leading-relaxed">
+                            <strong className="text-[#173B67]">Evidence detected: </strong>
                             <span>{c.evidence}</span>
                           </div>
-                          <div className="text-maroon-800 dark:text-gold-400 font-medium leading-relaxed">
+                          <div className="text-[#62B6E8] font-medium leading-relaxed">
                             <strong>Actionable fix: </strong>
                             <span>{c.fix}</span>
                           </div>
@@ -927,15 +926,15 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
               {/* Strengths & Plain-Language Fixes */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Strengths */}
-                <div className="p-4 rounded-2xl bg-forest-50/80 dark:bg-forest-950/40 border border-forest-300 dark:border-forest-800 text-xs space-y-2">
-                  <div className="font-bold text-forest-950 dark:text-forest-200 uppercase tracking-wide flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-forest-600" />
+                <div className="p-4 rounded-card bg-emerald-50 border border-emerald-300 text-xs space-y-2">
+                  <div className="font-bold text-emerald-950 uppercase tracking-wide flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span>Verified Strengths</span>
                   </div>
-                  <ul className="space-y-1.5 text-forest-900 dark:text-forest-300 text-[11px]">
+                  <ul className="space-y-1.5 text-emerald-900 text-[11px]">
                     {activeFeedback.strengths.map((s, idx) => (
                       <li key={idx} className="flex items-start gap-1.5">
-                        <span className="text-forest-600 font-bold">•</span>
+                        <span className="text-emerald-600 font-bold">•</span>
                         <span>{s}</span>
                       </li>
                     ))}
@@ -943,15 +942,15 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                 </div>
 
                 {/* Plain-Language Fixes */}
-                <div className="p-4 rounded-2xl bg-terracotta-50/80 dark:bg-terracotta-950/40 border border-terracotta-300 dark:border-terracotta-800 text-xs space-y-2">
-                  <div className="font-bold text-terracotta-950 dark:text-terracotta-200 uppercase tracking-wide flex items-center gap-1.5">
-                    <AlertCircle className="w-4 h-4 text-terracotta-600" />
+                <div className="p-4 rounded-card bg-rose-50 border border-rose-300 text-xs space-y-2">
+                  <div className="font-bold text-rose-950 uppercase tracking-wide flex items-center gap-1.5">
+                    <AlertCircle className="w-4 h-4 text-rose-600" />
                     <span>Plain-Language Specific Fixes</span>
                   </div>
-                  <ul className="space-y-1.5 text-terracotta-900 dark:text-terracotta-300 text-[11px]">
+                  <ul className="space-y-1.5 text-rose-900 dark:text-rose-300 text-[11px]">
                     {activeFeedback.improvements.map((imp, idx) => (
                       <li key={idx} className="flex items-start gap-1.5">
-                        <span className="text-terracotta-600 font-bold">•</span>
+                        <span className="text-rose-600 font-bold">•</span>
                         <span>{imp}</span>
                       </li>
                     ))}

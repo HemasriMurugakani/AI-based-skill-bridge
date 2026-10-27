@@ -37,7 +37,7 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
     pathwayId: 'junior-web-dev',
     title: 'Junior Web Developer',
     titleTamil: 'இளநிலை இணைய மென்பொருள் உருவாக்குநர்',
-    color: '#8B1E14',
+    color: '#173B67',
     category: 'academic',
     milestones: [
       {
@@ -162,7 +162,7 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
     pathwayId: 'tailoring-craft',
     title: 'Tailoring & Garment Construction',
     titleTamil: 'தையற்கலை & ஆடை வடிவமைப்பு',
-    color: '#B8761A',
+    color: '#F2B66D',
     category: 'vocational',
     milestones: [
       {

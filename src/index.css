@@ -4,29 +4,65 @@
 
 @layer base {
   :root {
-    --bg-parchment: #FBF7F0;
-    --primary-maroon: #8B1E14;
-    --primary-maroon-dark: #7A1A12;
-    --accent-gold: #B8761A;
-    --accent-gold-highlight: #E8B23A;
-    --proven-green: #2F7D4F;
-    --gap-terracotta: #C8553D;
-    --warm-ink: #231C18;
+    /* Brand Tokens */
+    --color-deep-blue: #173B67;
+    --color-sky-blue: #62B6E8;
+    --color-pale-blue: #EAF5FC;
+    --color-white: #FFFFFF;
+    --color-amber: #F2B66D;
+
+    /* Supporting Neutral Tokens */
+    --color-surface: #F8FAFC;
+    --color-border: #E2E8F0;
+    --color-text-primary: #173B67;
+    --color-text-muted: #526174;
+    --color-hover-bg: #D9EFFB;
+    --color-disabled-bg: #E2E8F0;
+    --color-disabled-text: #94A3B8;
+
+    /* Semantic Status Colours (Fixed) */
+    --color-status-green: #10B981;
+    --color-status-amber: #F2B66D;
+    --color-status-red: #EF4444;
+    --color-status-grey: #64748B;
+    --color-status-blue: #173B67;
+
+    /* Layout & Radii */
+    --radius-card: 12px;
+    --radius-control: 8px;
+    --radius-pill: 9999px;
+
+    /* Consistent Soft Shadow */
+    --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+
+    /* Backwards-compatibility aliases */
+    --bg-parchment: #FFFFFF;
+    --primary-maroon: #173B67;
+    --primary-maroon-dark: #112C4E;
+    --accent-gold: #F2B66D;
+    --accent-gold-highlight: #F5C78B;
+    --accent-sky: #62B6E8;
+    --proven-green: #10B981;
+    --gap-terracotta: #EF4444;
+    --warm-ink: #173B67;
     --warm-card: #FFFFFF;
-    --warm-border: #E8DECE;
+    --warm-border: #E2E8F0;
+    --warm-muted: #526174;
   }
 
   .dark {
-    --bg-parchment: #1A1210;
-    --primary-maroon: #DC6E64;
-    --primary-maroon-dark: #EEABA5;
-    --accent-gold: #E8B23A;
-    --accent-gold-highlight: #F2CA63;
-    --proven-green: #5FB47F;
-    --gap-terracotta: #DE735C;
-    --warm-ink: #F6EFE9;
-    --warm-card: #231815;
-    --warm-border: #3D2D27;
+    --bg-parchment: #0B1726;
+    --primary-maroon: #62B6E8;
+    --primary-maroon-dark: #389EDB;
+    --accent-gold: #F2B66D;
+    --accent-gold-highlight: #F6D29E;
+    --accent-sky: #62B6E8;
+    --proven-green: #10B981;
+    --gap-terracotta: #EF4444;
+    --warm-ink: #FFFFFF;
+    --warm-card: #12243B;
+    --warm-border: #1E3B60;
+    --warm-muted: #A2BEDC;
   }
 
   html {
@@ -34,27 +70,39 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
+  *,
+  *::before,
+  *::after {
+    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
+  }
+
   body {
-    background-color: var(--bg-parchment);
-    color: var(--warm-ink);
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FFFFFF;
+    color: var(--color-text-primary);
+    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Two-tone headlines with tight negative letter-spacing for English */
-  h1:not([lang="ta"]):not(.font-tamil),
-  h2:not([lang="ta"]):not(.font-tamil),
-  h3:not([lang="ta"]):not(.font-tamil),
-  .heading-tight {
-    letter-spacing: -0.025em;
+  button, input, optgroup, select, textarea {
+    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
+  }
+
+  code, pre, kbd, samp, .font-mono, .font-mono * {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  }
+
+  /* Headings with Poppins */
+  h1, h2, h3, h4, h5, h6, .heading-tight {
+    font-family: 'Poppins', 'Noto Sans Tamil', sans-serif !important;
+    letter-spacing: -0.02em;
   }
 
   /* Robust Tamil Typography & Anti-clipping rules */
   .font-tamil,
   [lang="ta"],
   .tamil-text {
-    font-family: 'Noto Sans Tamil', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Noto Sans Tamil', 'Poppins', system-ui, sans-serif;
     letter-spacing: normal !important;
     line-height: 1.55;
     text-rendering: optimizeLegibility;
@@ -71,74 +119,56 @@
   }
 }
 
-
 @layer utilities {
-  /* Frosted Glass */
+  /* Clean Modern Surfaces (12px Card Radius, Shared Soft Shadow) */
+  .card-clean {
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+  .card-highlight {
+    background: #EAF5FC;
+    border-radius: 12px;
+    border: 1px solid #BAE6FD;
+  }
+
   .glass-card {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(232, 222, 206, 0.7);
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
   }
   .dark .glass-card {
-    background: rgba(35, 24, 21, 0.75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(61, 45, 39, 0.7);
+    background: rgba(18, 36, 59, 0.95);
+    border-radius: 12px;
+    border: 1px solid rgba(30, 59, 96, 0.7);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .glass-nav {
-    background: rgba(251, 247, 240, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(232, 222, 206, 0.8);
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
   }
   .dark .glass-nav {
-    background: rgba(26, 18, 16, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(61, 45, 39, 0.8);
+    background: rgba(11, 23, 38, 0.95);
+    border-bottom: 1px solid rgba(30, 59, 96, 0.8);
   }
 
-  /* Low-Data Mode: Minimalist, Text-First, Zero Heavy Graphics */
-  .low-data-mode * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    text-shadow: none !important;
+  /* Headings & Text */
+  .gradient-heading-maroon-gold,
+  .gradient-heading-deep-sky {
+    color: #173B67;
   }
-  .low-data-mode .glass-nav,
-  .low-data-mode .glass-card {
-    background: #FFFFFF !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-color: #E2E8F0 !important;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-  }
-  .dark.low-data-mode .glass-nav,
-  .dark.low-data-mode .glass-card {
-    background: #181514 !important;
-    border-color: #374151 !important;
-    box-shadow: none !important;
+  .dark .gradient-heading-maroon-gold,
+  .dark .gradient-heading-deep-sky {
+    color: #FFFFFF;
   }
 
-  /* Heritage Gradient text */
-  .gradient-heading-maroon-gold {
-    background: linear-gradient(135deg, #7A1A12 0%, #8B1E14 45%, #B8761A 85%, #E8B23A 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .dark .gradient-heading-maroon-gold {
-    background: linear-gradient(135deg, #F6CFCC 0%, #EEABA5 35%, #E8B23A 85%, #F7DF9E 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Kolam subtle pattern overlay */
+  /* No decorative noise pattern */
   .kolam-pattern-bg {
-    background-image: radial-gradient(#B8761A 0.75px, transparent 0.75px), radial-gradient(#7A1A12 0.75px, #FBF7F0 0.75px);
-    background-size: 30px 30px;
-    background-position: 0 0, 15px 15px;
-    opacity: 0.04;
+    display: none;
   }
 }
 
@@ -151,22 +181,22 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E4D5BC;
+  background: #C2E3F6;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B8761A;
+  background: #62B6E8;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #3D2D27;
+  background: #1E3B60;
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #B8761A;
+  background: #62B6E8;
 }
 
 /* Accessible focus ring */
 :focus-visible {
-  outline: 2px solid #B8761A;
+  outline: 2px solid #62B6E8;
   outline-offset: 2px;
 }
 
@@ -189,7 +219,7 @@
 
   body {
     background: #FFFFFF !important;
-    color: #1A1412 !important;
+    color: #173B67 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -205,7 +235,7 @@
   /* Make sure container is 100% wide with zero shadows */
   .resume-sheet {
     box-shadow: none !important;
-    border: 1px solid #D4AF37 !important;
+    border: 1px solid #62B6E8 !important;
     margin: 0 auto !important;
     max-width: 100% !important;
     width: 100% !important;
@@ -213,4 +243,3 @@
     break-inside: avoid !important;
   }
 }
-

@@ -51,7 +51,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
           particleCount: 45,
           spread: 60,
           origin: { y: 0.6 },
-          colors: ['#7A1A12', '#B8761A', '#E8B23A', '#2F7D4F']
+          colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
         });
       }
 
@@ -75,19 +75,19 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border dark:border-night-border shadow-warm-lg space-y-5">
+      <div className="relative w-full max-w-xl p-6 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft space-y-5">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-400">
                 Diagnostic Assessment
               </span>
-              <span className="text-xs px-2 py-0.2 rounded-full bg-gold-100 text-gold-900 font-bold">
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
                 CSS & Flexbox
               </span>
             </div>
-            <h3 className="text-lg font-bold font-heritage text-warm-ink dark:text-night-ink mt-0.5">
+            <h3 className="text-lg font-bold text-[#173B67] dark:text-white mt-0.5">
               CSS Responsive Layout Quiz
             </h3>
           </div>
@@ -96,7 +96,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
               <button
                 type="button"
                 onClick={handleSimulateFortyPercent}
-                className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-terracotta-100 text-terracotta-900 border border-terracotta-300 hover:bg-terracotta-200 cursor-pointer"
+                className="px-2.5 py-1 rounded-btn text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 cursor-pointer"
                 title="Instant test for Hackathon judges: Triggers 40% score and live roadmap adaptation"
               >
                 ⚡ Test 40% (Fail Flexbox)
@@ -104,7 +104,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
             )}
             <button
               onClick={onClose}
-              className="p-1 rounded-xl text-warm-muted hover:bg-warm-100 dark:hover:bg-night-100"
+              className="p-1 rounded-btn text-[#526174] hover:bg-[#EAF5FC] dark:hover:bg-night-100 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -114,7 +114,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
         {!isFinished ? (
           <div className="space-y-4">
             {/* Progress indicators */}
-            <div className="flex items-center justify-between text-xs text-warm-muted">
+            <div className="flex items-center justify-between text-xs text-[#526174]">
               <span>Question {currentIdx + 1} of {cssQuizQuestions.length}</span>
               <div className="flex items-center gap-1">
                 {cssQuizQuestions.map((q, idx) => (
@@ -122,10 +122,10 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
                     key={q.id}
                     className={`w-2 h-2 rounded-full ${
                       idx === currentIdx
-                        ? 'bg-maroon-700 ring-2 ring-gold-400'
+                        ? 'bg-[#62B6E8] ring-2 ring-[#BAE6FD]'
                         : selectedAnswers[q.id] !== undefined
-                        ? 'bg-forest-600'
-                        : 'bg-warm-200'
+                        ? 'bg-emerald-600'
+                        : 'bg-slate-200 dark:bg-night-100'
                     }`}
                   />
                 ))}
@@ -133,11 +133,11 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
             </div>
 
             {/* Question Card */}
-            <div className="p-4 rounded-2xl bg-parchment-100 dark:bg-night-100 border border-warm-border/70 space-y-1">
-              <h4 className="text-sm font-bold text-warm-ink dark:text-night-ink">
+            <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] space-y-1">
+              <h4 className="text-sm font-bold text-[#173B67] dark:text-white">
                 {currentQ.question}
               </h4>
-              <div className="font-tamil text-xs text-maroon-900 dark:text-gold-300">
+              <div className="font-tamil text-xs text-[#526174] dark:text-sky-300">
                 {currentQ.questionTamil}
               </div>
             </div>
@@ -152,14 +152,14 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
                     key={optIdx}
                     type="button"
                     onClick={() => handleSelectOption(optIdx)}
-                    className={`w-full p-3 rounded-xl text-left text-xs font-semibold border transition-all cursor-pointer flex items-center justify-between ${
+                    className={`w-full p-3 rounded-btn text-left text-xs font-semibold border transition-all cursor-pointer flex items-center justify-between ${
                       isPicked
-                        ? 'bg-maroon-700 text-white border-maroon-800 shadow-warm-sm'
-                        : 'bg-white dark:bg-night-card border-warm-border/80 text-warm-ink dark:text-night-ink hover:bg-gold-50'
+                        ? 'bg-[#173B67] text-white border-[#173B67] shadow-soft'
+                        : 'bg-white dark:bg-night-card border-[#E2E8F0] text-[#173B67] dark:text-night-ink hover:bg-[#EAF5FC]'
                     }`}
                   >
                     <span>{opt}</span>
-                    {isPicked && <CheckCircle2 className="w-4 h-4 text-gold-300" />}
+                    {isPicked && <CheckCircle2 className="w-4 h-4 text-sky-300" />}
                   </button>
                 );
               })}
@@ -167,7 +167,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
 
             {/* Action Bar */}
             <div className="pt-2 flex items-center justify-between">
-              <span className="text-[11px] text-warm-muted italic">
+              <span className="text-[11px] text-[#526174] italic">
                 Tip: Score below 60% to demonstrate live AI roadmap adaptation!
               </span>
 
@@ -175,7 +175,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
                 type="button"
                 onClick={handleNextOrFinish}
                 disabled={!isSelected}
-                className="px-5 py-2 rounded-full bg-maroon-700 hover:bg-maroon-800 disabled:opacity-40 text-white font-bold text-xs shadow-warm-sm flex items-center gap-1.5 transition-transform hover:scale-105"
+                className="px-5 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#4fa8dc] disabled:opacity-40 text-[#173B67] font-bold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 cursor-pointer"
               >
                 <span>{currentIdx === cssQuizQuestions.length - 1 ? 'Finish Quiz' : 'Next'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -186,27 +186,27 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
           /* Quiz Results View */
           <div className="space-y-5 animate-in fade-in duration-300">
             <div
-              className={`p-5 rounded-2xl border flex items-center gap-4 ${
+              className={`p-5 rounded-card border flex items-center gap-4 ${
                 scorePercentage < 60
-                  ? 'bg-terracotta-50 dark:bg-terracotta-950/60 border-terracotta-300'
-                  : 'bg-forest-50 dark:bg-forest-950/60 border-forest-300'
+                  ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-300'
+                  : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300'
               }`}
             >
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white shrink-0 ${
-                  scorePercentage < 60 ? 'bg-terracotta-700' : 'bg-forest-700'
+                  scorePercentage < 60 ? 'bg-amber-600' : 'bg-emerald-600'
                 }`}
               >
                 {scorePercentage}%
               </div>
 
               <div>
-                <h4 className="font-bold text-base text-warm-ink dark:text-night-ink">
+                <h4 className="font-bold text-base text-[#173B67] dark:text-white">
                   {scorePercentage < 60
                     ? 'Adaptive Remedial Triggered!'
                     : 'Milestone Assessment Passed!'}
                 </h4>
-                <p className="text-xs text-warm-muted dark:text-night-muted mt-0.5">
+                <p className="text-xs text-[#526174] dark:text-night-muted mt-0.5">
                   {scorePercentage < 60
                     ? 'Scored below 60%. Triggering /api/roadmap-adapt to insert targeted CSS Layout Practice node.'
                     : 'Excellent responsive layout fundamentals! You are ready to advance to JavaScript.'}
@@ -218,7 +218,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
               <button
                 type="button"
                 onClick={handleResetQuiz}
-                className="px-4 py-2 rounded-full border border-warm-border text-xs font-semibold flex items-center gap-1 hover:bg-parchment-200"
+                className="px-4 py-2 rounded-btn border border-[#E2E8F0] text-[#173B67] text-xs font-semibold flex items-center gap-1 hover:bg-[#F8FAFC] cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Retake Quiz</span>
@@ -226,7 +226,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2 rounded-full bg-maroon-700 text-white font-bold text-xs shadow-warm-sm hover:bg-maroon-800"
+                className="px-5 py-2 rounded-btn bg-[#173B67] text-white font-bold text-xs shadow-soft hover:bg-[#112C4E] cursor-pointer"
               >
                 <span>{scorePercentage < 60 ? 'See Adapted Roadmap' : 'Continue'}</span>
               </button>

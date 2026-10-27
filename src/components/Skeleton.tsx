@@ -18,12 +18,12 @@ export const Skeleton: React.FC<SkeletonProps> = ({
       case 'circular':
         return 'rounded-full';
       case 'card':
-        return 'rounded-2xl border border-warm-border/60 dark:border-night-border/60 p-4';
+        return 'rounded-card border border-[#E2E8F0] dark:border-night-border p-4 bg-white dark:bg-night-card shadow-soft';
       case 'text':
-        return 'rounded-md h-4 my-1';
+        return 'rounded-md h-3.5 my-1';
       case 'rectangular':
       default:
-        return 'rounded-xl';
+        return 'rounded-btn';
     }
   };
 
@@ -36,9 +36,9 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     <div
       style={style}
       aria-hidden="true"
-      className={`relative overflow-hidden bg-parchment-300/60 dark:bg-night-100/70 animate-pulse ${getVariantStyles()} ${className}`}
+      className={`relative overflow-hidden bg-[#E2E8F0] dark:bg-night-100 motion-safe:animate-pulse ${getVariantStyles()} ${className}`}
     >
-      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 dark:via-white/5 to-transparent animate-shimmer" />
+      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent motion-safe:animate-shimmer" />
     </div>
   );
 };
@@ -49,7 +49,7 @@ export const SkeletonCard: React.FC<{ lines?: number; hasAvatar?: boolean; class
   className = '',
 }) => {
   return (
-    <div className={`p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/70 dark:border-night-border shadow-warm-sm space-y-4 ${className}`}>
+    <div className={`p-5 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft space-y-4 ${className}`}>
       {hasAvatar && (
         <div className="flex items-center gap-3">
           <Skeleton variant="circular" className="w-12 h-12 shrink-0" />
@@ -69,8 +69,8 @@ export const SkeletonCard: React.FC<{ lines?: number; hasAvatar?: boolean; class
         ))}
       </div>
       <div className="pt-2 flex items-center justify-between gap-3">
-        <Skeleton variant="rectangular" className="w-24 h-8 rounded-full" />
-        <Skeleton variant="rectangular" className="w-20 h-8 rounded-full" />
+        <Skeleton variant="rectangular" className="w-24 h-8 rounded-btn" />
+        <Skeleton variant="rectangular" className="w-20 h-8 rounded-btn" />
       </div>
     </div>
   );

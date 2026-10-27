@@ -256,7 +256,7 @@ export const GuidedDemoModal: React.FC = () => {
       {/* SVG Spotlight Cutout Window if targetRect exists */}
       {targetRect && (
         <div
-          className="absolute rounded-3xl pointer-events-none border-2 border-gold-400 shadow-[0_0_60px_rgba(245,158,11,0.5)] transition-all duration-300 z-10"
+          className="absolute rounded-3xl pointer-events-none border-2 border-[#62B6E8] shadow-[0_0_60px_rgba(98,182,232,0.5)] transition-all duration-300 z-10"
           style={{
             top: `${Math.max(10, targetRect.top - 8)}px`,
             left: `${Math.max(10, targetRect.left - 8)}px`,
@@ -264,8 +264,8 @@ export const GuidedDemoModal: React.FC = () => {
             height: `${targetRect.height + 16}px`
           }}
         >
-          <div className="absolute -top-3 left-4 px-2.5 py-0.5 rounded-full bg-gold-500 text-maroon-950 text-[10px] font-black uppercase tracking-wider shadow-warm-xs flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-maroon-950" />
+          <div className="absolute -top-3 left-4 px-2.5 py-0.5 rounded-full bg-[#F2B66D] text-[#173B67] text-[10px] font-black uppercase tracking-wider shadow-soft flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-[#173B67]" />
             <span>Spotlight · Step {currentStep.stepNumber}</span>
           </div>
         </div>
@@ -277,30 +277,30 @@ export const GuidedDemoModal: React.FC = () => {
       <div className="relative z-30 max-w-6xl w-full mx-auto px-4 pt-4">
         <div className="relative">
           {/* Header Controls Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-parchment-50/95 dark:bg-night-card/95 backdrop-blur-md border border-warm-border/80 dark:border-night-border shadow-warm-md mb-2 text-warm-ink dark:text-night-ink text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-white/95 dark:bg-night-card/95 backdrop-blur-md border border-sky-100 dark:border-night-border shadow-soft mb-2 text-[#173B67] dark:text-night-ink text-xs">
             {/* Title & Shortcut Hint */}
             <div className="flex items-center gap-2">
-              <div className="px-2.5 py-1 rounded-full bg-maroon-700 text-white font-extrabold text-[11px] flex items-center gap-1.5 shadow-warm-xs">
-                <Sparkles className="w-3.5 h-3.5 text-gold-300" />
+              <div className="px-2.5 py-1 rounded-full bg-[#173B67] text-white font-extrabold text-[11px] flex items-center gap-1.5 shadow-soft">
+                <Sparkles className="w-3.5 h-3.5 text-[#F2B66D]" />
                 <span>Guided Demo</span>
                 <span className="hidden sm:inline opacity-75 font-mono text-[10px]">(Shift+D)</span>
               </div>
 
               {/* Persona Story Selector: Priya vs Lakshmi */}
-              <div className="flex items-center bg-parchment-200/80 dark:bg-night-100 p-0.5 rounded-xl border border-warm-border/60">
+              <div className="flex items-center bg-[#EAF5FC]/80 dark:bg-night-100 p-0.5 rounded-xl border border-sky-100 dark:border-night-border">
                 <button
                   type="button"
                   onClick={() => handleToggleStoryPersona('priya-student')}
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeStory.personaId === 'priya-student'
-                      ? 'bg-maroon-700 text-white shadow-xs'
-                      : 'text-warm-muted hover:text-warm-ink'
+                      ? 'bg-[#173B67] text-white shadow-xs'
+                      : 'text-[#526174] hover:text-[#173B67]'
                   }`}
                 >
                   <img
                     src={priyaStory.avatar}
                     alt={priyaStory.personaName}
-                    className="w-4 h-4 rounded-full object-cover border border-gold-400"
+                    className="w-4 h-4 rounded-full object-cover border border-[#62B6E8]"
                   />
                   <span>Priya (Tech)</span>
                 </button>
@@ -309,14 +309,14 @@ export const GuidedDemoModal: React.FC = () => {
                   onClick={() => handleToggleStoryPersona('lakshmi-vocational')}
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeStory.personaId === 'lakshmi-vocational'
-                      ? 'bg-maroon-700 text-white shadow-xs'
-                      : 'text-warm-muted hover:text-warm-ink'
+                      ? 'bg-[#173B67] text-white shadow-xs'
+                      : 'text-[#526174] hover:text-[#173B67]'
                   }`}
                 >
                   <img
                     src={lakshmiStory.avatar}
                     alt={lakshmiStory.personaName}
-                    className="w-4 h-4 rounded-full object-cover border border-gold-400"
+                    className="w-4 h-4 rounded-full object-cover border border-[#62B6E8]"
                   />
                   <span>Lakshmi (Craft)</span>
                 </button>
@@ -325,10 +325,10 @@ export const GuidedDemoModal: React.FC = () => {
 
             {/* Middle: Timer & Under 4 Minutes Badge */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-parchment-200 dark:bg-night-100 border border-warm-border/80 font-mono text-xs font-bold">
-                <Clock className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5FC] dark:bg-night-100 border border-[#BAE6FD] font-mono text-xs font-bold">
+                <Clock className="w-3.5 h-3.5 text-[#173B67] dark:text-sky-300" />
                 <span>{formatTime(totalElapsedSeconds)} / {formatTime(totalDemoSeconds)}</span>
-                <span className="text-[10px] text-forest-700 dark:text-forest-400 font-sans ml-1">
+                <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-sans ml-1">
                   (&lt; 4 mins)
                 </span>
               </div>
@@ -339,19 +339,19 @@ export const GuidedDemoModal: React.FC = () => {
                 onClick={toggleOfflineDemo}
                 className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
                   isOfflineDemo
-                    ? 'bg-forest-100 dark:bg-forest-950/80 text-forest-900 dark:text-forest-200 border-forest-400 dark:border-forest-700 shadow-xs'
-                    : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink border-warm-border'
+                    ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-200 border-emerald-400 dark:border-emerald-700 shadow-xs'
+                    : 'bg-[#F8FAFC] dark:bg-night-100 text-[#173B67] dark:text-night-ink border-[#E2E8F0]'
                 }`}
                 title="Toggle offline demo mode: 100% deterministic local fallback without network latency"
               >
                 {isOfflineDemo ? (
                   <>
-                    <WifiOff className="w-3.5 h-3.5 text-forest-600 dark:text-forest-400" />
+                    <WifiOff className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                     <span>Offline Demo: ON</span>
                   </>
                 ) : (
                   <>
-                    <Wifi className="w-3.5 h-3.5 text-warm-muted" />
+                    <Wifi className="w-3.5 h-3.5 text-[#526174]" />
                     <span>Live AI Mode</span>
                   </>
                 )}
@@ -363,7 +363,7 @@ export const GuidedDemoModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsLoopTrackerExpanded(!isLoopTrackerExpanded)}
-                className="p-1.5 rounded-lg text-warm-muted hover:text-warm-ink dark:hover:text-night-ink hover:bg-parchment-200 transition-colors"
+                className="p-1.5 rounded-lg text-[#526174] hover:text-[#173B67] dark:hover:text-night-ink hover:bg-[#EAF5FC] transition-colors"
                 title="Toggle Proof-to-Progress loop timeline"
               >
                 {isLoopTrackerExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -372,7 +372,7 @@ export const GuidedDemoModal: React.FC = () => {
               <button
                 type="button"
                 onClick={closeGuidedDemo}
-                className="p-1.5 rounded-lg bg-parchment-200 dark:bg-night-100 hover:bg-maroon-100 text-warm-ink hover:text-maroon-800 transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg bg-[#EAF5FC] dark:bg-night-100 hover:bg-[#d8eefc] text-[#173B67] hover:text-[#112C4E] transition-colors cursor-pointer"
                 title="Exit Demo (Esc)"
               >
                 <X className="w-4 h-4" />
@@ -392,33 +392,32 @@ export const GuidedDemoModal: React.FC = () => {
           )}
         </div>
       </div>
-
       {/* ------------------------------------------------------------------ */}
       {/* 3. CENTER FLOATING SPOTLIGHT NARRATION TOOLTIP */}
       {/* ------------------------------------------------------------------ */}
       <div className="relative z-30 max-w-3xl w-full mx-auto px-4 my-auto pointer-events-auto">
-        <div className="p-5 sm:p-6 rounded-3xl bg-parchment-50/95 dark:bg-night-card/95 backdrop-blur-md border-2 border-gold-400 dark:border-gold-600 shadow-2xl text-warm-ink dark:text-night-ink transition-all">
+        <div className="p-5 sm:p-6 rounded-3xl bg-white/95 dark:bg-night-card/95 backdrop-blur-md border-2 border-[#62B6E8] dark:border-sky-500 shadow-2xl text-[#173B67] dark:text-night-ink transition-all">
           {/* Tooltip Header */}
-          <div className="flex items-start justify-between gap-4 pb-3 border-b border-warm-border/60 dark:border-night-border/60">
+          <div className="flex items-start justify-between gap-4 pb-3 border-b border-sky-100 dark:border-night-border/60">
             <div className="flex items-center gap-3">
               <img
                 src={activeStory.avatar}
                 alt={activeStory.personaName}
-                className="w-12 h-12 rounded-2xl object-cover border-2 border-gold-400 shadow-warm-xs shrink-0"
+                className="w-12 h-12 rounded-2xl object-cover border-2 border-[#62B6E8] shadow-soft shrink-0"
               />
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300">
                     Step {currentStep.stepNumber} of 11 · {currentStep.stageName}
                   </span>
-                  <span className="px-2 py-0.2 rounded-full text-[9px] font-extrabold bg-gold-100 text-gold-900 border border-gold-300">
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-[#EAF5FC] text-[#173B67] border border-[#62B6E8]/40">
                     XP +{currentStep.xpReward}
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold font-heritage text-maroon-900 dark:text-gold-200">
+                <h3 className="text-lg sm:text-xl font-bold text-[#173B67] dark:text-white">
                   {currentStep.title}
                 </h3>
-                <div className="text-xs font-tamil text-warm-muted dark:text-night-muted font-medium">
+                <div className="text-xs font-tamil text-[#526174] dark:text-night-muted font-medium">
                   {currentStep.titleTamil}
                 </div>
               </div>
@@ -431,10 +430,10 @@ export const GuidedDemoModal: React.FC = () => {
                 onClick={handleToggleMute}
                 className={`p-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   !isAudioMuted
-                    ? 'bg-gold-500 text-maroon-950 font-black shadow-warm-xs'
-                    : 'bg-parchment-200 dark:bg-night-100 text-warm-muted'
+                    ? 'bg-[#F2B66D] text-[#173B67] font-black shadow-soft'
+                    : 'bg-[#EAF5FC] dark:bg-night-100 text-[#526174]'
                 }`}
-                title={isAudioMuted ? 'Unmute Tamil Audio' : 'Mute Voice Narration'}
+                title={isAudioMuted ? 'Unmute Audio' : 'Mute Voice Narration'}
               >
                 {!isAudioMuted ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
                 <span className="hidden sm:inline">{!isAudioMuted ? 'Voice ON' : 'Muted'}</span>
@@ -445,16 +444,16 @@ export const GuidedDemoModal: React.FC = () => {
           {/* Bilingual Narration Captions Box */}
           <div className="py-4 space-y-2.5">
             {/* English Caption */}
-            <div className="p-3 rounded-xl bg-parchment-100/80 dark:bg-night-100/80 border border-warm-border/60 text-xs sm:text-sm text-warm-ink dark:text-night-ink leading-relaxed">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-warm-muted dark:text-night-muted mb-0.5">
+            <div className="p-3.5 rounded-2xl bg-[#EAF5FC]/60 dark:bg-night-100/80 border border-sky-100/60 text-xs sm:text-sm text-[#173B67] dark:text-white leading-relaxed">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#526174] dark:text-night-muted mb-0.5">
                 Story Narration (English)
               </div>
               {currentStep.narrativeEn}
             </div>
 
             {/* Tamil Caption */}
-            <div className="p-3 rounded-xl bg-gold-50/60 dark:bg-gold-950/30 border border-gold-300/60 dark:border-gold-800/60 text-xs sm:text-sm text-maroon-950 dark:text-gold-200 font-tamil leading-relaxed">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-gold-700 dark:text-gold-400 font-sans mb-0.5">
+            <div className="p-3.5 rounded-2xl bg-[#FCF3E5]/60 dark:bg-amber-950/30 border border-[#F2B66D]/40 dark:border-amber-800/60 text-xs sm:text-sm text-[#173B67] dark:text-amber-200 font-tamil leading-relaxed">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#9C5E16] dark:text-amber-400 font-sans mb-0.5">
                 கதை விளக்கம் (தமிழ்)
               </div>
               {currentStep.narrativeTa}
@@ -463,20 +462,20 @@ export const GuidedDemoModal: React.FC = () => {
 
           {/* Step Action Pill Hint */}
           <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2 text-warm-muted dark:text-night-muted text-[11px]">
-              <span className="font-semibold text-warm-ink dark:text-night-ink">Active Tab:</span>
-              <span className="capitalize px-2 py-0.5 rounded-md bg-parchment-200 dark:bg-night-100 font-mono">
+            <div className="flex items-center gap-2 text-[#526174] dark:text-night-muted text-[11px]">
+              <span className="font-semibold text-[#173B67] dark:text-night-ink">Active Tab:</span>
+              <span className="capitalize px-2 py-0.5 rounded-md bg-[#EAF5FC] dark:bg-night-100 font-mono text-[#173B67] dark:text-sky-300">
                 /{currentStep.tab}
               </span>
               <span>•</span>
-              <span>Readiness: <strong className="text-forest-700 dark:text-forest-400">{currentStep.readinessScore}%</strong></span>
+              <span>Readiness: <strong className="text-[#10B981]">{currentStep.readinessScore}%</strong></span>
             </div>
 
             {currentStep.actionType === 'phone_scan' && (
               <button
                 type="button"
                 onClick={() => setIsPhoneScannerOpen(true)}
-                className="px-3 py-1 rounded-full bg-gold-500 hover:bg-gold-600 text-maroon-950 text-xs font-bold flex items-center gap-1.5 shadow-warm-xs cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full bg-[#F2B66D] hover:bg-[#e59f45] text-[#173B67] text-xs font-bold flex items-center gap-1.5 shadow-soft cursor-pointer"
               >
                 <Smartphone className="w-3.5 h-3.5" />
                 <span>Open Phone Scanner</span>
@@ -490,11 +489,11 @@ export const GuidedDemoModal: React.FC = () => {
       {/* 4. BOTTOM DOCK CONTROLS (PLAY / PAUSE / PREV / NEXT / SPEED) */}
       {/* ------------------------------------------------------------------ */}
       <div className="relative z-30 max-w-4xl w-full mx-auto px-4 pb-6">
-        <div className="p-3.5 sm:p-4 rounded-3xl bg-slate-900/95 text-white backdrop-blur-md border border-slate-700 shadow-2xl">
+        <div className="p-3.5 sm:p-4 rounded-3xl bg-[#173B67]/95 text-white backdrop-blur-md border border-sky-400/30 shadow-2xl">
           {/* Step Progress Bar */}
-          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+          <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden mb-3">
             <div
-              className="h-full bg-gradient-to-r from-maroon-500 via-gold-400 to-emerald-400 transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#62B6E8] via-[#F2B66D] to-white transition-all duration-300"
               style={{
                 width: `${((currentStepIndex + stepSecondsElapsed / currentStep.durationSeconds) / activeStory.steps.length) * 100}%`
               }}
@@ -504,10 +503,10 @@ export const GuidedDemoModal: React.FC = () => {
           <div className="flex items-center justify-between gap-4">
             {/* Left: Step Info */}
             <div className="text-xs">
-              <div className="font-bold text-amber-400">
+              <div className="font-bold text-[#F2B66D]">
                 Step {currentStep.stepNumber} of 11: {currentStep.stageName}
               </div>
-              <div className="text-[11px] text-slate-400">
+              <div className="text-[11px] text-sky-200">
                 Auto-advancing in {Math.max(0, currentStep.durationSeconds - stepSecondsElapsed)}s
               </div>
             </div>
@@ -518,7 +517,7 @@ export const GuidedDemoModal: React.FC = () => {
                 type="button"
                 onClick={handlePrevStep}
                 disabled={currentStepIndex === 0}
-                className="p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-white transition-colors cursor-pointer"
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-30 text-white transition-colors cursor-pointer"
                 title="Previous step (Left Arrow)"
               >
                 <SkipBack className="w-4 h-4" />
@@ -527,7 +526,7 @@ export const GuidedDemoModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="p-3.5 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-black shadow-lg hover:scale-105 transition-transform cursor-pointer"
+                className="p-3.5 rounded-full bg-[#F2B66D] hover:bg-[#e59f45] text-[#173B67] font-black shadow-lg hover:scale-105 transition-transform cursor-pointer"
                 title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
               >
                 {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
@@ -537,7 +536,7 @@ export const GuidedDemoModal: React.FC = () => {
                 type="button"
                 onClick={handleNextStep}
                 disabled={currentStepIndex === activeStory.steps.length - 1}
-                className="p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-white transition-colors cursor-pointer"
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-30 text-white transition-colors cursor-pointer"
                 title="Next step (Right Arrow)"
               >
                 <SkipForward className="w-4 h-4" />

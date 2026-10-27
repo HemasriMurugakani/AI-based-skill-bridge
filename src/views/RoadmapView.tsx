@@ -8,6 +8,7 @@ import { LessonDrawer } from '../components/LessonDrawer';
 import { AIThinking } from '../components/AIThinking';
 import { StatusPill } from '../components/StatusPill';
 import { TrustLabel } from '../components/TrustLabel';
+import { AboutThisData } from '../components/ui/AboutThisData';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import {
@@ -185,7 +186,7 @@ export const RoadmapView: React.FC = () => {
         particleCount: 50,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#7A1A12', '#B8761A', '#E8B23A', '#2F7D4F']
+        colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
       });
 
       setChangelog(prev => [
@@ -234,7 +235,7 @@ export const RoadmapView: React.FC = () => {
         particleCount: 40,
         spread: 55,
         origin: { y: 0.6 },
-        colors: ['#B8761A', '#2F7D4F', '#7A1A12']
+        colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
       });
 
       setChangelog(prev => [
@@ -261,7 +262,7 @@ export const RoadmapView: React.FC = () => {
       particleCount: 50,
       spread: 60,
       origin: { y: 0.6 },
-      colors: ['#7A1A12', '#B8761A', '#E8B23A', '#2F7D4F']
+      colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
     });
 
     setChangelog(prev => [
@@ -273,48 +274,51 @@ export const RoadmapView: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 1. Header & Pathway Switcher */}
-      <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] dark:border-slate-800 shadow-soft flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
-              Adaptive Winding Transit Roadmap
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
+              Adaptive Learning Roadmap
             </span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-gold-100 text-gold-900 font-bold capitalize">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] font-semibold border border-[#BAE6FD] capitalize">
               {currentRoadmap.category} Track
             </span>
-            <TrustLabel type="how-calculated" />
+            <AboutThisData
+              title="About Roadmap Adaptation"
+              description="Milestones dynamically adapt based on diagnostic quiz scores, speed of completion, and transferred foundational skills. Nodes marked transferable can be preserved when pivoting career pathways."
+            />
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#173B67] dark:text-white">
             {currentRoadmap.title}
           </h1>
-          <div className="font-tamil text-sm text-warm-muted dark:text-night-muted">
+          <div className="font-tamil text-sm text-[#526174] dark:text-slate-400">
             {currentRoadmap.titleTamil}
           </div>
-          <p className="mt-2 text-xs sm:text-sm text-warm-muted dark:text-night-muted max-w-xl leading-relaxed">
-            A 5-station metro pathway adapting to your diagnostic scores. Click any station to open the interactive lesson drawer with voice read-aloud and 2G text-only mode.
+          <p className="mt-2 text-xs sm:text-sm text-[#526174] dark:text-slate-300 max-w-xl leading-relaxed">
+            A flexible skill journey adapting to your diagnostic performance. Click any milestone to open interactive guided lessons with voice read-aloud and low-bandwidth mode.
           </p>
         </div>
 
         {/* Pathway Switcher Tabs */}
         <div className="flex flex-col gap-2 shrink-0">
-          <div className="flex items-center p-1 rounded-full bg-parchment-200 dark:bg-night-100 border border-warm-border/80">
+          <div className="flex items-center p-1 rounded-full bg-[#EAF5FC] dark:bg-slate-800 border border-[#E2E8F0] dark:border-slate-700">
             <button
               onClick={() => setSelectedPathwayKey('junior-web-dev')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 selectedPathwayKey === 'junior-web-dev'
-                  ? 'bg-maroon-700 text-white shadow-xs'
-                  : 'text-warm-muted hover:text-warm-ink'
+                  ? 'bg-[#62B6E8] text-[#173B67] shadow-soft'
+                  : 'text-[#526174] dark:text-slate-300 hover:text-[#173B67]'
               }`}
             >
               Web Dev (Academic)
             </button>
             <button
               onClick={() => setSelectedPathwayKey('tailoring-craft')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 selectedPathwayKey === 'tailoring-craft'
-                  ? 'bg-gold-600 text-white shadow-xs'
-                  : 'text-warm-muted hover:text-warm-ink'
+                  ? 'bg-[#62B6E8] text-[#173B67] shadow-soft'
+                  : 'text-[#526174] dark:text-slate-300 hover:text-[#173B67]'
               }`}
             >
               Tailoring (Vocational)
@@ -322,15 +326,15 @@ export const RoadmapView: React.FC = () => {
           </div>
 
           {/* Quick Trigger Demo Buttons */}
-          <div className="flex items-center gap-1.5 justify-end">
+          <div className="flex items-center gap-1.5 justify-end flex-wrap">
             {selectedPathwayKey === 'junior-web-dev' && (
               <button
                 id="roadmap-quiz-trigger"
                 type="button"
                 onClick={() => setIsQuizOpen(true)}
-                className="px-3 py-1 rounded-full text-[11px] font-bold bg-maroon-100 text-maroon-800 border border-maroon-300 hover:bg-maroon-200 cursor-pointer flex items-center gap-1"
+                className="px-3 py-1 rounded-btn text-xs font-semibold bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD] cursor-pointer flex items-center gap-1 transition-colors"
               >
-                <Zap className="w-3 h-3 text-maroon-700" />
+                <Zap className="w-3.5 h-3.5 text-[#62B6E8]" />
                 <span>Take CSS Quiz</span>
               </button>
             )}
@@ -338,18 +342,18 @@ export const RoadmapView: React.FC = () => {
             <button
               type="button"
               onClick={handleFinishedEarly}
-              className="px-3 py-1 rounded-full text-[11px] font-bold bg-gold-100 text-gold-900 border border-gold-300 hover:bg-gold-200 cursor-pointer flex items-center gap-1"
+              className="px-3 py-1 rounded-btn text-xs font-semibold bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] cursor-pointer flex items-center gap-1 transition-colors"
             >
-              <Award className="w-3 h-3 text-gold-700" />
+              <Award className="w-3.5 h-3.5 text-[#F2B66D]" />
               <span>Finished Early</span>
             </button>
 
             <button
               type="button"
               onClick={handleChangeGoal}
-              className="px-3 py-1 rounded-full text-[11px] font-bold bg-parchment-200 text-warm-ink border border-warm-border hover:bg-parchment-300 cursor-pointer flex items-center gap-1"
+              className="px-3 py-1 rounded-btn text-xs font-semibold bg-white hover:bg-[#EAF5FC] text-[#173B67] border border-[#E2E8F0] cursor-pointer flex items-center gap-1 transition-colors"
             >
-              <RefreshCw className="w-3 h-3" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#526174]" />
               <span>Change Goal</span>
             </button>
 
@@ -357,14 +361,14 @@ export const RoadmapView: React.FC = () => {
             <button
               type="button"
               onClick={downloadLessonsOffline}
-              className={`px-3 py-1 rounded-full text-[11px] font-bold cursor-pointer flex items-center gap-1 transition-all ${
+              className={`px-3 py-1 rounded-btn text-xs font-semibold cursor-pointer flex items-center gap-1 transition-all ${
                 isLessonsDownloaded
-                  ? 'bg-forest-100 text-forest-800 border border-forest-300 dark:bg-forest-950 dark:text-forest-200'
-                  : 'bg-forest-700 hover:bg-forest-800 text-white shadow-xs'
+                  ? 'bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]'
+                  : 'bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] shadow-soft'
               }`}
               title="Pre-cache roadmap modules, code prompts, and transcripts for 100% offline learning"
             >
-              <Download className="w-3 h-3" />
+              <Download className="w-3.5 h-3.5" />
               <span>
                 {isLessonsDownloaded
                   ? 'Offline Ready (4.2 MB)'
@@ -379,27 +383,27 @@ export const RoadmapView: React.FC = () => {
 
       {/* Thinking state when adapting */}
       {isAdapting && (
-        <div className="p-8 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border dark:border-night-border shadow-warm-md text-center">
+        <div className="p-8 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] dark:border-slate-800 shadow-soft text-center">
           <AIThinking
             stage="adapting"
-            labelEnglish="Calling /api/roadmap-adapt: Restructuring metro nodes and inserting targeted milestones..."
+            labelEnglish="Calling /api/roadmap-adapt: Restructuring milestone nodes and inserting targeted pathways..."
             labelTamil="வழிகாட்டி வரைபடத்தில் புதிய மைல்கற்களை AI சேர்க்கிறது..."
           />
         </div>
       )}
 
       {/* 2. LIVE CHANGELOG BANNER */}
-      <div className="p-4 rounded-2xl bg-parchment-100/90 dark:bg-night-100/90 border border-gold-300/60 dark:border-gold-700/60 shadow-xs flex items-start gap-3 text-xs">
-        <div className="p-1.5 rounded-xl bg-gold-200 dark:bg-gold-800 text-gold-900 dark:text-gold-100 mt-0.5 shrink-0">
-          <Sparkles className="w-4 h-4" />
+      <div className="p-4 rounded-card bg-[#EAF5FC] dark:bg-[#0F2035] border border-[#BAE6FD] dark:border-slate-700 shadow-soft flex items-start gap-3 text-xs">
+        <div className="p-1.5 rounded-btn bg-[#62B6E8]/20 text-[#173B67] dark:text-[#62B6E8] mt-0.5 shrink-0">
+          <Sparkles className="w-4 h-4 text-[#173B67] dark:text-[#62B6E8]" />
         </div>
         <div className="flex-1">
-          <div className="font-bold text-warm-ink dark:text-night-ink uppercase tracking-wide text-[10px]">
+          <div className="font-bold text-[#173B67] dark:text-white uppercase tracking-wider text-[11px]">
             Adaptive Roadmap Audit Trail & Changelog
           </div>
           <div className="mt-1 space-y-1">
             {changelog.slice(0, 3).map((log, idx) => (
-              <div key={idx} className="text-warm-muted dark:text-night-muted leading-relaxed">
+              <div key={idx} className="text-[#526174] dark:text-slate-300 leading-relaxed">
                 {log}
               </div>
             ))}
@@ -407,18 +411,15 @@ export const RoadmapView: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. WINDING METRO-LINE TRANSIT MAP (Interactive Stations) */}
-      <section id="roadmap-milestones-tree" className="relative p-6 sm:p-10 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-md overflow-hidden">
-        {/* Kolam background texture */}
-        <div className="absolute inset-0 kolam-pattern-bg opacity-20 pointer-events-none" />
-
+      {/* 3. WINDING TRANSIT MAP (Interactive Stations) */}
+      <section id="roadmap-milestones-tree" className="relative p-6 sm:p-10 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] dark:border-slate-800 shadow-soft overflow-hidden">
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
-              Station by Station Proof Transit
+            <span className="text-xs font-bold uppercase tracking-wider text-[#62B6E8]">
+              Milestone by Milestone Progression
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
-              The {currentRoadmap.title} Line
+            <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
+              The {currentRoadmap.title} Pathway
             </h2>
           </div>
 
@@ -428,7 +429,7 @@ export const RoadmapView: React.FC = () => {
             <div
               className="absolute left-6 sm:left-1/2 top-4 bottom-4 w-1.5 -translate-x-1/2 rounded-full pointer-events-none"
               style={{
-                backgroundColor: currentRoadmap.color,
+                backgroundColor: '#62B6E8',
                 opacity: 0.35
               }}
             />
@@ -454,101 +455,101 @@ export const RoadmapView: React.FC = () => {
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.55, type: 'spring' }}
                     onClick={() => setActiveLessonMilestone(milestone)}
-                    className={`w-full sm:w-[calc(50%-2rem)] p-5 rounded-2xl border transition-all cursor-pointer group hover:-translate-y-1 hover:shadow-warm-md ${
+                    className={`w-full sm:w-[calc(50%-2rem)] p-5 rounded-card border transition-all cursor-pointer group hover:-translate-y-0.5 hover:shadow-soft ${
                       isNewlyAdded || isRemedial
-                        ? 'bg-terracotta-50/90 dark:bg-terracotta-950/70 border-terracotta-500 ring-4 ring-terracotta-400/70 shadow-warm-lg animate-pulse'
+                        ? 'bg-[#FEF2F2] dark:bg-[#7F1D1D]/20 border-[#F87171] ring-2 ring-[#FCA5A5]/60 shadow-soft'
                         : isCompleted
-                        ? 'bg-forest-50/80 dark:bg-forest-950/40 border-forest-300 dark:border-forest-800'
+                        ? 'bg-[#ECFDF5] dark:bg-[#064E3B]/20 border-[#A7F3D0] dark:border-[#059669]'
                         : isStretch
-                        ? 'bg-gold-50/90 dark:bg-gold-950/70 border-gold-400 ring-4 ring-gold-400/60 shadow-warm-md'
+                        ? 'bg-[#FFFBEB] dark:bg-[#78350F]/20 border-[#FCD34D] ring-2 ring-[#FDE68A]/60 shadow-soft'
                         : isCurrent
-                        ? 'bg-parchment-100 dark:bg-night-100 border-gold-400 dark:border-gold-600 ring-2 ring-gold-400/50 shadow-warm-md'
-                        : 'bg-white/70 dark:bg-night-card border-warm-border/60 opacity-80'
+                        ? 'bg-[#EAF5FC] dark:bg-[#0C4A6E]/30 border-[#62B6E8] ring-2 ring-[#62B6E8]/40 shadow-soft'
+                        : 'bg-white dark:bg-[#0F2035] border-[#E2E8F0] dark:border-slate-800 opacity-90'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-parchment-200 dark:bg-night-100 uppercase tracking-wide">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-slate-800 text-[#173B67] dark:text-[#62B6E8] uppercase tracking-wide border border-[#BAE6FD] dark:border-slate-700">
                           Station {milestone.stepNumber < 10 ? `0${milestone.stepNumber}` : milestone.stepNumber}
                         </span>
-                        <span className="text-[10px] font-semibold text-warm-muted flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
+                        <span className="text-[10px] font-semibold text-[#526174] dark:text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-[#526174]" />
                           {milestone.timeEstimate}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-1">
                         {isNewlyAdded && (
-                          <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-terracotta-600 text-white animate-bounce">
+                          <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#EF4444] text-white animate-pulse">
                             ⚡ Just Added
                           </span>
                         )}
 
                         {milestone.transferable && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-gold-100 text-gold-900 border border-gold-300">
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
                             Transferable
                           </span>
                         )}
                       </div>
                     </div>
 
-                    <h3 className="text-base font-bold text-warm-ink dark:text-night-ink group-hover:text-maroon-700 transition-colors">
+                    <h3 className="text-base font-bold text-[#173B67] dark:text-white group-hover:text-[#62B6E8] transition-colors">
                       {milestone.title}
                     </h3>
-                    <div className="font-tamil text-xs text-warm-muted dark:text-night-muted mt-0.5">
+                    <div className="font-tamil text-xs text-[#526174] dark:text-slate-400 mt-0.5">
                       {milestone.titleTamil}
                     </div>
 
-                    <p className="mt-2 text-xs text-warm-muted dark:text-night-muted leading-relaxed">
+                    <p className="mt-2 text-xs text-[#526174] dark:text-slate-300 leading-relaxed">
                       {milestone.activity}
                     </p>
 
                     {/* "Why this step" evidence line */}
-                    <div className="mt-3 p-2.5 rounded-xl bg-white/80 dark:bg-black/30 border border-warm-border/60 text-[11px] leading-snug">
-                      <span className="font-bold text-maroon-800 dark:text-gold-400">Why this step: </span>
-                      <span className="text-warm-muted dark:text-night-muted">{milestone.whyThisStep}</span>
+                    <div className="mt-3 p-2.5 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 text-[11px] leading-snug">
+                      <span className="font-bold text-[#173B67] dark:text-[#62B6E8]">Why this step: </span>
+                      <span className="text-[#526174] dark:text-slate-300">{milestone.whyThisStep}</span>
                     </div>
 
                     {/* Transferable Reused Milestone Note */}
                     {milestone.transferNote && (
-                      <div className="mt-2.5 p-2 rounded-xl bg-gold-100/80 dark:bg-gold-950/60 border border-gold-300/80 text-[10px] text-gold-900 dark:text-gold-200 flex items-center gap-1.5 font-medium">
-                        <Sparkles className="w-3.5 h-3.5 text-gold-600 shrink-0" />
+                      <div className="mt-2.5 p-2 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] dark:border-slate-700 text-[10px] text-[#173B67] dark:text-[#62B6E8] flex items-center gap-1.5 font-medium">
+                        <Sparkles className="w-3.5 h-3.5 text-[#62B6E8] shrink-0" />
                         <span>{milestone.transferNote}</span>
                       </div>
                     )}
 
                     {/* Bottom Status / Score */}
-                    <div className="mt-3 pt-2.5 border-t border-warm-border/50 flex items-center justify-between text-xs">
+                    <div className="mt-3 pt-2.5 border-t border-[#E2E8F0] dark:border-slate-800 flex items-center justify-between text-xs">
                       <span className="font-bold capitalize flex items-center gap-1">
                         {isCompleted ? (
-                          <span className="text-forest-700 dark:text-forest-400 flex items-center gap-1">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span className="text-[#065F46] dark:text-[#10B981] flex items-center gap-1">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
                             Completed ({milestone.score}%)
                           </span>
                         ) : isRemedial ? (
-                          <span className="text-terracotta-700 font-bold flex items-center gap-1">
+                          <span className="text-[#DC2626] dark:text-[#F87171] font-semibold flex items-center gap-1">
                             <Zap className="w-3.5 h-3.5" />
                             Adaptive Practice Node
                           </span>
                         ) : isStretch ? (
-                          <span className="text-gold-700 font-bold flex items-center gap-1">
+                          <span className="text-[#B45309] dark:text-[#F2B66D] font-semibold flex items-center gap-1">
                             <Award className="w-3.5 h-3.5" />
                             Bonus Stretch Station
                           </span>
                         ) : isCurrent ? (
-                          <span className="text-maroon-700 dark:text-gold-400 flex items-center gap-1">
-                            <Sparkles className="w-3.5 h-3.5" />
+                          <span className="text-[#173B67] dark:text-[#62B6E8] font-semibold flex items-center gap-1">
+                            <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
                             Current Focus Station
                           </span>
                         ) : (
-                          <span className="text-warm-muted flex items-center gap-1">
+                          <span className="text-[#526174] dark:text-slate-400 flex items-center gap-1">
                             <Lock className="w-3.5 h-3.5" />
                             Locked
                           </span>
                         )}
                       </span>
 
-                      <span className="text-maroon-700 dark:text-gold-400 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-0.5">
+                      <span className="text-[#173B67] dark:text-[#62B6E8] font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-0.5">
                         <span>Open Lesson</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </span>
@@ -558,20 +559,20 @@ export const RoadmapView: React.FC = () => {
                   {/* Center Metro Station Hub Icon */}
                   <div
                     onClick={() => setActiveLessonMilestone(milestone)}
-                    className={`absolute left-6 sm:left-1/2 -translate-x-1/2 w-11 h-11 rounded-full border-4 border-white dark:border-night-card shadow-warm-md flex items-center justify-center font-bold text-xs cursor-pointer transition-transform hover:scale-125 z-10 ${
+                    className={`absolute left-6 sm:left-1/2 -translate-x-1/2 w-11 h-11 rounded-full border-4 border-white dark:border-[#0F2035] shadow-soft flex items-center justify-center font-bold text-xs cursor-pointer transition-transform hover:scale-110 z-10 ${
                       isCompleted
-                        ? 'bg-forest-600 text-white'
+                        ? 'bg-[#10B981] text-white'
                         : isRemedial
-                        ? 'bg-terracotta-600 text-white ring-4 ring-terracotta-300 animate-bounce'
+                        ? 'bg-[#EF4444] text-white ring-4 ring-[#FCA5A5]'
                         : isStretch
-                        ? 'bg-gold-500 text-maroon-950 ring-4 ring-gold-300'
+                        ? 'bg-[#F2B66D] text-[#173B67] ring-4 ring-[#FEF3C7]'
                         : isCurrent
-                        ? 'bg-maroon-700 text-white ring-4 ring-gold-400 animate-pulse'
-                        : 'bg-warm-200 dark:bg-night-100 text-warm-muted'
+                        ? 'bg-[#62B6E8] text-[#173B67] ring-4 ring-[#BAE6FD]'
+                        : 'bg-[#E2E8F0] dark:bg-slate-800 text-[#526174]'
                     }`}
                   >
                     {isCompleted ? (
-                      <CheckCircle2 className="w-5 h-5" />
+                      <CheckCircle2 className="w-5 h-5 text-white" />
                     ) : (
                       <span>{milestone.stepNumber}</span>
                     )}

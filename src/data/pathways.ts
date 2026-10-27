@@ -10,7 +10,7 @@ export const pathways: Pathway[] = [
     description: 'Master core web fundamentals, responsive CSS layouts, modern TypeScript, state management, and API integration verified by reproducible code submissions.',
     totalModules: 8,
     estimatedWeeks: 12,
-    color: '#8B1E14',
+    color: '#173B67',
     iconName: 'Code',
     targetRoles: ['Junior Frontend Dev', 'React Developer', 'Web Assistant', 'Technical Trainee'],
     skills: [
@@ -101,7 +101,7 @@ export const pathways: Pathway[] = [
     description: 'Learn pattern drafting, precision scissor cutting, seam tolerances, neckline piping, and industrial sewing machine maintenance proven with step-by-step photographic inspection.',
     totalModules: 6,
     estimatedWeeks: 8,
-    color: '#B8761A',
+    color: '#F2B66D',
     iconName: 'Scissors',
     targetRoles: ['Boutique Tailor', 'Garment Finishing Master', 'Sample Maker', 'Apparel Quality Inspector'],
     skills: [
@@ -232,7 +232,7 @@ export const pathways: Pathway[] = [
     description: 'Transform messy tabular data with SQL queries, Excel Power Query, Python pandas, and interactive PowerBI/Tableau charts backed by reproducible notebooks.',
     totalModules: 8,
     estimatedWeeks: 10,
-    color: '#4F46E5',
+    color: '#62B6E8',
     iconName: 'BarChart3',
     isStub: true,
     targetRoles: ['Junior Data Analyst', 'MIS Executive', 'Business Ops Analyst', 'Data QA Associate'],

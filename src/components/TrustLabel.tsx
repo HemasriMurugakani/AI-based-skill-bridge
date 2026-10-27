@@ -22,45 +22,45 @@ export const TrustLabel: React.FC<TrustLabelProps> = ({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`inline-flex items-center gap-1.5 text-xs text-maroon-700 dark:text-gold-400 hover:text-maroon-900 dark:hover:text-gold-300 font-medium underline underline-offset-2 transition-colors cursor-pointer ${className}`}
+          className={`inline-flex items-center gap-1.5 text-xs text-[#173B67] hover:text-[#62B6E8] font-medium font-poppins underline underline-offset-2 transition-colors cursor-pointer ${className}`}
         >
-          <HelpCircle className="w-3.5 h-3.5" />
+          <HelpCircle className="w-3.5 h-3.5 text-[#62B6E8]" />
           <span>{t('skills.howCalculated')}</span>
         </button>
 
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
-            <div className="relative w-full max-w-md p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border dark:border-night-border shadow-warm-lg">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
+            <div className="relative w-full max-w-md p-6 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] dark:border-slate-700 shadow-soft font-poppins">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-xl bg-gold-100 dark:bg-gold-950/60 text-gold-700 dark:text-gold-300">
-                    <ShieldCheck className="w-5 h-5" />
+                  <div className="p-2 rounded-btn bg-[#EAF5FC] text-[#173B67]">
+                    <ShieldCheck className="w-5 h-5 text-[#62B6E8]" />
                   </div>
-                  <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+                  <h3 className="text-base font-bold text-[#173B67] dark:text-white">
                     {t('skills.howCalculated')}
                   </h3>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 rounded-lg text-warm-muted hover:bg-warm-100 dark:hover:bg-night-100"
+                  className="p-1 rounded-btn text-[#526174] hover:bg-[#F8FAFC] dark:hover:bg-slate-800"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="mt-4 space-y-3 text-xs md:text-sm text-warm-muted dark:text-night-muted leading-relaxed">
+              <div className="mt-4 space-y-3 text-xs md:text-sm text-[#526174] dark:text-slate-300 leading-relaxed">
                 <p>
                   {explanationText || t('skills.howCalculatedExplanation')}
                 </p>
-                <div className="p-3 rounded-xl bg-parchment-200/70 dark:bg-night-100/60 border border-warm-border/60 text-xs">
-                  <div className="font-semibold text-warm-ink dark:text-night-ink mb-1">
+                <div className="p-3 rounded-btn bg-[#EAF5FC]/60 dark:bg-slate-800/60 border border-[#BAE6FD]/60 text-xs">
+                  <div className="font-semibold text-[#173B67] dark:text-white mb-1">
                     Guiding Fairness Principle:
                   </div>
                   <div>
-                    Unassessed skills are kept strictly <span className="font-semibold text-warm-ink dark:text-night-ink">neutral ("Not assessed")</span>. They are never classified as "unqualified" or marked in red.
+                    Unassessed skills are kept strictly <span className="font-semibold text-[#173B67] dark:text-white">neutral ("Not assessed")</span>. They are never classified as "unqualified" or marked in red.
                   </div>
                 </div>
-                <div className="text-[11px] text-warm-subtle dark:text-night-muted italic">
+                <div className="text-[11px] text-[#526174] dark:text-slate-400 italic">
                   Formula: 45% Submitted Proofs + 30% Viva Defenses + 15% Rubric Checks + 10% Habit Consistency.
                 </div>
               </div>
@@ -68,7 +68,7 @@ export const TrustLabel: React.FC<TrustLabelProps> = ({
               <div className="mt-5 flex justify-end">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-1.5 rounded-full text-xs font-semibold bg-maroon-700 text-white hover:bg-maroon-800 transition-colors shadow-warm-sm"
+                  className="px-4 py-2 rounded-btn text-xs font-semibold bg-[#62B6E8] text-[#173B67] hover:bg-[#50a7dc] transition-colors shadow-soft cursor-pointer"
                 >
                   Understood
                 </button>
@@ -83,9 +83,9 @@ export const TrustLabel: React.FC<TrustLabelProps> = ({
   if (type === 'evidence-badge') {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-forest-50 dark:bg-forest-950/50 text-forest-800 dark:text-forest-300 border border-forest-200 dark:border-forest-800/60 ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium font-poppins bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0] ${className}`}
       >
-        <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+        <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
         <span>{t('trust.evidenceBacked')}</span>
       </span>
     );
@@ -94,9 +94,9 @@ export const TrustLabel: React.FC<TrustLabelProps> = ({
   if (type === 'sample-opportunity') {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-gold-100/90 dark:bg-gold-950/70 text-gold-900 dark:text-gold-200 border border-gold-300/80 dark:border-gold-700/60 uppercase tracking-wider ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold font-poppins bg-[#FCF3E5] text-[#9A5B13] border border-[#F2B66D]/40 uppercase tracking-wider ${className}`}
       >
-        <Info className="w-3 h-3 text-gold-700 dark:text-gold-300" />
+        <Info className="w-3 h-3 text-[#F2B66D]" />
         <span>{t('trust.sampleOpportunity')}</span>
       </span>
     );
@@ -105,9 +105,9 @@ export const TrustLabel: React.FC<TrustLabelProps> = ({
   if (type === 'ai-disclaimer') {
     return (
       <div
-        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs bg-parchment-200/60 dark:bg-night-100/60 text-warm-muted dark:text-night-muted border border-warm-border/80 dark:border-night-border ${className}`}
+        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-btn text-xs font-poppins bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] ${className}`}
       >
-        <Sparkles className="w-3.5 h-3.5 text-maroon-600 dark:text-gold-400 shrink-0" />
+        <Info className="w-3.5 h-3.5 text-[#62B6E8] shrink-0" />
         <span>{t('trust.aiDisclaimer')}</span>
       </div>
     );

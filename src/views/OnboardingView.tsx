@@ -199,13 +199,13 @@ export const OnboardingView: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto py-4 sm:py-8 space-y-6 animate-in fade-in duration-300">
       {/* Wizard Step Progress Header */}
-      <div className="p-4 sm:p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm">
+      <div className="p-4 sm:p-6 rounded-card bg-white border border-[#E2E8F0] shadow-soft">
         <div className="flex items-center justify-between gap-4 mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-gold-100 dark:bg-gold-950/70 text-gold-900 dark:text-gold-300 uppercase tracking-wider">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] uppercase tracking-wider">
               Step {step} of 5
             </span>
-            <span className="text-xs font-semibold text-warm-muted dark:text-night-muted">
+            <span className="text-xs font-semibold text-[#526174]">
               {step === 1 && 'Learner Identity'}
               {step === 2 && 'Career Goal'}
               {step === 3 && 'Current Skills'}
@@ -219,9 +219,9 @@ export const OnboardingView: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsVoiceSettingsOpen(true)}
-              className="px-2.5 py-1 rounded-full text-xs font-semibold bg-parchment-200 dark:bg-night-100 hover:bg-gold-100 text-warm-ink dark:text-night-ink border border-warm-border/80 flex items-center gap-1.5 cursor-pointer transition-colors"
+              className="px-2.5 py-1 rounded-btn text-xs font-semibold bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD] flex items-center gap-1.5 cursor-pointer transition-colors"
             >
-              <Mic className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />
+              <Mic className="w-3.5 h-3.5 text-[#173B67]" />
               <span>Test Voice</span>
             </button>
             <ReadAloudButton
@@ -233,31 +233,31 @@ export const OnboardingView: React.FC = () => {
         </div>
 
         {/* Visual Progress Bar */}
-        <div className="h-2 w-full bg-parchment-200 dark:bg-night-100 rounded-full overflow-hidden">
+        <div className="h-2.5 w-full bg-[#EAF5FC] rounded-full overflow-hidden p-0.5 border border-[#BAE6FD]">
           <div
-            className="h-full bg-gradient-to-r from-maroon-700 via-gold-500 to-forest-600 rounded-full transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#173B67] via-[#62B6E8] to-[#10B981] rounded-full transition-all duration-300 shadow-xs"
             style={{ width: `${(Math.min(step, 5) / 5) * 100}%` }}
           />
         </div>
       </div>
 
       {/* Main Wizard Form Card */}
-      <div id="onboarding-voice-section" className="p-6 sm:p-8 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-md">
+      <div id="onboarding-voice-section" className="p-6 sm:p-8 rounded-card bg-white border border-[#E2E8F0] shadow-soft">
         {/* STEP 1: NAME */}
         {step === 1 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+              <h2 className="text-2xl font-bold text-[#173B67]">
                 What is your name?
               </h2>
-              <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+              <div className="font-tamil text-sm text-[#526174] mt-0.5">
                 உங்கள் பெயர் என்ன? (குரல் வழி உள்ளீடும் செய்யலாம்)
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-warm-ink dark:text-night-ink mb-1.5 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
                   Your Full Name (English)
                 </label>
                 <div className="flex items-center gap-2">
@@ -266,7 +266,7 @@ export const OnboardingView: React.FC = () => {
                     value={learnerName}
                     onChange={(e) => setLearnerName(e.target.value)}
                     placeholder="e.g. Priya Soundararajan or Lakshmi Arumugam"
-                    className="flex-1 px-4 py-3 rounded-xl text-sm bg-parchment-100 dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500 font-medium"
+                    className="flex-1 px-4 py-3 rounded-btn text-sm bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] font-medium"
                   />
                   <VoiceInputButton
                     onTranscript={(text) => setLearnerName(text)}
@@ -277,7 +277,7 @@ export const OnboardingView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-warm-ink dark:text-night-ink mb-1.5 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
                   Tamil Name (Optional / தமிழில் பெயர்)
                 </label>
                 <div className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export const OnboardingView: React.FC = () => {
                     value={learnerTamilName}
                     onChange={(e) => setLearnerTamilName(e.target.value)}
                     placeholder="எ.கா. பிரியா அல்லது லட்சுமி"
-                    className="flex-1 px-4 py-3 rounded-xl text-sm font-tamil bg-parchment-100 dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500"
+                    className="flex-1 px-4 py-3 rounded-btn text-sm font-tamil bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
                   />
                   <VoiceInputButton
                     onTranscript={(text) => setLearnerTamilName(text)}
@@ -302,10 +302,10 @@ export const OnboardingView: React.FC = () => {
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+              <h2 className="text-2xl font-bold text-[#173B67]">
                 What is your main career or learning goal?
               </h2>
-              <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+              <div className="font-tamil text-sm text-[#526174] mt-0.5">
                 நீங்கள் அடைய விரும்பும் இலக்கு என்ன?
               </div>
             </div>
@@ -317,16 +317,16 @@ export const OnboardingView: React.FC = () => {
                   key={idx}
                   type="button"
                   onClick={() => setGoal(qg.title)}
-                  className={`p-4 rounded-xl text-left border transition-all cursor-pointer ${
+                  className={`p-4 rounded-btn text-left border transition-all cursor-pointer ${
                     goal === qg.title
-                      ? 'bg-maroon-50 dark:bg-maroon-950/60 border-maroon-600 ring-2 ring-gold-400'
-                      : 'bg-parchment-100 dark:bg-night-100 border-warm-border hover:border-gold-400'
+                      ? 'bg-[#EAF5FC] border-[#62B6E8] ring-2 ring-[#62B6E8]/30 shadow-soft'
+                      : 'bg-[#F8FAFC] border-[#E2E8F0] hover:border-[#62B6E8]'
                   }`}
                 >
-                  <div className="font-bold text-xs sm:text-sm text-warm-ink dark:text-night-ink">
+                  <div className="font-bold text-xs sm:text-sm text-[#173B67]">
                     {qg.title}
                   </div>
-                  <div className="font-tamil text-xs text-warm-muted dark:text-night-muted mt-1">
+                  <div className="font-tamil text-xs text-[#526174] mt-1">
                     {qg.tamil}
                   </div>
                 </button>
@@ -334,7 +334,7 @@ export const OnboardingView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-warm-ink dark:text-night-ink mb-1.5 uppercase tracking-wide">
+              <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
                 Or Type / Speak Your Custom Goal
               </label>
               <div className="flex items-center gap-2">
@@ -343,7 +343,7 @@ export const OnboardingView: React.FC = () => {
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
                   placeholder="e.g. Master React and get a job in Coimbatore tech park..."
-                  className="flex-1 px-4 py-3 rounded-xl text-sm bg-parchment-100 dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500 font-medium"
+                  className="flex-1 px-4 py-3 rounded-btn text-sm bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] font-medium"
                 />
                 <VoiceInputButton
                   onTranscript={(text) => setGoal(text)}
@@ -359,10 +359,10 @@ export const OnboardingView: React.FC = () => {
         {step === 3 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+              <h2 className="text-2xl font-bold text-[#173B67]">
                 Select Your Existing Skills & Self-Rating
               </h2>
-              <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+              <div className="font-tamil text-sm text-[#526174] mt-0.5">
                 உங்களுக்கு ஏற்கனவே தெரிந்த திறன்களை தேர்வு செய்யவும் (1 முதல் 5 நட்சத்திரம்)
               </div>
             </div>
@@ -372,8 +372,8 @@ export const OnboardingView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSkillCategory('tech')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  skillCategory === 'tech' ? 'bg-maroon-700 text-white' : 'bg-parchment-200 text-warm-muted'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  skillCategory === 'tech' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
                 Web & Software
@@ -381,8 +381,8 @@ export const OnboardingView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSkillCategory('tailor')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  skillCategory === 'tailor' ? 'bg-maroon-700 text-white' : 'bg-parchment-200 text-warm-muted'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  skillCategory === 'tailor' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
                 Tailoring & Textiles
@@ -390,8 +390,8 @@ export const OnboardingView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSkillCategory('elec')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  skillCategory === 'elec' ? 'bg-maroon-700 text-white' : 'bg-parchment-200 text-warm-muted'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  skillCategory === 'elec' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
                 Electrical Wiring
@@ -399,8 +399,8 @@ export const OnboardingView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSkillCategory('data')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  skillCategory === 'data' ? 'bg-maroon-700 text-white' : 'bg-parchment-200 text-warm-muted'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  skillCategory === 'data' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
                 Data & Spreadsheets
@@ -408,8 +408,8 @@ export const OnboardingView: React.FC = () => {
             </div>
 
             {/* Quick Add Preset Chips */}
-            <div className="p-3 rounded-xl bg-parchment-100 dark:bg-night-100 border border-warm-border/60">
-              <div className="text-[11px] font-bold text-warm-muted mb-2 uppercase">
+            <div className="p-3 rounded-card bg-[#F8FAFC] border border-[#E2E8F0]">
+              <div className="text-[11px] font-bold text-[#526174] mb-2 uppercase">
                 Tap to add common skills:
               </div>
               <div className="flex flex-wrap gap-2">
@@ -418,9 +418,9 @@ export const OnboardingView: React.FC = () => {
                     key={idx}
                     type="button"
                     onClick={() => handleAddPresetSkill(preset)}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full text-xs bg-white dark:bg-night-card border border-warm-border hover:border-gold-400 text-warm-ink dark:text-night-ink"
+                    className="flex items-center gap-1 px-3 py-1 rounded-full text-xs bg-white border border-[#E2E8F0] hover:border-[#62B6E8] text-[#173B67]"
                   >
-                    <Plus className="w-3 h-3 text-maroon-700" />
+                    <Plus className="w-3 h-3 text-[#173B67]" />
                     <span>{preset.name}</span>
                   </button>
                 ))}
@@ -429,17 +429,17 @@ export const OnboardingView: React.FC = () => {
 
             {/* Added Skills with Self Rating */}
             <div className="space-y-2.5">
-              <div className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wide">
+              <div className="text-xs font-bold text-[#173B67] uppercase tracking-wide">
                 Your Added Skills ({selectedSkills.length}):
               </div>
               {selectedSkills.map((sk, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-white dark:bg-night-card border border-warm-border/80 flex items-center justify-between gap-3 text-xs"
+                  className="p-3 rounded-btn bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3 text-xs"
                 >
                   <div>
-                    <div className="font-bold text-warm-ink dark:text-night-ink">{sk.name}</div>
-                    {sk.nameTamil && <div className="font-tamil text-[10px] text-warm-muted">{sk.nameTamil}</div>}
+                    <div className="font-bold text-[#173B67]">{sk.name}</div>
+                    {sk.nameTamil && <div className="font-tamil text-[10px] text-[#526174]">{sk.nameTamil}</div>}
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -455,8 +455,8 @@ export const OnboardingView: React.FC = () => {
                           <Star
                             className={`w-4 h-4 ${
                               star <= sk.rating
-                                ? 'fill-gold-400 text-gold-500'
-                                : 'text-warm-border dark:text-night-border'
+                                ? 'fill-[#F2B66D] text-[#F2B66D]'
+                                : 'text-[#CBD5E1]'
                             }`}
                           />
                         </button>
@@ -466,7 +466,7 @@ export const OnboardingView: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleRemoveSkill(idx)}
-                      className="text-terracotta-600 hover:text-terracotta-800 text-xs font-bold ml-1"
+                      className="text-rose-500 hover:text-rose-700 text-xs font-bold ml-1"
                     >
                       ×
                     </button>
@@ -482,7 +482,7 @@ export const OnboardingView: React.FC = () => {
                 value={customSkillInput}
                 onChange={(e) => setCustomSkillInput(e.target.value)}
                 placeholder="Type or speak a custom skill (e.g. Photoshop, Welding, Tamil typing)..."
-                className="flex-1 px-4 py-2.5 rounded-xl text-xs bg-parchment-100 dark:bg-night-100 border border-warm-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="flex-1 px-4 py-2.5 rounded-btn text-xs bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
               />
               <VoiceInputButton
                 onTranscript={(text) => setCustomSkillInput(text)}
@@ -492,7 +492,7 @@ export const OnboardingView: React.FC = () => {
               <button
                 type="button"
                 onClick={handleAddCustomSkill}
-                className="px-4 py-2.5 rounded-xl bg-maroon-700 text-white text-xs font-bold shadow-xs hover:bg-maroon-800"
+                className="px-4 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] text-xs font-semibold shadow-soft"
               >
                 Add
               </button>
@@ -504,10 +504,10 @@ export const OnboardingView: React.FC = () => {
         {step === 4 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+              <h2 className="text-2xl font-bold text-[#173B67]">
                 How much time can you commit each day?
               </h2>
-              <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+              <div className="font-tamil text-sm text-[#526174] mt-0.5">
                 ஒரு நாளில் நீங்கள் எவ்வளவு நேரம் பயிற்சி செய்ய முடியும்?
               </div>
             </div>
@@ -550,35 +550,35 @@ export const OnboardingView: React.FC = () => {
                   <div
                     key={timeOpt.mins}
                     onClick={() => setDailyMinutes(timeOpt.mins)}
-                    className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                    className={`p-5 rounded-card border transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
-                        ? 'bg-maroon-50 dark:bg-maroon-950/60 border-maroon-600 ring-2 ring-gold-400 shadow-warm-md scale-[1.02]'
-                        : 'bg-parchment-100 dark:bg-night-100 border-warm-border hover:border-gold-400'
+                        ? 'bg-[#EAF5FC] border-[#62B6E8] ring-2 ring-[#62B6E8]/30 shadow-soft scale-[1.02]'
+                        : 'bg-[#F8FAFC] border-[#E2E8F0] hover:border-[#62B6E8]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <Clock className={`w-5 h-5 ${isSelected ? 'text-maroon-700 dark:text-gold-400' : 'text-warm-muted'}`} />
+                        <Clock className={`w-5 h-5 ${isSelected ? 'text-[#173B67]' : 'text-[#526174]'}`} />
                         {isSelected && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-maroon-700 text-white">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#62B6E8] text-[#173B67]">
                             Selected
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+                      <h3 className="text-base font-bold text-[#173B67]">
                         {timeOpt.title}
                       </h3>
-                      <div className="font-tamil text-xs text-warm-muted dark:text-night-muted">
+                      <div className="font-tamil text-xs text-[#526174]">
                         {timeOpt.titleTamil}
                       </div>
 
-                      <p className="text-xs text-warm-muted dark:text-night-muted mt-2 leading-relaxed">
+                      <p className="text-xs text-[#526174] mt-2 leading-relaxed">
                         {timeOpt.desc}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-2.5 border-t border-warm-border/50 text-[11px] font-semibold text-forest-700 dark:text-forest-400">
+                    <div className="mt-4 pt-2.5 border-t border-[#E2E8F0] text-[11px] font-semibold text-emerald-700">
                       ✓ {timeOpt.pacing}
                     </div>
                   </div>
@@ -592,10 +592,10 @@ export const OnboardingView: React.FC = () => {
         {step === 5 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+              <h2 className="text-2xl font-bold text-[#173B67]">
                 What style of work excites you most?
               </h2>
-              <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+              <div className="font-tamil text-sm text-[#526174] mt-0.5">
                 நீங்கள் விரும்பும் பணி பாணி எது?
               </div>
             </div>
@@ -643,37 +643,37 @@ export const OnboardingView: React.FC = () => {
                   <div
                     key={style.id}
                     onClick={() => setWorkPreference(style.id)}
-                    className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                    className={`p-5 rounded-card border transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
-                        ? 'bg-maroon-50 dark:bg-maroon-950/60 border-maroon-600 ring-2 ring-gold-400 shadow-warm-md scale-[1.02]'
-                        : 'bg-parchment-100 dark:bg-night-100 border-warm-border hover:border-gold-400'
+                        ? 'bg-[#EAF5FC] border-[#62B6E8] ring-2 ring-[#62B6E8]/30 shadow-soft scale-[1.02]'
+                        : 'bg-[#F8FAFC] border-[#E2E8F0] hover:border-[#62B6E8]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <div className="p-2 rounded-xl bg-white dark:bg-night-card text-maroon-700 dark:text-gold-400 border border-warm-border/60">
+                        <div className="p-2 rounded-btn bg-white text-[#173B67] border border-[#E2E8F0]">
                           <Icon className="w-5 h-5" />
                         </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gold-100 dark:bg-gold-950 text-gold-900 dark:text-gold-200">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67]">
                           {style.tag}
                         </span>
                       </div>
 
-                      <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+                      <h3 className="text-base font-bold text-[#173B67]">
                         {style.title}
                       </h3>
-                      <div className="font-tamil text-xs text-warm-muted dark:text-night-muted">
+                      <div className="font-tamil text-xs text-[#526174]">
                         {style.titleTamil}
                       </div>
 
-                      <p className="text-xs text-warm-muted dark:text-night-muted mt-2 leading-relaxed">
+                      <p className="text-xs text-[#526174] mt-2 leading-relaxed">
                         {style.desc}
                       </p>
                     </div>
 
                     {isSelected && (
-                      <div className="mt-4 pt-2.5 border-t border-maroon-200 dark:border-maroon-800 text-[11px] font-bold text-maroon-700 dark:text-gold-300 flex items-center gap-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      <div className="mt-4 pt-2.5 border-t border-[#BAE6FD] text-[11px] font-bold text-[#173B67] flex items-center gap-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                         Selected as Primary Preference
                       </div>
                     )}
@@ -697,14 +697,14 @@ export const OnboardingView: React.FC = () => {
             ) : (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-200 text-xs font-bold uppercase tracking-wider mb-2">
-                    <Sparkles className="w-3.5 h-3.5 text-forest-600" />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
                     <span>AI Pathway Recommendation</span>
                   </div>
-                  <h2 className="text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+                  <h2 className="text-2xl font-bold text-[#173B67]">
                     We Recommend: {pathways.find(p => p.id === recommendedPathwayId)?.title}
                   </h2>
-                  <div className="font-tamil text-sm text-warm-muted dark:text-night-muted">
+                  <div className="font-tamil text-sm text-[#526174]">
                     {pathways.find(p => p.id === recommendedPathwayId)?.titleTamil}
                   </div>
                 </div>
@@ -713,44 +713,44 @@ export const OnboardingView: React.FC = () => {
                 {(() => {
                   const rec = pathways.find(p => p.id === recommendedPathwayId) || pathways[0];
                   return (
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-parchment-100 to-parchment-200 dark:from-night-card dark:to-night-100 border-2 border-gold-400 dark:border-gold-600 shadow-warm-md space-y-4">
+                    <div className="p-6 rounded-card bg-gradient-to-br from-white via-[#EAF5FC]/60 to-white border-2 border-[#62B6E8] shadow-soft space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div>
-                          <span className="text-xs font-bold uppercase tracking-wide text-maroon-700 dark:text-gold-400">
+                          <span className="text-xs font-bold uppercase tracking-wide text-[#173B67]">
                             {rec.category.toUpperCase()} TRACK
                           </span>
-                          <h3 className="text-xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+                          <h3 className="text-xl font-extrabold text-[#173B67]">
                             {rec.title}
                           </h3>
                         </div>
 
-                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-forest-600 text-white self-start sm:self-auto">
+                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#10B981] text-white self-start sm:self-auto shadow-xs">
                           Best Match
                         </span>
                       </div>
 
-                      <p className="text-xs sm:text-sm text-warm-ink dark:text-night-ink leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#173B67] leading-relaxed">
                         {rec.description}
                       </p>
 
                       {/* "Why this?" collapsible rationale */}
-                      <div className="p-3.5 rounded-xl bg-white/80 dark:bg-black/30 border border-warm-border/60 text-xs space-y-1.5">
-                        <div className="font-bold text-maroon-800 dark:text-gold-400 flex items-center gap-1.5">
-                          <HelpCircle className="w-4 h-4" />
+                      <div className="p-3.5 rounded-btn bg-[#F8FAFC] border border-[#E2E8F0] text-xs space-y-1.5">
+                        <div className="font-bold text-[#173B67] flex items-center gap-1.5">
+                          <HelpCircle className="w-4 h-4 text-[#62B6E8]" />
                           <span>Why this recommendation?</span>
                         </div>
-                        <p className="text-warm-muted dark:text-night-muted leading-relaxed">
-                          Tailored for <span className="font-semibold text-warm-ink dark:text-night-ink">{learnerName || 'you'}</span> with <span className="font-semibold text-warm-ink dark:text-night-ink">{dailyMinutes} mins/day</span> availability and a primary interest in <span className="font-semibold text-warm-ink dark:text-night-ink">{workPreference}</span> work. Aligns directly with {rec.targetRoles.join(', ')}.
+                        <p className="text-[#526174] leading-relaxed">
+                          Tailored for <span className="font-semibold text-[#173B67]">{learnerName || 'you'}</span> with <span className="font-semibold text-[#173B67]">{dailyMinutes} mins/day</span> availability and a primary interest in <span className="font-semibold text-[#173B67]">{workPreference}</span> work. Aligns directly with {rec.targetRoles.join(', ')}.
                         </p>
                       </div>
 
                       {/* Target Roles */}
                       <div className="flex flex-wrap items-center gap-2 pt-1">
-                        <span className="text-[11px] font-bold text-warm-muted uppercase">Target Jobs:</span>
+                        <span className="text-[11px] font-bold text-[#526174] uppercase">Target Jobs:</span>
                         {rec.targetRoles.map((role, rIdx) => (
                           <span
                             key={rIdx}
-                            className="px-2.5 py-0.5 rounded-full text-[11px] bg-parchment-50 dark:bg-night-card border border-warm-border text-warm-ink dark:text-night-ink font-medium"
+                            className="px-2.5 py-0.5 rounded-full text-[11px] bg-white border border-[#E2E8F0] text-[#173B67] font-medium"
                           >
                             {role}
                           </span>
@@ -762,7 +762,7 @@ export const OnboardingView: React.FC = () => {
 
                 {/* 2 Alternative Pathways */}
                 <div>
-                  <div className="text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wider mb-2">
+                  <div className="text-xs font-bold text-[#173B67] uppercase tracking-wider mb-2">
                     Or Choose an Alternative Track:
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -773,19 +773,19 @@ export const OnboardingView: React.FC = () => {
                         <div
                           key={alt.id}
                           onClick={() => setRecommendedPathwayId(alt.id)}
-                          className="p-4 rounded-xl bg-parchment-100 dark:bg-night-100 border border-warm-border hover:border-gold-400 cursor-pointer transition-colors"
+                          className="p-4 rounded-card bg-white border border-[#E2E8F0] hover:border-[#62B6E8] hover:shadow-soft cursor-pointer transition-all"
                         >
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-[10px] font-bold uppercase text-warm-muted">
+                            <span className="text-[10px] font-bold uppercase text-[#526174]">
                               {alt.category}
                             </span>
-                            <span className="text-xs text-maroon-700 dark:text-gold-400 font-bold">
+                            <span className="text-xs text-[#173B67] font-bold">
                               Switch Track →
                             </span>
                           </div>
-                          <div className="font-bold text-sm text-warm-ink dark:text-night-ink">{alt.title}</div>
-                          <div className="font-tamil text-[11px] text-warm-muted">{alt.titleTamil}</div>
-                          <p className="text-[11px] text-warm-muted mt-1.5 line-clamp-2">{alt.tagline}</p>
+                          <div className="font-bold text-sm text-[#173B67]">{alt.title}</div>
+                          <div className="font-tamil text-[11px] text-[#526174]">{alt.titleTamil}</div>
+                          <p className="text-[11px] text-[#526174] mt-1.5 line-clamp-2">{alt.tagline}</p>
                         </div>
                       ))}
                   </div>
@@ -795,7 +795,7 @@ export const OnboardingView: React.FC = () => {
                 <div className="pt-4">
                   <button
                     onClick={handleFinishOnboarding}
-                    className="w-full py-3.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-extrabold text-sm shadow-warm-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                    className="w-full py-3.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-extrabold text-sm shadow-soft flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
                     <span>Start My Adaptive Pathway</span>
                     <ArrowRight className="w-4 h-4" />
@@ -808,12 +808,12 @@ export const OnboardingView: React.FC = () => {
 
         {/* Wizard Navigation Footer */}
         {step < 6 && (
-          <div className="mt-8 pt-6 border-t border-warm-border/60 dark:border-night-border/60 flex items-center justify-between gap-4">
+          <div className="mt-8 pt-6 border-t border-[#E2E8F0] flex items-center justify-between gap-4">
             {step > 1 ? (
               <button
                 type="button"
                 onClick={() => setStep(step - 1)}
-                className="px-4 py-2 rounded-full border border-warm-border text-xs font-semibold text-warm-ink dark:text-night-ink hover:bg-parchment-200 flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-btn border border-[#E2E8F0] text-xs font-semibold text-[#526174] hover:text-[#173B67] hover:bg-[#F8FAFC] flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -825,7 +825,7 @@ export const OnboardingView: React.FC = () => {
             <button
               type="button"
               onClick={handleNextStep}
-              className="px-6 py-2.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white text-xs font-bold shadow-warm-sm flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              className="px-6 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] text-xs font-bold shadow-soft flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <span>{step === 5 ? 'Generate My AI Pathway' : 'Continue'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -835,12 +835,12 @@ export const OnboardingView: React.FC = () => {
       </div>
 
       {/* Prominent Privacy Note */}
-      <div className="p-4 rounded-2xl bg-parchment-100/70 dark:bg-night-100/60 border border-warm-border/60 text-center">
-        <div className="flex items-center justify-center gap-2 text-xs font-bold text-warm-ink dark:text-night-ink">
-          <ShieldCheck className="w-4 h-4 text-forest-600" />
+      <div className="p-4 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] text-center">
+        <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#173B67]">
+          <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>No login. No phone number. Stored only on your device.</span>
         </div>
-        <p className="text-[11px] text-warm-muted dark:text-night-muted mt-0.5">
+        <p className="text-[11px] text-[#526174] mt-0.5">
           Your answers remain private in browser localStorage. You can reset or change your preferences at any time.
         </p>
       </div>

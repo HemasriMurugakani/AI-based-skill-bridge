@@ -85,22 +85,22 @@ export const ResumeView: React.FC = () => {
       {/* =========================================================================
           CONTROL BAR (Toolbar - strictly hidden during printing)
           ========================================================================= */}
-      <div className="no-print p-4 sm:p-5 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm space-y-4">
+      <div className="no-print p-4 sm:p-5 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950/80 border border-forest-300 text-forest-800 dark:text-forest-300 text-[11px] font-bold flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-forest-950/80 border border-emerald-300 text-emerald-800 dark:text-forest-300 text-[11px] font-bold flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Verified Passport Only</span>
               </span>
-              <span className="text-xs text-warm-muted">
+              <span className="text-xs text-[#526174]">
                 {data.stats.totalIncluded} included • {data.stats.totalExcluded} excluded
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+            <h1 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-night-ink">
               1-Page Resume & Portfolio Generator
             </h1>
-            <div className="font-tamil text-xs text-warm-muted dark:text-night-muted">
+            <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
               சரிபார்க்கப்பட்ட திறன் கடவுச்சீட்டுப் பதிவுகளிலிருந்து தானாக உருவாக்கப்படும் ஒற்றைப் பக்க ரெஸ்யூமே
             </div>
           </div>
@@ -111,29 +111,29 @@ export const ResumeView: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsAuditOpen(prev => !prev)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-btn text-xs font-semibold border transition-all flex items-center gap-1.5 cursor-pointer ${
                 isAuditOpen
-                  ? 'bg-gold-100 dark:bg-gold-950/70 border-gold-400 text-maroon-900 dark:text-gold-200'
-                  : 'bg-parchment-100 dark:bg-night-100 border-warm-border hover:bg-parchment-200 text-warm-ink dark:text-night-ink'
+                  ? 'bg-[#EAF5FC] dark:bg-night-100 border-[#BAE6FD] text-[#173B67] dark:text-sky-300'
+                  : 'bg-[#F8FAFC] dark:bg-night-100 border-[#E2E8F0] hover:bg-[#EAF5FC] text-[#173B67] dark:text-night-ink'
               }`}
             >
-              <Info className="w-4 h-4 text-gold-600" />
+              <Info className="w-4 h-4 text-[#62B6E8]" />
               <span>{headings.auditButton}</span>
-              <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-maroon-700 text-white">
+              <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-[#173B67] text-white">
                 {data.stats.totalExcluded}
               </span>
               {isAuditOpen ? <ChevronUp className="w-3.5 h-3.5 ml-0.5" /> : <ChevronDown className="w-3.5 h-3.5 ml-0.5" />}
             </button>
 
             {/* Template Switcher */}
-            <div className="flex items-center rounded-xl bg-parchment-200 dark:bg-night-100 p-1 border border-warm-border">
+            <div className="flex items-center rounded-btn bg-[#F8FAFC] dark:bg-night-100 p-1 border border-[#E2E8F0]">
               <button
                 type="button"
                 onClick={() => setTemplate('heritage-classic')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-btn text-xs font-semibold transition-all cursor-pointer ${
                   template === 'heritage-classic'
-                    ? 'bg-maroon-700 text-white shadow-xs'
-                    : 'text-warm-muted hover:text-warm-ink'
+                    ? 'bg-[#173B67] text-white shadow-soft'
+                    : 'text-[#526174] hover:text-[#173B67]'
                 }`}
                 title="Two-column civic heritage layout"
               >
@@ -142,10 +142,10 @@ export const ResumeView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setTemplate('modern-minimal')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-btn text-xs font-semibold transition-all cursor-pointer ${
                   template === 'modern-minimal'
-                    ? 'bg-maroon-700 text-white shadow-xs'
-                    : 'text-warm-muted hover:text-warm-ink'
+                    ? 'bg-[#173B67] text-white shadow-soft'
+                    : 'text-[#526174] hover:text-[#173B67]'
                 }`}
                 title="Single-page clean modern artisan layout"
               >
@@ -154,14 +154,14 @@ export const ResumeView: React.FC = () => {
             </div>
 
             {/* English / Tamil Headings Toggle */}
-            <div className="flex items-center rounded-xl bg-parchment-200 dark:bg-night-100 p-1 border border-warm-border">
+            <div className="flex items-center rounded-btn bg-[#F8FAFC] dark:bg-night-100 p-1 border border-[#E2E8F0]">
               <button
                 type="button"
                 onClick={() => setHeadingLang('en')}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`px-2.5 py-1.5 rounded-btn text-xs font-semibold transition-all cursor-pointer ${
                   headingLang === 'en'
-                    ? 'bg-white dark:bg-night-card text-warm-ink dark:text-night-ink shadow-xs'
-                    : 'text-warm-muted hover:text-warm-ink'
+                    ? 'bg-white dark:bg-night-card text-[#173B67] dark:text-night-ink shadow-soft'
+                    : 'text-[#526174] hover:text-[#173B67]'
                 }`}
               >
                 English
@@ -169,10 +169,10 @@ export const ResumeView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setHeadingLang('ta')}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold font-tamil transition-all cursor-pointer ${
+                className={`px-2.5 py-1.5 rounded-btn text-xs font-semibold font-tamil transition-all cursor-pointer ${
                   headingLang === 'ta'
-                    ? 'bg-white dark:bg-night-card text-warm-ink dark:text-night-ink shadow-xs'
-                    : 'text-warm-muted hover:text-warm-ink'
+                    ? 'bg-white dark:bg-night-card text-[#173B67] dark:text-night-ink shadow-soft'
+                    : 'text-[#526174] hover:text-[#173B67]'
                 }`}
               >
                 தமிழ்
@@ -183,7 +183,7 @@ export const ResumeView: React.FC = () => {
             <button
               type="button"
               onClick={handleDownloadPdf}
-              className="px-4 py-2 rounded-xl bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs shadow-warm-sm transition-all hover:scale-[1.02] flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs shadow-soft transition-all hover:scale-[1.02] flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>{headings.downloadPdf}</span>
@@ -193,17 +193,17 @@ export const ResumeView: React.FC = () => {
 
         {/* Helpful Print Tip */}
         {showPrintHint && (
-          <div className="p-3 rounded-xl bg-gold-50 dark:bg-gold-950/60 border border-gold-300 text-xs text-maroon-900 dark:text-gold-200 flex items-center justify-between gap-3">
+          <div className="p-3 rounded-card bg-[#EAF5FC] dark:bg-night-100/60 border border-[#BAE6FD] text-xs text-[#173B67] dark:text-sky-200 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-gold-600 shrink-0" />
+              <Sparkles className="w-4 h-4 text-[#62B6E8] shrink-0" />
               <span>
-                <strong>PDF Export Tip:</strong> In your browser print dialog, set Destination to <strong>"Save as PDF"</strong>, Paper size to <strong>A4</strong>, and ensure <strong>"Background graphics"</strong> is checked for exact heritage palette rendering.
+                <strong>PDF Export Tip:</strong> In your browser print dialog, set Destination to <strong>"Save as PDF"</strong>, Paper size to <strong>A4</strong>, and ensure <strong>"Background graphics"</strong> is checked for exact palette rendering.
               </span>
             </div>
             <button
               type="button"
               onClick={() => setShowPrintHint(false)}
-              className="text-warm-muted hover:text-warm-ink p-1"
+              className="text-[#526174] hover:text-[#173B67] p-1"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -215,27 +215,27 @@ export const ResumeView: React.FC = () => {
           PASSPORT VERIFICATION AUDIT & INCLUSION LOG (Mandatory Feature)
           ========================================================================= */}
       {isAuditOpen && (
-        <div className="no-print p-5 rounded-2xl bg-parchment-100 dark:bg-night-card border-2 border-gold-400/80 shadow-warm-md space-y-4 animate-in fade-in duration-200">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-warm-border">
+        <div className="no-print p-5 rounded-card bg-[#F8FAFC] dark:bg-night-card border border-[#BAE6FD] shadow-soft space-y-4 animate-in fade-in duration-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2E8F0] dark:border-night-border">
             <div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-maroon-700 dark:text-gold-400" />
-                <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+                <ShieldCheck className="w-5 h-5 text-[#173B67] dark:text-sky-300" />
+                <h3 className="text-base font-bold text-[#173B67] dark:text-night-ink">
                   Passport Verification Audit & Inclusion Log
                 </h3>
               </div>
-              <p className="text-xs text-warm-muted mt-0.5">
+              <p className="text-xs text-[#526174] mt-0.5">
                 Every line on this resume is verified against reproducible code, photos, or authenticated viva defenses. Unverified claims, pending mentor reviews, and skill gaps are strictly excluded to protect civic trust.
               </p>
             </div>
 
             {/* Filter tabs */}
-            <div className="flex items-center gap-1 bg-parchment-200 dark:bg-night-100 p-1 rounded-xl text-xs">
+            <div className="flex items-center gap-1 bg-[#EAF5FC] dark:bg-night-100 p-1 rounded-btn text-xs">
               <button
                 type="button"
                 onClick={() => setAuditTab('all')}
-                className={`px-2.5 py-1 rounded-lg font-semibold cursor-pointer ${
-                  auditTab === 'all' ? 'bg-white dark:bg-night-card shadow-xs text-warm-ink' : 'text-warm-muted'
+                className={`px-2.5 py-1 rounded-btn font-semibold cursor-pointer ${
+                  auditTab === 'all' ? 'bg-white dark:bg-night-card shadow-soft text-[#173B67]' : 'text-[#526174]'
                 }`}
               >
                 All ({data.stats.totalEvaluated})
@@ -243,18 +243,18 @@ export const ResumeView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setAuditTab('included')}
-                className={`px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1 cursor-pointer ${
-                  auditTab === 'included' ? 'bg-forest-100 text-forest-800 shadow-xs' : 'text-warm-muted'
+                className={`px-2.5 py-1 rounded-btn font-semibold flex items-center gap-1 cursor-pointer ${
+                  auditTab === 'included' ? 'bg-emerald-50 text-emerald-800 shadow-soft' : 'text-[#526174]'
                 }`}
               >
-                <Check className="w-3 h-3 text-forest-600" />
+                <Check className="w-3 h-3 text-emerald-600" />
                 <span>Included ({data.stats.totalIncluded})</span>
               </button>
               <button
                 type="button"
                 onClick={() => setAuditTab('excluded')}
-                className={`px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1 cursor-pointer ${
-                  auditTab === 'excluded' ? 'bg-amber-100 text-amber-900 shadow-xs' : 'text-warm-muted'
+                className={`px-2.5 py-1 rounded-btn font-semibold flex items-center gap-1 cursor-pointer ${
+                  auditTab === 'excluded' ? 'bg-amber-50 text-amber-900 shadow-soft' : 'text-[#526174]'
                 }`}
               >
                 <AlertCircle className="w-3 h-3 text-amber-600" />
@@ -271,21 +271,21 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedSkills.map((skill) => (
                   <div
                     key={`audit-skill-${skill.id}`}
-                    className="p-3 rounded-xl bg-white dark:bg-night-card border border-forest-300 dark:border-forest-800/80 space-y-1.5 text-xs"
+                    className="p-3 rounded-card bg-white dark:bg-night-card border border-emerald-200 dark:border-forest-800/80 space-y-1.5 text-xs shadow-soft"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-1.5 font-bold text-warm-ink dark:text-night-ink">
-                        <CheckCircle2 className="w-4 h-4 text-forest-600 shrink-0" />
+                      <div className="flex items-center gap-1.5 font-bold text-[#173B67] dark:text-night-ink">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>{skill.name}</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300 font-extrabold text-[11px]">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-forest-950 text-emerald-800 dark:text-forest-300 font-extrabold text-[11px]">
                         ✓ {skill.score}%
                       </span>
                     </div>
-                    <div className="text-[11px] text-forest-700 dark:text-forest-400 font-medium">
+                    <div className="text-[11px] text-emerald-700 dark:text-forest-400 font-medium">
                       Status: INCLUDED • Level {skill.level}/5 with {skill.evidenceCount} verified rubric proofs
                     </div>
-                    <div className="text-[10px] text-warm-muted font-mono">
+                    <div className="text-[10px] text-[#526174] font-mono">
                       Checksum: {skill.verificationStamp}
                     </div>
                   </div>
@@ -294,21 +294,21 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedProjects.map((proj) => (
                   <div
                     key={`audit-proj-${proj.id}`}
-                    className="p-3 rounded-xl bg-white dark:bg-night-card border border-forest-300 dark:border-forest-800/80 space-y-1.5 text-xs"
+                    className="p-3 rounded-card bg-white dark:bg-night-card border border-emerald-200 dark:border-forest-800/80 space-y-1.5 text-xs shadow-soft"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-1.5 font-bold text-warm-ink dark:text-night-ink">
-                        <CheckCircle2 className="w-4 h-4 text-forest-600 shrink-0" />
+                      <div className="flex items-center gap-1.5 font-bold text-[#173B67] dark:text-night-ink">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>{proj.title}</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300 font-extrabold text-[11px]">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-forest-950 text-emerald-800 dark:text-forest-300 font-extrabold text-[11px]">
                         ✓ {proj.score}%
                       </span>
                     </div>
-                    <div className="text-[11px] text-forest-700 dark:text-forest-400 font-medium">
+                    <div className="text-[11px] text-emerald-700 dark:text-forest-400 font-medium">
                       Status: INCLUDED • Viva Voce completed ({proj.qaCount} defense questions answered)
                     </div>
-                    <div className="text-[10px] text-warm-muted font-mono">
+                    <div className="text-[10px] text-[#526174] font-mono">
                       Verification ID: {proj.verificationId}
                     </div>
                   </div>
@@ -317,21 +317,21 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedCommunication.map((comm) => (
                   <div
                     key={`audit-comm-${comm.id}`}
-                    className="p-3 rounded-xl bg-white dark:bg-night-card border border-forest-300 dark:border-forest-800/80 space-y-1.5 text-xs"
+                    className="p-3 rounded-card bg-white dark:bg-night-card border border-emerald-200 dark:border-forest-800/80 space-y-1.5 text-xs shadow-soft"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-1.5 font-bold text-warm-ink dark:text-night-ink">
-                        <CheckCircle2 className="w-4 h-4 text-forest-600 shrink-0" />
+                      <div className="flex items-center gap-1.5 font-bold text-[#173B67] dark:text-night-ink">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>{comm.title}</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300 font-extrabold text-[11px]">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-forest-950 text-emerald-800 dark:text-forest-300 font-extrabold text-[11px]">
                         ✓ {comm.score}%
                       </span>
                     </div>
-                    <div className="text-[11px] text-forest-700 dark:text-forest-400 font-medium">
+                    <div className="text-[11px] text-emerald-700 dark:text-forest-400 font-medium">
                       Status: INCLUDED • Spoken pace: {comm.paceWpm} WPM • Authenticity: {comm.authenticityConfidence}
                     </div>
-                    <div className="text-[10px] text-warm-muted">
+                    <div className="text-[10px] text-[#526174]">
                       Evaluated via Web Speech API and /api/interview-score.
                     </div>
                   </div>
@@ -345,22 +345,22 @@ export const ResumeView: React.FC = () => {
                 {data.excludedEntries.map((item) => (
                   <div
                     key={item.id}
-                    className="p-3 rounded-xl bg-parchment-50 dark:bg-night-100/60 border border-amber-300 dark:border-amber-800/80 space-y-1.5 text-xs"
+                    className="p-3 rounded-card bg-white dark:bg-night-100/60 border border-amber-300 dark:border-amber-800/80 space-y-1.5 text-xs shadow-soft"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-1.5 font-bold text-warm-ink dark:text-night-ink">
+                      <div className="flex items-center gap-1.5 font-bold text-[#173B67] dark:text-night-ink">
                         <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
                         <span>{item.title}</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-200 font-bold text-[10px]">
+                      <span className="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950 text-amber-900 dark:text-amber-200 font-bold text-[10px]">
                         {item.statusBadge}
                       </span>
                     </div>
-                    <div className="text-[11px] text-maroon-800 dark:text-gold-300 font-semibold">
+                    <div className="text-[11px] text-[#173B67] dark:text-sky-300 font-semibold">
                       {item.reason}
                     </div>
-                    <div className="text-[11px] text-warm-muted flex items-center gap-1">
-                      <ArrowRight className="w-3 h-3 text-gold-600 shrink-0" />
+                    <div className="text-[11px] text-[#526174] flex items-center gap-1">
+                      <ArrowRight className="w-3 h-3 text-[#62B6E8] shrink-0" />
                       <span>{item.actionRequired}</span>
                     </div>
                   </div>
@@ -369,14 +369,14 @@ export const ResumeView: React.FC = () => {
             )}
           </div>
 
-          <div className="pt-2 border-t border-warm-border text-[11px] text-warm-muted flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="pt-2 border-t border-[#E2E8F0] text-[11px] text-[#526174] flex flex-col sm:flex-row items-center justify-between gap-2">
             <span>
               All excluded entries remain private to your study roadmap and are never visible on employer scans.
             </span>
             <button
               type="button"
               onClick={() => setActiveTab('challenges')}
-              className="text-maroon-700 dark:text-gold-400 font-bold hover:underline cursor-pointer flex items-center gap-1"
+              className="text-[#173B67] dark:text-sky-400 font-semibold hover:underline cursor-pointer flex items-center gap-1"
             >
               <span>Practice challenges to verify excluded skills</span>
               <ExternalLink className="w-3 h-3" />
@@ -395,55 +395,55 @@ export const ResumeView: React.FC = () => {
              ===================================================================== */
           <div
             id="printable-resume"
-            className="resume-sheet w-full max-w-[850px] bg-[#FAF8F5] text-[#231C18] rounded-2xl shadow-warm-lg border-2 border-gold-400/80 p-6 sm:p-8 space-y-5 overflow-hidden relative"
+            className="resume-sheet w-full max-w-[850px] bg-white text-[#173B67] rounded-card shadow-soft border border-[#BAE6FD] p-6 sm:p-8 space-y-5 overflow-hidden relative"
             style={{ minHeight: '1080px' }}
           >
-            {/* Gold Corner Accents */}
-            <div className="absolute top-2 left-2 w-5 h-5 border-t-2 border-l-2 border-gold-600 pointer-events-none" />
-            <div className="absolute top-2 right-2 w-5 h-5 border-t-2 border-r-2 border-gold-600 pointer-events-none" />
-            <div className="absolute bottom-2 left-2 w-5 h-5 border-b-2 border-l-2 border-gold-600 pointer-events-none" />
-            <div className="absolute bottom-2 right-2 w-5 h-5 border-b-2 border-r-2 border-gold-600 pointer-events-none" />
+            {/* Top Accent Borders */}
+            <div className="absolute top-2 left-2 w-5 h-5 border-t-2 border-l-2 border-[#62B6E8] pointer-events-none" />
+            <div className="absolute top-2 right-2 w-5 h-5 border-t-2 border-r-2 border-[#62B6E8] pointer-events-none" />
+            <div className="absolute bottom-2 left-2 w-5 h-5 border-b-2 border-l-2 border-[#62B6E8] pointer-events-none" />
+            <div className="absolute bottom-2 right-2 w-5 h-5 border-b-2 border-r-2 border-[#62B6E8] pointer-events-none" />
 
             {/* Top Official Banner */}
-            <div className="bg-[#7A1A12] text-white rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-gold-400">
+            <div className="bg-[#173B67] text-white rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-[#62B6E8]">
               <div className="space-y-1 text-center sm:text-left">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold-400/20 text-gold-200 text-[10px] font-bold tracking-wider uppercase">
-                  <ShieldCheck className="w-3.5 h-3.5 text-gold-400" />
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#62B6E8]/20 text-[#62B6E8] text-[10px] font-bold tracking-wider uppercase">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#F2B66D]" />
                   <span>{headings.docTitle}</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold font-heritage tracking-tight text-gold-100">
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                   {persona.name}
                 </h2>
-                <div className="font-tamil text-sm text-gold-200/90 font-medium">
+                <div className="font-tamil text-sm text-sky-200/90 font-medium">
                   {persona.nameTamil} • {isTamil ? pathway.titleTamil : pathway.title}
                 </div>
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[11px] text-gold-100/80 pt-1">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[11px] text-sky-100/80 pt-1">
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-gold-400" />
+                    <MapPin className="w-3 h-3 text-[#F2B66D]" />
                     <span>{persona.location}</span>
                   </span>
                   <span>•</span>
                   <span>{persona.educationOrBackground}</span>
                   <span>•</span>
-                  <span className="font-mono text-gold-300">{data.verificationId}</span>
+                  <span className="font-mono text-[#F2B66D]">{data.verificationId}</span>
                 </div>
               </div>
 
               {/* QR Code Verification Stamp */}
-              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/95 text-center shadow-xs shrink-0">
-                <QRCodeSVG value={data.verificationUrl} size={70} fgColor="#7A1A12" bgColor="transparent" />
-                <div className="text-[8px] font-extrabold text-[#7A1A12] mt-1 tracking-wider uppercase">
+              <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white text-center shadow-xs shrink-0">
+                <QRCodeSVG value={data.verificationUrl} size={70} fgColor="#173B67" bgColor="transparent" />
+                <div className="text-[8px] font-extrabold text-[#173B67] mt-1 tracking-wider uppercase">
                   {headings.scanToVerify}
                 </div>
-                <div className="text-[7px] text-[#231C18]/60 font-mono">
+                <div className="text-[7px] text-[#173B67]/60 font-mono">
                   {data.verificationId}
                 </div>
               </div>
             </div>
 
             {/* Evidence-Backed Summary */}
-            <div className="p-3.5 rounded-xl bg-gold-50/80 border border-gold-300/80 text-xs text-[#231C18]">
-              <div className="font-bold text-[#7A1A12] uppercase tracking-wider text-[10px] mb-1">
+            <div className="p-3.5 rounded-2xl bg-[#EAF5FC] border border-[#62B6E8]/30 text-xs text-[#173B67]">
+              <div className="font-bold text-[#173B67] uppercase tracking-wider text-[10px] mb-1">
                 {headings.summary}
               </div>
               <p className="leading-relaxed">
@@ -457,8 +457,8 @@ export const ResumeView: React.FC = () => {
               <div className="md:col-span-5 space-y-4">
                 {/* 1. Verified Competencies */}
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between pb-1 border-b-2 border-gold-400">
-                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#7A1A12]">
+                  <div className="flex items-center justify-between pb-1 border-b-2 border-[#62B6E8]">
+                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                       {headings.skills}
                     </h3>
                     <span className="text-[9px] px-2 py-0.5 rounded-full bg-forest-100 text-forest-800 font-bold">
@@ -470,14 +470,14 @@ export const ResumeView: React.FC = () => {
                     {data.verifiedSkills.map((skill) => (
                       <div
                         key={skill.id}
-                        className="p-2.5 rounded-xl bg-white border border-warm-border text-xs space-y-1 shadow-2xs"
+                        className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] text-xs space-y-1 shadow-2xs"
                       >
                         <div className="flex items-start justify-between gap-1">
                           <div>
-                            <div className="font-bold text-warm-ink">
+                            <div className="font-bold text-[#173B67]">
                               {isTamil && skill.nameTamil ? skill.nameTamil : skill.name}
                             </div>
-                            <div className="text-[10px] text-warm-muted">
+                            <div className="text-[10px] text-[#526174]">
                               {skill.category} • Level {skill.level}/5
                             </div>
                           </div>
@@ -486,7 +486,7 @@ export const ResumeView: React.FC = () => {
                           </span>
                         </div>
                         {/* Progress Bar */}
-                        <div className="w-full h-1.5 bg-parchment-200 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-[#EAF5FC] rounded-full overflow-hidden">
                           <div
                             className="h-full bg-gradient-to-r from-forest-600 to-forest-500 rounded-full"
                             style={{ width: `${skill.score}%` }}
@@ -502,8 +502,8 @@ export const ResumeView: React.FC = () => {
 
                 {/* 2. Oral Defense & Communication */}
                 <div className="space-y-2">
-                  <div className="pb-1 border-b-2 border-gold-400">
-                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#7A1A12]">
+                  <div className="pb-1 border-b-2 border-[#62B6E8]">
+                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                       {headings.communication}
                     </h3>
                   </div>
@@ -512,13 +512,13 @@ export const ResumeView: React.FC = () => {
                     {data.verifiedCommunication.slice(0, 2).map((comm) => (
                       <div
                         key={comm.id}
-                        className="p-2.5 rounded-xl bg-white border border-warm-border text-xs space-y-1 shadow-2xs"
+                        className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] text-xs space-y-1 shadow-2xs"
                       >
                         <div className="flex items-center justify-between gap-1">
-                          <span className="font-bold text-warm-ink text-[11px]">
+                          <span className="font-bold text-[#173B67] text-[11px]">
                             {isTamil && comm.titleTamil ? comm.titleTamil : comm.title}
                           </span>
-                          <span className="font-bold text-[#7A1A12] text-xs">
+                          <span className="font-bold text-[#173B67] text-xs">
                             {comm.score}%
                           </span>
                         </div>
@@ -533,8 +533,8 @@ export const ResumeView: React.FC = () => {
 
                 {/* 3. Verified Micro-Credentials */}
                 <div className="space-y-2">
-                  <div className="pb-1 border-b-2 border-gold-400">
-                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#7A1A12]">
+                  <div className="pb-1 border-b-2 border-[#62B6E8]">
+                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                       {headings.credentials}
                     </h3>
                   </div>
@@ -543,14 +543,14 @@ export const ResumeView: React.FC = () => {
                     {data.verifiedBadges.slice(0, 3).map((badge) => (
                       <div
                         key={badge.id}
-                        className="p-2 rounded-lg bg-white border border-warm-border text-[11px] flex items-center gap-2"
+                        className="p-2 rounded-lg bg-white border border-[#E2E8F0] text-[11px] flex items-center gap-2"
                       >
                         <span className="text-base shrink-0">{badge.icon}</span>
                         <div>
-                          <div className="font-bold text-warm-ink">
+                          <div className="font-bold text-[#173B67]">
                             {isTamil && badge.titleTamil ? badge.titleTamil : badge.title}
                           </div>
-                          <div className="text-[9px] text-warm-muted truncate max-w-[170px]">
+                          <div className="text-[9px] text-[#526174] truncate max-w-[170px]">
                             {badge.evidenceNotes}
                           </div>
                         </div>
@@ -561,14 +561,14 @@ export const ResumeView: React.FC = () => {
 
                 {/* 4. Education & Background */}
                 <div className="space-y-2">
-                  <div className="pb-1 border-b-2 border-gold-400">
-                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#7A1A12]">
+                  <div className="pb-1 border-b-2 border-[#62B6E8]">
+                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                       {headings.education}
                     </h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-white border border-warm-border text-xs">
-                    <div className="font-bold text-warm-ink">{persona.educationOrBackground}</div>
-                    <div className="text-[10px] text-warm-muted">{persona.location}</div>
+                  <div className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] text-xs">
+                    <div className="font-bold text-[#173B67]">{persona.educationOrBackground}</div>
+                    <div className="text-[10px] text-[#526174]">{persona.location}</div>
                   </div>
                 </div>
               </div>
@@ -577,11 +577,11 @@ export const ResumeView: React.FC = () => {
               <div className="md:col-span-7 space-y-4">
                 {/* 1. Verified Portfolio Projects */}
                 <div className="space-y-2.5">
-                  <div className="flex items-center justify-between pb-1 border-b-2 border-gold-400">
-                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#7A1A12]">
+                  <div className="flex items-center justify-between pb-1 border-b-2 border-[#62B6E8]">
+                    <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                       {headings.projects}
                     </h3>
-                    <span className="text-[9px] text-warm-muted">
+                    <span className="text-[9px] text-[#526174]">
                       {isTamil ? 'சான்றளிக்கப்பட்ட குறியீடு' : 'Reproducible Code & Proofs'}
                     </span>
                   </div>
@@ -590,14 +590,14 @@ export const ResumeView: React.FC = () => {
                     {data.verifiedProjects.map((project) => (
                       <div
                         key={project.id}
-                        className="p-3.5 rounded-xl bg-white border border-warm-border shadow-2xs space-y-2 text-xs"
+                        className="p-3.5 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs space-y-2 text-xs"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <div className="font-bold text-sm text-[#7A1A12]">
+                            <div className="font-bold text-sm text-[#173B67]">
                               {isTamil && project.titleTamil ? project.titleTamil : project.title}
                             </div>
-                            <div className="text-[10px] text-warm-muted">
+                            <div className="text-[10px] text-[#526174]">
                               {project.type} • Verified: {project.completedAt}
                             </div>
                           </div>
@@ -608,13 +608,13 @@ export const ResumeView: React.FC = () => {
                           </div>
                         </div>
 
-                        <p className="text-[11px] text-warm-ink leading-relaxed">
+                        <p className="text-[11px] text-[#173B67] leading-relaxed">
                           {isTamil && project.summaryTamil ? project.summaryTamil : project.summary}
                         </p>
 
                         {/* Verified Rubric Outcomes */}
-                        <div className="space-y-1 pt-1 border-t border-warm-border/60">
-                          <div className="font-bold text-[10px] text-warm-muted uppercase tracking-wider">
+                        <div className="space-y-1 pt-1 border-t border-[#E2E8F0]/60">
+                          <div className="font-bold text-[10px] text-[#526174] uppercase tracking-wider">
                             {headings.outcomes}:
                           </div>
                           {project.keyOutcomes.map((outcome, idx) => (
@@ -625,7 +625,7 @@ export const ResumeView: React.FC = () => {
                           ))}
                         </div>
 
-                        <div className="pt-1 flex items-center justify-between text-[9px] text-warm-muted font-mono">
+                        <div className="pt-1 flex items-center justify-between text-[9px] text-[#526174] font-mono">
                           <span>Verification Hash: {project.verificationId}</span>
                           <span className="text-forest-700 font-sans font-semibold">
                             Authenticity: Consistent
@@ -637,17 +637,17 @@ export const ResumeView: React.FC = () => {
                 </div>
 
                 {/* 2. Mentor Endorsement & Attestation Block */}
-                <div className="p-3.5 rounded-xl bg-parchment-100 border border-gold-300 text-xs space-y-2">
-                  <div className="flex items-center gap-1.5 font-bold text-[#7A1A12] uppercase tracking-wider text-[10px]">
-                    <ShieldCheck className="w-4 h-4 text-gold-600" />
+                <div className="p-3.5 rounded-xl bg-[#EAF5FC] border border-[#62B6E8]/40 text-xs space-y-2">
+                  <div className="flex items-center gap-1.5 font-bold text-[#173B67] uppercase tracking-wider text-[10px]">
+                    <ShieldCheck className="w-4 h-4 text-[#F2B66D]" />
                     <span>{headings.endorsement}</span>
                   </div>
-                  <blockquote className="italic text-[11px] text-warm-ink border-l-2 border-[#7A1A12] pl-2.5 leading-relaxed">
+                  <blockquote className="italic text-[11px] text-[#173B67] border-l-2 border-[#173B67] pl-2.5 leading-relaxed">
                     "{isTamil ? data.mentorEndorsement.statementTamil : data.mentorEndorsement.statement}"
                   </blockquote>
-                  <div className="flex items-center justify-between pt-1 text-[10px] text-warm-muted">
+                  <div className="flex items-center justify-between pt-1 text-[10px] text-[#526174]">
                     <div>
-                      <span className="font-bold text-warm-ink">{data.mentorEndorsement.mentorName}</span>
+                      <span className="font-bold text-[#173B67]">{data.mentorEndorsement.mentorName}</span>
                       <span className="ml-1">({isTamil ? data.mentorEndorsement.mentorTitleTamil : data.mentorEndorsement.mentorTitle})</span>
                     </div>
                     <span className="font-mono">{data.mentorEndorsement.date}</span>
@@ -655,7 +655,7 @@ export const ResumeView: React.FC = () => {
                 </div>
 
                 {/* Footnote / Trust Guarantee */}
-                <div className="pt-2 border-t border-warm-border/80 flex items-center justify-between text-[9px] text-warm-muted">
+                <div className="pt-2 border-t border-[#E2E8F0] flex items-center justify-between text-[9px] text-[#526174]">
                   <span>Issued under Tamil Nadu Civic SkillBridge Standard</span>
                   <span>Tamper-evident verification at skillbridge.tn.gov.in</span>
                 </div>
@@ -668,27 +668,27 @@ export const ResumeView: React.FC = () => {
              ===================================================================== */
           <div
             id="printable-resume"
-            className="resume-sheet w-full max-w-[850px] bg-white text-[#1A1412] rounded-2xl shadow-warm-lg border border-warm-border p-6 sm:p-8 space-y-4 overflow-hidden relative"
+            className="resume-sheet w-full max-w-[850px] bg-white text-[#173B67] rounded-2xl shadow-soft border border-[#E2E8F0] p-6 sm:p-8 space-y-4 overflow-hidden relative"
             style={{ minHeight: '1080px' }}
           >
             {/* Modern Header */}
-            <div className="border-b-2 border-[#8B1E14] pb-4 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="border-b-2 border-[#173B67] pb-4 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#8B1E14] text-white text-[10px] font-bold tracking-wider uppercase">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#173B67] text-white text-[10px] font-bold tracking-wider uppercase">
                     {headings.verifiedPill}
                   </span>
-                  <span className="text-xs font-mono text-warm-muted">{data.verificationId}</span>
+                  <span className="text-xs font-mono text-[#526174]">{data.verificationId}</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1A1412]">
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#173B67]">
                   {persona.name}
                 </h2>
-                <div className="font-tamil text-sm text-[#8B1E14] font-semibold">
+                <div className="font-tamil text-sm text-[#173B67] font-semibold">
                   {persona.nameTamil} • {isTamil ? pathway.titleTamil : pathway.title}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-xs text-warm-muted pt-1">
+                <div className="flex flex-wrap items-center gap-3 text-xs text-[#526174] pt-1">
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#8B1E14]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#62B6E8]" />
                     <span>{persona.location}</span>
                   </span>
                   <span>•</span>
@@ -697,19 +697,19 @@ export const ResumeView: React.FC = () => {
               </div>
 
               {/* Minimal QR Verification */}
-              <div className="flex items-center gap-3 p-2 rounded-xl bg-parchment-50 border border-warm-border shrink-0">
-                <QRCodeSVG value={data.verificationUrl} size={60} fgColor="#8B1E14" bgColor="transparent" />
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] shrink-0">
+                <QRCodeSVG value={data.verificationUrl} size={60} fgColor="#173B67" bgColor="transparent" />
                 <div className="text-left text-[9px]">
-                  <div className="font-bold text-[#8B1E14] uppercase">{headings.scanToVerify}</div>
-                  <div className="text-warm-muted font-mono">{data.verificationId}</div>
-                  <div className="text-forest-700 font-semibold mt-0.5">✓ 100% Tamper-Evident</div>
+                  <div className="font-bold text-[#173B67] uppercase">{headings.scanToVerify}</div>
+                  <div className="text-[#526174] font-mono">{data.verificationId}</div>
+                  <div className="text-emerald-700 font-semibold mt-0.5">✓ 100% Tamper-Evident</div>
                 </div>
               </div>
             </div>
 
             {/* Profile Overview */}
-            <div className="text-xs text-warm-ink leading-relaxed">
-              <span className="font-bold text-[#8B1E14] uppercase text-[10px] tracking-wider block mb-0.5">
+            <div className="text-xs text-[#173B67] leading-relaxed">
+              <span className="font-bold text-[#173B67] uppercase text-[10px] tracking-wider block mb-0.5">
                 {headings.summary}
               </span>
               {isTamil ? data.summaryTamil : data.summary}
@@ -717,11 +717,11 @@ export const ResumeView: React.FC = () => {
 
             {/* Section 1: Verified Competencies (Grid Cards) */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between pb-1 border-b border-warm-border">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B1E14]">
+              <div className="flex items-center justify-between pb-1 border-b border-[#E2E8F0]">
+                <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                   {headings.skills} ({data.verifiedSkills.length} Verified)
                 </h3>
-                <span className="text-[10px] text-forest-700 font-semibold">
+                <span className="text-[10px] text-emerald-700 font-semibold">
                   ✓ Backed by 3+ reproducible artifacts
                 </span>
               </div>
@@ -730,17 +730,17 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedSkills.map((skill) => (
                   <div
                     key={skill.id}
-                    className="p-2.5 rounded-lg bg-parchment-50 border border-warm-border flex items-center justify-between text-xs"
+                    className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between text-xs"
                   >
                     <div>
-                      <div className="font-bold text-warm-ink">
+                      <div className="font-bold text-[#173B67]">
                         {isTamil && skill.nameTamil ? skill.nameTamil : skill.name}
                       </div>
-                      <div className="text-[10px] text-warm-muted">
+                      <div className="text-[10px] text-[#526174]">
                         {skill.category} • {skill.evidenceCount} validated proofs
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-md bg-white border border-forest-300 text-forest-800 font-extrabold text-xs">
+                    <span className="px-2.5 py-1 rounded-md bg-white border border-emerald-300 text-emerald-800 font-extrabold text-xs">
                       {skill.score}%
                     </span>
                   </div>
@@ -750,8 +750,8 @@ export const ResumeView: React.FC = () => {
 
             {/* Section 2: Verified Portfolio Projects */}
             <div className="space-y-2.5">
-              <div className="pb-1 border-b border-warm-border">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B1E14]">
+              <div className="pb-1 border-b border-[#E2E8F0]">
+                <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                   {headings.projects}
                 </h3>
               </div>
@@ -760,30 +760,30 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedProjects.map((project) => (
                   <div
                     key={project.id}
-                    className="p-3 rounded-lg bg-parchment-50 border border-warm-border space-y-1.5 text-xs"
+                    className="p-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5 text-xs"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="font-bold text-sm text-[#8B1E14]">
+                        <div className="font-bold text-sm text-[#173B67]">
                           {isTamil && project.titleTamil ? project.titleTamil : project.title}
                         </div>
-                        <div className="text-[10px] text-warm-muted">
+                        <div className="text-[10px] text-[#526174]">
                           {project.type} • Completed {project.completedAt}
                         </div>
                       </div>
-                      <span className="px-2 py-0.5 rounded-md bg-forest-100 text-forest-800 font-bold text-[11px]">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold text-[11px]">
                         Rubric: {project.score}%
                       </span>
                     </div>
 
-                    <p className="text-[11px] text-warm-ink">
+                    <p className="text-[11px] text-[#173B67]">
                       {isTamil && project.summaryTamil ? project.summaryTamil : project.summary}
                     </p>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 pt-1 text-[10px] text-forest-800">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 pt-1 text-[10px] text-emerald-800">
                       {project.keyOutcomes.map((outcome, idx) => (
                         <div key={idx} className="flex items-center gap-1">
-                          <Check className="w-3 h-3 text-forest-600 shrink-0" />
+                          <Check className="w-3 h-3 text-emerald-600 shrink-0" />
                           <span className="truncate">{outcome}</span>
                         </div>
                       ))}
@@ -795,8 +795,8 @@ export const ResumeView: React.FC = () => {
 
             {/* Section 3: Spoken Communication & Viva Defense */}
             <div className="space-y-2">
-              <div className="pb-1 border-b border-warm-border">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B1E14]">
+              <div className="pb-1 border-b border-[#E2E8F0]">
+                <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                   {headings.communication}
                 </h3>
               </div>
@@ -805,17 +805,17 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedCommunication.slice(0, 2).map((comm) => (
                   <div
                     key={comm.id}
-                    className="p-2.5 rounded-lg bg-parchment-50 border border-warm-border text-xs flex items-center justify-between"
+                    className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-xs flex items-center justify-between"
                   >
                     <div>
-                      <div className="font-bold text-warm-ink text-[11px]">
+                      <div className="font-bold text-[#173B67] text-[11px]">
                         {isTamil && comm.titleTamil ? comm.titleTamil : comm.title}
                       </div>
-                      <div className="text-[10px] text-warm-muted">
+                      <div className="text-[10px] text-[#526174]">
                         Pace: {comm.paceWpm} WPM • Authenticity: Consistent
                       </div>
                     </div>
-                    <span className="font-extrabold text-[#8B1E14] text-xs">
+                    <span className="font-extrabold text-[#173B67] text-xs">
                       {comm.score}%
                     </span>
                   </div>
@@ -825,8 +825,8 @@ export const ResumeView: React.FC = () => {
 
             {/* Section 4: Micro-Badges Strip */}
             <div className="space-y-2">
-              <div className="pb-1 border-b border-warm-border">
-                <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B1E14]">
+              <div className="pb-1 border-b border-[#E2E8F0]">
+                <h3 className="font-bold text-xs uppercase tracking-wider text-[#173B67]">
                   {headings.credentials}
                 </h3>
               </div>
@@ -835,7 +835,7 @@ export const ResumeView: React.FC = () => {
                 {data.verifiedBadges.slice(0, 4).map((badge) => (
                   <span
                     key={badge.id}
-                    className="px-2.5 py-1 rounded-md bg-parchment-100 border border-warm-border text-xs font-semibold flex items-center gap-1.5 text-warm-ink"
+                    className="px-2.5 py-1 rounded-md bg-[#EAF5FC] border border-[#BAE6FD] text-xs font-semibold flex items-center gap-1.5 text-[#173B67]"
                   >
                     <span>{badge.icon}</span>
                     <span>{isTamil && badge.titleTamil ? badge.titleTamil : badge.title}</span>
@@ -845,9 +845,9 @@ export const ResumeView: React.FC = () => {
             </div>
 
             {/* Modern Footer Attestation */}
-            <div className="pt-3 border-t-2 border-warm-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px] text-warm-muted">
+            <div className="pt-3 border-t-2 border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px] text-[#526174]">
               <div>
-                Attested by <span className="font-bold text-warm-ink">{data.mentorEndorsement.mentorName}</span> ({data.mentorEndorsement.mentorTitle})
+                Attested by <span className="font-bold text-[#173B67]">{data.mentorEndorsement.mentorName}</span> ({data.mentorEndorsement.mentorTitle})
               </div>
               <div className="font-mono">
                 Checksum: {data.verificationId} • skillbridge.tn.gov.in

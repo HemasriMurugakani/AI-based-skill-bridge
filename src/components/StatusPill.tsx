@@ -21,20 +21,20 @@ export const StatusPill: React.FC<StatusPillProps> = ({
   const configs = {
     ai_reviewed: {
       label: t('statuses.aiReviewed'),
-      icon: <Sparkles className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />,
-      style: 'bg-maroon-50 text-maroon-800 border-maroon-200/80 dark:bg-maroon-950/60 dark:text-maroon-200 dark:border-maroon-800/60',
+      icon: <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />,
+      style: 'bg-[#EAF5FC] text-[#173B67] border-[#BAE6FD] dark:bg-sky-950/60 dark:text-sky-200 dark:border-sky-800/60',
       description: 'Validated via AI rubric parsing model'
     },
     mentor_verified: {
       label: mentorName ? `${t('statuses.mentorVerified')} (${mentorName})` : t('statuses.mentorVerified'),
-      icon: <CheckCircle2 className="w-3.5 h-3.5 text-forest-600 dark:text-forest-400" />,
-      style: 'bg-forest-50 text-forest-800 border-forest-200/80 dark:bg-forest-950/60 dark:text-forest-200 dark:border-forest-800/60',
+      icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />,
+      style: 'bg-emerald-50 text-emerald-800 border-emerald-200/80 dark:bg-emerald-950/60 dark:text-emerald-200 dark:border-emerald-800/60',
       description: 'Endorsed by accredited industry or master artisan'
     },
     pending_mentor: {
       label: t('statuses.pendingMentor'),
-      icon: <Clock className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />,
-      style: 'bg-gold-50 text-gold-800 border-gold-200/80 dark:bg-gold-950/60 dark:text-gold-200 dark:border-gold-800/60',
+      icon: <Clock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />,
+      style: 'bg-amber-50 text-amber-900 border-amber-200/80 dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-800/60',
       description: 'Submitted to mentor verification queue'
     }
   }[status];

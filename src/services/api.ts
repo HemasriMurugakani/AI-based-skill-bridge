@@ -376,7 +376,7 @@ export async function evaluateRubricFeedback(
                 score: 21,
                 max: 25,
                 evidence: "Found <header role='banner'> and <main id='content'>. Skip link present but missing visible focus ring.",
-                fix: "Add :focus-visible { outline: 3px solid #B8761A; outline-offset: 2px; } to the skip-to-content anchor tag."
+                fix: "Add :focus-visible { outline: 3px solid #62B6E8; outline-offset: 2px; } to the skip-to-content anchor tag."
               },
               {
                 name: 'Responsive Grid & Flexbox Scaling',
@@ -396,8 +396,8 @@ export async function evaluateRubricFeedback(
                 name: 'Focus Visible & High Contrast',
                 score: 17,
                 max: 20,
-                evidence: "Primary headings pass 7:1 contrast. Secondary bio text '#999' on parchment has contrast ratio of 3.2:1 (fails WCAG AA 4.5:1).",
-                fix: "Darken secondary text color token to '#5C4033' or '#4A3B32' to guarantee >= 5:1 contrast."
+                evidence: "Primary headings pass 7:1 contrast. Secondary bio text '#999' on white surface has contrast ratio of 3.2:1 (fails WCAG AA 4.5:1).",
+                fix: "Darken secondary text color token to '#526174' or '#173B67' to guarantee >= 5:1 contrast."
               }
             ],
             overall: 74,

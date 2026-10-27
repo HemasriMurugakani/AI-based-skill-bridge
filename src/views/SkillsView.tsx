@@ -21,19 +21,19 @@ export const SkillsView: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Top Banner */}
-      <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm">
+      <div className="p-6 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-3 py-1 rounded-full bg-[#EAF5FC] border border-[#BAE6FD]">
                 Skills Assessment Matrix
               </span>
               <TrustLabel type="how-calculated" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
               Competency & Rubric Portfolio
             </h1>
-            <p className="mt-1 text-xs sm:text-sm text-warm-muted dark:text-night-muted max-w-2xl">
+            <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-2xl">
               Skills are measured through verified code, physical photo inspections, and viva defenses. Unassessed skills remain strictly neutral.
             </p>
           </div>
@@ -42,53 +42,53 @@ export const SkillsView: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-warm-border/60 dark:border-night-border/60">
+        <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-[#E2E8F0] dark:border-night-border/60">
           <button
             onClick={() => setActiveFilter('all')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
               activeFilter === 'all'
-                ? 'bg-maroon-700 text-white shadow-warm-sm'
-                : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:bg-parchment-300'
+                ? 'bg-[#173B67] text-white shadow-soft'
+                : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
             All Skills ({pathway.skills.length})
           </button>
           <button
             onClick={() => setActiveFilter('strong')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'strong'
-                ? 'bg-forest-700 text-white shadow-warm-sm'
-                : 'bg-forest-50 dark:bg-forest-950/60 text-forest-800 dark:text-forest-200 border border-forest-200'
+                ? 'bg-[#10B981] text-white shadow-soft'
+                : 'bg-[#ECFDF5] dark:bg-emerald-950/60 text-[#065F46] dark:text-emerald-200 border border-[#A7F3D0]'
             }`}
           >
             Strong ({pathway.skills.filter(s => s.state === 'strong').length})
           </button>
           <button
             onClick={() => setActiveFilter('develop')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'develop'
-                ? 'bg-gold-600 text-white shadow-warm-sm'
-                : 'bg-gold-50 dark:bg-gold-950/60 text-gold-900 dark:text-gold-200 border border-gold-200'
+                ? 'bg-[#F2B66D] text-[#173B67] font-bold shadow-soft'
+                : 'bg-[#FFFBEB] dark:bg-amber-950/60 text-[#B45309] dark:text-amber-200 border border-[#FDE68A]'
             }`}
           >
             Develop ({pathway.skills.filter(s => s.state === 'develop').length})
           </button>
           <button
             onClick={() => setActiveFilter('gap')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'gap'
-                ? 'bg-terracotta-700 text-white shadow-warm-sm'
-                : 'bg-terracotta-50 dark:bg-terracotta-950/60 text-terracotta-900 dark:text-terracotta-200 border border-terracotta-200'
+                ? 'bg-[#EF4444] text-white shadow-soft'
+                : 'bg-[#FEF2F2] dark:bg-red-950/60 text-[#991B1B] dark:text-red-200 border border-[#FECACA]'
             }`}
           >
             Skill Gaps ({pathway.skills.filter(s => s.state === 'gap').length})
           </button>
           <button
             onClick={() => setActiveFilter('not_assessed')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'not_assessed'
-                ? 'bg-warm-muted text-white shadow-warm-sm'
-                : 'bg-warm-100 dark:bg-night-100 text-warm-muted border border-warm-border'
+                ? 'bg-[#64748B] text-white shadow-soft'
+                : 'bg-[#F8FAFC] dark:bg-night-100 text-[#64748B] border border-[#E2E8F0]'
             }`}
           >
             Not Assessed ({pathway.skills.filter(s => s.state === 'not_assessed').length})
@@ -101,40 +101,40 @@ export const SkillsView: React.FC = () => {
         {filteredSkills.map((skill) => (
           <div
             key={skill.id}
-            className="p-5 rounded-card bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm flex flex-col justify-between"
+            className="p-5 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft flex flex-col justify-between hover:border-[#62B6E8] transition-all"
           >
             <div>
               <div className="flex items-start justify-between gap-2 mb-2">
-                <span className="text-[11px] font-bold text-warm-muted dark:text-night-muted uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#526174] dark:text-night-muted uppercase tracking-wider">
                   {skill.category}
                 </span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-parchment-200/80 dark:bg-night-100">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD]">
                   Level {skill.level} of 5
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+              <h3 className="text-base font-bold text-[#173B67] dark:text-white">
                 {skill.name}
               </h3>
               {skill.nameTamil && (
-                <div className="font-tamil text-xs text-warm-muted dark:text-night-muted">
+                <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
                   {skill.nameTamil}
                 </div>
               )}
 
-              <p className="mt-2 text-xs text-warm-muted dark:text-night-muted leading-relaxed">
+              <p className="mt-2 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
                 {skill.description}
               </p>
 
               {/* Rubric Checkpoints */}
               <div className="mt-4">
-                <div className="text-[11px] font-bold text-warm-ink dark:text-night-ink mb-1.5">
+                <div className="text-[11px] font-bold text-[#173B67] dark:text-white mb-1.5">
                   Evaluation Rubric Criteria:
                 </div>
-                <ul className="space-y-1 text-xs text-warm-muted dark:text-night-muted">
+                <ul className="space-y-1 text-xs text-[#526174] dark:text-night-muted">
                   {skill.rubricCriteria.map((c, i) => (
                     <li key={i} className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#62B6E8]" />
                       <span>{c}</span>
                     </li>
                   ))}
@@ -142,14 +142,14 @@ export const SkillsView: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-warm-border/60 dark:border-night-border/60 flex items-center justify-between">
+            <div className="mt-5 pt-3 border-t border-[#E2E8F0] dark:border-night-border/60 flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-warm-muted uppercase block">Status</span>
+                <span className="text-[10px] text-[#526174] uppercase block">Status</span>
                 <span className={`text-xs font-bold capitalize ${
-                  skill.state === 'strong' ? 'text-forest-700 dark:text-forest-400' :
-                  skill.state === 'develop' ? 'text-gold-700 dark:text-gold-400' :
-                  skill.state === 'gap' ? 'text-terracotta-700 dark:text-terracotta-400' :
-                  'text-warm-muted'
+                  skill.state === 'strong' ? 'text-[#10B981]' :
+                  skill.state === 'develop' ? 'text-[#D97706]' :
+                  skill.state === 'gap' ? 'text-[#EF4444]' :
+                  'text-[#64748B]'
                 }`}>
                   {skill.state.replace('_', ' ')} {skill.score ? `(${skill.score}%)` : ''}
                 </span>
@@ -157,7 +157,7 @@ export const SkillsView: React.FC = () => {
 
               <button
                 onClick={() => setActiveTab('challenges')}
-                className="px-3.5 py-1.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-warm-sm"
+                className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-soft cursor-pointer"
               >
                 <span>Take Challenge</span>
                 <ArrowRight className="w-3.5 h-3.5" />

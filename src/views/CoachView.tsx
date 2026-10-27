@@ -105,18 +105,18 @@ export const CoachView: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Top Banner */}
-      <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-6 rounded-card bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#62B6E8]/30">
               Bilingual AI Mentor
             </span>
             <StatusPill status="ai_reviewed" size="sm" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
             SkillBridge AI Coach
           </h1>
-          <p className="mt-1 text-xs sm:text-sm text-warm-muted dark:text-night-muted max-w-xl">
+          <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-xl">
             Ask technical questions, get viva coaching, or troubleshoot craft doubts in Tamil (தூய தமிழ் / தங்கிலீஷ்) or English.
           </p>
         </div>
@@ -130,13 +130,13 @@ export const CoachView: React.FC = () => {
           <button
             key={idx}
             onClick={() => handleSendMessage(qp.prompt)}
-            className="p-3 rounded-2xl bg-parchment-100/70 dark:bg-night-100 border border-warm-border/60 hover:border-gold-400 text-left transition-all hover:scale-[1.01] active:scale-[0.99] group shadow-xs cursor-pointer"
+            className="p-3.5 rounded-2xl bg-white dark:bg-night-100 border border-sky-100 hover:border-[#62B6E8] text-left transition-all hover:scale-[1.01] active:scale-[0.99] group shadow-xs cursor-pointer"
           >
-            <div className="flex items-center gap-1.5 text-maroon-800 dark:text-gold-400 text-xs font-bold mb-0.5">
-              <Lightbulb className="w-3.5 h-3.5 shrink-0" />
+            <div className="flex items-center gap-1.5 text-[#173B67] dark:text-sky-300 text-xs font-bold mb-1">
+              <Lightbulb className="w-3.5 h-3.5 text-[#F2B66D] shrink-0" />
               <span className="truncate">{qp.label}</span>
             </div>
-            <div className="font-tamil text-[11px] text-warm-muted dark:text-night-muted truncate">
+            <div className="font-tamil text-[11px] text-[#526174] dark:text-night-muted truncate">
               {qp.tamil}
             </div>
           </button>
@@ -144,7 +144,7 @@ export const CoachView: React.FC = () => {
       </div>
 
       {/* Chat Container */}
-      <div className="rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-md flex flex-col h-[520px]">
+      <div className="rounded-card bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft flex flex-col h-[520px]">
         {/* Messages Stream */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
           {messages.map((msg) => {
@@ -157,32 +157,32 @@ export const CoachView: React.FC = () => {
               >
                 {/* Avatar */}
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
+                  className={`w-9 h-9 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold shadow-xs ${
                     isAI
-                      ? 'bg-maroon-800 text-gold-200 border border-gold-400'
-                      : 'bg-gold-500 text-maroon-950 font-bold'
+                      ? 'bg-[#173B67] text-[#62B6E8] border border-[#62B6E8]/40'
+                      : 'bg-[#62B6E8] text-white font-extrabold'
                   }`}
                 >
-                  {isAI ? <Sparkles className="w-4 h-4" /> : persona.name.charAt(0)}
+                  {isAI ? <Sparkles className="w-4 h-4 text-[#F2B66D]" /> : persona.name.charAt(0)}
                 </div>
 
                 {/* Message Bubble */}
                 <div
-                  className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                  className={`p-4 rounded-card text-xs sm:text-sm leading-relaxed ${
                     isAI
-                      ? 'bg-parchment-100 dark:bg-night-100 text-warm-ink dark:text-night-ink border border-warm-border/60'
-                      : 'bg-maroon-700 text-white shadow-warm-sm'
+                      ? 'bg-[#EAF5FC]/60 dark:bg-night-100 text-[#173B67] dark:text-night-ink border border-[#D4E7F5]'
+                      : 'bg-[#173B67] text-white shadow-soft'
                   }`}
                 >
                   <p>{msg.text}</p>
                   {msg.tamilText && (
-                    <div className="mt-2 pt-2 border-t border-black/5 dark:border-white/5 font-tamil text-xs text-maroon-800 dark:text-gold-300 font-medium">
+                    <div className="mt-2 pt-2 border-t border-sky-200/50 dark:border-white/5 font-tamil text-xs text-[#173B67] dark:text-sky-300 font-medium">
                       {msg.tamilText}
                     </div>
                   )}
                   <div
                     className={`mt-1 text-[10px] text-right ${
-                      isAI ? 'text-warm-muted' : 'text-white/70'
+                      isAI ? 'text-[#526174]' : 'text-white/70'
                     }`}
                   >
                     {msg.timestamp}
@@ -193,7 +193,7 @@ export const CoachView: React.FC = () => {
           })}
 
           {isThinking && (
-            <div className="p-4 max-w-md mr-auto rounded-2xl bg-parchment-100 dark:bg-night-100 border border-warm-border/60">
+            <div className="p-4 max-w-md mr-auto rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border shadow-soft">
               <AIThinking
                 labelEnglish="SkillBridge Coach is analyzing your query..."
                 labelTamil="AI வழிகாட்டி ஆலோசனை தயாரிக்கிறது..."
@@ -203,7 +203,7 @@ export const CoachView: React.FC = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 sm:p-4 border-t border-warm-border/80 dark:border-night-border/80 bg-parchment-100/50 dark:bg-night-100/50 rounded-b-card-lg">
+        <div className="p-3 sm:p-4 border-t border-sky-100 dark:border-night-border/80 bg-white dark:bg-night-100/50 rounded-b-card">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -216,13 +216,13 @@ export const CoachView: React.FC = () => {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Ask in English or தமிழில் கேளுங்கள்... (e.g. explain flexbox vs grid)"
-              className="flex-1 px-4 py-2.5 rounded-full text-xs sm:text-sm bg-white dark:bg-night-card border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500"
+              className="flex-1 px-4 py-2.5 rounded-full text-xs sm:text-sm bg-[#EAF5FC]/50 dark:bg-night-card border border-sky-200 dark:border-night-border text-[#173B67] dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
             />
 
             <button
               type="submit"
               disabled={!inputMessage.trim() || isThinking}
-              className="px-4 py-2.5 rounded-full bg-maroon-700 hover:bg-maroon-800 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 shadow-warm-sm transition-all"
+              className="px-5 py-2.5 rounded-full bg-[#173B67] hover:bg-[#112C4E] disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 shadow-soft transition-all cursor-pointer"
             >
               <span>Send</span>
               <Send className="w-3.5 h-3.5" />

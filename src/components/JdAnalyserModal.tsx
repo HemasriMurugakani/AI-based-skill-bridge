@@ -58,33 +58,33 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto p-5 sm:p-7 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border dark:border-night-border shadow-warm-lg">
+      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto p-5 sm:p-7 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-xl text-warm-muted hover:bg-warm-100 dark:hover:bg-night-100 transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-btn text-[#526174] hover:bg-[#EAF5FC] dark:hover:bg-night-100 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Header */}
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-gold-100 dark:bg-gold-950/60 text-gold-900 dark:text-gold-300 uppercase tracking-wider">
+          <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-sky-950/60 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] uppercase tracking-wider">
             AI Job Description Gap Engine
           </span>
           <TrustLabel type="ai-disclaimer" />
         </div>
 
-        <h2 className="text-xl sm:text-2xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
           Paste Any Job Description · Detect Concrete Gaps
         </h2>
-        <p className="mt-1 text-xs text-warm-muted dark:text-night-muted leading-relaxed">
+        <p className="mt-1 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
           Our parser extracts required competency levels from real employer job posts and benchmarks them against your local verified proofs.
         </p>
 
         {/* Quick Sample Selector */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="text-[11px] font-semibold text-warm-muted">Try sample:</span>
+          <span className="text-[11px] font-semibold text-[#526174]">Try sample:</span>
           {sampleJds.map((s, idx) => (
             <button
               key={idx}
@@ -92,7 +92,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                 setInputText(s.text);
                 setResult(null);
               }}
-              className="text-xs px-2.5 py-1 rounded-lg bg-parchment-200 dark:bg-night-100 hover:bg-gold-100 text-warm-ink dark:text-night-ink font-medium border border-warm-border/60 transition-colors"
+              className="text-xs px-2.5 py-1 rounded-btn bg-[#F8FAFC] dark:bg-night-100 hover:bg-[#EAF5FC] text-[#173B67] dark:text-night-ink font-medium border border-[#E2E8F0] transition-colors cursor-pointer"
             >
               {s.title}
             </button>
@@ -106,29 +106,29 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Paste raw JD text from LinkedIn, Naukri, or newspaper clipping..."
-            className="w-full p-3 rounded-xl font-mono text-xs bg-parchment-100 dark:bg-night-100 border border-warm-border dark:border-night-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-gold-500"
+            className="w-full p-3 rounded-card font-mono text-xs bg-white dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border text-[#173B67] dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
           />
         </div>
 
         {/* Action Button */}
         <div className="mt-3 flex items-center justify-between">
-          <div className="text-[11px] text-warm-muted">
+          <div className="text-[11px] text-[#526174]">
             Strict Zod parsing • Private & local
           </div>
 
           <button
             onClick={handleAnalyse}
             disabled={isAnalysing || !inputText.trim()}
-            className="px-5 py-2 rounded-full bg-maroon-700 hover:bg-maroon-800 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-2 shadow-warm-sm transition-transform hover:scale-105 active:scale-95"
+            className="px-5 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#4fa8dc] disabled:opacity-50 text-[#173B67] font-bold text-xs flex items-center gap-2 shadow-soft transition-transform hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-gold-300" />
+            <Sparkles className="w-4 h-4 text-[#173B67]" />
             <span>{isAnalysing ? 'Extracting Skills...' : 'Extract & Analyse Gaps'}</span>
           </button>
         </div>
 
         {/* Thinking State */}
         {isAnalysing && (
-          <div className="mt-6 p-6 rounded-2xl bg-parchment-100 dark:bg-night-100 border border-warm-border/60 text-center">
+          <div className="mt-6 p-6 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] text-center">
             <AIThinking
               labelEnglish="Claude AI is parsing requirements and identifying skill delta..."
               labelTamil="வேலை விவரத்திலிருந்து தேவையான திறன்களை AI பிரித்தெடுக்கிறது..."
@@ -138,22 +138,22 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
 
         {/* Results Analysis View */}
         {result && !isAnalysing && (
-          <div className="mt-6 pt-6 border-t border-warm-border/80 dark:border-night-border/80 space-y-5 animate-in fade-in duration-300">
+          <div className="mt-6 pt-6 border-t border-[#E2E8F0] dark:border-night-border/80 space-y-5 animate-in fade-in duration-300">
             {/* Summary card */}
-            <div className="p-4 rounded-2xl bg-parchment-100 dark:bg-night-100 border border-warm-border/70 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span className="text-[10px] font-bold text-maroon-700 dark:text-gold-400 uppercase">
+                <span className="text-[10px] font-bold text-[#173B67] dark:text-sky-400 uppercase">
                   Target Role
                 </span>
-                <h3 className="text-base font-bold text-warm-ink dark:text-night-ink">
+                <h3 className="text-base font-bold text-[#173B67] dark:text-night-ink">
                   {result.jobTitle}
                 </h3>
-                <div className="text-xs text-warm-muted">{result.companyName}</div>
+                <div className="text-xs text-[#526174]">{result.companyName}</div>
 
-                <div className="mt-2 text-xs text-warm-ink dark:text-night-ink">
+                <div className="mt-2 text-xs text-[#173B67] dark:text-night-ink">
                   <span className="font-semibold">{result.summaryEnglish}</span>
                 </div>
-                <div className="mt-1 font-tamil text-xs text-maroon-900 dark:text-gold-300">
+                <div className="mt-1 font-tamil text-xs text-[#173B67]/90 dark:text-sky-300">
                   {result.summaryTamil}
                 </div>
               </div>
@@ -171,15 +171,15 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             {/* Extracted Skills vs Gaps Breakdown */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Matched Skills */}
-              <div className="p-4 rounded-xl bg-forest-50/70 dark:bg-forest-950/40 border border-forest-200 dark:border-forest-800/60">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-forest-800 dark:text-forest-200 uppercase tracking-wide mb-2">
-                  <CheckCircle2 className="w-4 h-4 text-forest-600" />
+              <div className="p-4 rounded-card bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-200 uppercase tracking-wide mb-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <span>Existing Verified Proofs ({result.matchedExistingSkills.length})</span>
                 </div>
-                <ul className="space-y-1.5 text-xs text-forest-950 dark:text-forest-300">
+                <ul className="space-y-1.5 text-xs text-emerald-950 dark:text-emerald-300">
                   {result.matchedExistingSkills.map((sk, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-forest-600" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                       <span>{sk}</span>
                     </li>
                   ))}
@@ -187,15 +187,15 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
               </div>
 
               {/* Detected Gaps */}
-              <div className="p-4 rounded-xl bg-terracotta-50/70 dark:bg-terracotta-950/40 border border-terracotta-200 dark:border-terracotta-800/60">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-terracotta-800 dark:text-terracotta-200 uppercase tracking-wide mb-2">
-                  <AlertCircle className="w-4 h-4 text-terracotta-600" />
+              <div className="p-4 rounded-card bg-rose-50/70 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-rose-800 dark:text-rose-200 uppercase tracking-wide mb-2">
+                  <AlertCircle className="w-4 h-4 text-rose-600" />
                   <span>Actionable Skill Gaps ({result.detectedSkillGaps.length})</span>
                 </div>
-                <ul className="space-y-1.5 text-xs text-terracotta-950 dark:text-terracotta-300">
+                <ul className="space-y-1.5 text-xs text-rose-950 dark:text-rose-300">
                   {result.detectedSkillGaps.map((gap, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-terracotta-600" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
                       <span>{gap}</span>
                     </li>
                   ))}
@@ -207,7 +207,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded-full border border-warm-border text-xs font-semibold text-warm-ink dark:text-night-ink hover:bg-parchment-200 transition-colors"
+                className="px-4 py-2 rounded-btn border border-[#E2E8F0] text-xs font-semibold text-[#173B67] dark:text-night-ink hover:bg-[#F8FAFC] transition-colors cursor-pointer"
               >
                 Close
               </button>
@@ -216,7 +216,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                   onClose();
                   if (onNavigateToRoadmap) onNavigateToRoadmap();
                 }}
-                className="px-5 py-2 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-warm-sm transition-transform hover:scale-105"
+                className="px-5 py-2 rounded-btn bg-[#173B67] hover:bg-[#112C4E] text-white font-bold text-xs flex items-center gap-1.5 shadow-soft transition-transform hover:scale-105 cursor-pointer"
               >
                 <span>Bridge Gaps in Adaptive Roadmap</span>
                 <ArrowRight className="w-3.5 h-3.5" />

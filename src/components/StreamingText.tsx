@@ -43,7 +43,7 @@ export const StreamingText: React.FC<StreamingTextProps> = ({
     <span className={`inline ${className}`}>
       {displayedText}
       {!isFinished && showCursor && (
-        <span className="inline-block w-1.5 h-4 ml-0.5 bg-maroon-700 dark:bg-gold-400 animate-pulse align-middle" />
+        <span className="inline-block w-1.5 h-4 ml-0.5 bg-[#62B6E8] dark:bg-sky-400 animate-pulse align-middle" />
       )}
     </span>
   );

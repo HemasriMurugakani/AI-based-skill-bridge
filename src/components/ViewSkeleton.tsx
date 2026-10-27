@@ -14,10 +14,10 @@ export const ViewSkeleton: React.FC<{ title?: string; titleTamil?: string }> = (
       className="space-y-6 max-w-7xl mx-auto px-1 py-4 animate-fadeIn"
     >
       {/* Top Banner Skeleton */}
-      <div className="p-6 rounded-3xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-2.5 max-w-xl w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-400/15 text-gold-800 dark:text-gold-300 text-xs font-bold border border-gold-400/30">
-            <Sparkles className="w-3.5 h-3.5 animate-spin" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5FC] text-[#173B67] dark:bg-sky-950/60 dark:text-sky-300 text-xs font-bold border border-[#BAE6FD]">
+            <Sparkles className="w-3.5 h-3.5 text-[#62B6E8] animate-spin" />
             <span>{title}</span>
             <span className="font-tamil text-[11px] opacity-80">({titleTamil})</span>
           </div>

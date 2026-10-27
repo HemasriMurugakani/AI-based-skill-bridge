@@ -6,7 +6,7 @@ export interface ProgressRingProps {
   strokeWidth?: number;
   label?: string;
   sublabel?: string;
-  gradientVariant?: 'maroon-gold' | 'forest' | 'terracotta';
+  gradientVariant?: 'primary' | 'emerald' | 'amber' | 'maroon-gold' | 'forest' | 'terracotta';
   showPercentage?: boolean;
   className?: string;
 }
@@ -17,7 +17,7 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
   strokeWidth = 9,
   label,
   sublabel,
-  gradientVariant = 'maroon-gold',
+  gradientVariant = 'primary',
   showPercentage = true,
   className = ''
 }) => {
@@ -61,27 +61,24 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
         aria-hidden="true"
       >
         <defs>
-          {gradientVariant === 'maroon-gold' && (
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#7A1A12" />
-              <stop offset="60%" stopColor="#B8761A" />
-              <stop offset="100%" stopColor="#E8B23A" />
-            </linearGradient>
-          )}
-          {gradientVariant === 'forest' && (
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1B4F30" />
-              <stop offset="70%" stopColor="#2F7D4F" />
-              <stop offset="100%" stopColor="#5FB47F" />
-            </linearGradient>
-          )}
-          {gradientVariant === 'terracotta' && (
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8A3320" />
-              <stop offset="70%" stopColor="#C8553D" />
-              <stop offset="100%" stopColor="#DE735C" />
-            </linearGradient>
-          )}
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            {gradientVariant === 'forest' || gradientVariant === 'emerald' || animatedValue === 100 ? (
+              <>
+                <stop offset="0%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#059669" />
+              </>
+            ) : gradientVariant === 'terracotta' || gradientVariant === 'amber' ? (
+              <>
+                <stop offset="0%" stopColor="#F2B66D" />
+                <stop offset="100%" stopColor="#D97706" />
+              </>
+            ) : (
+              <>
+                <stop offset="0%" stopColor="#62B6E8" />
+                <stop offset="100%" stopColor="#173B67" />
+              </>
+            )}
+          </linearGradient>
         </defs>
 
         {/* Background track */}
@@ -89,9 +86,9 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="currentColor"
+          stroke="#E2E8F0"
           strokeWidth={strokeWidth}
-          className="text-warm-border/60 dark:text-night-border"
+          className="dark:stroke-night-border"
           fill="transparent"
         />
 
@@ -106,24 +103,24 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
           fill="transparent"
-          style={{ transition: 'stroke-dashoffset 0.3s ease-out' }}
+          style={{ transition: 'stroke-dashoffset 0.4s ease-out' }}
         />
       </svg>
 
       {/* Centered Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
         {showPercentage && (
-          <span className="text-xl md:text-2xl font-bold font-heritage tracking-tight text-warm-ink dark:text-night-ink">
+          <span className="text-xl md:text-2xl font-extrabold font-poppins tracking-tight text-[#173B67] dark:text-white">
             {animatedValue}%
           </span>
         )}
         {label && (
-          <span className="text-[10px] md:text-xs font-semibold text-warm-muted dark:text-night-muted uppercase tracking-wider">
+          <span className="text-[10px] md:text-xs font-semibold font-poppins text-[#526174] dark:text-night-muted uppercase tracking-wider">
             {label}
           </span>
         )}
         {sublabel && (
-          <span className="text-[9px] text-warm-subtle dark:text-night-muted line-clamp-1">
+          <span className="text-[10px] font-poppins text-[#526174] dark:text-night-muted line-clamp-1">
             {sublabel}
           </span>
         )}

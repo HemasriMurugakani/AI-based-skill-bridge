@@ -4,7 +4,7 @@ export interface PillChipProps {
   label: string;
   labelTamil?: string;
   icon?: React.ReactNode;
-  variant?: 'default' | 'maroon' | 'gold' | 'forest' | 'terracotta' | 'outline';
+  variant?: 'default' | 'primary' | 'sky' | 'amber' | 'emerald' | 'rose' | 'outline' | 'maroon' | 'gold' | 'forest' | 'terracotta';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   onClick?: () => void;
@@ -26,12 +26,17 @@ export const PillChip: React.FC<PillChipProps> = ({
   };
 
   const variantClasses = {
-    default: 'bg-parchment-200/90 text-warm-ink border border-warm-border dark:bg-night-100 dark:text-night-ink dark:border-night-border',
-    maroon: 'bg-maroon-50 text-maroon-800 border border-maroon-200 dark:bg-maroon-950/60 dark:text-maroon-200 dark:border-maroon-800/60',
-    gold: 'bg-gold-50 text-gold-900 border border-gold-200 dark:bg-gold-950/60 dark:text-gold-200 dark:border-gold-800/60',
-    forest: 'bg-forest-50 text-forest-800 border border-forest-200 dark:bg-forest-950/60 dark:text-forest-200 dark:border-forest-800/60',
-    terracotta: 'bg-terracotta-50 text-terracotta-800 border border-terracotta-200 dark:bg-terracotta-950/60 dark:text-terracotta-200 dark:border-terracotta-800/60',
-    outline: 'bg-transparent text-warm-muted border border-warm-border dark:border-night-border dark:text-night-muted'
+    default: 'bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] dark:bg-deepblue-950/60 dark:text-sky-200 dark:border-sky-800/60',
+    primary: 'bg-[#173B67] text-white border border-[#173B67] dark:bg-[#173B67] dark:text-white',
+    sky: 'bg-sky-50 text-sky-900 border border-sky-200 dark:bg-sky-950/60 dark:text-sky-200 dark:border-sky-800/60',
+    maroon: 'bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] dark:bg-deepblue-950/60 dark:text-sky-200 dark:border-sky-800/60',
+    gold: 'bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-800/60',
+    amber: 'bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-800/60',
+    forest: 'bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-200 dark:border-emerald-800/60',
+    emerald: 'bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-200 dark:border-emerald-800/60',
+    terracotta: 'bg-rose-50 text-rose-900 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-200 dark:border-rose-800/60',
+    rose: 'bg-rose-50 text-rose-900 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-200 dark:border-rose-800/60',
+    outline: 'bg-transparent text-[#526174] border border-[#E2E8F0] dark:border-night-border dark:text-night-muted'
   };
 
   const isClickable = !!onClick;
@@ -45,14 +50,14 @@ export const PillChip: React.FC<PillChipProps> = ({
       className={`inline-flex items-center rounded-full font-medium transition-all duration-200 select-none ${
         sizeClasses[size]
       } ${variantClasses[variant]} ${
-        isClickable ? 'cursor-pointer hover:scale-105 active:scale-95 hover:shadow-warm-sm' : ''
+        isClickable ? 'cursor-pointer hover:scale-105 active:scale-95 hover:shadow-soft' : ''
       } ${className}`}
     >
       {icon && <span className="inline-flex shrink-0 items-center justify-center">{icon}</span>}
       <span className="truncate">
         {labelTamil ? (
           <span className="inline-flex flex-col text-left leading-normal py-0.5">
-            <span className="font-tamil text-[10px] text-warm-muted dark:text-night-muted font-normal leading-normal">{labelTamil}</span>
+            <span className="font-tamil text-[10px] text-[#526174] dark:text-night-muted font-normal leading-normal">{labelTamil}</span>
             <span className="leading-tight">{label}</span>
           </span>
         ) : (

@@ -55,14 +55,14 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border dark:border-night-border shadow-warm-lg space-y-5">
+      <div className="relative w-full max-w-md p-6 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-5">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-[#62B6E8]">
               Browser Diagnostics
             </div>
-            <h3 className="text-lg font-bold font-heritage text-warm-ink dark:text-night-ink">
+            <h3 className="text-lg font-bold text-[#173B67]">
               Voice & Audio Settings
             </h3>
           </div>
@@ -71,51 +71,51 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
               stopSpeaking();
               onClose();
             }}
-            className="p-1 rounded-xl text-warm-muted hover:bg-warm-100 dark:hover:bg-night-100"
+            className="p-1 rounded-btn text-[#526174] hover:bg-[#F8FAFC] hover:text-[#173B67]"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Browser Capability Diagnostic */}
-        <div className="p-3.5 rounded-xl bg-parchment-100 dark:bg-night-100 border border-warm-border/70 space-y-2 text-xs">
+        <div className="p-3.5 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] space-y-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-warm-ink dark:text-night-ink">
+            <span className="font-semibold text-[#173B67]">
               Speech Recognition (Mic Input):
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full text-[10px] flex items-center gap-1 ${
                 recognitionSupported
-                  ? 'bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300'
-                  : 'bg-terracotta-100 text-terracotta-800'
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-rose-100 text-rose-800'
               }`}
             >
               {recognitionSupported ? (
                 <>
-                  <CheckCircle2 className="w-3 h-3 text-forest-600" /> Supported
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Supported
                 </>
               ) : (
                 <>
-                  <AlertCircle className="w-3 h-3 text-terracotta-600" /> Chrome Only
+                  <AlertCircle className="w-3 h-3 text-rose-600" /> Chrome Only
                 </>
               )}
             </span>
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-warm-ink dark:text-night-ink">
+            <span className="font-semibold text-[#173B67]">
               Speech Synthesis (Read Aloud):
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full text-[10px] flex items-center gap-1 ${
                 synthesisSupported
-                  ? 'bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300'
-                  : 'bg-terracotta-100 text-terracotta-800'
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-rose-100 text-rose-800'
               }`}
             >
               {synthesisSupported ? (
                 <>
-                  <CheckCircle2 className="w-3 h-3 text-forest-600" /> Supported
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Supported
                 </>
               ) : (
                 'Unavailable'
@@ -126,7 +126,7 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
 
         {/* Language Selection */}
         <div>
-          <label className="block text-xs font-bold text-warm-ink dark:text-night-ink uppercase tracking-wide mb-1.5">
+          <label className="block text-xs font-bold text-[#173B67] uppercase tracking-wide mb-1.5">
             Select Voice Language
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -138,10 +138,10 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
               <button
                 key={lg.id}
                 onClick={() => setTestLang(lg.id)}
-                className={`p-2 rounded-xl text-center border text-xs font-bold transition-all cursor-pointer ${
+                className={`p-2 rounded-btn text-center border text-xs font-bold transition-all cursor-pointer ${
                   testLang === lg.id
-                    ? 'bg-maroon-700 text-white border-maroon-800 ring-2 ring-gold-400'
-                    : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink border-warm-border'
+                    ? 'bg-[#62B6E8] text-[#173B67] border-[#62B6E8] shadow-soft'
+                    : 'bg-white text-[#173B67] border-[#E2E8F0] hover:bg-[#EAF5FC]'
                 }`}
               >
                 <div>{lg.label}</div>
@@ -152,46 +152,46 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
         </div>
 
         {/* Live Mic Test Box */}
-        <div className="p-3.5 rounded-xl bg-white dark:bg-night-card border border-warm-border/80 space-y-2">
+        <div className="p-3.5 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-warm-ink dark:text-night-ink">
+            <span className="text-xs font-bold text-[#173B67]">
               1. Microphone Speech-to-Text Test
             </span>
             <button
               onClick={handleStartSpeechTest}
               disabled={!recognitionSupported || isListening}
-              className="px-3 py-1 rounded-full bg-maroon-700 hover:bg-maroon-800 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1 cursor-pointer"
+              className="px-3 py-1 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] disabled:opacity-50 text-[#173B67] text-xs font-bold flex items-center gap-1 cursor-pointer"
             >
               <Mic className="w-3 h-3" />
               <span>{isListening ? 'Listening...' : 'Test Mic'}</span>
             </button>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-parchment-100 dark:bg-night-100 min-h-[50px] text-xs font-medium text-warm-ink dark:text-night-ink italic">
+          <div className="p-2.5 rounded-btn bg-white border border-[#E2E8F0] min-h-[50px] text-xs font-medium text-[#173B67] italic">
             {transcribedText || (isListening ? 'Listening... Speak now...' : 'Click "Test Mic" and say something...')}
           </div>
         </div>
 
         {/* Read Aloud Test Box */}
-        <div className="p-3.5 rounded-xl bg-white dark:bg-night-card border border-warm-border/80 space-y-2">
+        <div className="p-3.5 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-warm-ink dark:text-night-ink">
+            <span className="text-xs font-bold text-[#173B67]">
               2. Text-to-Speech Read Aloud Test
             </span>
             <button
               onClick={handleTestTts}
               disabled={!synthesisSupported}
-              className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 cursor-pointer ${
+              className={`px-3 py-1 rounded-btn text-xs font-bold flex items-center gap-1 cursor-pointer ${
                 isPlayingTts
-                  ? 'bg-terracotta-700 text-white'
-                  : 'bg-gold-500 hover:bg-gold-400 text-maroon-950'
+                  ? 'bg-rose-600 text-white'
+                  : 'bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD]'
               }`}
             >
               <Volume2 className="w-3 h-3" />
               <span>{isPlayingTts ? 'Stop' : 'Play Audio'}</span>
             </button>
           </div>
-          <div className="text-[11px] text-warm-muted dark:text-night-muted">
+          <div className="text-[11px] text-[#526174]">
             Plays a clear voice sample in {testLang}.
           </div>
         </div>
@@ -202,7 +202,7 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
             stopSpeaking();
             onClose();
           }}
-          className="w-full py-2.5 rounded-full bg-maroon-700 text-white text-xs font-bold shadow-warm-sm hover:bg-maroon-800 transition-colors"
+          className="w-full py-2.5 rounded-btn bg-[#62B6E8] text-[#173B67] text-xs font-bold shadow-soft hover:bg-[#4ea8dc] transition-colors"
         >
           Done
         </button>

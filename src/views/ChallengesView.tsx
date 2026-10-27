@@ -109,39 +109,39 @@ export const ChallengesView: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 1. Header Banner */}
-      <div className="p-6 sm:p-8 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 sm:p-8 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="text-xs font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-3 py-1 rounded-full bg-[#EAF5FC] border border-[#BAE6FD]">
               Hands-On Proof Engine · Tamil Nadu
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-forest-100 text-forest-900 font-bold">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
               12 Active Challenges
             </span>
             <TrustLabel type="evidence-badge" />
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heritage text-warm-ink dark:text-night-ink">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
             Prove Real-World Competence
           </h1>
-          <div className="font-tamil text-sm text-warm-muted dark:text-night-muted mt-0.5">
+          <div className="font-tamil text-sm text-[#526174] dark:text-night-muted mt-0.5">
             நடைமுறை சான்றுகள் மூலம் உங்கள் உண்மையான திறனை நிரூபியுங்கள்
           </div>
 
-          <p className="mt-2 text-xs sm:text-sm text-warm-muted dark:text-night-muted max-w-xl leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-xl leading-relaxed">
             Move beyond certificates. Submit live code links, craft inspection photos, or voice-recorded defenses to receive instant per-criterion AI rubric feedback.
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-parchment-100 dark:bg-night-100 border border-gold-300/60 dark:border-gold-700/60 shrink-0 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-warm-muted">
+        <div className="p-4 rounded-card bg-[#EAF5FC]/70 dark:bg-night-100 border border-[#BAE6FD] dark:border-night-border shrink-0 text-center">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#526174]">
             Evaluation Protocol
           </div>
-          <div className="text-lg font-black text-maroon-700 dark:text-gold-400 mt-0.5">
+          <div className="text-lg font-black text-[#173B67] dark:text-white mt-0.5">
             Transparent Rubric
           </div>
-          <div className="text-[11px] text-warm-muted mt-1">
-            Status: <span className="font-bold text-forest-700">AI-reviewed</span>
+          <div className="text-[11px] text-[#526174] mt-1">
+            Status: <span className="font-bold text-[#10B981]">AI-reviewed</span>
           </div>
         </div>
       </div>
@@ -150,14 +150,14 @@ export const ChallengesView: React.FC = () => {
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-maroon-700 dark:text-gold-400">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#62B6E8] dark:text-sky-400">
               Interactive Rubric Workspaces
             </span>
-            <h2 className="text-xl font-bold font-heritage text-warm-ink dark:text-night-ink">
+            <h2 className="text-xl font-bold text-[#173B67] dark:text-white">
               Featured Flagship Challenges
             </h2>
           </div>
-          <span className="text-xs font-semibold text-warm-muted">
+          <span className="text-xs font-semibold text-[#526174]">
             Fully implemented with v1 vs v2 revision delta
           </span>
         </div>
@@ -165,64 +165,64 @@ export const ChallengesView: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Flagship 1: Build a responsive profile page */}
           {featuredWebProfile && (
-            <div id="challenge-card-web-profile" className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border-2 border-maroon-700/40 dark:border-gold-600/40 shadow-warm-md flex flex-col justify-between relative overflow-hidden group hover:border-maroon-700 transition-all">
-              <div className="absolute top-0 right-0 bg-maroon-700 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+            <div id="challenge-card-web-profile" className="p-6 rounded-card bg-white dark:bg-night-card border-2 border-[#BAE6FD] dark:border-night-border shadow-soft flex flex-col justify-between relative overflow-hidden group hover:border-[#62B6E8] transition-all">
+              <div className="absolute top-0 right-0 bg-[#EAF5FC] text-[#173B67] border-l border-b border-[#BAE6FD] text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
                 Technical Challenge
               </div>
 
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="p-2 rounded-xl bg-maroon-100 dark:bg-maroon-950 text-maroon-800 dark:text-gold-400">
+                  <div className="p-2 rounded-btn bg-[#EAF5FC] dark:bg-night-card text-[#173B67] dark:text-sky-300 border border-[#BAE6FD]">
                     <Code className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-warm-muted uppercase tracking-wider">
+                    <span className="text-xs font-bold text-[#526174] uppercase tracking-wider">
                       {featuredWebProfile.difficulty} • {featuredWebProfile.timeEstimate}
                     </span>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <StatusPill status="ai_reviewed" />
-                      <span className="text-xs font-extrabold text-gold-700 dark:text-gold-400">
+                      <span className="text-xs font-extrabold text-[#D97706]">
                         +{featuredWebProfile.points} XP
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold font-heritage text-warm-ink dark:text-night-ink mt-2 group-hover:text-maroon-700 transition-colors">
+                <h3 className="text-lg font-bold text-[#173B67] dark:text-white mt-2 group-hover:text-[#62B6E8] transition-colors">
                   {featuredWebProfile.title}
                 </h3>
-                <div className="font-tamil text-xs text-warm-muted dark:text-night-muted mt-0.5">
+                <div className="font-tamil text-xs text-[#526174] dark:text-night-muted mt-0.5">
                   {featuredWebProfile.titleTamil}
                 </div>
 
-                <p className="mt-3 text-xs text-warm-muted dark:text-night-muted leading-relaxed">
+                <p className="mt-3 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
                   {featuredWebProfile.description}
                 </p>
 
                 {/* Rubric Preview Badge */}
-                <div className="mt-4 p-3 rounded-xl bg-parchment-100/70 dark:bg-night-100/60 border border-warm-border/60 text-xs space-y-1.5">
-                  <div className="font-bold text-warm-ink dark:text-night-ink flex items-center justify-between text-[11px]">
+                <div className="mt-4 p-3 rounded-btn bg-[#F8FAFC] dark:bg-night-100/60 border border-[#E2E8F0] text-xs space-y-1.5">
+                  <div className="font-bold text-[#173B67] dark:text-white flex items-center justify-between text-[11px]">
                     <span className="flex items-center gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
                       <span>Visible Rubric Criteria:</span>
                     </span>
-                    <span className="text-forest-700 font-semibold">4 Weighted Checkpoints</span>
+                    <span className="text-[#10B981] font-semibold">4 Weighted Checkpoints</span>
                   </div>
-                  <div className="text-[11px] text-warm-muted">
+                  <div className="text-[11px] text-[#526174]">
                     Landmarks (25%) • Fluid Grid (30%) • Mobile 320px Overflow (25%) • Focus Visible (20%)
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-warm-border/60 flex items-center justify-between">
-                <span className="text-xs text-warm-muted flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-gold-600" />
+              <div className="mt-6 pt-4 border-t border-[#E2E8F0] flex items-center justify-between">
+                <span className="text-xs text-[#526174] flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
                   <span>Supports v1 vs v2 revision delta</span>
                 </span>
 
                 <button
                   onClick={() => handleOpenChallenge(featuredWebProfile.id)}
-                  className="px-4 py-2 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs shadow-warm-sm flex items-center gap-1.5 transition-transform hover:scale-105 cursor-pointer"
+                  className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 cursor-pointer"
                 >
                   <span>Open Challenge Workspace</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -233,64 +233,64 @@ export const ChallengesView: React.FC = () => {
 
           {/* Flagship 2: Write a professional introduction */}
           {featuredCommIntro && (
-            <div className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border-2 border-gold-600/40 shadow-warm-md flex flex-col justify-between relative overflow-hidden group hover:border-gold-600 transition-all">
-              <div className="absolute top-0 right-0 bg-gold-600 text-maroon-950 text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+            <div className="p-6 rounded-card bg-white dark:bg-night-card border-2 border-[#BAE6FD] dark:border-night-border shadow-soft flex flex-col justify-between relative overflow-hidden group hover:border-[#62B6E8] transition-all">
+              <div className="absolute top-0 right-0 bg-[#FFFBEB] text-[#B45309] border-l border-b border-[#FDE68A] text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
                 Communication Challenge
               </div>
 
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="p-2 rounded-xl bg-gold-100 dark:bg-gold-950 text-gold-800 dark:text-gold-300">
+                  <div className="p-2 rounded-btn bg-[#FFFBEB] dark:bg-night-card text-[#B45309] dark:text-amber-300 border border-[#FDE68A]">
                     <Mic className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-warm-muted uppercase tracking-wider">
+                    <span className="text-xs font-bold text-[#526174] uppercase tracking-wider">
                       {featuredCommIntro.difficulty} • {featuredCommIntro.timeEstimate}
                     </span>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <StatusPill status="ai_reviewed" />
-                      <span className="text-xs font-extrabold text-gold-700 dark:text-gold-400">
+                      <span className="text-xs font-extrabold text-[#D97706]">
                         +{featuredCommIntro.points} XP
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold font-heritage text-warm-ink dark:text-night-ink mt-2 group-hover:text-gold-600 transition-colors">
+                <h3 className="text-lg font-bold text-[#173B67] dark:text-white mt-2 group-hover:text-[#62B6E8] transition-colors">
                   {featuredCommIntro.title}
                 </h3>
-                <div className="font-tamil text-xs text-warm-muted dark:text-night-muted mt-0.5">
+                <div className="font-tamil text-xs text-[#526174] dark:text-night-muted mt-0.5">
                   {featuredCommIntro.titleTamil}
                 </div>
 
-                <p className="mt-3 text-xs text-warm-muted dark:text-night-muted leading-relaxed">
+                <p className="mt-3 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
                   {featuredCommIntro.description}
                 </p>
 
                 {/* Rubric Preview Badge */}
-                <div className="mt-4 p-3 rounded-xl bg-parchment-100/70 dark:bg-night-100/60 border border-warm-border/60 text-xs space-y-1.5">
-                  <div className="font-bold text-warm-ink dark:text-night-ink flex items-center justify-between text-[11px]">
+                <div className="mt-4 p-3 rounded-btn bg-[#F8FAFC] dark:bg-night-100/60 border border-[#E2E8F0] text-xs space-y-1.5">
+                  <div className="font-bold text-[#173B67] dark:text-white flex items-center justify-between text-[11px]">
                     <span className="flex items-center gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5 text-forest-600" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
                       <span>Visible Rubric Criteria:</span>
                     </span>
-                    <span className="text-forest-700 font-semibold">Web Speech & Microphone</span>
+                    <span className="text-[#10B981] font-semibold">Web Speech & Microphone</span>
                   </div>
-                  <div className="text-[11px] text-warm-muted">
+                  <div className="text-[11px] text-[#526174]">
                     Clarity (25%) • Evidence Citation (30%) • Cultural Warmth (25%) • Brevity (20%)
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-warm-border/60 flex items-center justify-between">
-                <span className="text-xs text-warm-muted flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-gold-600" />
+              <div className="mt-6 pt-4 border-t border-[#E2E8F0] flex items-center justify-between">
+                <span className="text-xs text-[#526174] flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
                   <span>Supports voice waveform & speech API</span>
                 </span>
 
                 <button
                   onClick={() => handleOpenChallenge(featuredCommIntro.id)}
-                  className="px-4 py-2 rounded-full bg-gold-600 hover:bg-gold-500 text-maroon-950 font-extrabold text-xs shadow-warm-sm flex items-center gap-1.5 transition-transform hover:scale-105 cursor-pointer"
+                  className="px-4 py-2 rounded-btn bg-white hover:bg-[#EAF5FC] border border-[#173B67] text-[#173B67] font-semibold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 cursor-pointer"
                 >
                   <span>Open Voice Workspace</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -302,25 +302,25 @@ export const ChallengesView: React.FC = () => {
       </section>
 
       {/* 3. Filter & Search Controls */}
-      <div className="p-4 rounded-2xl bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-soft">
         {/* Type Tabs */}
         <div className="flex flex-wrap gap-1.5">
           <button
             onClick={() => setActiveFilter('all')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'all'
-                ? 'bg-maroon-700 text-white shadow-xs'
-                : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:bg-parchment-300'
+                ? 'bg-[#173B67] text-white shadow-soft'
+                : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
             All Proofs ({challenges.length})
           </button>
           <button
             onClick={() => setActiveFilter('code')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'code'
-                ? 'bg-maroon-700 text-white shadow-xs'
-                : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:bg-parchment-300'
+                ? 'bg-[#173B67] text-white shadow-soft'
+                : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
             <Code className="w-3 h-3" />
@@ -328,10 +328,10 @@ export const ChallengesView: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveFilter('photo_upload')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'photo_upload'
-                ? 'bg-maroon-700 text-white shadow-xs'
-                : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:bg-parchment-300'
+                ? 'bg-[#173B67] text-white shadow-soft'
+                : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
             <Camera className="w-3 h-3" />
@@ -339,10 +339,10 @@ export const ChallengesView: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveFilter('viva')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeFilter === 'viva'
-                ? 'bg-maroon-700 text-white shadow-xs'
-                : 'bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:bg-parchment-300'
+                ? 'bg-[#173B67] text-white shadow-soft'
+                : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
             <Mic className="w-3 h-3" />
@@ -352,13 +352,13 @@ export const ChallengesView: React.FC = () => {
 
         {/* Search */}
         <div className="relative w-full sm:w-64">
-          <Search className="w-3.5 h-3.5 text-warm-muted absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-[#526174] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search challenges by skill..."
-            className="w-full pl-8 pr-3 py-1.5 rounded-full text-xs bg-parchment-100 dark:bg-night-100 border border-warm-border text-warm-ink dark:text-night-ink focus:outline-none focus:ring-1 focus:ring-gold-500"
+            className="w-full pl-8 pr-3 py-1.5 rounded-full text-xs bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] text-[#173B67] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
           />
         </div>
       </div>
@@ -381,50 +381,50 @@ export const ChallengesView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {otherChallenges.map((challenge) => {
             const typeIcon = {
-              code: <Code className="w-4 h-4 text-maroon-700 dark:text-gold-400" />,
-              photo_upload: <Camera className="w-4 h-4 text-forest-600 dark:text-forest-400" />,
-              viva: <Mic className="w-4 h-4 text-gold-600 dark:text-gold-400" />,
-              quiz: <Sparkles className="w-4 h-4 text-terracotta-600 dark:text-terracotta-400" />
+              code: <Code className="w-4 h-4 text-[#173B67] dark:text-sky-300" />,
+              photo_upload: <Camera className="w-4 h-4 text-[#10B981] dark:text-emerald-400" />,
+              viva: <Mic className="w-4 h-4 text-[#62B6E8] dark:text-sky-400" />,
+              quiz: <Sparkles className="w-4 h-4 text-[#F2B66D] dark:text-amber-400" />
             }[challenge.type];
 
             return (
               <div
                 key={challenge.id}
-                className="p-5 rounded-card bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border hover:shadow-warm-md hover:-translate-y-0.5 transition-all flex flex-col justify-between"
+                className="p-5 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border hover:shadow-soft hover:border-[#62B6E8] hover:-translate-y-0.5 transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-1.5">
                       {typeIcon}
-                      <span className="text-[10px] font-bold text-warm-muted uppercase tracking-wider">
+                      <span className="text-[10px] font-bold text-[#526174] uppercase tracking-wider">
                         {challenge.type.replace('_', ' ')}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-1.5">
                       <StatusPill status="ai_reviewed" />
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-parchment-200 dark:bg-night-100 text-warm-ink">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD]">
                         {challenge.difficulty}
                       </span>
                     </div>
                   </div>
 
-                  <h3 className="text-sm font-bold text-warm-ink dark:text-night-ink line-clamp-2">
+                  <h3 className="text-sm font-bold text-[#173B67] dark:text-white line-clamp-2">
                     {challenge.title}
                   </h3>
                   {challenge.titleTamil && (
-                    <div className="font-tamil text-[11px] text-warm-muted dark:text-night-muted mt-0.5 line-clamp-1">
+                    <div className="font-tamil text-[11px] text-[#526174] dark:text-night-muted mt-0.5 line-clamp-1">
                       {challenge.titleTamil}
                     </div>
                   )}
 
-                  <p className="mt-2 text-xs text-warm-muted dark:text-night-muted line-clamp-2 leading-relaxed">
+                  <p className="mt-2 text-xs text-[#526174] dark:text-night-muted line-clamp-2 leading-relaxed">
                     {challenge.description}
                   </p>
 
                   {/* Cached Feedback Callout */}
-                  <div className="mt-3 p-2.5 rounded-xl bg-parchment-100/70 dark:bg-night-100/70 border border-warm-border/60 text-[11px] text-warm-muted leading-snug">
-                    <span className="font-bold text-forest-700 dark:text-forest-400">Cached review: </span>
+                  <div className="mt-3 p-2.5 rounded-btn bg-[#F8FAFC] dark:bg-night-100/70 border border-[#E2E8F0] text-[11px] text-[#526174] leading-snug">
+                    <span className="font-bold text-[#10B981]">Cached review: </span>
                     <span>
                       {challenge.score
                         ? `Evaluated against ${challenge.rubric.length}-tier rubric (${challenge.score}% pass).`
@@ -433,8 +433,8 @@ export const ChallengesView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-warm-border/60 flex items-center justify-between text-xs">
-                  <span className="flex items-center gap-1 font-semibold text-gold-700 dark:text-gold-400">
+                <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between text-xs">
+                  <span className="flex items-center gap-1 font-semibold text-[#D97706]">
                     <Award className="w-3.5 h-3.5" />
                     +{challenge.points} XP
                   </span>
@@ -442,7 +442,7 @@ export const ChallengesView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleOpenChallenge(challenge.id)}
-                    className="px-3.5 py-1.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-bold text-xs shadow-warm-xs flex items-center gap-1 cursor-pointer transition-transform hover:scale-105"
+                    className="px-3.5 py-1.5 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs shadow-soft flex items-center gap-1 cursor-pointer transition-transform hover:scale-105"
                   >
                     <span>Open Workspace</span>
                     <ChevronRight className="w-3.5 h-3.5" />

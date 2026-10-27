@@ -96,8 +96,8 @@ export const OfflineBanner: React.FC = () => {
     <>
       {/* Toast Notification on successful download */}
       {showDownloadToast && (
-        <div className="fixed top-20 right-4 z-50 p-4 rounded-2xl bg-forest-700 text-white shadow-warm-xl flex items-center gap-3 border border-forest-500 animate-slideDown">
-          <CheckCircle2 className="w-5 h-5 text-gold-300 shrink-0" />
+        <div className="fixed top-20 right-4 z-50 p-4 rounded-card bg-emerald-700 text-white shadow-soft flex items-center gap-3 border border-emerald-500 animate-slideDown">
+          <CheckCircle2 className="w-5 h-5 text-emerald-200 shrink-0" />
           <div>
             <div className="text-xs font-bold">Lessons & Roadmaps Downloaded!</div>
             <div className="text-[11px] text-forest-100">
@@ -112,18 +112,18 @@ export const OfflineBanner: React.FC = () => {
         <aside
           role="status"
           aria-live="polite"
-          className="bg-gradient-to-r from-amber-700 via-amber-800 to-maroon-900 text-gold-100 px-4 py-2 border-b border-amber-600/80 shadow-sm"
+          className="bg-gradient-to-r from-[#173B67] via-[#1A4576] to-[#0E233E] text-white px-4 py-2 border-b border-[#62B6E8]/40 shadow-sm"
         >
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5">
-              <span className="p-1 rounded-full bg-amber-500/30 border border-amber-400/60 text-amber-200 shrink-0">
+              <span className="p-1 rounded-full bg-sky-500/30 border border-sky-400/60 text-sky-200 shrink-0">
                 <WifiOff className="w-4 h-4 animate-pulse" />
               </span>
               <div>
                 <span className="font-bold text-white">
                   Offline Mode Active · இணைய இணைப்பு இல்லை:
                 </span>{' '}
-                <span className="text-amber-100/90">
+                <span className="text-sky-100/90">
                   {isLessonsDownloaded
                     ? 'All lessons, roadmaps, and local rubrics are cached and 100% functional without internet.'
                     : 'App shell is active. Download the offline pack below to save all lesson transcripts and rubrics.'}
@@ -137,7 +137,7 @@ export const OfflineBanner: React.FC = () => {
                   type="button"
                   onClick={handleDownload}
                   disabled={isDownloading}
-                  className="px-3 py-1 rounded-full bg-gold-500 hover:bg-gold-400 text-maroon-950 font-bold text-xs shadow-sm transition-transform hover:scale-105 active:scale-95 flex items-center gap-1.5"
+                  className="px-3 py-1 rounded-full bg-[#F2B66D] hover:bg-[#e59f45] text-[#173B67] font-bold text-xs shadow-sm transition-transform hover:scale-105 active:scale-95 flex items-center gap-1.5"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>{isDownloading ? `Caching ${lessonsDownloadProgress}%...` : 'Download Lessons'}</span>

@@ -32,26 +32,26 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     <div
       role="region"
       aria-label={title}
-      className={`p-8 sm:p-12 text-center rounded-3xl bg-parchment-50/80 dark:bg-night-card border border-dashed border-warm-border/90 dark:border-night-border/90 max-w-2xl mx-auto my-6 shadow-warm-xs ${className}`}
+      className={`p-8 sm:p-12 text-center rounded-card bg-white border border-[#E2E8F0] dark:bg-night-card dark:border-night-border max-w-2xl mx-auto my-6 shadow-soft ${className}`}
     >
-      <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-parchment-200/70 dark:bg-night-100 flex items-center justify-center text-maroon-700 dark:text-gold-400 border border-warm-border dark:border-night-border shadow-warm-xs">
-        <Icon className="w-8 h-8" />
+      <div className="w-14 h-14 mx-auto mb-4 rounded-btn bg-[#EAF5FC] dark:bg-night-100 flex items-center justify-center text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] dark:border-night-border">
+        <Icon className="w-7 h-7" />
       </div>
 
-      <h3 className="text-lg sm:text-xl font-bold text-warm-ink dark:text-night-ink">
+      <h3 className="text-xl font-bold font-poppins text-[#173B67] dark:text-white">
         {title}
       </h3>
       {titleTamil && (
-        <div className="font-tamil text-sm font-semibold text-warm-muted dark:text-night-muted mt-0.5">
+        <div className="font-tamil text-sm font-semibold text-[#526174] dark:text-night-muted mt-0.5">
           {titleTamil}
         </div>
       )}
 
-      <p className="mt-2.5 text-xs sm:text-sm text-warm-muted dark:text-night-muted leading-relaxed max-w-lg mx-auto">
+      <p className="mt-2 text-sm text-[#526174] dark:text-night-muted leading-relaxed max-w-lg mx-auto">
         {description}
       </p>
       {descriptionTamil && (
-        <p className="font-tamil text-xs text-warm-muted/80 dark:text-night-muted/80 mt-1 leading-relaxed max-w-lg mx-auto">
+        <p className="font-tamil text-xs text-[#526174]/80 dark:text-night-muted/80 mt-1 leading-relaxed max-w-lg mx-auto">
           {descriptionTamil}
         </p>
       )}
@@ -62,12 +62,12 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             <button
               type="button"
               onClick={onAction}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-maroon-700 hover:bg-maroon-800 text-white font-semibold text-xs shadow-warm-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#4EB0E8] text-[#173B67] font-semibold text-sm shadow-sm transition-all active:scale-95 cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>{actionLabel}</span>
               {actionLabelTamil && (
-                <span className="font-tamil text-[11px] opacity-85">({actionLabelTamil})</span>
+                <span className="font-tamil text-xs opacity-85">({actionLabelTamil})</span>
               )}
             </button>
           )}
@@ -76,9 +76,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             <button
               type="button"
               onClick={onSecondaryAction}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-parchment-200 dark:bg-night-100 text-warm-ink dark:text-night-ink hover:border-gold-400 border border-warm-border dark:border-night-border font-medium text-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-btn bg-white dark:bg-night-100 text-[#173B67] dark:text-white hover:bg-[#D9EFFB] border border-[#173B67] font-semibold text-sm transition-colors cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-500" />
+              <Sparkles className="w-3.5 h-3.5 text-[#F2B66D]" />
               <span>{secondaryActionLabel}</span>
             </button>
           )}

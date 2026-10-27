@@ -54,7 +54,7 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
         particleCount: 40,
         spread: 50,
         origin: { y: 0.5 },
-        colors: ['#7A1A12', '#F59E0B', '#10B981']
+        colors: ['#173B67', '#62B6E8', '#F2B66D', '#FFFFFF']
       });
 
       // Step 2: Opens verified mobile credential card
@@ -81,9 +81,9 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
         </div>
 
         {/* Smartphone Screen Viewport */}
-        <div className="relative bg-parchment-50 text-slate-900 rounded-[34px] overflow-hidden min-h-[520px] flex flex-col font-sans">
+        <div className="relative bg-[#EAF5FC] text-slate-900 rounded-[34px] overflow-hidden min-h-[520px] flex flex-col font-sans">
           {/* Status Bar */}
-          <div className="flex items-center justify-between px-6 pt-3 pb-1 text-[11px] font-semibold text-slate-700 bg-parchment-100/70">
+          <div className="flex items-center justify-between px-6 pt-3 pb-1 text-[11px] font-semibold text-slate-700 bg-white/70">
             <span>9:41</span>
             <div className="flex items-center gap-1.5 text-slate-600">
               <Wifi className="w-3.5 h-3.5" />
@@ -113,7 +113,7 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
 
                 {/* QR Code Graphic being scanned */}
                 <div className="p-3 bg-white rounded-xl shadow-lg">
-                  <QRCodeSVG value={verifyUrl} size={130} fgColor="#7A1A12" bgColor="#FFFFFF" />
+                  <QRCodeSVG value={verifyUrl} size={130} fgColor="#173B67" bgColor="#FFFFFF" />
                 </div>
 
                 {/* Moving Green Scanning Laser */}
@@ -136,64 +136,64 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
             </div>
           ) : (
             /* Loaded Public Credential Card in Mobile Browser */
-            <div className="flex-1 bg-parchment-50 flex flex-col p-4 text-warm-ink animate-in fade-in duration-300">
+            <div className="flex-1 bg-[#F8FAFC] flex flex-col p-4 text-[#173B67] animate-in fade-in duration-300">
               {/* Mobile Browser Header */}
-              <div className="p-2 rounded-xl bg-parchment-200 border border-warm-border text-[11px] text-warm-muted flex items-center justify-between mb-3">
+              <div className="p-2 rounded-btn bg-[#EAF5FC] border border-[#BAE6FD] text-[11px] text-[#526174] flex items-center justify-between mb-3">
                 <span className="truncate font-mono">skillbridge.tn.gov.in/verify</span>
-                <span className="text-[10px] text-forest-700 font-bold">🔒 TLS 1.3</span>
+                <span className="text-[10px] text-[#065F46] font-bold">🔒 TLS 1.3</span>
               </div>
 
               {/* State Seal & Credential Badge */}
-              <div className="text-center p-3 rounded-2xl bg-white border border-gold-400/60 shadow-xs mb-3">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold-100 border border-gold-300 text-gold-900 text-[10px] font-black uppercase tracking-wider mb-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-gold-700" />
+              <div className="text-center p-3 rounded-card bg-white border border-[#E2E8F0] shadow-soft mb-3">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] text-[10px] font-bold uppercase tracking-wider mb-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#62B6E8]" />
                   <span>Verified Skill Credential</span>
                 </div>
-                <h4 className="text-base font-bold text-maroon-900 font-heritage">
+                <h4 className="text-base font-bold text-[#173B67]">
                   {personaName}
                 </h4>
-                <div className="text-[11px] text-warm-muted font-tamil">{personaTamilName}</div>
-                <div className="text-[10px] text-warm-muted">{location}</div>
+                <div className="text-[11px] text-[#526174] font-tamil">{personaTamilName}</div>
+                <div className="text-[10px] text-[#526174]">{location}</div>
               </div>
 
               {/* Verified Rubric Proof Highlights */}
               <div className="space-y-2 mb-3">
-                <div className="p-2.5 rounded-xl bg-forest-50 border border-forest-300 flex items-center justify-between text-xs">
+                <div className="p-2.5 rounded-btn bg-[#ECFDF5] border border-[#A7F3D0] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-forest-900">Responsive Layouts (320px)</div>
-                    <div className="text-[10px] text-forest-700">Zero horizontal scroll verified</div>
+                    <div className="font-bold text-[#065F46]">Responsive Layouts (320px)</div>
+                    <div className="text-[10px] text-[#047857]">Zero horizontal scroll verified</div>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-forest-600 text-white font-extrabold text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-[#10B981] text-white font-bold text-[11px]">
                     94%
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-gold-50 border border-gold-300 flex items-center justify-between text-xs">
+                <div className="p-2.5 rounded-btn bg-[#EAF5FC] border border-[#BAE6FD] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-gold-950">AI Voice Viva in Tamil</div>
-                    <div className="text-[10px] text-gold-800">Authenticity: Consistent</div>
+                    <div className="font-bold text-[#173B67]">AI Voice Viva in Tamil</div>
+                    <div className="text-[10px] text-[#526174]">Authenticity: Consistent</div>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-gold-600 text-white font-extrabold text-[11px]">
+                  <span className="px-2 py-0.5 rounded-full bg-[#62B6E8] text-[#173B67] font-bold text-[11px]">
                     94%
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-maroon-50 border border-maroon-300 flex items-center justify-between text-xs">
+                <div className="p-2.5 rounded-btn bg-[#FFFBEB] border border-[#FDE68A] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-maroon-950">Mentor Endorsement</div>
-                    <div className="text-[10px] text-maroon-800">K. Senthil Nathan (Senior Lead)</div>
+                    <div className="font-bold text-[#92400E]">Mentor Endorsement</div>
+                    <div className="text-[10px] text-[#B45309]">K. Senthil Nathan (Senior Lead)</div>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-maroon-700 text-white font-bold text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-[#F2B66D] text-[#173B67] font-bold text-[10px]">
                     Signed
                   </span>
                 </div>
               </div>
 
               {/* Cryptographic Tamper-Proof Audit Footer */}
-              <div className="mt-auto p-2.5 rounded-xl bg-parchment-200/80 border border-warm-border text-[10px] space-y-0.5 font-mono text-warm-muted">
+              <div className="mt-auto p-2.5 rounded-btn bg-[#EAF5FC] border border-[#BAE6FD] text-[10px] space-y-0.5 font-mono text-[#526174]">
                 <div>Audit ID: {credentialId}</div>
                 <div className="truncate">Hash: 0x7a1e84df99c42b012481b</div>
-                <div className="text-forest-700 font-bold">✓ 100% Cryptographically Verified</div>
+                <div className="text-[#065F46] font-bold">✓ 100% Cryptographically Verified</div>
               </div>
             </div>
           )}

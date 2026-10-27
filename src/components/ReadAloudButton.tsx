@@ -35,16 +35,16 @@ export const ReadAloudButton: React.FC<ReadAloudButtonProps> = ({
       type="button"
       onClick={handleToggle}
       title={isPlaying ? 'Stop voice readout' : `Read aloud (${lang})`}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-btn text-xs font-semibold border transition-all cursor-pointer ${
         isPlaying
-          ? 'bg-maroon-700 text-white border-maroon-800 ring-2 ring-gold-400 animate-pulse'
-          : 'bg-parchment-200/90 dark:bg-night-100 hover:bg-gold-100 text-warm-ink dark:text-night-ink border-warm-border/80'
+          ? 'bg-[#173B67] text-white border-[#173B67] ring-2 ring-[#62B6E8] animate-pulse'
+          : 'bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD]'
       } ${className}`}
     >
       {isPlaying ? (
-        <VolumeX className="w-3.5 h-3.5 text-gold-300" />
+        <VolumeX className="w-3.5 h-3.5 text-[#62B6E8]" />
       ) : (
-        <Volume2 className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />
+        <Volume2 className="w-3.5 h-3.5 text-[#173B67]" />
       )}
       <span>{isPlaying ? 'Stop' : label}</span>
     </button>

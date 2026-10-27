@@ -33,6 +33,15 @@ export interface Pathway {
   targetRoles: string[];
 }
 
+export interface VideoResource {
+  youtubeId: string;
+  title: string;
+  titleTamil?: string;
+  channel: string;
+  duration: string;
+  keyTopics?: string[];
+}
+
 export interface Challenge {
   id: string;
   title: string;
@@ -53,6 +62,7 @@ export interface Challenge {
   points: number;
   completed?: boolean;
   score?: number;
+  videoResource?: VideoResource;
 }
 
 export interface Badge {

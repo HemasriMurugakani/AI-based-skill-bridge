@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Volume2, VolumeX, ShieldCheck, Clock, CheckCircle2, Wifi, WifiOff, ArrowRight } from 'lucide-react';
+import { X, Volume2, VolumeX, ShieldCheck, Clock, CheckCircle2, Wifi, WifiOff, ArrowRight, Play, ExternalLink, Video } from 'lucide-react';
 import { MilestoneNode } from '../data/roadmapData';
 import { speakInstruction, stopSpeaking, isSpeechSynthesisSupported, SpeechLang } from '../utils/speech';
 
@@ -22,6 +22,7 @@ export const LessonDrawer: React.FC<LessonDrawerProps> = ({
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioLang, setAudioLang] = useState<SpeechLang>(isTa ? 'ta-IN' : 'en-IN');
   const [isLowBandwidth, setIsLowBandwidth] = useState(false);
+  const [forceLoadVideo, setForceLoadVideo] = useState(false);
 
   if (!milestone) return null;
 
@@ -137,6 +138,104 @@ export const LessonDrawer: React.FC<LessonDrawerProps> = ({
               {milestone.whyThisStep}
             </p>
           </div>
+
+          {/* Curated Interactive Video Lesson */}
+          {milestone.lessonContent.videoResource && (
+            <div className="rounded-card border border-[#E2E8F0] bg-[#F8FAFC] overflow-hidden shadow-soft">
+              <div className="p-3 bg-gradient-to-r from-[#173B67] to-[#1e487d] text-white flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Play className="w-3 h-3 fill-current ml-0.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#BAE6FD] block">
+                      {isTa ? 'ஊடாடும் காணொளி பாடம்' : 'Curated Video Masterclass'}
+                    </span>
+                    <h5 className="text-xs font-bold text-white truncate">
+                      {isTa ? (milestone.lessonContent.videoResource.titleTamil || milestone.lessonContent.videoResource.title) : milestone.lessonContent.videoResource.title}
+                    </h5>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-xs flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {milestone.lessonContent.videoResource.duration}
+                  </span>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${milestone.lessonContent.videoResource.youtubeId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={isTa ? 'YouTube-ல் திறக்கவும்' : 'Open in YouTube'}
+                    className="p-1 rounded-btn text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Player or 2G data saver */}
+              {isLowBandwidth && !forceLoadVideo ? (
+                <div className="p-6 text-center space-y-3 bg-[#F1F5F9]">
+                  <div className="w-10 h-10 rounded-full bg-[#E2E8F0] text-[#526174] flex items-center justify-center mx-auto">
+                    <WifiOff className="w-5 h-5 text-[#526174]" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-[#173B67]">
+                      {isTa ? '2G டேட்டா சேமிப்பு: காணொளி இடைநிறுத்தப்பட்டது' : '2G Data Saver Mode Active'}
+                    </p>
+                    <p className="text-[11px] text-[#526174] mt-0.5">
+                      {isTa ? 'மொபைல் டேட்டாவை சேமிக்க காணொளி ஏற்றப்படவில்லை (~40MB சேமிக்கப்பட்டது)' : 'Video streaming paused to protect mobile data quota (~40MB saved).'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setForceLoadVideo(true)}
+                    className="px-3.5 py-1.5 rounded-btn bg-[#173B67] hover:bg-[#1f487a] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-xs cursor-pointer transition-colors"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>{isTa ? 'காணொளியை ஏற்றவும்' : 'Load Video Anyway'}</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="relative aspect-video w-full bg-black">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${milestone.lessonContent.videoResource.youtubeId}?rel=0&modestbranding=1`}
+                    title={milestone.lessonContent.videoResource.title}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+
+              {/* Channel and Key Topics */}
+              <div className="p-3 bg-white border-t border-[#E2E8F0] text-xs space-y-2">
+                <div className="flex items-center justify-between text-[11px] text-[#526174]">
+                  <span className="font-semibold flex items-center gap-1">
+                    <span className="text-[#173B67] font-bold">{isTa ? 'பயிற்றுநர்:' : 'Channel:'}</span> {milestone.lessonContent.videoResource.channel}
+                  </span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 font-semibold">
+                    ✓ {isTa ? 'சான்றளிக்கப்பட்ட பாடம்' : 'Verified Study Resource'}
+                  </span>
+                </div>
+
+                {milestone.lessonContent.videoResource.keyTopics && (
+                  <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                    <span className="text-[10px] font-bold text-[#526174] uppercase tracking-wider">{isTa ? 'தலைப்புகள்:' : 'Topics:'}</span>
+                    {milestone.lessonContent.videoResource.keyTopics.map((topic, tidx) => (
+                      <span
+                        key={tidx}
+                        className="text-[10px] px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-medium"
+                      >
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Lesson Overview */}
           <div>

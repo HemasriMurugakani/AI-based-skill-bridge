@@ -230,7 +230,15 @@ export const RoadmapAdaptSchema = z.object({
       keyTakeaways: z.array(z.string()),
       audioTranscript: z.string(),
       audioTranscriptTamil: z.string(),
-      handsOnPrompt: z.string()
+      handsOnPrompt: z.string(),
+      videoResource: z.object({
+        youtubeId: z.string(),
+        title: z.string(),
+        titleTamil: z.string().optional(),
+        channel: z.string(),
+        duration: z.string(),
+        keyTopics: z.array(z.string()).optional()
+      }).optional()
     })
   }),
   changelogEntry: z.string(),
@@ -363,7 +371,15 @@ export async function adaptRoadmap(
         keyTakeaways: chosen.takeaways,
         audioTranscript: chosen.transcript,
         audioTranscriptTamil: chosen.transcriptTamil,
-        handsOnPrompt: chosen.prompt
+        handsOnPrompt: chosen.prompt,
+        videoResource: {
+          youtubeId: 'u044iM9xsWU',
+          title: 'Learn Flexbox in 20 Minutes (Tutorial)',
+          titleTamil: 'CSS Flexbox 20 நிமிட விரைவுப் பாடம்',
+          channel: 'Kevin Powell',
+          duration: '19:12',
+          keyTopics: ['Flexbox Alignment', 'justify-content vs align-items', 'flex-wrap', 'Gap Spacing']
+        }
       }
     },
     changelogEntry: chosen.changelog,

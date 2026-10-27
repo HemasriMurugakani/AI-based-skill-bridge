@@ -1,3 +1,6 @@
+import { VideoResource } from '../types';
+export type { VideoResource };
+
 export interface MilestoneNode {
   id: string;
   stepNumber: number;
@@ -18,6 +21,7 @@ export interface MilestoneNode {
     handsOnPrompt: string;
     hasMedia?: boolean;
     mediaUrl?: string;
+    videoResource?: VideoResource;
   };
   transferable?: boolean;
   transferNote?: string;
@@ -62,7 +66,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Welcome to milestone 1. In this module, you master semantic HTML landmarks and keyboard accessibility. Screen readers rely on semantic landmarks to understand page architecture.',
           audioTranscriptTamil: 'முதல் பாடத்திற்கு நல்வரவு. இதில் அர்த்தமுள்ள HTML மற்றும் விசைப்பலகை அணுகல்தன்மையை நாம் கற்கிறோம்.',
-          handsOnPrompt: 'Inspect the provided HTML skeleton and replace all div wrappers with appropriate semantic HTML5 tags.'
+          handsOnPrompt: 'Inspect the provided HTML skeleton and replace all div wrappers with appropriate semantic HTML5 tags.',
+          videoResource: {
+            youtubeId: 'kGW8Al_cga4',
+            title: 'Stop using divs for everything! Semantic HTML Masterclass',
+            titleTamil: 'அர்த்தமுள்ள HTML மற்றும் அணுகல்தன்மை பாடம்',
+            channel: 'Kevin Powell',
+            duration: '14:20',
+            keyTopics: ['Semantic Landmarks', '<header>, <nav>, <main>', 'WCAG AA Skip Links', 'Screen Reader Accessibility']
+          }
         }
       },
       {
@@ -86,7 +98,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'In milestone 2, you master modern CSS Grid and Flexbox. Fluid layout principles guarantee zero horizontal scrollbars on mobile phones.',
           audioTranscriptTamil: 'இரண்டாம் பாடத்தில் CSS கிரிட் மற்றும் நெகிழ்வான தளவமைப்பை கற்கிறோம். இது உங்கள் பக்கங்களை மொபைலில் நேர்த்தியாக மாற்றும்.',
-          handsOnPrompt: 'Construct a 3-column product grid with aspect-ratio 4/3 image wrappers and zero overflow.'
+          handsOnPrompt: 'Construct a 3-column product grid with aspect-ratio 4/3 image wrappers and zero overflow.',
+          videoResource: {
+            youtubeId: 'rg7Fvvl3taU',
+            title: 'Learn CSS Grid the Easy Way - Responsive Without Media Queries',
+            titleTamil: 'நெகிழ்வான CSS கிரிட் மற்றும் ஃப்ளெக்ஸ்பாக்ஸ் பயிற்சி',
+            channel: 'Kevin Powell',
+            duration: '18:45',
+            keyTopics: ['CSS Grid repeat(auto-fit, minmax())', 'Fluid typography clamp()', 'Zero horizontal scroll on 320px', 'Container proportionality']
+          }
         }
       },
       {
@@ -109,7 +129,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Milestone 3 covers JavaScript async/await and event bubbling. Learn how event delegation saves memory on mobile devices.',
           audioTranscriptTamil: 'மூன்றாம் பாடத்தில் ஜாவாஸ்கிரிப்ட் மெமரி சேமிப்பு மற்றும் நிகழ்வு பரிமாற்றத்தை கற்கிறோம்.',
-          handsOnPrompt: 'Write a 300ms debounced input search handler that cancels previous inflight fetches.'
+          handsOnPrompt: 'Write a 300ms debounced input search handler that cancels previous inflight fetches.',
+          videoResource: {
+            youtubeId: 'y17RuWkWdn8',
+            title: 'JavaScript DOM Crash Course & Event Delegation',
+            titleTamil: 'ஜாவாஸ்கிரிப்ட் DOM மற்றும் நிகழ்வு மேலாண்மை',
+            channel: 'Traversy Media',
+            duration: '26:10',
+            keyTopics: ['DOM Manipulation', 'Event Bubbling & Delegation', 'Async Fetch API', 'Error Boundaries']
+          }
         }
       },
       {
@@ -131,7 +159,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'In milestone 4, you construct an end-to-end accessible web portal with search, cart, and offline storage.',
           audioTranscriptTamil: 'நான்காம் பாடத்தில் ஒரு நேரலை திட்டப்பணியை செய்து முடிக்கிறோம்.',
-          handsOnPrompt: 'Build and deploy a responsive catalog with accessible keyboard filters and cart drawers.'
+          handsOnPrompt: 'Build and deploy a responsive catalog with accessible keyboard filters and cart drawers.',
+          videoResource: {
+            youtubeId: 'w7ejDZ8SWv8',
+            title: 'React Crash Course for Beginners - Modern UI & State',
+            titleTamil: 'ரியாக்ட் உதிரிபாகங்கள் & நிலை மேலாண்மை பயிற்சி',
+            channel: 'Traversy Media',
+            duration: '34:15',
+            keyTopics: ['React Component Trees', 'State Management', 'Accessible Product Catalog', 'Client-side Routing']
+          }
         }
       },
       {
@@ -153,7 +189,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Final milestone 5: Deliver an oral defense of your code to earn your verified credential.',
           audioTranscriptTamil: 'இறுதிப் பாடத்தில் உங்கள் திட்டத்தை வாய்மொழியாக விளக்கி சான்றளிப்பு பெறுகிறீர்கள்.',
-          handsOnPrompt: 'Record your oral explanation of DOM bubbling and state management in Tamil or English.'
+          handsOnPrompt: 'Record your oral explanation of DOM bubbling and state management in Tamil or English.',
+          videoResource: {
+            youtubeId: 'G3bVVVDbPN4',
+            title: 'Frontend Developer Mock Interview (HTML, CSS, JS) for Freshers',
+            titleTamil: 'தொழில்நுட்ப நேர்காணல் & வாய்மொழி தேர்வு வழிகாட்டல்',
+            channel: 'Knowledge Factory 22',
+            duration: '24:10',
+            keyTopics: ['Bilingual Technical Articulation', 'Explaining Architecture Trade-offs', 'Oral Viva Defense', 'Skill Passport Verification']
+          }
         }
       }
     ]
@@ -187,7 +231,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Welcome to tailoring milestone 1. Accurate measurements with standard ease allowances guarantee perfect garment drape.',
           audioTranscriptTamil: 'தையல் முதல் பாடத்திற்கு நல்வரவு. இதில் துல்லியமான உடல் அளவீடுகளை நாம் கற்கிறோம்.',
-          handsOnPrompt: 'Record a complete 5-point measurement chart on paper with a ruler scale alongside.'
+          handsOnPrompt: 'Record a complete 5-point measurement chart on paper with a ruler scale alongside.',
+          videoResource: {
+            youtubeId: 'Fbw5AwnBX0s',
+            title: 'How To: Measure (Bust, Waist, Hip)',
+            titleTamil: 'துல்லியமான உடல் அளவீடு & தையல் தளர்வு எடுக்கும் முறை',
+            channel: 'Made to Sew',
+            duration: '14:30',
+            keyTopics: ['5-Point Measurement Anchors', '1.5-inch Ease Allowance', 'Bust & Waist Landmark Points', 'Fabric Waste Elimination']
+          }
         }
       },
       {
@@ -211,7 +263,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'In milestone 2, learn lockstitch balance and bobbin adjustment to ensure clean, durable seams.',
           audioTranscriptTamil: 'இரண்டாம் பாடத்தில் நூல் அழுத்தம் சமநிலை மற்றும் நேர்கோட்டு தையலை கற்கிறோம்.',
-          handsOnPrompt: 'Photograph both sides of your 10-inch stitch test swatch with a coin next to stitches.'
+          handsOnPrompt: 'Photograph both sides of your 10-inch stitch test swatch with a coin next to stitches.',
+          videoResource: {
+            youtubeId: 'ji786ELirvo',
+            title: 'How To: Deal & Understand Tension Problems (Sewing for Beginners)',
+            titleTamil: 'தையல் இயந்திர நூல் அழுத்தம் சமநிலை செய்தல் முறை',
+            channel: 'Made to Sew',
+            duration: '17:40',
+            keyTopics: ['Lockstitch Seam Balance', 'Bobbin Tension Screw Calibration', '10 Stitches Per Inch', 'Preventing Seam Puckering']
+          }
         }
       },
       {
@@ -233,7 +293,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Milestone 3 covers Katori blouse pattern drafting and notch marking on true grain lines.',
           audioTranscriptTamil: 'மூன்றாம் பாடத்தில் கட்டோரி ரவிக்கை வெட்டுதல் மற்றும் பேட்டர்ன் அமைப்பை கற்கிறோம்.',
-          handsOnPrompt: 'Submit a top-down photo of your cut brown paper pattern with 30cm steel ruler.'
+          handsOnPrompt: 'Submit a top-down photo of your cut brown paper pattern with 30cm steel ruler.',
+          videoResource: {
+            youtubeId: 'Z2efm1J_Nyw',
+            title: 'டைலரிங் அடிப்படை பயிற்சி: Katori Blouse Cutting | கட்டோரி பிளவுஸ்',
+            titleTamil: 'கட்டோரி பிளவுஸ் பேப்பர் பேட்டர்ன் வரைவு மற்றும் வெட்டுதல்',
+            channel: 'Tailor Bro',
+            duration: '19:25',
+            keyTopics: ['True Grain Line Alignment', 'Front Cup Curvature Drafting', '2mm Triangular Notches', '0.25-inch Seam Margins']
+          }
         }
       },
       {
@@ -255,7 +323,15 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'In milestone 4, master bias cord attachment and professional steam pressing for boutique bridal wear.',
           audioTranscriptTamil: 'நான்காம் பாடத்தில் கழுத்து பைப்பிங் மற்றும் நீராவி அயர்னிங் நுணுக்கங்களை கற்கிறோம்.',
-          handsOnPrompt: 'Photograph finished round neckline showing both outer piping and interior tape fold.'
+          handsOnPrompt: 'Photograph finished round neckline showing both outer piping and interior tape fold.',
+          videoResource: {
+            youtubeId: 'yHAMsZhShCE',
+            title: 'Easy Thread Piping for Blouse Neck | Round Neck Piping Stitching',
+            titleTamil: '45 டிகிரி பைப்பிங் தைப்பது & நீராவி அயர்னிங் செய்முறை',
+            channel: 'தையல் தமிழில் - Thaiyal Tamilil',
+            duration: '11:50',
+            keyTopics: ['45-Degree Elastic Bias Cut', 'Wrinkle-Free Cord Insertion', 'Steam Press with Tailor Ham', 'Export Neck Finishing']
+          }
         }
       },
       {
@@ -277,7 +353,175 @@ export const initialRoadmaps: Record<string, PathwayRoadmap> = {
           ],
           audioTranscript: 'Final milestone 5: Complete sample blouse review and earn master artisan endorsement.',
           audioTranscriptTamil: 'இறுதிப் பாடத்தில் முழு ஆடையை சமர்ப்பித்து கைதேர்ந்த தையற்கலைஞர் சான்றிதழ் பெறுகிறீர்கள்.',
-          handsOnPrompt: 'Upload front and back photos of completed garment for computer vision inspection.'
+          handsOnPrompt: 'Upload front and back photos of completed garment for computer vision inspection.',
+          videoResource: {
+            youtubeId: '4x0s1sdAUHc',
+            title: 'Simple Blouse Cutting & Assembly in Tamil | Clear Explanation',
+            titleTamil: 'ரவிக்கை முழு தயாரிப்பு ஆய்வு & தர ஒப்புதல் முறை',
+            channel: 'RIJO TAILORING',
+            duration: '21:10',
+            keyTopics: ['5 Critical Stress Points', 'Sub-millimeter Tolerance', 'Puckering Diagnosis', 'Master Artisan Sign-Off']
+          }
+        }
+      }
+    ]
+  },
+  'data-analyst': {
+    pathwayId: 'data-analyst',
+    title: 'Data Analytics & Reporting',
+    titleTamil: 'தரவு பகுப்பாய்வு & அறிக்கை தயாரிப்பு',
+    color: '#0D9488',
+    category: 'academic',
+    milestones: [
+      {
+        id: 'data-m1',
+        stepNumber: 1,
+        title: 'Spreadsheet Foundations: Formulas, Pivot Tables & XLOOKUP',
+        titleTamil: 'விரிதாள் அடிப்படை: சூத்திரங்கள் மற்றும் பைவட் அட்டவணை',
+        activity: 'Build sales cohort summaries with nested IFs, XLOOKUP lookups, and dynamic pivot tables.',
+        timeEstimate: '45 mins',
+        whyThisStep: 'Standard requirement for entry-level operations and business analysis in regional enterprises.',
+        status: 'completed',
+        score: 90,
+        lessonContent: {
+          overview: 'Master spreadsheet data structures, error auditing with IFERROR, and dynamic summarization through pivot charts.',
+          overviewTamil: 'வணிகத் தரவுகளை விரிதாளில் துல்லியமாக பகுப்பாய்வு செய்து சுருக்க அறிக்கைகள் தயாரிக்கும் முறை.',
+          keyTakeaways: [
+            'Use XLOOKUP with exact match and fallback default values.',
+            'Construct multi-dimensional pivot tables with slicers.',
+            'Enforce data validation rules to avoid typo corruption.'
+          ],
+          audioTranscript: 'In milestone 1 of Data Analytics, master core spreadsheet formulas and pivot tables.',
+          audioTranscriptTamil: 'தரவு பகுப்பாய்வு முதல் பாடத்தில் விரிதாள் சூத்திரங்களை கற்கிறோம்.',
+          handsOnPrompt: 'Construct a cleaned monthly sales workbook with automated formula totals.',
+          videoResource: {
+            youtubeId: 'rwbho0CgEAE',
+            title: 'The Beginner\'s Guide to Excel - Excel Basics Tutorial',
+            titleTamil: 'எக்செல் சூத்திரங்கள் மற்றும் பைவட் டேபிள் பயிற்சி',
+            channel: 'Technology for Teachers and Students',
+            duration: '28:10',
+            keyTopics: ['XLOOKUP & VLOOKUP', 'Pivot Tables & Slicers', 'Nested Formulas', 'Data Formatting']
+          }
+        }
+      },
+      {
+        id: 'data-m2',
+        stepNumber: 2,
+        title: 'SQL Fundamentals: Relational Queries & Joins',
+        titleTamil: 'SQL அடிப்படை: தரவுத்தள வினவல்கள் மற்றும் இணைப்புகள்',
+        activity: 'Write complex SELECT queries with INNER/LEFT JOINs, GROUP BY aggregations, and HAVING filters.',
+        timeEstimate: '60 mins',
+        whyThisStep: 'Proves candidate can extract data independently from relational databases without engineering assistance.',
+        status: 'current',
+        lessonContent: {
+          overview: 'Relational databases underpin every business system. Writing optimized SQL queries ensures accurate metrics without database table locks.',
+          overviewTamil: 'தரவுத்தளத்தில் இருந்து தேவையான தகவல்களை SQL மூலம் துரிதமாக எடுக்கும் முறை.',
+          keyTakeaways: [
+            'Distinguish clearly between INNER, LEFT, and FULL OUTER joins.',
+            'Filter grouped aggregates using HAVING instead of WHERE.',
+            'Avoid SELECT * in production reporting queries.'
+          ],
+          audioTranscript: 'Milestone 2 covers relational SQL queries, joins, and group aggregations.',
+          audioTranscriptTamil: 'இரண்டாம் பாடத்தில் SQL இணைப்புகள் மற்றும் திரட்டு வினவல்களை கற்கிறோம்.',
+          handsOnPrompt: 'Write a SQL query that calculates customer retention by acquisition month.',
+          videoResource: {
+            youtubeId: '7S_tz1z_5bA',
+            title: 'SQL Course for Beginners [Full Course]',
+            titleTamil: 'SQL அடிப்படை மற்றும் தரவுத்தள வினவல்கள்',
+            channel: 'Programming with Mosh',
+            duration: '35:00',
+            keyTopics: ['Relational Schema Design', 'INNER & LEFT JOINs', 'GROUP BY & Aggregates', 'Query Optimization']
+          }
+        }
+      },
+      {
+        id: 'data-m3',
+        stepNumber: 3,
+        title: 'Data Cleaning: Handling Nulls, Types & Outliers',
+        titleTamil: 'தரவு சுத்திகரிப்பு: விடுபட்ட மதிப்புகள் கையாளுதல்',
+        activity: 'Standardize date formats, impute missing values, and remove duplicate transaction rows.',
+        timeEstimate: '60 mins',
+        whyThisStep: 'Real-world data is messy: 80% of analyst time is spent preparing data for executive decision-making.',
+        status: 'locked',
+        lessonContent: {
+          overview: 'Cleaning pipelines prevent skewed reports. Learn defensive data verification to catch anomalous sensor and currency readings.',
+          overviewTamil: 'பிழையான தரவுகளை கண்டறிந்து சீரமைக்கும் தொழில்முறை உத்திகள்.',
+          keyTakeaways: [
+            'Systematically detect and document null value distribution.',
+            'Coerce datetime timestamps to uniform UTC ISO formats.',
+            'Identify and isolate IQR statistical outliers.'
+          ],
+          audioTranscript: 'Milestone 3 covers data cleaning, deduplication, and handling missing metrics.',
+          audioTranscriptTamil: 'மூன்றாம் பாடத்தில் தரவு தூய்மைப்படுத்துதல் மற்றும் சரிபார்த்தலை கற்கிறோம்.',
+          handsOnPrompt: 'Transform a corrupted CSV dataset into a normalized schema with audit logs.',
+          videoResource: {
+            youtubeId: 'bDhvCp3_lYw',
+            title: 'Data Cleaning in Pandas | Python Tutorials',
+            titleTamil: 'தரவு சுத்திகரிப்பு மற்றும் விடுபட்ட மதிப்புகள் கையாளுதல்',
+            channel: 'Alex The Analyst',
+            duration: '21:15',
+            keyTopics: ['Handling Missing & Null Values', 'Date & String Standardization', 'Deduplication', 'Data Integrity Checks']
+          }
+        }
+      },
+      {
+        id: 'data-m4',
+        stepNumber: 4,
+        title: 'Visualization: Interactive Executive Dashboards',
+        titleTamil: 'காட்சிப்படுத்தல்: ஊடாடும் வணிக டேஷ்போர்டுகள்',
+        activity: 'Design KPI summary cards and cross-filtering charts with clear visual hierarchy.',
+        timeEstimate: '75 mins',
+        whyThisStep: 'Business stakeholders require actionable visual summaries over raw SQL outputs.',
+        status: 'locked',
+        lessonContent: {
+          overview: 'Effective charts communicate signals instantly. Master chart selection, color economy, and interactive drill-downs.',
+          overviewTamil: 'முடிவெடுக்கும் மேலாளர்களுக்கு தெளிவான ஊடாடும் வரைபடங்கள் தயாரிக்கும் கலை.',
+          keyTakeaways: [
+            'Select appropriate chart types: bar for categories, line for temporal trends.',
+            'Maintain high color contrast and limit palette to 3 semantic tones.',
+            'Include dynamic KPI cards showing month-over-month percentage changes.'
+          ],
+          audioTranscript: 'In milestone 4, design an interactive executive KPI dashboard.',
+          audioTranscriptTamil: 'நான்காம் பாடத்தில் ஊடாடும் வணிக பகுப்பாய்வு டேஷ்போர்டு உருவாக்குகிறோம்.',
+          handsOnPrompt: 'Build a 4-quadrant executive dashboard tracking revenue, churn, and CSAT.',
+          videoResource: {
+            youtubeId: 'MTlQvyNQ3PM',
+            title: '📊 How to Build Excel Interactive Dashboards',
+            titleTamil: 'வணிக பகுப்பாய்வு டேஷ்போர்டு உருவாக்கும் முறை',
+            channel: 'Kevin Stratvert',
+            duration: '24:30',
+            keyTopics: ['KPI Cards & Targets', 'Interactive Chart Slicers', 'Visual Hierarchy & Layout', 'Data Storytelling']
+          }
+        }
+      },
+      {
+        id: 'data-m5',
+        stepNumber: 5,
+        title: 'Demonstrate: Data Storytelling & Oral Defense',
+        titleTamil: 'விளக்கம்: தரவு கதைசொல்லல் & வழிகாட்டி நேர்காணல்',
+        activity: 'Present a 5-minute data storytelling briefing interpreting business findings and recommendations.',
+        timeEstimate: '30 mins',
+        whyThisStep: 'High-performing analysts persuade leaders with clear narrative reasoning and data integrity rigor.',
+        status: 'locked',
+        lessonContent: {
+          overview: 'Defend your analytical methodology in an interactive viva interview. Explain your data cleaning decisions and metric definitions.',
+          overviewTamil: 'உங்கள் ஆய்வு முடிவுகளை மேலாண்மைக்கு வாய்மொழியாக விளக்கி சான்றளிப்பு பெறும் இறுதி நிலை.',
+          keyTakeaways: [
+            'Lead with the executive takeaway, then support with numbers.',
+            'Transparently disclose confidence intervals and data caveats.',
+            'Earn verified mentor seal on Skill Passport.'
+          ],
+          audioTranscript: 'Final milestone 5: Present your findings in an oral data viva defense.',
+          audioTranscriptTamil: 'இறுதிப் பாடத்தில் உங்கள் ஆய்வை விளக்கி வழிகாட்டி ஒப்புதல் பெறுகிறீர்கள்.',
+          handsOnPrompt: 'Record your oral presentation explaining root causes behind a quarterly revenue drop.',
+          videoResource: {
+            youtubeId: 'F5v2dRYU5IA',
+            title: '2 Hour Data Analyst Interview Masterclass',
+            titleTamil: 'தரவு ஆய்வாளர் நேர்காணல் மற்றும் தொழில்நுட்ப வழிகாட்டல்',
+            channel: 'Alex The Analyst',
+            duration: '32:40',
+            keyTopics: ['Executive Communication', 'Explaining Methodology Rigor', 'Handling Technical Scrutiny', 'Skill Passport Credential']
+          }
         }
       }
     ]

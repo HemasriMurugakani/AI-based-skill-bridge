@@ -31,7 +31,10 @@ import {
   HelpCircle,
   ExternalLink,
   ChevronRight,
-  Layers
+  ChevronDown,
+  Layers,
+  Play,
+  Video
 } from 'lucide-react';
 
 interface ChallengeWorkspaceProps {
@@ -86,6 +89,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
   const [badgeUnlockedId, setBadgeUnlockedId] = useState<string | null>(null);
   const [showDeltaComparison, setShowDeltaComparison] = useState(false);
   const [isVivaModalOpen, setIsVivaModalOpen] = useState(false);
+  const [isVideoExpanded, setIsVideoExpanded] = useState(true);
 
   // Initialize Speech Controller for voice challenges
   useEffect(() => {
@@ -335,6 +339,87 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
               </span>
             </div>
           </div>
+
+          {/* Curated Challenge Study Video */}
+          {challenge.videoResource && (
+            <div className="rounded-card bg-white border border-[#E2E8F0] shadow-soft overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setIsVideoExpanded(!isVideoExpanded)}
+                className="w-full p-4 bg-gradient-to-r from-[#173B67] to-[#1e487d] text-white flex items-center justify-between gap-3 text-left cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#BAE6FD] block">
+                      {isTa ? 'செய்முறை வழிகாட்டி காணொளி' : 'Challenge Study Video'}
+                    </span>
+                    <h4 className="text-xs font-bold text-white truncate">
+                      {isTa ? (challenge.videoResource.titleTamil || challenge.videoResource.title) : challenge.videoResource.title}
+                    </h4>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-xs flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {challenge.videoResource.duration}
+                  </span>
+                  {isVideoExpanded ? (
+                    <ChevronDown className="w-4 h-4 text-white/80" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4 text-white/80" />
+                  )}
+                </div>
+              </button>
+
+              {isVideoExpanded && (
+                <div>
+                  <div className="relative aspect-video w-full bg-black">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${challenge.videoResource.youtubeId}?rel=0&modestbranding=1`}
+                      title={challenge.videoResource.title}
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+
+                  <div className="p-3 bg-[#F8FAFC] border-t border-[#E2E8F0] text-xs space-y-1.5">
+                    <div className="flex items-center justify-between text-[11px] text-[#526174]">
+                      <span className="font-semibold">
+                        <span className="text-[#173B67] font-bold">{isTa ? 'பயிற்றுநர்:' : 'Channel:'}</span> {challenge.videoResource.channel}
+                      </span>
+                      <a
+                        href={`https://www.youtube.com/watch?v=${challenge.videoResource.youtubeId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#173B67] hover:underline flex items-center gap-1 font-semibold text-[10px]"
+                      >
+                        <span>{isTa ? 'YouTube-ல் பார்க்க' : 'Watch on YouTube'}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+
+                    {challenge.videoResource.keyTopics && (
+                      <div className="flex items-center gap-1 flex-wrap pt-1">
+                        {challenge.videoResource.keyTopics.map((topic, tidx) => (
+                          <span
+                            key={tidx}
+                            className="text-[10px] px-2 py-0.5 rounded-full bg-white text-[#173B67] border border-[#E2E8F0] font-medium"
+                          >
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Submission Instructions */}
           <div className="p-5 rounded-card bg-white border border-[#E2E8F0] shadow-soft space-y-3">

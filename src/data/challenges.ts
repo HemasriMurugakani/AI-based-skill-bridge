@@ -27,7 +27,15 @@ export const challenges: Challenge[] = [
       { criterion: 'Focus Visible & High Contrast', weight: 20, description: 'Visible focus indicator and WCAG AA 4.5:1 text contrast.' }
     ],
     points: 150,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'rg7Fvvl3taU',
+      title: 'CSS Grid & Flexbox Responsive Profile Layout Tutorial',
+      titleTamil: 'நெகிழ்வான சுயவிவரப் பக்க வடிவமைப்பு பயிற்சி',
+      channel: 'Kevin Powell',
+      duration: '18:45',
+      keyTopics: ['CSS Grid & Flexbox', 'Fluid clamp() Typography', 'Zero-overflow mobile 320px', 'Focus visible accessibility']
+    }
   },
   // 2. FULLY IMPLEMENTED: Write a professional introduction
   {
@@ -54,7 +62,15 @@ export const challenges: Challenge[] = [
       { criterion: 'Brevity & Actionable Closing', weight: 20, description: 'Under 45 seconds with a clear next-step career objective.' }
     ],
     points: 120,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'cpm0aB9M-1g',
+      title: 'TELL ME ABOUT YOURSELF! How to Give a 45-Second Pitch',
+      titleTamil: 'தொழில்முறை அறிமுக உரை பேசுவது எப்படி',
+      channel: 'CareerVidz',
+      duration: '11:20',
+      keyTopics: ['Bilingual Confidence', 'Citing Verified Skills', 'Professional Warmth', 'Clear Next Steps']
+    }
   },
   // 3. Junior Web Dev - Semantic HTML
   {
@@ -81,7 +97,15 @@ export const challenges: Challenge[] = [
     ],
     points: 120,
     completed: true,
-    score: 92
+    score: 92,
+    videoResource: {
+      youtubeId: 'kGW8Al_cga4',
+      title: 'HTML & CSS Crash Course: HTML 5 Semantics',
+      titleTamil: 'அர்த்தமுள்ள HTML மற்றும் அணுகல்தன்மை பாடம்',
+      channel: 'Net Ninja',
+      duration: '12:45',
+      keyTopics: ['Semantic Landmarks', 'Keyboard Tab Navigation', 'Skip Links', 'ARIA Attributes']
+    }
   },
   // 2. Junior Web Dev - Responsive CSS
   {
@@ -108,7 +132,15 @@ export const challenges: Challenge[] = [
     ],
     points: 150,
     completed: true,
-    score: 84
+    score: 84,
+    videoResource: {
+      youtubeId: '3YW65K6LcIA',
+      title: 'Flexbox & CSS Grid Crash Course Tutorial',
+      titleTamil: 'Flexbox மற்றும் CSS கட்டமைப்பு பாடம்',
+      channel: 'Traversy Media',
+      duration: '21:05',
+      keyTopics: ['Fluid Responsive Grid', 'repeat(auto-fit, minmax)', 'Zero horizontal overflow', 'Card Hover Elevation']
+    }
   },
   // 3. Junior Web Dev - JavaScript Async State
   {
@@ -134,7 +166,15 @@ export const challenges: Challenge[] = [
       { criterion: 'DOM Performance', weight: 25, description: 'Clean batch rendering using document fragments.' }
     ],
     points: 180,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'y17RuWkWdn8',
+      title: 'JavaScript DOM Manipulation Tutorial in 18 Minutes',
+      titleTamil: 'ஜாவாஸ்கிரிப்ட் DOM கையாளுதல் விரைவுப் பாடம்',
+      channel: 'Web Dev Simplified',
+      duration: '18:14',
+      keyTopics: ['Event Listeners', 'Async Fetch', 'Debounce Timing', 'DOM Fragment Rendering']
+    }
   },
   // 4. Junior Web Dev - React State Machine
   {
@@ -160,7 +200,15 @@ export const challenges: Challenge[] = [
       { criterion: 'Draft Recovery', weight: 25, description: 'Restores unfinished draft accurately on refresh.' }
     ],
     points: 220,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'w7ejDZ8SWv8',
+      title: 'React JS Crash Course for Beginners',
+      titleTamil: 'ரியாக்ட் ஜேஎஸ் தொடக்கப் பாடம்',
+      channel: 'Traversy Media',
+      duration: '1:48:47',
+      keyTopics: ['React Hooks & State', 'Form Validation', 'Multi-step Forms', 'LocalStorage Persistence']
+    }
   },
   // 5. Junior Web Dev - Viva Voice Challenge
   {
@@ -186,7 +234,15 @@ export const challenges: Challenge[] = [
     ],
     points: 100,
     completed: true,
-    score: 88
+    score: 88,
+    videoResource: {
+      youtubeId: 'y17RuWkWdn8',
+      title: 'DOM Event Propagation, Bubbling & Delegation',
+      titleTamil: 'நிகழ்வு குமிழ்தல் மற்றும் பிரதிநிதித்துவ விளக்கம்',
+      channel: 'Web Dev Simplified',
+      duration: '18:14',
+      keyTopics: ['Event Delegation', 'Event Bubbling', 'event.target vs event.currentTarget', 'Performance in Dynamic Lists']
+    }
   },
   // 6. Tailoring - Measurement Tape Proof
   {
@@ -213,7 +269,15 @@ export const challenges: Challenge[] = [
     ],
     points: 130,
     completed: true,
-    score: 94
+    score: 94,
+    videoResource: {
+      youtubeId: 'Fbw5AwnBX0s',
+      title: 'How To: Measure (Bust, Waist, Hip) Demonstration',
+      titleTamil: 'துல்லியமான உடல் அளவீடு எடுக்கும் முறை',
+      channel: 'Made to Sew',
+      duration: '14:30',
+      keyTopics: ['Bust & Waist Tape Anchoring', '1.5-inch Ease Standard', 'Armhole Measurement', 'Photo Scale with Coin']
+    }
   },
   // 7. Tailoring - Katori Paper Pattern Cutting
   {
@@ -240,7 +304,15 @@ export const challenges: Challenge[] = [
     ],
     points: 160,
     completed: true,
-    score: 86
+    score: 86,
+    videoResource: {
+      youtubeId: 'Z2efm1J_Nyw',
+      title: 'Katori Blouse Cutting | கட்டோரி பிளவுஸ் வரைவு பயிற்சி',
+      titleTamil: 'கட்டோரி ரவிக்கை வரைவு & வெட்டும் கலை',
+      channel: 'Tailor Bro',
+      duration: '19:25',
+      keyTopics: ['Grain Line Alignment', 'Curvature Drafting', 'Notch Placement', '0.25-inch Seam Allowance']
+    }
   },
   // 8. Tailoring - Lockstitch Seam Straightness
   {
@@ -266,7 +338,15 @@ export const challenges: Challenge[] = [
       { criterion: 'Edge Parallelism', weight: 25, description: 'Stitch line strictly 0.5 inch from raw edge.' }
     ],
     points: 140,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'ji786ELirvo',
+      title: 'How To: Deal & Understand Sewing Tension Problems',
+      titleTamil: 'தையல் இயந்திர நூல் அழுத்தத்தை சரிசெய்தல்',
+      channel: 'Made to Sew',
+      duration: '16:15',
+      keyTopics: ['Tension Balance', 'Thread Loop Prevention', '10 Stitches per Inch', 'Reverse Locking']
+    }
   },
   // 9. Tailoring - Viva Craft Explanation
   {
@@ -291,7 +371,15 @@ export const challenges: Challenge[] = [
       { criterion: 'Practical Craft Nuance', weight: 20, description: 'Mention of tissue paper backing or ball-point tips.' }
     ],
     points: 110,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'ji786ELirvo',
+      title: 'Troubleshooting Machine Tension & Puckering on Fine Fabrics',
+      titleTamil: 'நுணுக்கமான துணிகளில் சுருக்கம் நீக்கும் தையல் முறைகள்',
+      channel: 'Made to Sew',
+      duration: '16:15',
+      keyTopics: ['Silk & Chiffon Needles', 'Bobbin Tension', 'Puckering Diagnosis', 'Presser Foot Pressure']
+    }
   },
   // 10. Electrician - Two-Way Switch Wiring Proof
   {
@@ -318,7 +406,15 @@ export const challenges: Challenge[] = [
     ],
     points: 170,
     completed: true,
-    score: 95
+    score: 95,
+    videoResource: {
+      youtubeId: 'LeabIPyQpWA',
+      title: '2 Way Switch Staircase Wiring | Complete Step-by-Step Demo',
+      titleTamil: 'இருவழி சுவிட்ச் இணைப்பு படிமுறை நேரடி விளக்கம்',
+      channel: 'Electric School',
+      duration: '10:48',
+      keyTopics: ['Common Terminal vs L1/L2', 'IER Color Coding', 'Zero Exposed Copper Safety', 'Testing Lamp Circuit']
+    }
   },
   // 11. Data Analyst - SQL Query Challenge
   {
@@ -345,7 +441,15 @@ export const challenges: Challenge[] = [
     ],
     points: 160,
     completed: true,
-    score: 89
+    score: 89,
+    videoResource: {
+      youtubeId: '7S_tz1z_5bA',
+      title: 'SQL Course for Beginners (Queries, Joins, Aggregations)',
+      titleTamil: 'SQL தொடக்க நிலை முழுப் பாடம்',
+      channel: 'Programming with Mosh',
+      duration: '3:57:24',
+      keyTopics: ['SELECT & GROUP BY', 'LAG() Window Functions', 'JOINing Tables', 'Division by Zero Guards']
+    }
   },
   // 12. Quick Viva - Tailor Bias Tape Cutting
   {
@@ -369,6 +473,14 @@ export const challenges: Challenge[] = [
       { criterion: 'Clarity of Expression', weight: 15, description: 'Natural and lucid communication.' }
     ],
     points: 90,
-    completed: false
+    completed: false,
+    videoResource: {
+      youtubeId: 'yHAMsZhShCE',
+      title: 'Easy Thread Piping for Blouse Neck in Tamil',
+      titleTamil: 'சுருக்கமில்லாத பைப்பிங் தைக்கும் ரகசியம்',
+      channel: 'தையல் தமிழில் - Thaiyal Tamilil',
+      duration: '11:15',
+      keyTopics: ['45-degree True Bias Cut', 'Warp & Weft Stretch', 'Round Neck Curvature', 'Puckering Prevention']
+    }
   }
 ];

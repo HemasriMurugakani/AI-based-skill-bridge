@@ -29,7 +29,8 @@ import {
   Award,
   RefreshCw,
   Plus,
-  Download
+  Download,
+  Play
 } from 'lucide-react';
 
 export const RoadmapView: React.FC = () => {
@@ -163,7 +164,14 @@ export const RoadmapView: React.FC = () => {
           ],
           audioTranscript: 'Congratulations on finishing early! Enjoy this bonus stretch milestone.',
           audioTranscriptTamil: 'முன்கூட்டியே முடித்ததற்கு வாழ்த்துகள்! இந்த கூடுதல் பாடத்தை அனுபவித்து பயிலுங்கள்.',
-          handsOnPrompt: 'Execute bonus design demonstration.'
+          handsOnPrompt: 'Execute bonus design demonstration.',
+          videoResource: {
+            youtubeId: isWeb ? '1PnVor36_40' : 'wTBnFX7NKVA',
+            title: isWeb ? 'Learn Modern CSS in 20 Minutes' : 'ஆரி ஒர்க் பிளவுஸ் தைப்பது எப்படி? (Aari Work Tutorial)',
+            titleTamil: isWeb ? '20 நிமிடங்களில் நவீன CSS பாடம்' : 'ஆரி ஒர்க் பிளவுஸ் தைக்கும் எளிய நுணுக்கங்கள்',
+            channel: isWeb ? 'Web Dev Simplified' : 'Laksh Designers',
+            duration: isWeb ? '20:15' : '15:42'
+          }
         }
       };
 
@@ -487,6 +495,13 @@ export const RoadmapView: React.FC = () => {
                         {isNewlyAdded && (
                           <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#EF4444] text-white animate-pulse">
                             {isTa ? '⚡ இப்போது சேர்க்கப்பட்டது' : '⚡ Just Added'}
+                          </span>
+                        )}
+
+                        {milestone.lessonContent.videoResource && (
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300 border border-red-200 dark:border-red-900/50 flex items-center gap-1">
+                            <Play className="w-2.5 h-2.5 fill-current" />
+                            <span>{isTa ? 'காணொளி பாடம்' : 'Video Lesson'}</span>
                           </span>
                         )}
 

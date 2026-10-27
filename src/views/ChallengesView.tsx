@@ -20,7 +20,8 @@ import {
   Layers,
   Search,
   ExternalLink,
-  Zap
+  Zap,
+  Play
 } from 'lucide-react';
 
 export const ChallengesView: React.FC = () => {
@@ -184,6 +185,12 @@ export const ChallengesView: React.FC = () => {
                       <span className="text-xs font-extrabold text-[#D97706]">
                         +{featuredWebProfile.points} XP
                       </span>
+                      {featuredWebProfile.videoResource && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
+                          <Play className="w-2.5 h-2.5 fill-current" />
+                          <span>{isTa ? 'காணொளி பாடம்' : 'Video Tutorial'}</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -249,6 +256,12 @@ export const ChallengesView: React.FC = () => {
                       <span className="text-xs font-extrabold text-[#D97706]">
                         +{featuredCommIntro.points} XP
                       </span>
+                      {featuredCommIntro.videoResource && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
+                          <Play className="w-2.5 h-2.5 fill-current" />
+                          <span>{isTa ? 'காணொளி பாடம்' : 'Video Tutorial'}</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -393,6 +406,12 @@ export const ChallengesView: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-1.5">
+                      {challenge.videoResource && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
+                          <Play className="w-2 h-2 fill-current" />
+                          <span>Video</span>
+                        </span>
+                      )}
                       <StatusPill status="ai_reviewed" />
                       <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD]">
                         {challenge.difficulty}

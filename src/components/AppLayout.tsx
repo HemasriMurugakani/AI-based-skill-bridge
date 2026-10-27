@@ -160,7 +160,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           id="main-content"
           tabIndex={-1}
           role="main"
-          className="flex-1 min-w-0 py-6 px-3 sm:px-6 pb-24 lg:pb-12 focus:outline-none"
+          className="flex-1 min-w-0 py-6 px-3 sm:px-6 pb-28 sm:pb-32 lg:pb-12 focus:outline-none"
         >
           {children}
         </main>

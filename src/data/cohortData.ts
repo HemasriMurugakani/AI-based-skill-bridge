@@ -60,11 +60,12 @@ export const cohortMetrics: CohortMetric[] = [
 ];
 
 export const platformStats = {
+  category: 'Demo cohort (sample)',
   totalLearnersActive: 50320,
   evidenceProofsVerified: 192010,
-  verifiedHireRate: '81.4%',
+  status: 'Illustrative',
   districtsCovered: 38,
-  avgTimeToFirstProof: '3.8 days',
+  avgTimeToFirstProof: '3.8 days (Sample)',
   mentorEndorsements: 14280,
   vocationalToTechRatio: '56% / 44%'
 };

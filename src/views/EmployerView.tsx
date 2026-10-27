@@ -6,6 +6,7 @@ import {
   initialPracticalChallenges,
   PracticalChallenge
 } from '../data/employerCandidates';
+import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { EmptyState } from '../components/EmptyState';
 import {
   Briefcase,
@@ -26,6 +27,9 @@ import {
 } from 'lucide-react';
 
 export const EmployerView: React.FC = () => {
+  const { getPersona, challenges, vivaRecords } = useSkillBridgeStore();
+  const currentPersona = getPersona();
+
   // 1. Practical Challenges State
   const [challengesList, setChallengesList] = useState<PracticalChallenge[]>(initialPracticalChallenges);
   const [activeChallengeId, setActiveChallengeId] = useState<string>(initialPracticalChallenges[0].id);
@@ -186,7 +190,20 @@ export const EmployerView: React.FC = () => {
     const requiredSkillsLower = activeChallenge.requiredSkills.map(s => s.toLowerCase());
 
     return employerCandidates
-      .map(candidate => {
+      .map(rawCandidate => {
+        const candidate = rawCandidate.id === 'priya-soundararajan' && currentPersona.id === 'priya-student'
+          ? {
+              ...rawCandidate,
+              name: currentPersona.name,
+              nameTamil: currentPersona.nameTamil,
+              avatar: currentPersona.avatar,
+              education: currentPersona.educationOrBackground,
+              readinessScore: currentPersona.readinessScore,
+              streakDays: currentPersona.streakDays,
+              evidenceCount: Math.max(rawCandidate.evidenceCount, challenges.filter(c => c.completed).length + Object.keys(vivaRecords).length)
+            }
+          : rawCandidate;
+
         // Find matching demonstrated skills
         const matchingSkills = candidate.demonstratedSkills.filter(sk =>
           requiredSkillsLower.some(req => req.includes(sk.skillName.toLowerCase()) || sk.skillName.toLowerCase().includes(req))
@@ -1107,7 +1124,7 @@ export const EmployerView: React.FC = () => {
           ANIMATED SHORTLIST NOTIFICATION TOAST (STRICT REQUIREMENT)
           ========================================================================= */}
       {notificationToast && notificationToast.visible && (
-        <div className="fixed bottom-6 right-6 z-50 max-w-md w-full animate-in slide-in-from-bottom duration-300">
+        <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 max-w-md w-[calc(100%-2rem)] sm:w-full animate-in slide-in-from-bottom duration-300">
           <div className="p-4 rounded-2xl bg-white dark:bg-night-card border-2 border-gold-400 shadow-2xl flex items-start justify-between gap-3 text-xs">
             <div className="flex items-start gap-3">
               <div className={`p-2 rounded-xl text-white shrink-0 ${

@@ -131,7 +131,7 @@ export const employerCandidates: EmployerCandidate[] = [
     district: 'Tiruchirappalli (Trichy)',
     pathwayId: 'junior-web-dev',
     targetRole: 'Junior Frontend Developer',
-    education: 'BCA 3rd Year, Jamal Mohamed College, Trichy',
+    education: 'BCA Final Year (3rd Year), Jamal Mohamed College, Trichy',
     demonstratedScore: 91,
     evidenceCount: 5,
     mentorVerified: true,

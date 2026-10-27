@@ -4,10 +4,9 @@ import {
   levelDefinitions,
   xpRewardRules,
   activityVsMasteryHistory,
-  generate16WeekHeatmap,
   catchUpTasks,
-  HeatmapDay
 } from '../data/gamificationData';
+import { PracticeHeatmap } from '../components/PracticeHeatmap';
 import {
   Flame,
   Award,
@@ -46,14 +45,12 @@ export const ProgressView: React.FC = () => {
     streakMissedSimulated,
     simulateMissedDay,
     completeCatchUpTask,
-    setActiveTab
+    setActiveTab,
+    language
   } = useSkillBridgeStore();
 
+  const isTamil = language === 'ta';
   const currentPersona = getPersona();
-
-  // 16-Week Heatmap generation (memoized)
-  const heatmapDays = useMemo(() => generate16WeekHeatmap(), []);
-  const [selectedDay, setSelectedDay] = useState<HeatmapDay | null>(heatmapDays[heatmapDays.length - 1]);
 
   // Catch-up Diagnostic Quiz State
   const currentCatchUpTask = useMemo(() => {
@@ -132,7 +129,7 @@ export const ProgressView: React.FC = () => {
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 animate-fadeIn">
       {/* Toast Notifications */}
       {showCelebrationToast && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-forest-700 text-white shadow-warm-lg flex items-center gap-3 border border-forest-500 animate-slideUp">
+        <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 p-4 rounded-2xl bg-forest-700 text-white shadow-warm-lg flex items-center gap-3 border border-forest-500 animate-slideUp">
           <Sparkles className="w-6 h-6 text-gold-300 animate-bounce" />
           <div>
             <div className="font-bold text-sm">Streak Rescued & Preserved!</div>
@@ -144,7 +141,7 @@ export const ProgressView: React.FC = () => {
       )}
 
       {freezeToastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-cyan-900 text-cyan-100 shadow-warm-lg flex items-center gap-3 border border-cyan-700 animate-slideUp">
+        <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 p-4 rounded-2xl bg-cyan-900 text-cyan-100 shadow-warm-lg flex items-center gap-3 border border-cyan-700 animate-slideUp">
           <Snowflake className="w-5 h-5 text-cyan-300 animate-spin" />
           <div className="text-xs font-semibold">{freezeToastMessage}</div>
         </div>
@@ -472,124 +469,7 @@ export const ProgressView: React.FC = () => {
       )}
 
       {/* SECTION: 16-Week Heatmap Calendar */}
-      <section className="bg-parchment-50 dark:bg-night-card rounded-3xl p-6 sm:p-8 border border-warm-border dark:border-night-border shadow-warm-md space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-forest-600 dark:text-forest-400" />
-              <h2 className="text-xl font-bold font-heritage text-warm-ink dark:text-night-ink">
-                16-Week Proof & Practice Heatmap
-              </h2>
-            </div>
-            <p className="text-xs text-warm-muted dark:text-night-muted">
-              112 days of daily deliberate practice, code commits, photographic garment QC, and viva defenses.
-            </p>
-          </div>
-
-          {/* Heatmap Legend */}
-          <div className="flex items-center gap-2 text-[11px] text-warm-muted dark:text-night-muted bg-white dark:bg-night-100 px-3 py-1.5 rounded-full border border-warm-border dark:border-night-border">
-            <span>Rest</span>
-            <span className="w-3 h-3 rounded-md bg-parchment-200 dark:bg-night-200 border border-warm-border/60" />
-            <span className="w-3 h-3 rounded-md bg-forest-200 dark:bg-forest-900 border border-forest-300" />
-            <span className="w-3 h-3 rounded-md bg-forest-400 dark:bg-forest-600 border border-forest-500" />
-            <span className="w-3 h-3 rounded-md bg-forest-600 dark:bg-forest-400 border border-forest-700" />
-            <span>Deep Proof</span>
-          </div>
-        </div>
-
-        {/* Heatmap Grid */}
-        <div className="overflow-x-auto pb-2">
-          <div className="min-w-[700px] flex gap-3">
-            {/* Day of Week Labels (Y-axis) */}
-            <div className="flex flex-col justify-between py-1 text-[10px] font-semibold text-warm-muted dark:text-night-muted w-7 text-right">
-              {dayOfWeekLabels.map((day, idx) => (
-                <span key={idx} className={idx % 2 === 1 ? 'opacity-90' : 'opacity-0'}>
-                  {day}
-                </span>
-              ))}
-            </div>
-
-            {/* 16 Week Columns */}
-            <div className="flex-1 grid grid-cols-16 gap-1.5">
-              {Array.from({ length: 16 }).map((_, weekIdx) => {
-                const daysInWeek = heatmapDays.filter(d => d.weekIndex === weekIdx);
-                return (
-                  <div key={weekIdx} className="flex flex-col gap-1.5">
-                    {/* Week Column Header */}
-                    <div className="text-[9px] text-center text-warm-muted/70 dark:text-night-muted font-medium">
-                      W{weekIdx + 1}
-                    </div>
-
-                    {/* 7 Day Blocks in this week */}
-                    {Array.from({ length: 7 }).map((_, dayOfWeekIdx) => {
-                      const day = daysInWeek.find(d => d.dayOfWeek === dayOfWeekIdx);
-                      if (!day) return <div key={dayOfWeekIdx} className="w-4 h-4" />;
-
-                      const isSelected = selectedDay?.date === day.date;
-                      let bgClass = 'bg-parchment-200/80 dark:bg-night-200/60 border-warm-border/40';
-                      if (day.level === 1) bgClass = 'bg-forest-200 dark:bg-forest-900/60 border-forest-300';
-                      if (day.level === 2) bgClass = 'bg-forest-400 dark:bg-forest-600 border-forest-500';
-                      if (day.level === 3) bgClass = 'bg-forest-600 dark:bg-forest-400 border-forest-700 shadow-sm';
-
-                      return (
-                        <button
-                          key={dayOfWeekIdx}
-                          type="button"
-                          onClick={() => setSelectedDay(day)}
-                          title={`${day.date}: ${day.taskTitle} (${day.minutesSpent} mins, +${day.xpEarned} XP)`}
-                          className={`w-full aspect-square rounded-md border transition-all transform hover:scale-125 focus:outline-none ${bgClass} ${
-                            isSelected ? 'ring-2 ring-gold-500 ring-offset-1 scale-110 z-10' : ''
-                          }`}
-                        />
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Selected Day Inspection Drawer */}
-        {selectedDay && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-night-100 border border-warm-border dark:border-night-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-maroon-800 dark:text-gold-300">
-                  {selectedDay.date}
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-200 font-semibold border border-forest-300 dark:border-forest-800">
-                  {selectedDay.level === 0
-                    ? 'Rest / Inactive'
-                    : selectedDay.level === 1
-                    ? '15m Light Practice'
-                    : selectedDay.level === 2
-                    ? '45m Challenge Proof'
-                    : 'Deep Verified Artifact & Viva'}
-                </span>
-              </div>
-              <p className="text-sm font-semibold text-warm-ink dark:text-night-ink">
-                {selectedDay.taskTitle}
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4 shrink-0 text-xs">
-              <div className="text-right">
-                <div className="text-warm-muted dark:text-night-muted text-[10px]">Time Spent</div>
-                <div className="font-bold text-warm-ink dark:text-night-ink">
-                  {selectedDay.minutesSpent} mins
-                </div>
-              </div>
-              <div className="text-right border-l border-warm-border dark:border-night-border pl-4">
-                <div className="text-warm-muted dark:text-night-muted text-[10px]">XP Earned</div>
-                <div className="font-bold text-gold-700 dark:text-gold-300">
-                  +{selectedDay.xpEarned} XP
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </section>
+      <PracticeHeatmap isTamil={isTamil} streakDays={currentPersona.streakDays} />
 
       {/* SECTION: Activity vs Mastery Progress Chart */}
       <section className="bg-parchment-50 dark:bg-night-card rounded-3xl p-6 sm:p-8 border border-warm-border dark:border-night-border shadow-warm-md space-y-6">
@@ -614,7 +494,7 @@ export const ProgressView: React.FC = () => {
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-3.5 h-3.5 rounded-md bg-forest-600" />
-              <span className="text-warm-ink dark:text-night-ink">Mastery Index (Rubric: 78%)</span>
+              <span className="text-warm-ink dark:text-night-ink">Mastery Index (Rubric: {currentPersona.readinessScore}%)</span>
             </div>
           </div>
         </div>
@@ -622,7 +502,9 @@ export const ProgressView: React.FC = () => {
         {/* Visual Bar Comparison Chart (Week-by-Week) */}
         <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-night-100 border border-warm-border dark:border-night-border space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {activityVsMasteryHistory.map((point, idx) => (
+            {activityVsMasteryHistory.map((point, idx) => {
+              const effectiveMastery = idx === activityVsMasteryHistory.length - 1 ? currentPersona.readinessScore : point.masteryIndex;
+              return (
               <div
                 key={idx}
                 className="p-3 rounded-xl bg-parchment-100/60 dark:bg-night-200/50 border border-warm-border/60 dark:border-night-border/60 flex flex-col justify-between space-y-3"
@@ -653,21 +535,22 @@ export const ProgressView: React.FC = () => {
                   {/* Mastery Bar */}
                   <div className="w-4 flex flex-col items-center gap-1">
                     <span className="text-[9px] font-bold text-forest-700 dark:text-forest-400">
-                      {point.masteryIndex}%
+                      {effectiveMastery}%
                     </span>
                     <div
                       className="w-full bg-forest-600 rounded-t-md transition-all duration-500"
-                      style={{ height: `${point.masteryIndex}%` }}
-                      title={`Mastery Index: ${point.masteryIndex}%`}
+                      style={{ height: `${effectiveMastery}%` }}
+                      title={`Mastery Index: ${effectiveMastery}%`}
                     />
                   </div>
                 </div>
 
                 <div className="text-center text-[10px] font-semibold text-warm-muted dark:text-night-muted border-t border-warm-border/50 dark:border-night-border/50 pt-1.5">
-                  Gap: {point.activityIndex - point.masteryIndex}%
+                  Gap: {point.activityIndex - effectiveMastery}%
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
 
           {/* Educational Callout */}
@@ -675,9 +558,9 @@ export const ProgressView: React.FC = () => {
             <TrendingUp className="w-5 h-5 text-maroon-700 dark:text-gold-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-maroon-900 dark:text-gold-200">
-                Understanding the 16% Activity-to-Mastery Delta:
+                Understanding the {Math.max(0, 94 - currentPersona.readinessScore)}% Activity-to-Mastery Delta:
               </span>{' '}
-              Your activity level (94%) shows outstanding discipline and practice consistency. The mastery index (78%) reflects rigorous rubric hurdles like zero-overflow viewport clamp and WCAG keyboard focus. High deliberate practice volume creates the foundation for mastery to crystallize over the coming 2 weeks.
+              Your activity level (94%) shows outstanding discipline and practice consistency. The mastery index ({currentPersona.readinessScore}%) reflects rigorous rubric hurdles like zero-overflow viewport clamp and WCAG keyboard focus. High deliberate practice volume creates the foundation for mastery to crystallize over the coming 2 weeks.
             </div>
           </div>
         </div>

@@ -262,7 +262,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
           </div>
 
           {/* Desktop Nav Items */}
-          <div className="hidden lg:flex items-center gap-1 bg-parchment-200/50 dark:bg-night-100/50 p-1 rounded-full border border-warm-border/60 dark:border-night-border/60">
+          <div className="hidden lg:flex items-center gap-1 bg-parchment-200/50 dark:bg-night-100/50 p-1 rounded-full border border-warm-border/60 dark:border-night-border/60 overflow-x-auto max-w-xl">
             {navLinks.map((link) => {
               const isActive = activeTab === link.id;
               return (

@@ -7,6 +7,7 @@ import { sampleOpportunities as initialOpportunities } from '../data/opportuniti
 import { personas as initialPersonas } from '../data/personas';
 import { streakHistory as initialStreakHistory } from '../data/streakHistory';
 import { Pathway, Challenge, Badge, Opportunity, Persona, StreakDay, SkillState, Language, VivaProofRecord, ApplicationTrackerStage } from '../types';
+import { getDeterministicReadinessScore } from '../utils/readinessCalculator';
 import i18n from '../i18n';
 
 export const initialTrackerStages: Record<string, ApplicationTrackerStage> = {
@@ -493,8 +494,14 @@ export const useSkillBridgeStore = create<SkillBridgeState>()(
       },
 
       getPersona: () => {
-        const { currentPersonaId, personas } = get();
-        return personas.find(p => p.id === currentPersonaId) || personas[0];
+        const { currentPersonaId, personas, pathways, challenges, vivaRecords } = get();
+        const persona = personas.find(p => p.id === currentPersonaId) || personas[0];
+        const pathway = pathways.find(p => p.id === persona.pathwayId) || pathways[0];
+        const calculatedScore = getDeterministicReadinessScore(persona, pathway, challenges, vivaRecords);
+        return {
+          ...persona,
+          readinessScore: calculatedScore
+        };
       },
 
       getCurrentPathway: () => {

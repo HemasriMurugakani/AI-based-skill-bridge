@@ -33,7 +33,7 @@ export const priyaStory: PersonaStory = {
   personaId: 'priya-student',
   personaName: 'Priya Soundararajan',
   personaNameTamil: 'பிரியா சௌந்தரராஜன்',
-  tagline: 'BCA 3rd Year · Jamal Mohamed College, Trichy',
+  tagline: 'BCA Final Year (3rd Year) · Jamal Mohamed College, Trichy',
   location: 'Tiruchirappalli (Trichy), Tamil Nadu',
   avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
   pathwayId: 'junior-web-dev',

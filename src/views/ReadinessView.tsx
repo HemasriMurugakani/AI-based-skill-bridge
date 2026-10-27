@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { ProgressRing } from '../components/ProgressRing';
 import { calculateReadiness } from '../utils/readinessCalculator';
+import { PracticeHeatmap } from '../components/PracticeHeatmap';
 import {
   Flame,
   CheckCircle2,
@@ -127,7 +128,7 @@ export const ReadinessView: React.FC = () => {
           </div>
 
           {/* Quick Stats Pill */}
-          <div className="flex flex-row lg:flex-col items-center justify-around lg:justify-center p-4 rounded-xl bg-parchment-200/60 dark:bg-night-100/60 border border-warm-border/60 dark:border-night-border min-w-[220px]">
+          <div className="flex flex-row lg:flex-col items-center justify-around lg:justify-center p-3.5 sm:p-4 rounded-xl bg-parchment-200/60 dark:bg-night-100/60 border border-warm-border/60 dark:border-night-border w-full lg:w-auto lg:min-w-[200px]">
             <div className="text-center">
               <div className="text-xs uppercase font-bold text-warm-muted dark:text-night-muted">
                 {isTamil ? 'நிரூபிக்கப்பட்ட சான்றுகள்' : 'Verified Proofs'}
@@ -731,54 +732,9 @@ export const ReadinessView: React.FC = () => {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 6. 60-DAY PRACTICE HABIT CONSISTENCY HEATMAP */}
+      {/* 6. 16-WEEK PRACTICE HABIT CONSISTENCY HEATMAP */}
       {/* ------------------------------------------------------------------ */}
-      <section className="p-6 rounded-card-lg bg-parchment-50 dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-warm-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-          <div>
-            <h3 className="text-base font-bold font-heritage text-warm-ink dark:text-night-ink flex items-center gap-2">
-              <Flame className="w-5 h-5 text-terracotta-600" />
-              <span>{isTamil ? '60-நாள் பயிற்சி வரலாறு' : '60-Day Habit & Practice Consistency'}</span>
-            </h3>
-            <div className="text-xs text-warm-muted dark:text-night-muted mt-0.5">
-              {isTamil ? 'தொடர் பயிற்சி:' : 'Current active streak:'}{' '}
-              <strong className="text-terracotta-700 dark:text-terracotta-400">
-                {persona.streakDays} {isTamil ? 'நாட்கள் தொடர்ச்சி' : 'consecutive days'}
-              </strong>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 text-[11px] text-warm-muted">
-            <span>{isTamil ? 'குறைவு' : 'Less'}</span>
-            <div className="w-3 h-3 rounded-sm bg-parchment-200 dark:bg-night-100" />
-            <div className="w-3 h-3 rounded-sm bg-gold-300" />
-            <div className="w-3 h-3 rounded-sm bg-gold-500" />
-            <div className="w-3 h-3 rounded-sm bg-maroon-700" />
-            <span>{isTamil ? 'அதிகம்' : 'More'}</span>
-          </div>
-        </div>
-
-        {/* Heatmap Grid */}
-        <div className="grid grid-cols-12 sm:grid-cols-20 gap-1.5 pt-1">
-          {streakHistory.map((day, idx) => {
-            const heatColor = !day.active
-              ? 'bg-parchment-200/70 dark:bg-night-100'
-              : day.minutesSpent > 60
-              ? 'bg-maroon-700'
-              : day.minutesSpent > 40
-              ? 'bg-gold-500'
-              : 'bg-gold-300';
-
-            return (
-              <div
-                key={idx}
-                title={`${day.date}: ${day.active ? `${day.minutesSpent} mins (${day.tasksCompleted} tasks)` : 'Rest day'}`}
-                className={`h-5 rounded-sm transition-transform hover:scale-125 cursor-pointer ${heatColor}`}
-              />
-            );
-          })}
-        </div>
-      </section>
+      <PracticeHeatmap isTamil={isTamil} streakDays={persona.streakDays} />
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const personas: Persona[] = [
     location: 'Tiruchirappalli (Trichy), Tamil Nadu',
     pathwayId: 'junior-web-dev',
     bio: 'Self-motivated student from a Tier-3 college in Trichy. Building accessible web interfaces with clean semantic HTML and modern React to secure my first frontend developer role.',
-    educationOrBackground: 'BCA 3rd Year, Jamal Mohamed College, Trichy',
+    educationOrBackground: 'BCA Final Year (3rd Year), Jamal Mohamed College, Trichy',
     dailyTimeAvailable: '60 mins / day',
     preferredWork: 'Hybrid / Remote / Chennai tech corridor',
     streakDays: 18,

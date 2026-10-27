@@ -182,17 +182,17 @@ export const InstitutionView: React.FC = () => {
           COHORT OVERVIEW KPIS (LEARNERS, ACTIVE THIS WEEK, COMPLETION)
           ========================================================================= */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
-        {/* Total Learners */}
+        {/* Total Learners (Sample Data) */}
         <div className="p-4 rounded-2xl bg-white dark:bg-night-card border border-warm-border/80 dark:border-night-border shadow-2xs space-y-1">
           <div className="flex items-center justify-between text-warm-muted">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Total Enrolled</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider">Demo Cohort (Sample)</span>
             <Users className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
           </div>
           <div className="font-heritage text-2xl sm:text-3xl font-extrabold text-warm-ink dark:text-night-ink">
             {activeOverview.totalLearners.toLocaleString()}
           </div>
-          <div className="text-[10px] text-warm-muted truncate">
-            {activeOverview.district}
+          <div className="text-[10px] text-amber-700 dark:text-amber-400 font-semibold truncate">
+            Illustrative sample • {activeOverview.district}
           </div>
         </div>
 
@@ -671,7 +671,7 @@ export const InstitutionView: React.FC = () => {
           ANIMATED TOAST NOTIFICATION
           ========================================================================= */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 max-w-md w-full animate-in slide-in-from-bottom duration-300">
+        <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 max-w-md w-[calc(100%-2rem)] sm:w-full animate-in slide-in-from-bottom duration-300">
           <div className="p-3.5 rounded-xl bg-white dark:bg-night-card border-2 border-gold-400 shadow-xl flex items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5 text-forest-800 dark:text-forest-300 font-semibold">
               <CheckCircle2 className="w-4 h-4 text-forest-600 shrink-0" />

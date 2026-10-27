@@ -174,7 +174,7 @@ export const OpportunitiesView: React.FC = () => {
           </div>
 
           {/* Persona context */}
-          <div className="p-4 rounded-xl bg-parchment-200/60 dark:bg-night-100/60 border border-warm-border/60 text-xs space-y-1 min-w-[220px]">
+          <div className="p-3.5 sm:p-4 rounded-xl bg-parchment-200/60 dark:bg-night-100/60 border border-warm-border/60 text-xs space-y-1 w-full lg:w-auto lg:min-w-[200px]">
             <div className="text-[11px] uppercase font-bold text-warm-muted dark:text-night-muted">
               {isTamil ? 'பயிற்சி பயனர்' : 'Active Profile'}
             </div>

@@ -87,7 +87,7 @@ export const CoachView: React.FC = () => {
         replyTamil = 'சுருக்கத்தை தவிர்க்க: ஊசி அளவு 9 அல்லது 11 ஆக மாற்றவும். துணியை சரியாக 45 டிகிரி கோணத்தில் வெட்டவும். நூல் அழுத்தத்தை குறைத்து, மெல்லிய காகிதத்தை அடியில் வைத்து தைக்கவும்!';
       } else {
         reply = `Based on your verified ${persona.readinessScore}% readiness score, your strongest assets are semantic accessibility and core craft accuracy. Your single immediate action is to bridge REST API caching with challenge #3 to push your match above 90% for Vaigai Digital Solutions!`;
-        replyTamil = `உங்கள் 82% தயார்நிலை சென்னை நிறுவனங்களுக்கு போதுமானது. REST API சவாலை முடித்தால் உங்கள் வாய்ப்பு 90% க்கும் மேல் உயரும்!`;
+        replyTamil = `உங்கள் ${persona.readinessScore}% தயார்நிலை சென்னை நிறுவனங்களுக்கு போதுமானது. REST API சவாலை முடித்தால் உங்கள் வாய்ப்பு 90% க்கும் மேல் உயரும்!`;
       }
 
       const aiMsg: ChatMessage = {

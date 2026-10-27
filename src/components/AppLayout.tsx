@@ -42,7 +42,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-white text-[#173B67] dark:bg-[#0B1726] dark:text-white transition-colors duration-300 font-poppins">
+    <div className={`relative flex flex-col bg-white text-[#173B67] dark:bg-[#0B1726] dark:text-white transition-colors duration-300 font-poppins ${
+      activeTab === 'coach' ? 'h-screen overflow-hidden' : 'min-h-screen'
+    }`}>
       {/* Skip to Main Content Link for Keyboard and Screen Reader Accessibility */}
       <a
         href="#main-content"
@@ -61,7 +63,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <GlassNavbar activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Main Content Layout with Desktop Sidebar */}
-      <div className="flex-1 max-w-7xl w-full mx-auto flex">
+      <div className="flex-1 min-h-0 max-w-7xl w-full mx-auto flex">
         {/* Desktop Sidebar (hidden on mobile, visible on lg) */}
         <aside
           aria-label="Sidebar navigation"
@@ -153,14 +155,16 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           id="main-content"
           tabIndex={-1}
           role="main"
-          className="flex-1 min-w-0 py-6 px-3 sm:px-6 pb-28 sm:pb-32 lg:pb-12 focus:outline-none"
+          className={`flex-1 min-w-0 py-6 px-3 sm:px-6 pb-28 sm:pb-32 lg:pb-12 focus:outline-none ${
+            activeTab === 'coach' ? 'flex flex-col overflow-hidden' : ''
+          }`}
         >
           {children}
         </main>
       </div>
 
       {/* CTA Band with Overlay Text (on non-home views) */}
-      {activeTab !== 'home' && (
+      {activeTab !== 'home' && activeTab !== 'coach' && (
         <>
           <section className="relative mt-12 bg-[#173B67] text-white overflow-hidden border-t border-[#62B6E8]/30">
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-8">

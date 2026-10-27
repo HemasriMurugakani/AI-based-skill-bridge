@@ -21,6 +21,26 @@ const languageNames: Record<Language, string> = {
   fr: 'French'
 };
 
+export function normalizeLanguage(value: string | undefined): Language {
+  const baseLanguage = value?.toLowerCase().split('-')[0];
+  return baseLanguage === 'ta' || baseLanguage === 'hi' || baseLanguage === 'fr'
+    ? baseLanguage
+    : 'en';
+}
+
+function getLanguageInstruction(language: Language): string {
+  switch (language) {
+    case 'ta':
+      return 'Write every explanation, heading, label, list item, recommendation, and question in natural Tamil script (தமிழ்). Keep only unavoidable proper nouns and technical identifiers such as React, JavaScript, HTML, CSS, API, GitHub, Node.js, and MongoDB in English. Translate common technical phrases into Tamil where possible.';
+    case 'hi':
+      return 'Write every explanation, heading, label, list item, recommendation, and question in natural Hindi using Devanagari script (हिन्दी). Keep only unavoidable proper nouns, code, and technical product names in English.';
+    case 'fr':
+      return 'Write every explanation, heading, label, list item, recommendation, and question in natural French. Keep only unavoidable proper nouns, code, and technical product names in English.';
+    default:
+      return 'Write every explanation, heading, label, list item, recommendation, and question in clear natural English.';
+  }
+}
+
 export const isGeminiConfigured = Boolean(apiKey);
 
 const jdExtractSchema = z.object({
@@ -112,11 +132,10 @@ export async function getGeminiCoachAnswer(
   language: Language
 ): Promise<string> {
   const responseLanguage = languageNames[language] || languageNames.en;
+  const languageInstruction = getLanguageInstruction(language);
   return generateText(`You are SkillBridge, a practical career and technical coach.
-Answer the learner entirely in ${responseLanguage}. Do not answer in English when Tamil, Hindi, or French is selected.
-For Tamil, write every explanation, heading, label, list item, recommendation, and question in natural Tamil script (தமிழ்).
-When Tamil is selected, do not write English sentences or English descriptions. Keep only unavoidable proper nouns and technical identifiers such as Priya, React, JavaScript, HTML, CSS, API, GitHub, Node.js, and MongoDB.
-Translate common technical phrases into Tamil where possible, for example use "முன்பக்க நிரலாக்கம்" instead of "Frontend Technologies" and "முக்கிய அடுத்த படிகள்" instead of "Concrete Next Steps".
+Answer the learner entirely in ${responseLanguage}.
+${languageInstruction}
 Do not translate the learner's name, company names, code snippets, or technical product names.
 Answer the learner directly, accurately, and encouragingly.
 Use as much detail as needed, up to about 1800 words. Organize long answers with Tamil headings, unique sequential numbered steps, and bullet lists. Do not restart numbering accidentally.
@@ -130,10 +149,11 @@ export async function extractJobDescriptionWithGemini(
   language: Language
 ): Promise<JdExtractPayload> {
   const responseLanguage = languageNames[language] || languageNames.en;
+  const languageInstruction = getLanguageInstruction(language);
   const text = await generateText(`Extract a job description into JSON only. Do not use markdown.
 Use this exact shape:
 {"role":"string","company":"string","requiredSkills":[{"name":"string","importance":"must","category":"string","why":"string"}],"softSkills":["string"],"eligibility":["string"]}
-Set importance to only "must" or "nice". Keep 4-10 relevant skills. Write all explanatory values in ${responseLanguage}.
+Set importance to only "must" or "nice". Keep 4-10 relevant skills. Write all explanatory values in ${responseLanguage}. ${languageInstruction}
 Job description:
 ${jdText}`);
   return parseJsonResponse(text, jdExtractSchema);
@@ -149,10 +169,11 @@ export async function scoreInterviewWithGemini(
   }
 ): Promise<InterviewScoreResponse> {
   const responseLanguage = languageNames[params.language] || languageNames.en;
+  const languageInstruction = getLanguageInstruction(params.language);
   const text = await generateText(`Evaluate this mock interview answer as JSON only. Do not use markdown.
 Use this exact shape:
 {"clarity":number,"confidence":number,"relevance":number,"overallScore":number,"paceWpm":number,"fillerWordCount":number,"matchedFillers":["string"],"tips":["string"],"disclaimer":"string"}
-All scores must be 0-100. Write tips and disclaimer entirely in ${responseLanguage}. For Tamil, use natural Tamil script.
+All scores must be 0-100. Write tips and disclaimer entirely in ${responseLanguage}. ${languageInstruction}
 Role: ${params.roleTitle}
 Question: ${params.question}
 Answer transcript: ${params.transcript}

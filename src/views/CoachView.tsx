@@ -2,14 +2,12 @@ import React, { useState, useEffect, type ReactNode } from 'react';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { useTranslation } from 'react-i18next';
 import { AIThinking } from '../components/AIThinking';
-import { StatusPill } from '../components/StatusPill';
-import { TrustLabel } from '../components/TrustLabel';
 import { getCoachAnswerLive } from '../services/api';
 import { Language } from '../types';
+import { normalizeLanguage } from '../services/gemini';
 import {
   Send,
-  Sparkles,
-  Lightbulb
+  Sparkles
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -106,11 +104,11 @@ function renderCoachMessage(text: string): ReactNode {
 }
 
 export const CoachView: React.FC = () => {
-  const { getPersona, getCurrentPathway, isOfflineDemo } = useSkillBridgeStore();
+  const { getPersona, getCurrentPathway, isOfflineDemo, language } = useSkillBridgeStore();
   const { t, i18n } = useTranslation();
   const persona = getPersona();
   const pathway = getCurrentPathway();
-  const currentLang = (i18n.language as Language) || 'en';
+  const currentLang: Language = normalizeLanguage(language || i18n.language);
 
   const getGreeting = (lang: string) => {
     const firstName = lang === 'ta' ? persona.nameTamil.split(' ')[0] : persona.name.split(' ')[0];
@@ -153,21 +151,6 @@ export const CoachView: React.FC = () => {
       return prev;
     });
   }, [currentLang]);
-
-  const quickPrompts = [
-    {
-      label: t('coach.quickPrompts.label1', 'Explain DOM Event Bubbling'),
-      prompt: t('coach.quickPrompts.prompt1', 'Can you explain DOM event bubbling and delegation with a clear real-world code example?')
-    },
-    {
-      label: t('coach.quickPrompts.label2', 'How to fix neckline puckering?'),
-      prompt: t('coach.quickPrompts.prompt2', 'My blouse neckline bias binding is puckering on chiffon fabric. What needle size and thread tension should I adjust?')
-    },
-    {
-      label: t('coach.quickPrompts.label3', 'Job Readiness Check'),
-      prompt: t('coach.quickPrompts.prompt3', 'Review my readiness score for Junior Frontend roles in Chennai and tell me the fastest way to bridge my missing gaps.')
-    }
-  ];
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || inputMessage;
@@ -216,48 +199,9 @@ export const CoachView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      {/* Top Banner */}
-      <div className="p-6 rounded-card bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#62B6E8]/30">
-              {t('coach.bilingualBadge', 'AI Mentor Assistant')}
-            </span>
-            <StatusPill status="ai_reviewed" size="sm" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-            {t('coach.title', 'SkillBridge AI Coach')}
-          </h1>
-          <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-xl">
-            {t('coach.subtitle', 'Ask technical questions, get viva coaching, or troubleshoot craft doubts in your preferred language.')}
-          </p>
-        </div>
-
-        <TrustLabel type="ai-disclaimer" />
-      </div>
-
-      {/* Quick Prompts Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-        {quickPrompts.map((qp, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSendMessage(qp.prompt)}
-            className="p-3.5 rounded-2xl bg-white dark:bg-night-100 border border-sky-100 hover:border-[#62B6E8] text-left transition-all hover:scale-[1.01] active:scale-[0.99] group shadow-xs cursor-pointer"
-          >
-            <div className="flex items-center gap-1.5 text-[#173B67] dark:text-sky-300 text-xs font-bold mb-1">
-              <Lightbulb className="w-3.5 h-3.5 text-[#F2B66D] shrink-0" />
-              <span className="truncate">{qp.label}</span>
-            </div>
-            <div className="text-[11px] text-[#526174] dark:text-night-muted line-clamp-2">
-              {qp.prompt}
-            </div>
-          </button>
-        ))}
-      </div>
-
+    <div className="flex h-full min-h-0 flex-col gap-6 animate-in fade-in duration-300">
       {/* Chat Container */}
-      <div className="rounded-card bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft flex flex-col h-[520px]">
+      <div className="flex min-h-0 flex-1 flex-col rounded-card bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft">
         {/* Messages Stream */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
           {messages.map((msg) => {

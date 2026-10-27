@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, CheckCircle2, AlertCircle, Sparkles, ArrowRight, RotateCcw } from 'lucide-react';
 import { cssQuizQuestions } from '../data/roadmapData';
 import confetti from 'canvas-confetti';
@@ -14,6 +15,8 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
   onClose,
   onQuizCompleted
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [isFinished, setIsFinished] = useState(false);
@@ -81,14 +84,14 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-400">
-                Diagnostic Assessment
+                {isTa ? 'கண்டறிதல் மதிப்பீடு' : 'Diagnostic Assessment'}
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
                 CSS & Flexbox
               </span>
             </div>
             <h3 className="text-lg font-bold text-[#173B67] dark:text-white mt-0.5">
-              CSS Responsive Layout Quiz
+              {isTa ? 'சி.எஸ்.எஸ் வடிவமைப்பு வினாடி வினா' : 'CSS Responsive Layout Quiz'}
             </h3>
           </div>
           <div className="flex items-center gap-2">
@@ -115,7 +118,7 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
           <div className="space-y-4">
             {/* Progress indicators */}
             <div className="flex items-center justify-between text-xs text-[#526174]">
-              <span>Question {currentIdx + 1} of {cssQuizQuestions.length}</span>
+              <span>{isTa ? `கேள்வி ${currentIdx + 1} / ${cssQuizQuestions.length}` : `Question ${currentIdx + 1} of ${cssQuizQuestions.length}`}</span>
               <div className="flex items-center gap-1">
                 {cssQuizQuestions.map((q, idx) => (
                   <span
@@ -134,12 +137,9 @@ export const CssQuizModal: React.FC<CssQuizModalProps> = ({
 
             {/* Question Card */}
             <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] space-y-1">
-              <h4 className="text-sm font-bold text-[#173B67] dark:text-white">
-                {currentQ.question}
+              <h4 className={`text-sm font-bold text-[#173B67] dark:text-white ${isTa ? 'font-tamil' : ''}`}>
+                {isTa ? (currentQ.questionTamil || currentQ.question) : currentQ.question}
               </h4>
-              <div className="font-tamil text-xs text-[#526174] dark:text-sky-300">
-                {currentQ.questionTamil}
-              </div>
             </div>
 
             {/* Options */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Badge } from '../types';
 import confetti from 'canvas-confetti';
 import * as Icons from 'lucide-react';
@@ -19,6 +20,8 @@ export const BadgeMedal: React.FC<BadgeMedalProps> = ({
   className = '',
   onSelect
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const triggerConfetti = (e: React.MouseEvent) => {
     if (badge.isUnlocked) {
       const rect = e.currentTarget.getBoundingClientRect();
@@ -103,26 +106,21 @@ export const BadgeMedal: React.FC<BadgeMedalProps> = ({
 
       {showDetails && (
         <div className="flex flex-col items-center max-w-[160px]">
-          {badge.titleTamil && (
-            <span className="font-tamil text-[10px] text-[#526174] dark:text-night-muted line-clamp-1">
-              {badge.titleTamil}
-            </span>
-          )}
-          <h4 className="text-xs font-bold text-[#173B67] dark:text-white line-clamp-1">
-            {badge.title}
+          <h4 className={`text-xs font-bold text-[#173B67] dark:text-white line-clamp-1 ${isTa ? 'font-tamil' : ''}`}>
+            {isTa ? (badge.titleTamil || badge.title) : badge.title}
           </h4>
 
           {/* Trust Principle Badge Note */}
           <div className="mt-1 flex items-center gap-1 text-[9px] text-[#526174] dark:text-night-muted">
             <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
-            <span className="italic truncate" title="Evidence-backed, not a formal certification">
-              Evidence-backed
+            <span className="italic truncate" title={isTa ? 'சான்று அடிப்படையிலானது' : 'Evidence-backed, not a formal certification'}>
+              {isTa ? 'சான்றுடையது' : 'Evidence-backed'}
             </span>
           </div>
 
           {badge.unlockedAt && (
             <span className="mt-1 text-[10px] text-[#62B6E8] font-semibold">
-              Unlocked {badge.unlockedAt}
+              {isTa ? 'திறக்கப்பட்டது' : 'Unlocked'} {badge.unlockedAt}
             </span>
           )}
         </div>

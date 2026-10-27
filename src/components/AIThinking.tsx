@@ -106,9 +106,9 @@ export const AIThinking: React.FC<AIThinkingProps> = ({
 
       {/* Bridge Pillar Stages */}
       <div className="flex items-center gap-6 mt-1 text-[10px] font-bold uppercase tracking-wider text-[#526174] dark:text-night-muted">
-        <span className="text-[#173B67] dark:text-sky-400">1. Learn</span>
-        <span className="text-emerald-700 dark:text-emerald-400">2. Prove</span>
-        <span className="text-amber-700 dark:text-amber-400">3. Opportunity</span>
+        <span className="text-[#173B67] dark:text-sky-400">{i18n.language === 'ta' ? '1. கற்றல்' : '1. Learn'}</span>
+        <span className="text-emerald-700 dark:text-emerald-400">{i18n.language === 'ta' ? '2. நிரூபித்தல்' : '2. Prove'}</span>
+        <span className="text-amber-700 dark:text-amber-400">{i18n.language === 'ta' ? '3. வாய்ப்பு' : '3. Opportunity'}</span>
       </div>
 
       {/* Single Language Status Text */}

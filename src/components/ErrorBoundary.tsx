@@ -1,5 +1,6 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
 import { AlertTriangle, RotateCcw, Home } from 'lucide-react';
+import i18n from '../i18n';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -41,6 +42,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         return this.props.fallback;
       }
 
+      const isTa = i18n.language === 'ta';
+
       return (
         <div
           role="alert"
@@ -54,13 +57,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             <div>
               <h2 className="text-xl font-bold text-[#173B67] dark:text-white">
-                Something didn't load smoothly
+                {isTa ? 'தொகுதி ஏற்றுவதில் சிறு பிழை ஏற்பட்டது' : "Something didn't load smoothly"}
               </h2>
-              <div className="font-tamil text-sm font-semibold text-rose-700 dark:text-rose-400 mt-1">
-                தொகுதி ஏற்றுவதில் சிறு பிழை ஏற்பட்டது
-              </div>
               <p className="mt-2 text-xs sm:text-sm text-[#526174] dark:text-night-muted leading-relaxed">
-                SkillBridge encountered an unexpected state. Don't worry, your verified proofs, streak history, and local progress are securely stored in your browser.
+                {isTa
+                  ? 'எதிர்பாராத பிழை ஏற்பட்டது. கவலை வேண்டாம், உங்கள் சரிபார்க்கப்பட்ட சான்றுகள் மற்றும் முன்னேற்றம் பாதுகாப்பாக உள்ளன.'
+                  : "SkillBridge encountered an unexpected state. Don't worry, your verified proofs, streak history, and local progress are securely stored in your browser."}
               </p>
             </div>
 
@@ -77,7 +79,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-btn bg-[#173B67] hover:bg-[#112C4E] text-white font-semibold text-xs shadow-soft transition-all hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reload Module (மீண்டும் ஏற்று)</span>
+                <span>{isTa ? 'மீண்டும் ஏற்று' : 'Reload Module'}</span>
               </button>
               <button
                 type="button"
@@ -85,7 +87,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-btn bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-night-ink border border-[#BAE6FD] dark:border-night-border font-medium text-xs hover:bg-[#d8eefc] transition-colors cursor-pointer"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>Return to Home</span>
+                <span>{isTa ? 'முகப்பிற்குத் திரும்பு' : 'Return to Home'}</span>
               </button>
             </div>
           </div>

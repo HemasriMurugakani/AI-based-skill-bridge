@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import {
   levelDefinitions,
@@ -30,6 +31,8 @@ import {
 } from 'lucide-react';
 
 export const ProgressView: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const {
     getPersona,
     streakFreezesAvailable,
@@ -49,7 +52,7 @@ export const ProgressView: React.FC = () => {
     language
   } = useSkillBridgeStore();
 
-  const isTamil = language === 'ta';
+  const isTamil = isTa;
   const currentPersona = getPersona();
 
   // Catch-up Diagnostic Quiz State
@@ -183,20 +186,22 @@ export const ProgressView: React.FC = () => {
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#62B6E8]/40 text-sky-200 text-xs font-bold">
               <Sparkles className="w-3.5 h-3.5 text-[#F2B66D]" />
-              <span>Civic Gamification · Meaningful Work Only</span>
+              <span>{isTa ? 'குடிமை விளையாட்டுமயமாக்கல் · அர்த்தமுள்ள பணி மட்டுமே' : 'Civic Gamification · Meaningful Work Only'}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-              Streak & Mastery Dashboard
+              {isTa ? 'தொடர்ச்சி & தேர்ச்சி கட்டுப்பாட்டுப் பலகை' : 'Streak & Mastery Dashboard'}
             </h1>
             <p className="text-sm text-sky-100/90 leading-relaxed">
-              Tamil Nadu Civic Skill Engine gamification rewards deliberate, tamper-evident proof—not vanity clicks or mindless scrolling. Your streak is protected with recovery tools so unexpected life events never wipe out honest dedication.
+              {isTa
+                ? 'தமிழ்நாடு குடிமைத் திறன் தளம் வீண் கிளிக்குகளைத் தவிர்த்து உண்மையான சான்றுகளுக்கு மட்டுமே வெகுமதி அளிக்கிறது. எதிர்பாராத வாழ்க்கை நிகழ்வுகளால் உங்கள் தொடர்ச்சி பாதிக்கப்படாமல் இருக்க மீட்புக் கருவிகள் உள்ளன.'
+                : 'Tamil Nadu Civic Skill Engine gamification rewards deliberate, tamper-evident proof—not vanity clicks or mindless scrolling. Your streak is protected with recovery tools so unexpected life events never wipe out honest dedication.'}
             </p>
           </div>
 
           {/* Quick Simulation & Testing Tools Strip */}
           <div className="flex flex-wrap items-center gap-2 bg-black/20 p-2.5 rounded-card border border-white/10 backdrop-blur-sm shrink-0">
             <span className="text-[11px] font-bold text-sky-300 uppercase tracking-wider px-1">
-              Prototype Controls:
+              {isTa ? 'மாதிரி கட்டுப்பாடுகள்:' : 'Prototype Controls:'}
             </span>
             <button
               onClick={() => simulateMissedDay(!streakMissedSimulated)}
@@ -207,7 +212,7 @@ export const ProgressView: React.FC = () => {
               }`}
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>{streakMissedSimulated ? 'Missed Day Active' : 'Simulate Missed Day'}</span>
+              <span>{streakMissedSimulated ? (isTa ? 'தவறிய நாள் செயலில்' : 'Missed Day Active') : (isTa ? 'தவறிய நாளை உருவகப்படுத்து' : 'Simulate Missed Day')}</span>
             </button>
             <button
               onClick={handleUseFreeze}
@@ -215,14 +220,14 @@ export const ProgressView: React.FC = () => {
               className="px-3 py-1.5 rounded-btn text-xs font-semibold bg-sky-700/80 hover:bg-sky-600 text-white disabled:opacity-40 transition-all flex items-center gap-1.5"
             >
               <Snowflake className="w-3.5 h-3.5" />
-              <span>Use 1 Freeze ({streakFreezesAvailable}/2)</span>
+              <span>{isTa ? `1 உறையை பயன்படுத்து (${streakFreezesAvailable}/2)` : `Use 1 Freeze (${streakFreezesAvailable}/2)`}</span>
             </button>
             <button
               onClick={() => setIsPauseModalOpen(true)}
               className="px-3 py-1.5 rounded-btn text-xs font-semibold bg-[#173B67] hover:bg-[#112C4E] text-white border border-[#62B6E8]/40 transition-all flex items-center gap-1.5"
             >
               <PauseCircle className="w-3.5 h-3.5" />
-              <span>{isExamPaused ? 'Manage Pause' : 'Exams / Work Pause'}</span>
+              <span>{isExamPaused ? (isTa ? 'இடைநிறுத்தத்தை நிர்வகி' : 'Manage Pause') : (isTa ? 'தேர்வு / பணி இடைநிறுத்தம்' : 'Exams / Work Pause')}</span>
             </button>
           </div>
         </div>
@@ -232,85 +237,85 @@ export const ProgressView: React.FC = () => {
           {/* Current Streak */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>Current Streak</span>
+              <span>{isTa ? 'தற்போதைய தொடர்ச்சி' : 'Current Streak'}</span>
               <Flame className="w-4 h-4 text-[#F2B66D] fill-[#F2B66D] animate-bounce" />
             </div>
             <div className="text-2xl font-bold text-white">
               {currentPersona.streakDays}{' '}
-              <span className="text-xs font-normal text-sky-200">Days</span>
+              <span className="text-xs font-normal text-sky-200">{isTa ? 'நாட்கள்' : 'Days'}</span>
             </div>
             <div className="text-[10px] text-emerald-300 font-semibold mt-0.5">
-              {streakMissedSimulated ? '⚠️ Recovery Mode' : isExamPaused ? '🛡️ Safely Paused' : '✓ Active Today'}
+              {streakMissedSimulated ? (isTa ? '⚠️ மீட்பு முறை' : '⚠️ Recovery Mode') : isExamPaused ? (isTa ? '🛡️ இடைநிறுத்தப்பட்டது' : '🛡️ Safely Paused') : (isTa ? '✓ இன்று செயலில்' : '✓ Active Today')}
             </div>
           </div>
 
           {/* Best Streak */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>Best Streak</span>
+              <span>{isTa ? 'சிறந்த தொடர்ச்சி' : 'Best Streak'}</span>
               <Target className="w-4 h-4 text-[#62B6E8]" />
             </div>
             <div className="text-2xl font-bold text-white">
-              24 <span className="text-xs font-normal text-sky-200">Days</span>
+              24 <span className="text-xs font-normal text-sky-200">{isTa ? 'நாட்கள்' : 'Days'}</span>
             </div>
             <div className="text-[10px] text-sky-200 mt-0.5">
-              Personal Record (Aug 2026)
+              {isTa ? 'தனிப்பட்ட சாதனை (ஆக 2026)' : 'Personal Record (Aug 2026)'}
             </div>
           </div>
 
           {/* Consistency Multiplier */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>XP Multiplier</span>
+              <span>{isTa ? 'XP பெருக்கி' : 'XP Multiplier'}</span>
               <Zap className="w-4 h-4 text-[#F2B66D]" />
             </div>
             <div className="text-2xl font-bold text-[#F2B66D]">
               1.25x
             </div>
             <div className="text-[10px] text-sky-200 mt-0.5">
-              14+ Day Habit Tier (+25%)
+              {isTa ? '14+ நாள் பழக்க அடுக்கு (+25%)' : '14+ Day Habit Tier (+25%)'}
             </div>
           </div>
 
           {/* Verified XP */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>Meaningful XP</span>
+              <span>{isTa ? 'அர்த்தமுள்ள XP' : 'Meaningful XP'}</span>
               <Award className="w-4 h-4 text-sky-300" />
             </div>
             <div className="text-2xl font-bold text-white">
               {currentPersona.xpPoints}
             </div>
             <div className="text-[10px] text-emerald-300 mt-0.5">
-              5 Proofs + 1 Oral Viva
+              {isTa ? '5 சான்றுகள் + 1 வாய்மொழி' : '5 Proofs + 1 Oral Viva'}
             </div>
           </div>
 
           {/* Current Level */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>Current Level</span>
+              <span>{isTa ? 'தற்போதைய நிலை' : 'Current Level'}</span>
               <span className="text-base">{currentLevel.badgeIcon}</span>
             </div>
             <div className="text-base font-bold text-white truncate">
-              L{currentLevel.level}: {language === 'ta' ? currentLevel.titleTamil : currentLevel.title}
+              L{currentLevel.level}: {isTa ? (currentLevel.titleTamil || currentLevel.title) : currentLevel.title}
             </div>
             <div className="text-[10px] text-sky-200 truncate">
-              {currentPersona.name}
+              {isTa ? (currentPersona.nameTamil || currentPersona.name) : currentPersona.name}
             </div>
           </div>
 
           {/* Monthly Freezes */}
           <div className="p-3.5 rounded-card bg-white/10 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-between text-xs text-sky-100 mb-1">
-              <span>Freezes Left</span>
+              <span>{isTa ? 'மீதமுள்ள உறையவைப்புகள்' : 'Freezes Left'}</span>
               <Snowflake className="w-4 h-4 text-sky-300" />
             </div>
             <div className="text-2xl font-bold text-sky-200">
               {streakFreezesAvailable} / 2
             </div>
             <div className="text-[10px] text-sky-300 mt-0.5">
-              Refreshes Nov 1, 2026
+              {isTa ? 'நவ 1, 2026-ல் புதுப்பிக்கப்படும்' : 'Refreshes Nov 1, 2026'}
             </div>
           </div>
         </div>
@@ -326,14 +331,15 @@ export const ProgressView: React.FC = () => {
               </div>
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-900 dark:text-amber-200 text-xs font-bold">
-                  <span>Recovery-Friendly Mode Active</span>
+                  <span>{isTa ? 'மீட்பு முறை செயலில் உள்ளது' : 'Recovery-Friendly Mode Active'}</span>
                 </div>
                 <h3 className="text-lg font-bold text-[#173B67] dark:text-amber-100">
-                  Missed Yesterday? Keep Your {currentPersona.streakDays}-Day Streak Alive!
+                  {isTa ? `நேற்று தவறவிட்டீர்களா? உங்கள் ${currentPersona.streakDays}-நாள் தொடர்ச்சியைத் தக்கவையுங்கள்!` : `Missed Yesterday? Keep Your ${currentPersona.streakDays}-Day Streak Alive!`}
                 </h3>
                 <p className="text-xs text-[#526174] dark:text-amber-200/80 max-w-3xl leading-relaxed">
-                  Power cuts, college submissions, or family responsibilities shouldn't penalize honest effort.
-                  Instead of resetting your streak to 0, solve this quick 5-minute diagnostic catch-up question to restore your streak immediately and earn +{currentCatchUpTask.rewardXp} XP.
+                  {isTa
+                    ? `மின்வெட்டு அல்லது குடும்பப் பொறுப்புகளுக்காக உங்கள் நேர்மையான முயற்சி தண்டிக்கப்படக் கூடாது. இந்த 5 நிமிட கண்டறிதல் வினாடி வினாவை முடித்து தொடர்ச்சியை உடனடியாக மீட்டெடுக்கவும் (+${currentCatchUpTask.rewardXp} XP).`
+                    : `Power cuts, college submissions, or family responsibilities shouldn't penalize honest effort. Instead of resetting your streak to 0, solve this quick 5-minute diagnostic catch-up question to restore your streak immediately and earn +${currentCatchUpTask.rewardXp} XP.`}
                 </p>
               </div>
             </div>
@@ -341,7 +347,7 @@ export const ProgressView: React.FC = () => {
               onClick={() => simulateMissedDay(false)}
               className="text-[#526174] hover:text-[#173B67] text-xs font-semibold px-2 py-1 rounded-btn hover:bg-amber-100"
             >
-              Dismiss
+              {isTa ? 'விலக்கு' : 'Dismiss'}
             </button>
           </div>
 
@@ -350,16 +356,16 @@ export const ProgressView: React.FC = () => {
             <div className="flex items-center justify-between text-xs text-[#526174] dark:text-night-muted">
               <span className="font-bold text-[#173B67] dark:text-sky-300 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#62B6E8]" />
-                5-Minute Pathway Diagnostic ({currentCatchUpTask.title})
+                {isTa ? `5-நிமிட திறன் கண்டறிதல் (${currentCatchUpTask.title})` : `5-Minute Pathway Diagnostic (${currentCatchUpTask.title})`}
               </span>
               <span className="px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
-                +{currentCatchUpTask.rewardXp} XP Reward
+                +{currentCatchUpTask.rewardXp} XP {isTa ? 'வெகுமதி' : 'Reward'}
               </span>
             </div>
 
             <div>
               <p className="text-sm font-semibold text-[#173B67] dark:text-night-ink leading-relaxed">
-                {language === 'ta' ? currentCatchUpTask.questionTamil : currentCatchUpTask.question}
+                {isTa ? (currentCatchUpTask.questionTamil || currentCatchUpTask.question) : currentCatchUpTask.question}
               </p>
             </div>
 
@@ -411,19 +417,19 @@ export const ProgressView: React.FC = () => {
                   className="px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] disabled:opacity-40 text-[#173B67] font-semibold text-xs shadow-soft transition-all hover:scale-105 active:scale-95 flex items-center gap-2 justify-center cursor-pointer"
                 >
                   <BookmarkCheck className="w-4 h-4" />
-                  <span>Verify Answer & Restore Streak</span>
+                  <span>{isTa ? 'விடையைச் சரிபார்த்து தொடர்ச்சியை மீட்டெடு' : 'Verify Answer & Restore Streak'}</span>
                 </button>
               ) : (
                 <div className="flex items-center gap-3">
                   {quizSuccess ? (
                     <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs">
                       <Sparkles className="w-4 h-4" />
-                      <span>Streak restored! +{currentCatchUpTask.rewardXp} XP added to your passport.</span>
+                      <span>{isTa ? `தொடர்ச்சி மீட்டெடுக்கப்பட்டது! +${currentCatchUpTask.rewardXp} XP கடவுச்சீட்டில் சேர்க்கப்பட்டது.` : `Streak restored! +${currentCatchUpTask.rewardXp} XP added to your passport.`}</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-xs">
                       <RotateCcw className="w-4 h-4" />
-                      <span>Incorrect answer. Try again to protect your streak!</span>
+                      <span>{isTa ? 'தவறான விடை. உங்கள் தொடர்ச்சியைப் பாதுகாக்க மீண்டும் முயற்சிக்கவும்!' : 'Incorrect answer. Try again to protect your streak!'}</span>
                     </div>
                   )}
                 </div>
@@ -431,7 +437,7 @@ export const ProgressView: React.FC = () => {
 
               {quizSubmitted && (
                 <div className="text-xs text-[#526174] dark:text-night-muted max-w-md">
-                  <span className="font-bold">Explanation:</span> {currentCatchUpTask.explanation}
+                  <span className="font-bold">{isTa ? 'விளக்கம்:' : 'Explanation:'}</span> {currentCatchUpTask.explanation}
                 </div>
               )}
             </div>
@@ -627,10 +633,10 @@ export const ProgressView: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#173B67] flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Explicit Requirements to Unlock Level {nextLevel.level}:
+                {isTa ? `நிலை ${nextLevel.level}-ஐத் திறப்பதற்கான தெளிவான தேவைகள்:` : `Explicit Requirements to Unlock Level ${nextLevel.level}:`}
               </h3>
               <span className="text-xs font-bold text-[#173B67]">
-                {language === 'ta' ? nextLevel.titleTamil : nextLevel.title}
+                {isTa ? (nextLevel.titleTamil || nextLevel.title) : nextLevel.title}
               </span>
             </div>
 
@@ -646,13 +652,13 @@ export const ProgressView: React.FC = () => {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-xs font-semibold text-[#173B67] leading-snug">
-                      {language === 'ta' ? req.labelTamil : req.label}
+                      {isTa ? (req.labelTamil || req.label) : req.label}
                     </span>
                     {req.met ? (
-                      <span className="text-emerald-600 shrink-0 font-bold text-xs">✓ Done</span>
+                      <span className="text-emerald-600 shrink-0 font-bold text-xs">{isTa ? '✓ முடிந்தது' : '✓ Done'}</span>
                     ) : (
                       <span className="text-amber-600 shrink-0 text-xs font-semibold">
-                        Pending
+                        {isTa ? 'நிலுவையில்' : 'Pending'}
                       </span>
                     )}
                   </div>
@@ -666,10 +672,10 @@ export const ProgressView: React.FC = () => {
         <div className="p-5 sm:p-6 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-[#173B67]">
-              Transparent XP Reward Table (Meaningful Work Only)
+              {isTa ? 'வெளிப்படையான XP வெகுமதி அட்டவணை (அர்த்தமுள்ள பணிக்கு மட்டுமே)' : 'Transparent XP Reward Table (Meaningful Work Only)'}
             </h3>
             <span className="text-xs text-[#526174]">
-              Zero points for vanity clicks or passive browsing
+              {isTa ? 'வீண் கிளிக்குகள் அல்லது செயலற்ற உலாவலுக்கு புள்ளிகள் இல்லை' : 'Zero points for vanity clicks or passive browsing'}
             </span>
           </div>
 
@@ -677,17 +683,17 @@ export const ProgressView: React.FC = () => {
             <table className="w-full text-xs text-left">
               <thead>
                 <tr className="border-b border-[#E2E8F0] text-[#526174]">
-                  <th className="py-2 font-semibold">Demonstrated Action</th>
-                  <th className="py-2 font-semibold">Category</th>
-                  <th className="py-2 font-semibold">Rubric Validation Rule</th>
-                  <th className="py-2 font-semibold text-right">Points</th>
+                  <th className="py-2 font-semibold">{isTa ? 'நிரூபிக்கப்பட்ட செயல்' : 'Demonstrated Action'}</th>
+                  <th className="py-2 font-semibold">{isTa ? 'பிரிவு' : 'Category'}</th>
+                  <th className="py-2 font-semibold">{isTa ? 'ரூப்ரிக் சரிபார்ப்பு விதி' : 'Rubric Validation Rule'}</th>
+                  <th className="py-2 font-semibold text-right">{isTa ? 'புள்ளிகள்' : 'Points'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E2E8F0]">
                 {xpRewardRules.map((rule, idx) => (
                   <tr key={idx} className="hover:bg-[#EAF5FC]/50">
                     <td className="py-2.5 font-bold text-[#173B67]">
-                      {language === 'ta' ? rule.actionTamil : rule.action}
+                      {isTa ? (rule.actionTamil || rule.action) : rule.action}
                     </td>
                     <td className="py-2.5">
                       <span className="px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] uppercase font-bold text-[9px]">

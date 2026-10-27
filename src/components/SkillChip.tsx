@@ -26,7 +26,8 @@ export const SkillChip: React.FC<SkillChipProps> = ({
   className = '',
   onClick
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
 
   const config = {
     strong: {
@@ -80,20 +81,15 @@ export const SkillChip: React.FC<SkillChipProps> = ({
       </div>
 
       <div className="mt-1">
-        {nameTamil && (
-          <div className="font-tamil text-[11px] text-[#526174] dark:text-night-muted leading-tight">
-            {nameTamil}
-          </div>
-        )}
-        <div className="text-sm font-semibold text-[#173B67] dark:text-white line-clamp-1">
-          {name}
+        <div className={`text-sm font-semibold text-[#173B67] dark:text-white line-clamp-1 ${isTa ? 'font-tamil' : ''}`}>
+          {isTa ? (nameTamil || name) : name}
         </div>
       </div>
 
       <div className="mt-2 flex items-center justify-between text-[11px] pt-1.5 border-t border-black/5 dark:border-white/5">
         {/* Level indicator dots */}
-        <div className="flex items-center gap-1" title={`Level ${level} of 5`}>
-          <span className="text-[10px] text-[#526174] dark:text-night-muted mr-1">Lvl {level}</span>
+        <div className="flex items-center gap-1" title={`${isTa ? 'நிலை' : 'Level'} ${level} of 5`}>
+          <span className="text-[10px] text-[#526174] dark:text-night-muted mr-1">{isTa ? `நிலை ${level}` : `Lvl ${level}`}</span>
           {[1, 2, 3, 4, 5].map((dot) => (
             <span
               key={dot}
@@ -106,7 +102,7 @@ export const SkillChip: React.FC<SkillChipProps> = ({
 
         {showEvidenceBadge && evidenceCount > 0 && (
           <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
-            <ShieldCheck className="w-3 h-3" /> {evidenceCount} {evidenceCount === 1 ? 'proof' : 'proofs'}
+            <ShieldCheck className="w-3 h-3" /> {evidenceCount} {isTa ? 'சான்றுகள்' : (evidenceCount === 1 ? 'proof' : 'proofs')}
           </span>
         )}
       </div>

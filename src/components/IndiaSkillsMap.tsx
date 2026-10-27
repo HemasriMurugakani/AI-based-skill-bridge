@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles, MapPin, Award, CheckCircle2, Info } from 'lucide-react';
 
 interface MapNode {
@@ -160,6 +161,10 @@ const mapNodes: MapNode[] = [
 ];
 
 export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '' }) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language || 'en';
+  const isTa = lang === 'ta';
+
   const [mapMode, setMapMode] = useState<'live' | 'heritage'>('live');
   const [activeNode, setActiveNode] = useState<MapNode>(mapNodes[2]); // Default Salem / Lakshmi context
 
@@ -169,10 +174,12 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
       <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0] dark:border-night-border/60">
         <div>
           <div className="text-[10px] font-bold tracking-wider text-[#526174] dark:text-night-muted uppercase">
-            Interactive Province Map
+            {isTa ? 'ஊடாடும் தமிழ்நாடு வரைபடம்' : 'Interactive Province Map'}
           </div>
           <h3 className="text-sm font-bold text-[#173B67] dark:text-white">
-            {mapMode === 'live' ? 'Live Verified Proof Clusters' : 'Vocational Heritage & Craft Traditions'}
+            {mapMode === 'live'
+              ? (isTa ? 'நேரலை சரிபார்க்கப்பட்ட சான்றுகள்' : 'Live Verified Proof Clusters')
+              : (isTa ? 'தொழில்சார் பாரம்பரியம் & கைவினை மரபுகள்' : 'Vocational Heritage & Craft Traditions')}
           </h3>
         </div>
 
@@ -186,7 +193,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                 : 'text-[#526174] hover:text-[#173B67] dark:hover:text-night-ink'
             }`}
           >
-            Live proofs
+            {isTa ? 'நேரலை சான்றுகள்' : 'Live proofs'}
           </button>
           <button
             onClick={() => setMapMode('heritage')}
@@ -196,7 +203,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                 : 'text-[#526174] hover:text-[#173B67] dark:hover:text-night-ink'
             }`}
           >
-            Heritage
+            {isTa ? 'பாரம்பரியம்' : 'Heritage'}
           </button>
         </div>
       </div>
@@ -295,19 +302,20 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
                       : 'fill-[#526174] dark:fill-night-muted'
                   }`}
                 >
-                  {node.name.split(' ')[0]}
+                  {isTa ? node.nameTamil : node.name.split(' ')[0]}
                 </text>
               </g>
             );
           })}
         </svg>
 
-        {/* Floating Node Inspection Tooltip Card */}
+        {/* Floating Node Inspection Tooltip Card - STRICT SINGLE LANGUAGE */}
         <div className="absolute bottom-2 left-2 right-2 p-2.5 rounded-card bg-white/95 dark:bg-night-card/95 backdrop-blur-md border border-[#E2E8F0] dark:border-night-border shadow-soft flex items-center justify-between gap-3 text-xs">
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-bold text-[#173B67] dark:text-white">{activeNode.name}</span>
-              <span className="font-tamil text-[11px] text-[#526174]">({activeNode.nameTamil})</span>
+              <span className="font-bold text-[#173B67] dark:text-white">
+                {isTa ? activeNode.nameTamil : activeNode.name}
+              </span>
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold">
                 Avg {activeNode.rubricAvg}%
               </span>
@@ -317,14 +325,14 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
               {mapMode === 'live' ? (
                 <>
                   <span className="font-semibold text-[#173B67] dark:text-sky-300">
-                    {activeNode.liveProofs.toLocaleString()} verified proofs
+                    {activeNode.liveProofs.toLocaleString()} {isTa ? 'சரிபார்க்கப்பட்ட சான்றுகள்' : 'verified proofs'}
                   </span>
-                  {' '}• Top: {activeNode.topSkill}
+                  {' '}• {isTa ? 'முதன்மை:' : 'Top:'} {activeNode.topSkill}
                 </>
               ) : (
                 <>
                   <span className="font-semibold text-[#173B67] dark:text-sky-300">
-                    {activeNode.heritageCraft}
+                    {isTa ? activeNode.heritageCraftTamil : activeNode.heritageCraft}
                   </span>
                   {' '}• {activeNode.heritageCategory}
                 </>
@@ -334,7 +342,7 @@ export const IndiaSkillsMap: React.FC<{ className?: string }> = ({ className = '
 
           <div className="text-right shrink-0">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-forest-100 dark:bg-forest-950 text-forest-800 dark:text-forest-300">
-              {activeNode.activeLearners.toLocaleString()} Learners
+              {activeNode.activeLearners.toLocaleString()} {isTa ? 'கற்பவர்கள்' : 'Learners'}
             </span>
           </div>
         </div>

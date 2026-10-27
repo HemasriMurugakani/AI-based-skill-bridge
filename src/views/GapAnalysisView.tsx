@@ -92,7 +92,8 @@ export const GapAnalysisView: React.FC = () => {
     setPersona
   } = useSkillBridgeStore();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const currentPersona = getPersona();
   const pathway = getCurrentPathway();
 
@@ -194,25 +195,31 @@ export const GapAnalysisView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
-              AI Job Description Gap Engine
+              {isTa ? 'வேலை விவர இடைவெளி ஆய்வுத் தளம்' : 'AI Job Description Gap Engine'}
             </span>
             <LiveIndicator />
             <TrustLabel type="how-calculated" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#173B67] dark:text-white">
-            Extract Requirements · Detect Precise Gaps
+            {isTa ? 'தேவைகளைப் பிரித்தெடுத்தல் · துல்லியமான இடைவெளிகளைக் கண்டறிதல்' : 'Extract Requirements · Detect Precise Gaps'}
           </h1>
           <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-slate-300 max-w-2xl leading-relaxed">
-            Paste any job description from LinkedIn, Naukri, or an apprenticeship circular. We parse strict requirements and deterministically benchmark against your verified proofs.
+            {isTa
+              ? 'லிங்க்ட்இன் அல்லது நௌக்ரி வேலை விவரத்தை உள்ளிடவும். உங்கள் சரிபார்க்கப்பட்ட சான்றுகளுடன் துல்லியமாக ஒப்பிடுவோம்.'
+              : 'Paste any job description from LinkedIn, Naukri, or an apprenticeship circular. We parse strict requirements and deterministically benchmark against your verified proofs.'}
           </p>
         </div>
 
-        <AboutThisData title="About this JD analysis">
+        <AboutThisData title={isTa ? 'வேலை விவர ஆய்வு பற்றி' : 'About this JD analysis'}>
           <p>
-            Requirements are extracted from the text and benchmarked deterministically against your verified portfolio proofs.
+            {isTa
+              ? 'தேவைகள் உரையிலிருந்து பிரித்தெடுக்கப்பட்டு உங்கள் போர்ட்ஃபோலியோ சான்றுகளுடன் நேரடியாக ஒப்பிடப்படுகின்றன.'
+              : 'Requirements are extracted from the text and benchmarked deterministically against your verified portfolio proofs.'}
           </p>
           <p className="font-semibold text-[#173B67] dark:text-white">
-            Fairness guarantee: Unassessed skills are kept strictly neutral rather than marked as failures.
+            {isTa
+              ? 'நியாயமான மதிப்பீடு: மதிப்பீடு செய்யப்படாத திறன்கள் தோல்வியாகக் கருதப்படாமல் நடுநிலையாக வைக்கப்படுகின்றன.'
+              : 'Fairness guarantee: Unassessed skills are kept strictly neutral rather than marked as failures.'}
           </p>
         </AboutThisData>
       </div>
@@ -225,12 +232,12 @@ export const GapAnalysisView: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <label className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-white flex items-center gap-1.5">
                 <FileText className="w-4 h-4 text-[#62B6E8]" />
-                <span>Paste Any Job Description</span>
+                <span>{isTa ? 'வேலை விவரத்தை ஒட்டவும்' : 'Paste Any Job Description'}</span>
               </label>
 
               {/* Sample JD Selector Buttons */}
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[11px] text-[#526174] font-medium">Try sample:</span>
+                <span className="text-[11px] text-[#526174] font-medium">{isTa ? 'மாதிரியை முயற்சிக்கவும்:' : 'Try sample:'}</span>
                 <button
                   type="button"
                   onClick={() => handleSelectSample('web_dev')}
@@ -241,7 +248,7 @@ export const GapAnalysisView: React.FC = () => {
                   }`}
                 >
                   <Code className="w-3 h-3 text-[#62B6E8]" />
-                  <span>Web Dev Intern</span>
+                  <span>{isTa ? 'இளநிலை வலை உருவாக்குநர்' : 'Web Dev Intern'}</span>
                 </button>
                 <button
                   type="button"
@@ -253,7 +260,7 @@ export const GapAnalysisView: React.FC = () => {
                   }`}
                 >
                   <Scissors className="w-3 h-3 text-[#62B6E8]" />
-                  <span>Tailoring Assistant</span>
+                  <span>{isTa ? 'தையல் உதவியாளர்' : 'Tailoring Assistant'}</span>
                 </button>
                 <button
                   type="button"
@@ -265,7 +272,7 @@ export const GapAnalysisView: React.FC = () => {
                   }`}
                 >
                   <Zap className="w-3 h-3 text-[#62B6E8]" />
-                  <span>Electrician Helper</span>
+                  <span>{isTa ? 'மின்சாரப் பணியாளர்' : 'Electrician Helper'}</span>
                 </button>
               </div>
             </div>
@@ -276,14 +283,14 @@ export const GapAnalysisView: React.FC = () => {
                 rows={8}
                 value={jdInput}
                 onChange={(e) => setJdInput(e.target.value)}
-                placeholder="Paste job description text here..."
+                placeholder={isTa ? 'வேலை விவர உரையை இங்கே ஒட்டவும்...' : 'Paste job description text here...'}
                 className="w-full p-4 rounded-btn font-mono text-xs bg-[#F8FAFC] dark:bg-slate-800 border border-[#E2E8F0] dark:border-slate-700 text-[#173B67] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#62B6E8] leading-relaxed"
               />
             </div>
 
             <div className="flex items-center justify-between pt-1">
               <span className="text-[11px] text-[#526174]">
-                Parsed via <span className="font-semibold text-[#173B67] dark:text-white">Claude 3.5 Sonnet</span> • Strict Zod schema
+                {isTa ? 'பாகுபடுத்தப்பட்டது' : 'Parsed via'} <span className="font-semibold text-[#173B67] dark:text-white">Claude 3.5 Sonnet</span> • {isTa ? 'கண்டிப்பான Zod சரிபார்ப்பு' : 'Strict Zod schema'}
               </span>
 
               <button
@@ -293,7 +300,7 @@ export const GapAnalysisView: React.FC = () => {
                 className="px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] disabled:opacity-50 text-[#173B67] font-semibold text-xs flex items-center gap-2 shadow-soft transition-colors cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#173B67]" />
-                <span>{isAnalysing ? 'Parsing Requirements...' : 'Analyse Job Description'}</span>
+                <span>{isAnalysing ? (isTa ? 'தேவைகளை ஆய்வு செய்கிறது...' : 'Parsing Requirements...') : (isTa ? 'வேலை விவரத்தை ஆய்வு செய்' : 'Analyse Job Description')}</span>
               </button>
             </div>
           </div>
@@ -305,23 +312,23 @@ export const GapAnalysisView: React.FC = () => {
             <div className="flex items-center justify-between mb-3">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#526174]">
-                  Current Learner Portfolio
+                  {isTa ? 'தற்போதைய கற்பவர் போர்ட்ஃபோலியோ' : 'Current Learner Portfolio'}
                 </span>
                 <h3 className="text-base font-bold text-[#173B67] dark:text-white">
-                  {currentPersona.name}
+                  {isTa ? (currentPersona.nameTamil || currentPersona.name) : currentPersona.name}
                 </h3>
               </div>
 
               <div className="text-right">
                 <span className="text-xs font-bold text-[#10B981]">
-                  {currentPersona.readinessScore}% Readiness
+                  {currentPersona.readinessScore}% {isTa ? 'தயார்நிலை' : 'Readiness'}
                 </span>
-                <div className="text-[10px] text-[#526174]">{pathway.title}</div>
+                <div className="text-[10px] text-[#526174]">{isTa ? (pathway.titleTamil || pathway.title) : pathway.title}</div>
               </div>
             </div>
 
             <div className="text-xs text-[#526174] dark:text-slate-300 mb-3 leading-relaxed">
-              Your verified competencies benchmarked in this comparison:
+              {isTa ? 'இந்த ஒப்பீட்டில் சரிபார்க்கப்பட்ட உங்கள் திறன்கள்:' : 'Your verified competencies benchmarked in this comparison:'}
             </div>
 
             {/* List of Current Skills */}
@@ -332,9 +339,11 @@ export const GapAnalysisView: React.FC = () => {
                   className="p-2.5 rounded-btn bg-[#F8FAFC] dark:bg-slate-800 border border-[#E2E8F0] dark:border-slate-700 flex items-center justify-between text-xs"
                 >
                   <div>
-                    <div className="font-bold text-[#173B67] dark:text-white">{skill.name}</div>
+                    <div className="font-bold text-[#173B67] dark:text-white">
+                      {isTa ? (skill.nameTamil || skill.name) : skill.name}
+                    </div>
                     <div className="text-[10px] text-[#526174]">
-                      Level {skill.level}/5 • {skill.evidenceCount} verified {skill.evidenceCount === 1 ? 'proof' : 'proofs'}
+                      {isTa ? `நிலை ${skill.level}/5 • ${skill.evidenceCount} சரிபார்க்கப்பட்ட சான்றுகள்` : `Level ${skill.level}/5 • ${skill.evidenceCount} verified ${skill.evidenceCount === 1 ? 'proof' : 'proofs'}`}
                     </div>
                   </div>
 
@@ -349,7 +358,9 @@ export const GapAnalysisView: React.FC = () => {
                         : 'bg-[#F1F5F9] text-[#64748B] border border-[#E2E8F0]'
                     }`}
                   >
-                    {skill.state.replace('_', ' ')}
+                    {isTa
+                      ? (skill.state === 'strong' ? 'வலுவானது' : skill.state === 'develop' ? 'மேம்படுத்த வேண்டும்' : skill.state === 'gap' ? 'திறன் இடைவெளி' : 'மதிப்பிடப்படவில்லை')
+                      : skill.state.replace('_', ' ')}
                   </span>
                 </div>
               ))}
@@ -357,7 +368,7 @@ export const GapAnalysisView: React.FC = () => {
 
             <div className="mt-4 pt-3 border-t border-[#E2E8F0] dark:border-slate-700 text-[11px] text-[#526174] flex items-center justify-between">
               <TrustLabel type="evidence-badge" />
-              <span>{pathway.skills.length} Total Pathway Skills</span>
+              <span>{isTa ? `${pathway.skills.length} மொத்த பாதைத் திறன்கள்` : `${pathway.skills.length} Total Pathway Skills`}</span>
             </div>
           </div>
         </div>
@@ -382,14 +393,14 @@ export const GapAnalysisView: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
-                    Extracted Requirements ({extractedPayload.requiredSkills.length} Total)
+                    {isTa ? `பிரித்தெடுக்கப்பட்ட தேவைகள் (${extractedPayload.requiredSkills.length} மொத்தம்)` : `Extracted Requirements (${extractedPayload.requiredSkills.length} Total)`}
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#065F46] font-bold border border-[#A7F3D0]">
-                    Zod Validated
+                    {isTa ? 'Zod சரிபார்க்கப்பட்டது' : 'Zod Validated'}
                   </span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-                  Target Role: {extractedPayload.role}
+                  {isTa ? `இலக்கு பணி: ${extractedPayload.role}` : `Target Role: ${extractedPayload.role}`}
                 </h2>
                 {extractedPayload.company && (
                   <div className="text-xs text-[#526174]">{extractedPayload.company}</div>
@@ -398,10 +409,10 @@ export const GapAnalysisView: React.FC = () => {
 
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
-                  {extractedPayload.requiredSkills.filter(s => s.importance === 'must').length} Must-Have
+                  {extractedPayload.requiredSkills.filter(s => s.importance === 'must').length} {isTa ? 'கட்டாயத் தேவை' : 'Must-Have'}
                 </span>
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#F8FAFC] text-[#526174] border border-[#E2E8F0]">
-                  {extractedPayload.requiredSkills.filter(s => s.importance === 'nice').length} Nice-to-Have
+                  {extractedPayload.requiredSkills.filter(s => s.importance === 'nice').length} {isTa ? 'கூடுதல் தகுதி' : 'Nice-to-Have'}
                 </span>
               </div>
             </div>
@@ -429,7 +440,7 @@ export const GapAnalysisView: React.FC = () => {
                               : 'bg-[#FCF3E5] text-[#9A5B13] border border-[#F2B66D]/40'
                           }`}
                         >
-                          {skill.importance}
+                          {isTa ? (skill.importance === 'must' ? 'கட்டாயம்' : 'விருப்பம்') : skill.importance}
                         </span>
                       </div>
                       <div className="font-bold text-xs text-[#173B67] dark:text-white">
@@ -450,13 +461,15 @@ export const GapAnalysisView: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
-                  Deterministic Portfolio Comparison
+                  {isTa ? 'துல்லிய போர்ட்ஃபோலியோ ஒப்பீடு' : 'Deterministic Portfolio Comparison'}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white mt-0.5">
-                  Honest Competency Alignment
+                  {isTa ? 'நேர்மையான திறன் பொருத்தம்' : 'Honest Competency Alignment'}
                 </h3>
                 <p className="text-xs text-[#526174] dark:text-slate-300 mt-1">
-                  Rules-based alias matching against verified evidence in your portfolio. Unassessed skills are kept strictly neutral.
+                  {isTa
+                    ? 'போர்ட்ஃபோலியோவில் உள்ள சரிபார்க்கப்பட்ட சான்றுகளுடன் நேரடி ஒப்பீடு. மதிப்பீடு செய்யப்படாத திறன்கள் நடுநிலையாக வைக்கப்படும்.'
+                    : 'Rules-based alias matching against verified evidence in your portfolio. Unassessed skills are kept strictly neutral.'}
                 </p>
               </div>
 
@@ -465,7 +478,7 @@ export const GapAnalysisView: React.FC = () => {
                   progress={comparisonResults.overallMatchScore}
                   size={95}
                   strokeWidth={8}
-                  label="Match"
+                  label={isTa ? 'பொருத்தம்' : 'Match'}
                 />
               </div>
             </div>
@@ -477,22 +490,22 @@ export const GapAnalysisView: React.FC = () => {
                   strong: {
                     badge: 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]',
                     dot: 'bg-[#10B981]',
-                    label: 'Strong'
+                    label: isTa ? 'வலுவானது' : 'Strong'
                   },
                   develop: {
                     badge: 'bg-[#FCF3E5] text-[#9A5B13] border-[#F2B66D]/40',
                     dot: 'bg-[#F2B66D]',
-                    label: 'Develop'
+                    label: isTa ? 'மேம்படுத்த வேண்டும்' : 'Develop'
                   },
                   not_assessed: {
                     badge: 'bg-[#F1F5F9] text-[#64748B] border-[#E2E8F0]',
                     dot: 'bg-[#64748B]',
-                    label: 'Not Assessed'
+                    label: isTa ? 'மதிப்பிடப்படவில்லை' : 'Not Assessed'
                   },
                   gap: {
                     badge: 'bg-[#FEF2F2] text-[#991B1B] border-[#FECACA]',
                     dot: 'bg-[#EF4444]',
-                    label: 'Skill Gap'
+                    label: isTa ? 'திறன் இடைவெளி' : 'Skill Gap'
                   }
                 }[item.classification];
 
@@ -524,7 +537,7 @@ export const GapAnalysisView: React.FC = () => {
 
                     <div className="flex items-center gap-3 shrink-0 sm:border-l sm:pl-4 border-[#E2E8F0]">
                       <div className="text-right">
-                        <div className="text-[10px] text-[#526174] uppercase">Verified Proof</div>
+                        <div className="text-[10px] text-[#526174] uppercase">{isTa ? 'சரிபார்க்கப்பட்ட சான்று' : 'Verified Proof'}</div>
                         <div className="font-bold text-sm text-[#173B67] dark:text-white">
                           {item.learnerScore}% / {item.requiredScore}%
                         </div>
@@ -534,7 +547,7 @@ export const GapAnalysisView: React.FC = () => {
                         onClick={() => setActiveTab('challenges')}
                         className="px-3 py-1.5 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-[11px] transition-colors cursor-pointer"
                       >
-                        Prove Skill
+                        {isTa ? 'திறனை நிரூபி' : 'Prove Skill'}
                       </button>
                     </div>
                   </div>
@@ -549,19 +562,19 @@ export const GapAnalysisView: React.FC = () => {
             <div id="gap-radar-chart" className="lg:col-span-5 p-6 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] shadow-soft flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#526174]">
-                  Domain Competency Radar
+                  {isTa ? 'துறைசார் திறன் ஒப்பீட்டு வரைபடம்' : 'Domain Competency Radar'}
                 </span>
                 <h4 className="text-base font-bold text-[#173B67] dark:text-white mt-0.5">
-                  You vs Employer Requirement
+                  {isTa ? 'நீங்கள் vs நிறுவனத்தின் தேவை' : 'You vs Employer Requirement'}
                 </h4>
                 <div className="flex items-center gap-4 text-xs mt-2">
                   <span className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-full bg-[#62B6E8]" />
-                    <span className="text-[#173B67] dark:text-white">Your Verified Level</span>
+                    <span className="text-[#173B67] dark:text-white">{isTa ? 'உங்கள் சரிபார்க்கப்பட்ட நிலை' : 'Your Verified Level'}</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-full bg-[#F2B66D]" />
-                    <span className="text-[#173B67] dark:text-white">Employer Target</span>
+                    <span className="text-[#173B67] dark:text-white">{isTa ? 'நிறுவனத்தின் இலக்கு' : 'Employer Target'}</span>
                   </span>
                 </div>
               </div>
@@ -583,14 +596,14 @@ export const GapAnalysisView: React.FC = () => {
                       }}
                     />
                     <Radar
-                      name="Your Verified Score"
+                      name={isTa ? 'உங்கள் சரிபார்க்கப்பட்ட மதிப்பெண்' : 'Your Verified Score'}
                       dataKey="learner"
                       stroke="#173B67"
                       fill="#62B6E8"
                       fillOpacity={0.45}
                     />
                     <Radar
-                      name="Required Level"
+                      name={isTa ? 'தேவைப்படும் நிலை' : 'Required Level'}
                       dataKey="required"
                       stroke="#F2B66D"
                       fill="#F2B66D"
@@ -601,7 +614,7 @@ export const GapAnalysisView: React.FC = () => {
               </div>
 
               <div className="text-[11px] text-[#526174] italic text-center">
-                Radar averages competency across all extracted job requirements.
+                {isTa ? 'பிரித்தெடுக்கப்பட்ட அனைத்து வேலைத் தேவைகளிலும் சராசரித் திறனை வரைபடம் காட்டுகிறது.' : 'Radar averages competency across all extracted job requirements.'}
               </div>
             </div>
 
@@ -611,15 +624,15 @@ export const GapAnalysisView: React.FC = () => {
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
-                      Targeted Learning Order
+                      {isTa ? 'இலக்கு கற்றல் வரிசை' : 'Targeted Learning Order'}
                     </span>
                     <h4 className="text-base font-bold text-[#173B67] dark:text-white">
-                      Ranked "Prioritise Next" Action Plan
+                      {isTa ? 'அடுத்த முன்னுரிமை செயல் திட்டம்' : 'Ranked "Prioritise Next" Action Plan'}
                     </h4>
                   </div>
 
                   <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
-                    Highest ROI Bridges
+                    {isTa ? 'அதிக பலன் தரும் வழிகள்' : 'Highest ROI Bridges'}
                   </span>
                 </div>
 
@@ -645,12 +658,12 @@ export const GapAnalysisView: React.FC = () => {
                                   : 'bg-[#FCF3E5] text-[#9A5B13] border border-[#F2B66D]/40'
                               }`}
                             >
-                              {item.urgency}
+                              {isTa ? (item.urgency === 'Immediate' ? 'உடனடி' : 'அடுத்தது') : item.urgency}
                             </span>
                           </div>
                           <p className="text-[11px] text-[#526174] dark:text-slate-300 mt-1 leading-relaxed">
-                            <span className="font-semibold text-[#173B67] dark:text-white">Reasoning:</span>{' '}
-                            {item.jdSkill.importance === 'must' ? 'Mandatory qualification' : 'Preferred differentiator'}. {item.jdSkill.why}
+                            <span className="font-semibold text-[#173B67] dark:text-white">{isTa ? 'காரணம்:' : 'Reasoning:'}</span>{' '}
+                            {item.jdSkill.importance === 'must' ? (isTa ? 'கட்டாயத் தகுதி' : 'Mandatory qualification') : (isTa ? 'கூடுதல் நன்மை' : 'Preferred differentiator')}. {item.jdSkill.why}
                           </p>
                         </div>
                       </div>
@@ -659,7 +672,7 @@ export const GapAnalysisView: React.FC = () => {
                         onClick={() => setActiveTab('challenges')}
                         className="text-[#173B67] hover:text-[#62B6E8] font-semibold shrink-0 text-xs flex items-center gap-0.5 mt-0.5 cursor-pointer"
                       >
-                        <span>Start</span>
+                        <span>{isTa ? 'தொடங்கு' : 'Start'}</span>
                         <ArrowRight className="w-3 h-3" />
                       </button>
                     </div>
@@ -680,7 +693,7 @@ export const GapAnalysisView: React.FC = () => {
                     className="w-full py-3 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs shadow-soft flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
                     <Plus className="w-4 h-4 text-[#173B67]" />
-                    <span>Add Prioritized Milestones to My Adaptive Roadmap</span>
+                    <span>{isTa ? 'முன்னுரிமை மைல்கற்களை எனது கற்றல் பாதையில் சேர்' : 'Add Prioritized Milestones to My Adaptive Roadmap'}</span>
                   </button>
                 )}
               </div>
@@ -695,9 +708,9 @@ export const GapAnalysisView: React.FC = () => {
             >
               <div className="flex items-center gap-2">
                 <Code className="w-4 h-4 text-[#62B6E8]" />
-                <span>See What the AI Extracted (Strict Zod JSON Payload)</span>
+                <span>{isTa ? 'AI பிரித்தெடுத்த தரவைக் காண்க (கண்டிப்பான Zod JSON)' : 'See What the AI Extracted (Strict Zod JSON Payload)'}</span>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]">
-                  Schema Valid
+                  {isTa ? 'சரிபார்க்கப்பட்ட வடிவம்' : 'Schema Valid'}
                 </span>
               </div>
               {showRawJson ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}

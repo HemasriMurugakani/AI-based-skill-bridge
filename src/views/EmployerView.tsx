@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import confetti from 'canvas-confetti';
 import {
   employerCandidates,
@@ -28,6 +29,8 @@ import {
 } from 'lucide-react';
 
 export const EmployerView: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const { getPersona, challenges, vivaRecords } = useSkillBridgeStore();
   const currentPersona = getPersona();
 
@@ -301,20 +304,20 @@ export const EmployerView: React.FC = () => {
             <div className="flex items-center gap-2 flex-wrap mb-1.5">
               <span className="px-2.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] text-xs font-semibold flex items-center gap-1.5 shadow-soft">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>Ranked by Demonstrated Skills</span>
+                <span>{isTa ? 'செயல்முறைத் திறன்களால் தரவரிசைப்படுத்தப்பட்டது' : 'Ranked by Demonstrated Skills'}</span>
               </span>
               <AboutThisData
-                title="About Employer Talent & Ranking Data"
-                description="Candidate profiles, rubric scores, and code verification checksums are simulated for platform demonstration. Candidates are ranked strictly by verified artifacts, step-by-step inspections, and oral viva voce defenses."
+                title={isTa ? 'வேலை வழங்குநர் தரவு பற்றி' : 'About Employer Talent & Ranking Data'}
+                description={isTa ? 'விண்ணப்பதாரர் சுயவிவரங்கள் மற்றும் குறியீட்டு சரிபார்ப்புகள் செயல்விளக்கத்திற்காக உருவகப்படுத்தப்பட்டுள்ளன.' : 'Candidate profiles, rubric scores, and code verification checksums are simulated for platform demonstration. Candidates are ranked strictly by verified artifacts, step-by-step inspections, and oral viva voce defenses.'}
               />
             </div>
 
             <h1 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-              Employer Practical Challenge & Talent Engine
+              {isTa ? 'வேலை வழங்குநர் செய்முறை சவால் மற்றும் திறனாளர் தளம்' : 'Employer Practical Challenge & Talent Engine'}
             </h1>
-            <div className="font-tamil text-xs text-[#526174] dark:text-slate-400">
-              நிரூபிக்கப்பட்ட திறன்கள் மூலம் தகுதியான பணியாளர்களைத் தேர்ந்தெடுக்கும் தளம்
-            </div>
+            <p className="text-xs text-[#526174] dark:text-slate-400 mt-1">
+              {isTa ? 'நிரூபிக்கப்பட்ட திறன்கள் மூலம் தகுதியான பணியாளர்களைத் தேர்ந்தெடுக்கும் தளம்' : 'Verified candidate discovery ranked strictly by demonstrated code, rubrics, and viva voce defense'}
+            </p>
           </div>
 
           {/* Action Header CTAs (Max 1 primary button per section) */}
@@ -330,7 +333,7 @@ export const EmployerView: React.FC = () => {
               }`}
             >
               <UserCheck className="w-4 h-4 text-[#F2B66D]" />
-              <span>Shortlisted ({shortlistedIds.length})</span>
+              <span>{isTa ? `பட்டியலிடப்பட்டது (${shortlistedIds.length})` : `Shortlisted (${shortlistedIds.length})`}</span>
             </button>
 
             {/* Create Practical Challenge Button - Primary Action */}
@@ -340,13 +343,15 @@ export const EmployerView: React.FC = () => {
               className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs shadow-soft transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Create Practical Challenge</span>
+              <span>{isTa ? 'செய்முறை சவாலை உருவாக்கு' : 'Create Practical Challenge'}</span>
             </button>
           </div>
         </div>
 
         <p className="text-xs text-[#526174] dark:text-slate-300 leading-relaxed">
-          Platform policy: Candidates are ranked strictly by verified code pull requests, step-by-step photographic QC inspections, and oral viva voce defenses. No self-reported CV fluff or college tier bias.
+          {isTa
+            ? 'தளக் கொள்கை: விண்ணப்பதாரர்கள் சரிபார்க்கப்பட்ட குறியீடு, செய்முறை ஆய்வுகள் மற்றும் வாய்மொழி பாதுகாப்பு மூலம் மட்டுமே தரவரிசைப்படுத்தப்படுகிறார்கள். கல்லூரி பாரபட்சம் இல்லை.'
+            : 'Platform policy: Candidates are ranked strictly by verified code pull requests, step-by-step photographic QC inspections, and oral viva voce defenses. No self-reported CV fluff or college tier bias.'}
         </p>
       </div>
 
@@ -588,23 +593,20 @@ export const EmployerView: React.FC = () => {
                     <div className="space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-white group-hover:text-[#62B6E8] transition-colors">
-                          {candidate.name}
+                          {isTa ? (candidate.nameTamil || candidate.name) : candidate.name}
                         </h3>
-                        <span className="font-tamil text-xs text-[#526174]">
-                          {candidate.nameTamil}
-                        </span>
 
                         {candidate.mentorVerified && (
                           <span className="px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#065F46] font-semibold text-[10px] flex items-center gap-1 border border-[#A7F3D0]">
                             <ShieldCheck className="w-3 h-3 text-[#10B981]" />
-                            <span>Mentor-Verified</span>
+                            <span>{isTa ? 'வழிகாட்டி சரிபார்த்தவர்' : 'Mentor-Verified'}</span>
                           </span>
                         )}
 
                         {isShortlisted && (
                           <span className="px-2 py-0.5 rounded-full bg-[#FFFBEB] text-[#92400E] border border-[#FDE68A] font-semibold text-[10px] flex items-center gap-1">
                             <UserCheck className="w-3 h-3" />
-                            <span>Shortlisted</span>
+                            <span>{isTa ? 'பட்டியலிடப்பட்டது' : 'Shortlisted'}</span>
                           </span>
                         )}
                       </div>
@@ -618,7 +620,7 @@ export const EmployerView: React.FC = () => {
                         <span>{candidate.education}</span>
                         <span>•</span>
                         <span className="text-[#065F46] font-medium">
-                          Oral Defense: {candidate.vivaConfidence} ({candidate.vivaScore}%)
+                          {isTa ? 'வாய்மொழி விளக்கம்: ' : 'Oral Defense: '}{candidate.vivaConfidence} ({candidate.vivaScore}%)
                         </span>
                       </div>
 
@@ -642,14 +644,14 @@ export const EmployerView: React.FC = () => {
                   <div className="flex sm:flex-row md:flex-col items-center md:items-end justify-between gap-3 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-[#E2E8F0]">
                     <div className="text-left md:text-right">
                       <div className="text-[10px] uppercase font-bold text-[#526174]">
-                        Demonstrated Match
+                        {isTa ? 'நிரூபிக்கப்பட்ட பொருத்தம்' : 'Demonstrated Match'}
                       </div>
                       <div className="text-2xl sm:text-3xl font-bold text-[#173B67] dark:text-white">
                         {candidate.compositeScore}%
                       </div>
                       <div className="text-[11px] text-[#065F46] dark:text-[#10B981] font-semibold flex items-center md:justify-end gap-1">
                         <FileCheck2 className="w-3.5 h-3.5" />
-                        <span>{candidate.evidenceCount} Verified Artifacts</span>
+                        <span>{candidate.evidenceCount} {isTa ? 'சரிபார்க்கப்பட்ட சான்றுகள்' : 'Verified Artifacts'}</span>
                       </div>
                     </div>
 
@@ -665,7 +667,7 @@ export const EmployerView: React.FC = () => {
                         }`}
                       >
                         <UserCheck className="w-3.5 h-3.5" />
-                        <span>{isShortlisted ? 'Shortlisted' : 'Shortlist'}</span>
+                        <span>{isTa ? (isShortlisted ? 'பட்டியலிடப்பட்டது' : 'பட்டியலிடு') : (isShortlisted ? 'Shortlisted' : 'Shortlist')}</span>
                       </button>
 
                       {/* View Evidence Drawer Icon */}
@@ -705,14 +707,14 @@ export const EmployerView: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-bold text-lg text-[#173B67] dark:text-white">
-                      {selectedCandidate.name}
+                      {isTa ? (selectedCandidate.nameTamil || selectedCandidate.name) : selectedCandidate.name}
                     </h3>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] font-semibold border border-[#BAE6FD]">
-                      Verified Profile
+                      {isTa ? 'சரிபார்க்கப்பட்ட சுயவிவரம்' : 'Verified Profile'}
                     </span>
                   </div>
-                  <div className="text-xs text-[#526174] font-tamil">
-                    {selectedCandidate.nameTamil} • {selectedCandidate.district}
+                  <div className="text-xs text-[#526174]">
+                    {selectedCandidate.district}
                   </div>
                 </div>
               </div>
@@ -732,25 +734,25 @@ export const EmployerView: React.FC = () => {
               {/* Quick Stat Highlights */}
               <div className="grid grid-cols-3 gap-3">
                 <div className="p-3 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 text-center">
-                  <div className="text-[10px] uppercase font-bold text-[#526174]">Demonstrated</div>
+                  <div className="text-[10px] uppercase font-bold text-[#526174]">{isTa ? 'நிரூபிக்கப்பட்டது' : 'Demonstrated'}</div>
                   <div className="font-bold text-xl text-[#173B67] dark:text-white">
                     {selectedCandidate.demonstratedScore}%
                   </div>
-                  <div className="text-[10px] text-[#065F46] font-medium">Rubric Avg</div>
+                  <div className="text-[10px] text-[#065F46] font-medium">{isTa ? 'ரூப்ரிக் சராசரி' : 'Rubric Avg'}</div>
                 </div>
                 <div className="p-3 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 text-center">
-                  <div className="text-[10px] uppercase font-bold text-[#526174]">Verified Proofs</div>
+                  <div className="text-[10px] uppercase font-bold text-[#526174]">{isTa ? 'சரிபார்க்கப்பட்ட சான்றுகள்' : 'Verified Proofs'}</div>
                   <div className="font-bold text-xl text-[#10B981]">
                     {selectedCandidate.evidenceCount}
                   </div>
-                  <div className="text-[10px] text-[#526174]">Artifacts</div>
+                  <div className="text-[10px] text-[#526174]">{isTa ? 'சான்றுகள்' : 'Artifacts'}</div>
                 </div>
                 <div className="p-3 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 text-center">
-                  <div className="text-[10px] uppercase font-bold text-[#526174]">Viva Voce</div>
+                  <div className="text-[10px] uppercase font-bold text-[#526174]">{isTa ? 'நேர்முகத் தேர்வு' : 'Viva Voce'}</div>
                   <div className="font-bold text-xl text-[#62B6E8]">
                     {selectedCandidate.vivaConfidence}
                   </div>
-                  <div className="text-[10px] text-[#526174]">{selectedCandidate.vivaCadenceWpm} WPM</div>
+                  <div className="text-[10px] text-[#526174]">{selectedCandidate.vivaCadenceWpm} {isTa ? 'சொற்கள்/நிமி' : 'WPM'}</div>
                 </div>
               </div>
 
@@ -759,9 +761,9 @@ export const EmployerView: React.FC = () => {
                 <div className="flex items-center justify-between pb-1 border-b border-[#E2E8F0] dark:border-slate-800">
                   <h4 className="font-bold text-xs uppercase tracking-wider text-[#173B67] dark:text-white flex items-center gap-1.5">
                     <FileCheck2 className="w-4 h-4 text-[#62B6E8]" />
-                    <span>Verified Reproducible Artifacts ({selectedCandidate.artifacts.length})</span>
+                    <span>{isTa ? `சரிபார்க்கப்பட்ட மறுஉருவாக்க சான்றுகள் (${selectedCandidate.artifacts.length})` : `Verified Reproducible Artifacts (${selectedCandidate.artifacts.length})`}</span>
                   </h4>
-                  <span className="text-[10px] text-[#065F46] font-semibold">100% Cryptographically Verified</span>
+                  <span className="text-[10px] text-[#065F46] font-semibold">{isTa ? '100% குறியாக்க முறையில் சரிபார்க்கப்பட்டது' : '100% Cryptographically Verified'}</span>
                 </div>
 
                 <div className="space-y-3">
@@ -776,7 +778,7 @@ export const EmployerView: React.FC = () => {
                             {art.title}
                           </div>
                           <div className="text-[10px] text-[#526174] font-mono">
-                            Checksum: {art.verificationHash}
+                            {isTa ? 'சரிபார்ப்புக் குறியீடு' : 'Checksum'}: {art.verificationHash}
                           </div>
                         </div>
                         <span className="px-2.5 py-0.5 rounded-full bg-[#ECFDF5] text-[#065F46] font-bold text-xs border border-[#A7F3D0]">
@@ -790,7 +792,7 @@ export const EmployerView: React.FC = () => {
 
                       {/* Criteria Met */}
                       <div className="space-y-1 pt-1 border-t border-[#E2E8F0] dark:border-slate-800">
-                        <div className="text-[10px] font-bold text-[#526174] uppercase">Rubric Criteria Met:</div>
+                        <div className="text-[10px] font-bold text-[#526174] uppercase">{isTa ? 'பூர்த்தி செய்யப்பட்ட அளவுகோல்கள்:' : 'Rubric Criteria Met:'}</div>
                         {art.criteriaMet.map((c, idx) => (
                           <div key={idx} className="flex items-center gap-1.5 text-[#065F46] text-[11px]">
                             <span className="text-[#10B981] font-bold">✓</span>
@@ -800,14 +802,14 @@ export const EmployerView: React.FC = () => {
                       </div>
 
                       <div className="pt-1 flex items-center justify-between text-[10px] text-[#526174]">
-                        <span>Submitted {art.completedAt}</span>
+                        <span>{isTa ? 'சமர்ப்பிக்கப்பட்டது' : 'Submitted'} {art.completedAt}</span>
                         <a
                           href={art.sampleOutputOrUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[#173B67] dark:text-[#62B6E8] font-semibold hover:underline flex items-center gap-1"
                         >
-                          <span>Inspect Artifact Source</span>
+                          <span>{isTa ? 'சான்றின் மூலத்தை ஆய்வு செய்' : 'Inspect Artifact Source'}</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
@@ -821,10 +823,12 @@ export const EmployerView: React.FC = () => {
                 <div className="flex items-center justify-between pb-1 border-b border-[#E2E8F0] dark:border-slate-800">
                   <h4 className="font-bold text-xs uppercase tracking-wider text-[#173B67] dark:text-white flex items-center gap-1.5">
                     <Volume2 className="w-4 h-4 text-[#62B6E8]" />
-                    <span>Spoken Defense & Viva Voce Transcript</span>
+                    <span>{isTa ? 'வாய்மொழி பாதுகாப்பு & நேர்முகப் பதிவு' : 'Spoken Defense & Viva Voce Transcript'}</span>
                   </h4>
                   <span className="text-[10px] text-[#065F46] font-semibold">
-                    Cadence: {selectedCandidate.vivaCadenceWpm} WPM • Clarity: {selectedCandidate.vivaClarity}%
+                    {isTa
+                      ? `வேகம்: ${selectedCandidate.vivaCadenceWpm} சொற்கள்/நிமி • தெளிவு: ${selectedCandidate.vivaClarity}%`
+                      : `Cadence: ${selectedCandidate.vivaCadenceWpm} WPM • Clarity: ${selectedCandidate.vivaClarity}%`}
                   </span>
                 </div>
 
@@ -836,17 +840,12 @@ export const EmployerView: React.FC = () => {
                     >
                       <div className="flex items-start justify-between gap-2">
                         <span className="font-semibold text-[#173B67] dark:text-white">
-                          Q{idx + 1}: {qa.question}
+                          Q{idx + 1}: {isTa ? (qa.questionTamil || qa.question) : qa.question}
                         </span>
                         <span className="text-[#173B67] dark:text-[#62B6E8] font-bold">
                           {qa.score}%
                         </span>
                       </div>
-                      {qa.questionTamil && (
-                        <div className="font-tamil text-[11px] text-[#526174]">
-                          {qa.questionTamil}
-                        </div>
-                      )}
                       <div className="p-2.5 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 text-[11px] text-[#173B67] dark:text-slate-200 italic">
                         "{qa.answer}"
                       </div>
@@ -862,13 +861,15 @@ export const EmployerView: React.FC = () => {
               <div className="p-4 rounded-card bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] dark:border-slate-700 text-xs space-y-2">
                 <div className="flex items-center gap-1.5 font-bold text-[#173B67] dark:text-white uppercase tracking-wider text-[11px]">
                   <ShieldCheck className="w-4 h-4 text-[#62B6E8]" />
-                  <span>State Industry Mentor Endorsement:</span>
+                  <span>{isTa ? 'மாநில தொழில்துறை வழிகாட்டி ஒப்புதல்:' : 'State Industry Mentor Endorsement:'}</span>
                 </div>
                 <blockquote className="italic text-[11px] text-[#173B67] dark:text-slate-200 pl-2 border-l-2 border-[#62B6E8]">
                   "{selectedCandidate.mentorStatement}"
                 </blockquote>
                 <div className="text-[10px] text-[#526174] font-medium pt-1">
-                  Signed: {selectedCandidate.mentorName} • State Civic Skill Evaluation Panel
+                  {isTa
+                    ? `கையொப்பமிட்டவர்: ${selectedCandidate.mentorName} • மாநில திறன் மதிப்பீட்டுக் குழு`
+                    : `Signed: ${selectedCandidate.mentorName} • State Civic Skill Evaluation Panel`}
                 </div>
               </div>
             </div>
@@ -877,10 +878,10 @@ export const EmployerView: React.FC = () => {
             <div className="p-4 border-t border-[#E2E8F0] dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 flex items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-bold text-[#173B67] dark:text-white">
-                  Ready to connect with {selectedCandidate.name}?
+                  {isTa ? `${selectedCandidate.nameTamil || selectedCandidate.name}-உடன் இணைய தயாரா?` : `Ready to connect with ${selectedCandidate.name}?`}
                 </div>
                 <div className="text-[10px] text-[#526174]">
-                  Shortlisting alerts candidate via their verified SkillBridge portal.
+                  {isTa ? 'பட்டியலிடுவது விண்ணப்பதாரருக்கு அவர்களின் போர்ட்டலில் எச்சரிக்கை அறிவிப்பை அனுப்பும்.' : 'Shortlisting alerts candidate via their verified SkillBridge portal.'}
                 </div>
               </div>
 
@@ -896,8 +897,8 @@ export const EmployerView: React.FC = () => {
                 <UserCheck className="w-4 h-4" />
                 <span>
                   {shortlistedIds.includes(selectedCandidate.id)
-                    ? 'Shortlisted in Queue'
-                    : 'Shortlist Candidate'}
+                    ? (isTa ? 'வரிசையில் பட்டியலிடப்பட்டது' : 'Shortlisted in Queue')
+                    : (isTa ? 'விண்ணப்பதாரரைப் பட்டியலிடு' : 'Shortlist Candidate')}
                 </span>
               </button>
             </div>
@@ -921,10 +922,12 @@ export const EmployerView: React.FC = () => {
             <div className="flex items-start justify-between pb-3 border-b border-[#E2E8F0] dark:border-slate-800">
               <div>
                 <h3 className="text-lg font-bold text-[#173B67] dark:text-white">
-                  Create Practical Challenge & Ranking Rubric
+                  {isTa ? 'செய்முறை சவால் மற்றும் மதிப்பீட்டு ரூப்ரிக் உருவாக்கு' : 'Create Practical Challenge & Ranking Rubric'}
                 </h3>
                 <p className="text-xs text-[#526174] dark:text-slate-300">
-                  Define a real-world task. Candidates will be ranked based on verifiable code, photo QC, and oral defense submissions.
+                  {isTa
+                    ? 'நடைமுறைப் பணியை வரையறுக்கவும். சரிபார்க்கப்பட்ட குறியீடு மற்றும் வாய்மொழி பாதுகாப்பின் அடிப்படையில் விண்ணப்பதாரர்கள் தரவரிசைப்படுத்தப்படுவர்.'
+                    : 'Define a real-world task. Candidates will be ranked based on verifiable code, photo QC, and oral defense submissions.'}
                 </p>
               </div>
               <button
@@ -940,14 +943,14 @@ export const EmployerView: React.FC = () => {
               {/* Challenge Title */}
               <div className="space-y-1">
                 <label className="font-semibold text-[#173B67] dark:text-white">
-                  Challenge Title *
+                  {isTa ? 'சவாலின் தலைப்பு *' : 'Challenge Title *'}
                 </label>
                 <input
                   type="text"
                   required
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="e.g. Build an Accessible Multi-Step Checkout with Form Validation"
+                  placeholder={isTa ? 'எ.கா. படிவ சரிபார்ப்புடன் அணுகக்கூடிய செக் அவுட்' : 'e.g. Build an Accessible Multi-Step Checkout with Form Validation'}
                   className="w-full px-3 py-2 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-700 text-[#173B67] dark:text-white focus:outline-none focus:border-[#62B6E8]"
                 />
               </div>
@@ -956,7 +959,7 @@ export const EmployerView: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="font-semibold text-[#173B67] dark:text-white">
-                    Target Role *
+                    {isTa ? 'இலக்கு பணி *' : 'Target Role *'}
                   </label>
                   <input
                     type="text"
@@ -970,16 +973,16 @@ export const EmployerView: React.FC = () => {
 
                 <div className="space-y-1">
                   <label className="font-semibold text-[#173B67] dark:text-white">
-                    Pathway Track *
+                    {isTa ? 'பாதைப் பிரிவு *' : 'Pathway Track *'}
                   </label>
                   <select
                     value={newPathwayId}
                     onChange={(e) => setNewPathwayId(e.target.value)}
                     className="w-full px-3 py-2 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-700 text-[#173B67] dark:text-white font-medium focus:outline-none cursor-pointer"
                   >
-                    <option value="junior-web-dev">Junior Web Developer</option>
-                    <option value="tailoring-craft">Tailoring & Garment Construction</option>
-                    <option value="data-analyst">Data Analyst & Business Reporting</option>
+                    <option value="junior-web-dev">{isTa ? 'இளநிலை வலை உருவாக்குநர்' : 'Junior Web Developer'}</option>
+                    <option value="tailoring-craft">{isTa ? 'தையல் மற்றும் ஆடை வடிவமைப்பு' : 'Tailoring & Garment Construction'}</option>
+                    <option value="data-analyst">{isTa ? 'தரவு ஆய்வாளர்' : 'Data Analyst & Business Reporting'}</option>
                   </select>
                 </div>
               </div>
@@ -988,7 +991,7 @@ export const EmployerView: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2 space-y-1">
                   <label className="font-semibold text-[#173B67] dark:text-white">
-                    Required Competencies (comma-separated) *
+                    {isTa ? 'தேவைப்படும் திறன்கள் (காற்புள்ளியால் பிரிக்கவும்) *' : 'Required Competencies (comma-separated) *'}
                   </label>
                   <input
                     type="text"
@@ -1001,7 +1004,7 @@ export const EmployerView: React.FC = () => {
                 </div>
                 <div className="space-y-1">
                   <label className="font-semibold text-[#173B67] dark:text-white">
-                    Time Estimate
+                    {isTa ? 'மதிப்பிடப்பட்ட நேரம்' : 'Time Estimate'}
                   </label>
                   <input
                     type="text"
@@ -1016,13 +1019,13 @@ export const EmployerView: React.FC = () => {
               {/* Description */}
               <div className="space-y-1">
                 <label className="font-semibold text-[#173B67] dark:text-white">
-                  Brief Challenge Brief & Instructions
+                  {isTa ? 'சுருக்கமான சவால் வழிகாட்டுதல்' : 'Brief Challenge Brief & Instructions'}
                 </label>
                 <textarea
                   rows={2}
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
-                  placeholder="Explain what practical artifact the learner must produce and defend..."
+                  placeholder={isTa ? 'கற்பவர் எதை உருவாக்கிப் பாதுகாக்க வேண்டும் என்பதை விளக்குங்கள்...' : 'Explain what practical artifact the learner must produce and defend...'}
                   className="w-full px-3 py-2 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-700 text-[#173B67] dark:text-white focus:outline-none focus:border-[#62B6E8]"
                 />
               </div>
@@ -1031,7 +1034,7 @@ export const EmployerView: React.FC = () => {
               <div className="space-y-2 pt-2 border-t border-[#E2E8F0] dark:border-slate-800">
                 <div className="flex items-center justify-between">
                   <label className="font-semibold text-[#173B67] dark:text-white">
-                    Evaluation Rubric ({rubricRows.length} criteria)
+                    {isTa ? `மதிப்பீட்டு ரூப்ரிக் (${rubricRows.length} அளவுகோல்கள்)` : `Evaluation Rubric (${rubricRows.length} criteria)`}
                   </label>
                   <button
                     type="button"
@@ -1039,7 +1042,7 @@ export const EmployerView: React.FC = () => {
                     className="text-[#173B67] dark:text-[#62B6E8] font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Add Criterion</span>
+                    <span>{isTa ? 'அளவுகோலைச் சேர்' : 'Add Criterion'}</span>
                   </button>
                 </div>
 
@@ -1099,13 +1102,13 @@ export const EmployerView: React.FC = () => {
                   onClick={() => setIsCreateModalOpen(false)}
                   className="px-4 py-2 rounded-btn bg-white dark:bg-slate-800 border border-[#E2E8F0] dark:border-slate-700 font-semibold hover:bg-[#EAF5FC] text-[#173B67] dark:text-white cursor-pointer transition-colors"
                 >
-                  Cancel
+                  {isTa ? 'ரத்துசெய்' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold shadow-soft transition-all cursor-pointer"
                 >
-                  Publish & Rank Candidates
+                  {isTa ? 'வெளியிட்டு தரவரிசைப்படுத்து' : 'Publish & Rank Candidates'}
                 </button>
               </div>
             </form>
@@ -1128,15 +1131,15 @@ export const EmployerView: React.FC = () => {
               <div className="space-y-0.5">
                 <div className="font-bold text-[#173B67] dark:text-white text-sm">
                   {notificationToast.action === 'added'
-                    ? '🎉 Candidate Shortlisted!'
-                    : 'Candidate Removed from Shortlist'}
+                    ? (isTa ? '🎉 விண்ணப்பதாரர் பட்டியலிடப்பட்டார்!' : '🎉 Candidate Shortlisted!')
+                    : (isTa ? 'பட்டியலிலிருந்து நீக்கப்பட்டது' : 'Candidate Removed from Shortlist')}
                 </div>
                 <div className="text-[#526174] dark:text-slate-300 leading-relaxed">
-                  <strong>{notificationToast.candidateName}</strong> {notificationToast.action === 'added' ? 'added to your interview queue for' : 'removed from shortlist for'}{' '}
+                  <strong>{notificationToast.candidateName}</strong> {notificationToast.action === 'added' ? (isTa ? 'நேர்காணல் வரிசையில் சேர்க்கப்பட்டார்:' : 'added to your interview queue for') : (isTa ? 'பட்டியலிலிருந்து நீக்கப்பட்டார்:' : 'removed from shortlist for')}{' '}
                   <strong>{notificationToast.role}</strong>.
                 </div>
                 <div className="text-[10px] text-[#065F46] dark:text-[#10B981] font-semibold pt-0.5">
-                  ✓ Simulated alert sent to learner's SkillBridge portal.
+                  {isTa ? '✓ கற்பவரின் போர்ட்டலுக்கு உருவகப்படுத்தப்பட்ட எச்சரிக்கை அனுப்பப்பட்டது.' : '✓ Simulated alert sent to learner\'s SkillBridge portal.'}
                 </div>
               </div>
             </div>

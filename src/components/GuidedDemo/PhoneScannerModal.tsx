@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { QRCodeSVG } from 'qrcode.react';
 import {
   Smartphone,
@@ -37,6 +38,8 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
   credentialId,
   verifyUrl
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const [scanState, setScanState] = useState<'aiming' | 'scanned' | 'loaded'>('aiming');
 
   useEffect(() => {
@@ -96,10 +99,10 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
             <div className="flex-1 bg-black text-white flex flex-col items-center justify-between p-6 relative overflow-hidden">
               <div className="w-full text-center pt-8">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/20 px-3 py-1 rounded-full border border-amber-400/40">
-                  Phone Camera Viewfinder
+                  {isTa ? 'மொபைல் கேமரா ஸ்கேனர்' : 'Phone Camera Viewfinder'}
                 </span>
                 <h3 className="text-sm font-bold text-slate-200 mt-2">
-                  Point camera at Skill Passport QR
+                  {isTa ? 'திறன் கடவுச்சீட்டு QR குறியீட்டை நோக்கி கேமராவைக் காட்டவும்' : 'Point camera at Skill Passport QR'}
                 </h3>
               </div>
 
@@ -131,7 +134,9 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
               </div>
 
               <div className="w-full text-center pb-4 text-xs text-slate-400">
-                {scanState === 'aiming' ? 'Scanning QR code...' : 'QR Verified! Opening credential...'}
+                {scanState === 'aiming'
+                  ? (isTa ? 'QR குறியீடு ஸ்கேன் செய்யப்படுகிறது...' : 'Scanning QR code...')
+                  : (isTa ? 'QR சரிபார்க்கப்பட்டது! சான்றிதழ் திறக்கப்படுகிறது...' : 'QR Verified! Opening credential...')}
               </div>
             </div>
           ) : (
@@ -147,12 +152,11 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
               <div className="text-center p-3 rounded-card bg-white border border-[#E2E8F0] shadow-soft mb-3">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#62B6E8]" />
-                  <span>Verified Skill Credential</span>
+                  <span>{isTa ? 'சரிபார்க்கப்பட்ட திறன் சான்றிதழ்' : 'Verified Skill Credential'}</span>
                 </div>
                 <h4 className="text-base font-bold text-[#173B67]">
-                  {personaName}
+                  {isTa ? (personaTamilName || personaName) : personaName}
                 </h4>
-                <div className="text-[11px] text-[#526174] font-tamil">{personaTamilName}</div>
                 <div className="text-[10px] text-[#526174]">{location}</div>
               </div>
 
@@ -160,8 +164,8 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
               <div className="space-y-2 mb-3">
                 <div className="p-2.5 rounded-btn bg-[#ECFDF5] border border-[#A7F3D0] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-[#065F46]">Responsive Layouts (320px)</div>
-                    <div className="text-[10px] text-[#047857]">Zero horizontal scroll verified</div>
+                    <div className="font-bold text-[#065F46]">{isTa ? 'பொறுப்புள்ள வடிவமைப்பு (320px)' : 'Responsive Layouts (320px)'}</div>
+                    <div className="text-[10px] text-[#047857]">{isTa ? 'கிடைமட்ட உருளல் இல்லை என்பது சரிபார்க்கப்பட்டது' : 'Zero horizontal scroll verified'}</div>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-[#10B981] text-white font-bold text-[11px]">
                     94%
@@ -170,8 +174,8 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
 
                 <div className="p-2.5 rounded-btn bg-[#EAF5FC] border border-[#BAE6FD] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-[#173B67]">AI Voice Viva in Tamil</div>
-                    <div className="text-[10px] text-[#526174]">Authenticity: Consistent</div>
+                    <div className="font-bold text-[#173B67]">{isTa ? 'தமிழில் AI குரல் வாய்மொழி தேர்வு' : 'AI Voice Viva in Tamil'}</div>
+                    <div className="text-[10px] text-[#526174]">{isTa ? 'நம்பகத்தன்மை: நிலையானது' : 'Authenticity: Consistent'}</div>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-[#62B6E8] text-[#173B67] font-bold text-[11px]">
                     94%
@@ -180,20 +184,20 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
 
                 <div className="p-2.5 rounded-btn bg-[#FFFBEB] border border-[#FDE68A] flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-[#92400E]">Mentor Endorsement</div>
-                    <div className="text-[10px] text-[#B45309]">K. Senthil Nathan (Senior Lead)</div>
+                    <div className="font-bold text-[#92400E]">{isTa ? 'வழிகாட்டி ஒப்புதல்' : 'Mentor Endorsement'}</div>
+                    <div className="text-[10px] text-[#B45309]">{isTa ? 'கே. செந்தில் நாதன் (முதன்மை பொறியாளர்)' : 'K. Senthil Nathan (Senior Lead)'}</div>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-[#F2B66D] text-[#173B67] font-bold text-[10px]">
-                    Signed
+                    {isTa ? 'கையொப்பமிடப்பட்டது' : 'Signed'}
                   </span>
                 </div>
               </div>
 
               {/* Cryptographic Tamper-Proof Audit Footer */}
               <div className="mt-auto p-2.5 rounded-btn bg-[#EAF5FC] border border-[#BAE6FD] text-[10px] space-y-0.5 font-mono text-[#526174]">
-                <div>Audit ID: {credentialId}</div>
+                <div>{isTa ? 'தணிக்கை எண்:' : 'Audit ID:'} {credentialId}</div>
                 <div className="truncate">Hash: 0x7a1e84df99c42b012481b</div>
-                <div className="text-[#065F46] font-bold">✓ 100% Cryptographically Verified</div>
+                <div className="text-[#065F46] font-bold">{isTa ? '✓ 100% பாதுகாப்பாக சரிபார்க்கப்பட்டது' : '✓ 100% Cryptographically Verified'}</div>
               </div>
             </div>
           )}
@@ -208,7 +212,7 @@ export const PhoneScannerModal: React.FC<PhoneScannerModalProps> = ({
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-2 right-2 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+          className="absolute top-2 right-2 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
           title="Close scanner"
         >
           <X className="w-4 h-4" />

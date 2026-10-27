@@ -525,10 +525,10 @@ export const ResumeView: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[11px] text-sky-100/80 pt-1">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3 h-3 text-[#F2B66D]" />
-                    <span>{persona.location}</span>
+                    <span>{isTamil ? (persona.locationTamil || persona.location) : persona.location}</span>
                   </span>
                   <span>•</span>
-                  <span>{persona.educationOrBackground}</span>
+                  <span>{isTamil ? (persona.educationOrBackgroundTamil || persona.educationOrBackground) : persona.educationOrBackground}</span>
                   <span>•</span>
                   <span className="font-mono text-[#F2B66D]">{data.verificationId}</span>
                 </div>
@@ -794,10 +794,10 @@ export const ResumeView: React.FC = () => {
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[#526174] pt-1">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-[#62B6E8]" />
-                    <span>{persona.location}</span>
+                    <span>{isTamil ? (persona.locationTamil || persona.location) : persona.location}</span>
                   </span>
                   <span>•</span>
-                  <span>{persona.educationOrBackground}</span>
+                  <span>{isTamil ? (persona.educationOrBackgroundTamil || persona.educationOrBackground) : persona.educationOrBackground}</span>
                 </div>
               </div>
 
@@ -807,7 +807,7 @@ export const ResumeView: React.FC = () => {
                 <div className="text-left text-[9px]">
                   <div className="font-bold text-[#173B67] uppercase">{headings.scanToVerify}</div>
                   <div className="text-[#526174] font-mono">{data.verificationId}</div>
-                  <div className="text-emerald-700 font-semibold mt-0.5">✓ 100% Tamper-Evident</div>
+                  <div className="text-emerald-700 font-semibold mt-0.5">{isTamil ? '✓ 100% பாதுகாப்பானது' : '✓ 100% Tamper-Evident'}</div>
                 </div>
               </div>
             </div>

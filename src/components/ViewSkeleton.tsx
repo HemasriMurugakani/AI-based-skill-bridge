@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Skeleton, SkeletonCard } from './Skeleton';
 import { Sparkles } from 'lucide-react';
 
@@ -6,6 +7,9 @@ export const ViewSkeleton: React.FC<{ title?: string; titleTamil?: string }> = (
   title = 'Loading SkillBridge Module...',
   titleTamil = 'திறன் பாலம் தொகுதியை ஏற்றுகிறது...',
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
+
   return (
     <div
       role="status"
@@ -18,8 +22,7 @@ export const ViewSkeleton: React.FC<{ title?: string; titleTamil?: string }> = (
         <div className="space-y-2.5 max-w-xl w-full">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5FC] text-[#173B67] dark:bg-sky-950/60 dark:text-sky-300 text-xs font-bold border border-[#BAE6FD]">
             <Sparkles className="w-3.5 h-3.5 text-[#62B6E8] animate-spin" />
-            <span>{title}</span>
-            <span className="font-tamil text-[11px] opacity-80">({titleTamil})</span>
+            <span>{isTa ? titleTamil : title}</span>
           </div>
           <Skeleton variant="text" className="w-3/4 h-8" />
           <Skeleton variant="text" className="w-5/6 h-4" />

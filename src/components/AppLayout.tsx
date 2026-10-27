@@ -25,7 +25,8 @@ interface AppLayoutProps {
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { activeTab, setActiveTab, getPersona } = useSkillBridgeStore();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const currentPersona = getPersona();
 
   const navigationItems = [
@@ -76,10 +77,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               />
               <div className="truncate">
                 <h4 className="text-sm font-bold text-[#173B67] dark:text-white truncate">
-                  {currentPersona.name}
+                  {isTa ? currentPersona.nameTamil : currentPersona.name}
                 </h4>
                 <div className="text-[10px] font-semibold text-[#62B6E8] truncate">
-                  {currentPersona.tag}
+                  {isTa && currentPersona.tagTamil ? currentPersona.tagTamil : currentPersona.tag}
                 </div>
               </div>
             </div>

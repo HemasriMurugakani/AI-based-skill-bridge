@@ -112,11 +112,15 @@ export interface Persona {
   name: string;
   nameTamil: string;
   tag: string;
+  tagTamil?: string;
   avatar: string;
   location: string;
+  locationTamil?: string;
   pathwayId: string;
   bio: string;
+  bioTamil?: string;
   educationOrBackground: string;
+  educationOrBackgroundTamil?: string;
   dailyTimeAvailable: string; // e.g. "45 mins/day"
   preferredWork: string; // e.g. "Remote / Local District"
   streakDays: number;

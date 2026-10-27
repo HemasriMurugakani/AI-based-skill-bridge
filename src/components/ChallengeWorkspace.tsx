@@ -5,6 +5,7 @@ import { StatusPill } from './StatusPill';
 import { TrustLabel } from './TrustLabel';
 import { AIThinking } from './AIThinking';
 import { evaluateRubricFeedback, RubricFeedback } from '../services/api';
+import { useTranslation } from 'react-i18next';
 import { SpeechInputController, SpeechLang, isSpeechRecognitionSupported } from '../utils/speech';
 import { QuickVivaModal } from './QuickVivaModal';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,6 +51,8 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
     vivaRecords,
     setActiveTab
   } = useSkillBridgeStore();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
 
   const isWebProfile = challenge.id === 'challenge-web-profile';
   const isCommIntro = challenge.id === 'challenge-comm-intro';
@@ -281,7 +284,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#526174] hover:text-[#173B67] transition-colors cursor-pointer w-fit"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Challenges</span>
+            <span>{isTa ? 'அனைத்து சவால்களுக்கும் திரும்புக' : 'Back to All Challenges'}</span>
           </button>
 
           <div className="flex items-center gap-2 flex-wrap">
@@ -299,16 +302,11 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
 
         <div className="max-w-3xl">
           <div className="text-xs font-bold uppercase tracking-wider text-[#62B6E8] mb-1">
-            Challenge Workspace
+            {isTa ? 'சவால் பணியிடம்' : 'Challenge Workspace'}
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67]">
-            {challenge.title}
+            {isTa ? (challenge.titleTamil || challenge.title) : challenge.title}
           </h1>
-          {challenge.titleTamil && (
-            <div className="font-tamil text-sm text-[#526174] mt-0.5">
-              {challenge.titleTamil}
-            </div>
-          )}
           <p className="mt-2 text-xs sm:text-sm text-[#526174] leading-relaxed">
             {challenge.description}
           </p>
@@ -720,28 +718,25 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <div>
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] text-[10px] font-bold uppercase tracking-wider mb-1">
                       <Sparkles className="w-3 h-3 text-[#62B6E8]" />
-                      <span>Authenticity Defense</span>
+                      <span>{isTa ? 'உண்மைத்தன்மை பாதுகாப்பு' : 'Authenticity Defense'}</span>
                     </div>
                     <h4 className="text-base sm:text-lg font-bold text-[#173B67]">
-                      Quick viva: prove this is your work
+                      {isTa ? 'விரைவு வாய்மொழி விளக்கம்: இது உங்கள் சொந்த உழைப்பு என்பதை நிரூபியுங்கள்' : 'Quick viva: prove this is your work'}
                     </h4>
-                    <div className="font-tamil text-xs text-[#526174]">
-                      விரைவு வாய்மொழி விளக்கம்: இது உங்கள் சொந்த உழைப்பு என்பதை நிரூபியுங்கள்
-                    </div>
                   </div>
 
                   {existingViva ? (
                     <div className="flex items-center gap-2">
                       <span className="px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-1">
                         <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                        <span>Viva completed</span>
+                        <span>{isTa ? 'வாய்மொழி நிறைவடைந்தது' : 'Viva completed'}</span>
                       </span>
                       <button
                         type="button"
                         onClick={() => setIsVivaModalOpen(true)}
                         className="px-3.5 py-1.5 rounded-btn bg-white border border-[#E2E8F0] text-xs font-semibold hover:bg-[#EAF5FC] text-[#173B67] transition-colors cursor-pointer"
                       >
-                        Review Defense
+                        {isTa ? 'விளக்கத்தை மறுபார்வை செய்' : 'Review Defense'}
                       </button>
                     </div>
                   ) : (
@@ -751,7 +746,7 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                       className="px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-bold text-xs shadow-soft flex items-center gap-1.5 transition-transform hover:scale-105 shrink-0 cursor-pointer"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-[#173B67]" />
-                      <span>Start Quick Viva (3 Questions) →</span>
+                      <span>{isTa ? 'விரைவு வாய்மொழித் தேர்வைத் தொடங்கு (3 கேள்விகள்) →' : 'Start Quick Viva (3 Questions) →'}</span>
                     </button>
                   )}
                 </div>
@@ -761,13 +756,12 @@ export const ChallengeWorkspace: React.FC<ChallengeWorkspaceProps> = ({
                   <ShieldCheck className="w-4 h-4 text-[#62B6E8] shrink-0 mt-0.5" />
                   <div>
                     <div className="font-extrabold text-[#173B67]">
-                      Why we ask: skills should be yours, not copied.
-                    </div>
-                    <div className="font-tamil text-[11px] text-[#526174] font-medium">
-                      ஏன் கேட்கிறோம்: திறன்கள் உங்களுடையதாக இருக்க வேண்டும், நகலெடுக்கப்பட்டதாக அல்ல.
+                      {isTa ? 'ஏன் கேட்கிறோம்: திறன்கள் உங்களுடையதாக இருக்க வேண்டும், நகலெடுக்கப்பட்டதாக அல்ல.' : 'Why we ask: skills should be yours, not copied.'}
                     </div>
                     <div className="text-[11px] text-[#526174] mt-0.5">
-                      Answer 3 rapid questions about your design and code choices by text or voice (Tamil/English). Results are attached to your Skill Passport.
+                      {isTa
+                        ? 'உங்கள் வடிவமைப்பு மற்றும் குறியீட்டுத் தேர்வுகள் குறித்த 3 விரைவான கேள்விகளுக்கு உரை அல்லது குரல் மூலம் பதிலளிக்கவும். முடிவுகள் உங்கள் திறன் கடவுச்சீட்டில் இணைக்கப்படும்.'
+                        : 'Answer 3 rapid questions about your design and code choices by text or voice. Results are attached to your Skill Passport.'}
                     </div>
                   </div>
                 </div>

@@ -8,7 +8,8 @@ import { Layers, CheckCircle2, AlertCircle, HelpCircle, ArrowUpRight, ArrowRight
 
 export const SkillsView: React.FC = () => {
   const { getCurrentPathway, setActiveTab } = useSkillBridgeStore();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const pathway = getCurrentPathway();
 
   const [activeFilter, setActiveFilter] = useState<'all' | SkillState>('all');
@@ -26,15 +27,17 @@ export const SkillsView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-3 py-1 rounded-full bg-[#EAF5FC] border border-[#BAE6FD]">
-                Skills Assessment Matrix
+                {isTa ? 'திறன் மதிப்பீட்டு அணி' : 'Skills Assessment Matrix'}
               </span>
               <TrustLabel type="how-calculated" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-              Competency & Rubric Portfolio
+              {isTa ? 'தகுதி & விதிமுறை தொகுப்பு' : 'Competency & Rubric Portfolio'}
             </h1>
             <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-2xl">
-              Skills are measured through verified code, physical photo inspections, and viva defenses. Unassessed skills remain strictly neutral.
+              {isTa
+                ? 'சரிபார்க்கப்பட்ட குறியீடு, நேரடி புகைப்பட ஆய்வுகள் மற்றும் வாய்மொழி தேர்வுகள் மூலம் திறன்கள் அளவிடப்படுகின்றன. மதிப்பீடு செய்யப்படாத திறன்கள் நடுநிலையாகவே இருக்கும்.'
+                : 'Skills are measured through verified code, physical photo inspections, and viva defenses. Unassessed skills remain strictly neutral.'}
             </p>
           </div>
 
@@ -51,7 +54,7 @@ export const SkillsView: React.FC = () => {
                 : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
             }`}
           >
-            All Skills ({pathway.skills.length})
+            {isTa ? 'அனைத்து திறன்களும்' : 'All Skills'} ({pathway.skills.length})
           </button>
           <button
             onClick={() => setActiveFilter('strong')}
@@ -61,7 +64,7 @@ export const SkillsView: React.FC = () => {
                 : 'bg-[#ECFDF5] dark:bg-emerald-950/60 text-[#065F46] dark:text-emerald-200 border border-[#A7F3D0]'
             }`}
           >
-            Strong ({pathway.skills.filter(s => s.state === 'strong').length})
+            {isTa ? 'வலுவானவை' : 'Strong'} ({pathway.skills.filter(s => s.state === 'strong').length})
           </button>
           <button
             onClick={() => setActiveFilter('develop')}
@@ -71,7 +74,7 @@ export const SkillsView: React.FC = () => {
                 : 'bg-[#FFFBEB] dark:bg-amber-950/60 text-[#B45309] dark:text-amber-200 border border-[#FDE68A]'
             }`}
           >
-            Develop ({pathway.skills.filter(s => s.state === 'develop').length})
+            {isTa ? 'வளர்க்க வேண்டியவை' : 'Develop'} ({pathway.skills.filter(s => s.state === 'develop').length})
           </button>
           <button
             onClick={() => setActiveFilter('gap')}
@@ -81,7 +84,7 @@ export const SkillsView: React.FC = () => {
                 : 'bg-[#FEF2F2] dark:bg-red-950/60 text-[#991B1B] dark:text-red-200 border border-[#FECACA]'
             }`}
           >
-            Skill Gaps ({pathway.skills.filter(s => s.state === 'gap').length})
+            {isTa ? 'திறன் இடைவெளிகள்' : 'Skill Gaps'} ({pathway.skills.filter(s => s.state === 'gap').length})
           </button>
           <button
             onClick={() => setActiveFilter('not_assessed')}
@@ -91,7 +94,7 @@ export const SkillsView: React.FC = () => {
                 : 'bg-[#F8FAFC] dark:bg-night-100 text-[#64748B] border border-[#E2E8F0]'
             }`}
           >
-            Not Assessed ({pathway.skills.filter(s => s.state === 'not_assessed').length})
+            {isTa ? 'மதிப்பிடப்படாதவை' : 'Not Assessed'} ({pathway.skills.filter(s => s.state === 'not_assessed').length})
           </button>
         </div>
       </div>
@@ -109,18 +112,13 @@ export const SkillsView: React.FC = () => {
                   {skill.category}
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD]">
-                  Level {skill.level} of 5
+                  {isTa ? 'நிலை' : 'Level'} {skill.level} {isTa ? '/ 5' : 'of 5'}
                 </span>
               </div>
 
               <h3 className="text-base font-bold text-[#173B67] dark:text-white">
-                {skill.name}
+                {isTa ? (skill.nameTamil || skill.name) : skill.name}
               </h3>
-              {skill.nameTamil && (
-                <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
-                  {skill.nameTamil}
-                </div>
-              )}
 
               <p className="mt-2 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
                 {skill.description}
@@ -129,7 +127,7 @@ export const SkillsView: React.FC = () => {
               {/* Rubric Checkpoints */}
               <div className="mt-4">
                 <div className="text-[11px] font-bold text-[#173B67] dark:text-white mb-1.5">
-                  Evaluation Rubric Criteria:
+                  {isTa ? 'மதிப்பீட்டு விதிமுறை அளவுகோல்கள்:' : 'Evaluation Rubric Criteria:'}
                 </div>
                 <ul className="space-y-1 text-xs text-[#526174] dark:text-night-muted">
                   {skill.rubricCriteria.map((c, i) => (
@@ -144,14 +142,17 @@ export const SkillsView: React.FC = () => {
 
             <div className="mt-5 pt-3 border-t border-[#E2E8F0] dark:border-night-border/60 flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-[#526174] uppercase block">Status</span>
+                <span className="text-[10px] text-[#526174] uppercase block">{isTa ? 'நிலை' : 'Status'}</span>
                 <span className={`text-xs font-bold capitalize ${
                   skill.state === 'strong' ? 'text-[#10B981]' :
                   skill.state === 'develop' ? 'text-[#D97706]' :
                   skill.state === 'gap' ? 'text-[#EF4444]' :
                   'text-[#64748B]'
                 }`}>
-                  {skill.state.replace('_', ' ')} {skill.score ? `(${skill.score}%)` : ''}
+                  {skill.state === 'strong' ? (isTa ? 'வலுவானது' : 'Strong') :
+                   skill.state === 'develop' ? (isTa ? 'வளரும் நிலை' : 'Develop') :
+                   skill.state === 'gap' ? (isTa ? 'இடைவெளி' : 'Gap') :
+                   (isTa ? 'மதிப்பிடப்படவில்லை' : 'Not Assessed')} {skill.score ? `(${skill.score}%)` : ''}
                 </span>
               </div>
 
@@ -159,7 +160,7 @@ export const SkillsView: React.FC = () => {
                 onClick={() => setActiveTab('challenges')}
                 className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-soft cursor-pointer"
               >
-                <span>Take Challenge</span>
+                <span>{isTa ? 'சவாலில் பங்கேற்க' : 'Take Challenge'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

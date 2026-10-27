@@ -163,7 +163,9 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   aria-hidden="true"
                   className="w-4 h-4 rounded-full object-cover border border-[#62B6E8]"
                 />
-                <span className="hidden sm:inline max-w-[100px] truncate">{currentPersona.name.split(' ')[0]}</span>
+                <span className="hidden sm:inline max-w-[100px] truncate">
+                  {(language === 'ta' ? currentPersona.nameTamil : currentPersona.name).split(' ')[0]}
+                </span>
                 <ChevronDown className="w-3 h-3 text-sky-200" />
               </button>
 
@@ -197,8 +199,10 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                         className="w-7 h-7 rounded-full object-cover border border-[#62B6E8] shrink-0"
                       />
                       <div className="truncate">
-                        <div className="font-semibold">{p.name}</div>
-                        <div className="text-[10px] text-[#526174] dark:text-night-muted truncate">{p.tag}</div>
+                        <div className="font-semibold">{language === 'ta' ? p.nameTamil : p.name}</div>
+                        <div className="text-[10px] text-[#526174] dark:text-night-muted truncate">
+                          {language === 'ta' && p.tagTamil ? p.tagTamil : p.tag}
+                        </div>
                       </div>
                       {p.id === currentPersonaId && (
                         <UserCheck className="w-4 h-4 text-[#173B67] dark:text-sky-300 ml-auto shrink-0" />

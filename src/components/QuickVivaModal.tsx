@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   generateVivaQuestions,
   scoreVivaAnswer,
@@ -65,6 +66,8 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
   onComplete
 }) => {
   const { isOfflineDemo, recordVivaCompletion, setActiveTab, language: appLanguage } = useSkillBridgeStore();
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
 
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
   const [questions, setQuestions] = useState<VivaQuestion[]>([]);
@@ -309,14 +312,11 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-sky-950/70 border border-[#BAE6FD] text-[#173B67] dark:text-sky-200 text-[11px] font-bold uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
-              <span>Authenticity Defense</span>
+              <span>{isTa ? 'உண்மைத்தன்மை பாதுகாப்பு' : 'Authenticity Defense'}</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-              Quick viva: prove this is your work
+              {isTa ? 'விரைவு வாய்மொழி விளக்கம்: இது உங்கள் சொந்த உழைப்பு என்பதை நிரூபியுங்கள்' : 'Quick viva: prove this is your work'}
             </h2>
-            <div className="font-tamil text-xs text-[#526174] dark:text-night-muted mt-0.5">
-              விரைவு வாய்மொழி விளக்கம்: இது உங்கள் சொந்த உழைப்பு என்பதை நிரூபியுங்கள்
-            </div>
           </div>
 
           <button
@@ -333,13 +333,12 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
           <ShieldCheck className="w-5 h-5 text-[#62B6E8] shrink-0 mt-0.5" />
           <div className="text-xs">
             <span className="font-extrabold text-[#173B67] dark:text-sky-200">
-              Why we ask: skills should be yours, not copied.
+              {isTa ? 'ஏன் கேட்கிறோம்: திறன்கள் உங்களுடையதாக இருக்க வேண்டும், நகலெடுக்கப்பட்டதாக அல்ல.' : 'Why we ask: skills should be yours, not copied.'}
             </span>
-            <div className="font-tamil text-[11px] text-[#173B67]/90 dark:text-sky-300 font-medium">
-              ஏன் கேட்கிறோம்: திறன்கள் உங்களுடையதாக இருக்க வேண்டும், நகலெடுக்கப்பட்டதாக அல்ல.
-            </div>
             <div className="text-[#526174] dark:text-night-muted text-[11px] mt-0.5">
-              No intrusive webcams or surveillance. We simply ask 3 quick questions about the specific trade-offs in your submitted code so employers can trust your authentic understanding.
+              {isTa
+                ? 'ஊடுருவும் வெப்கேம்கள் அல்லது கண்காணிப்பு இல்லை. நீங்கள் சமர்ப்பித்த தீர்வில் உள்ள தொழில்நுட்பக் காரணங்களை அறிய 3 எளிய கேள்விகள் மட்டுமே கேட்கிறோம்.'
+                : 'No intrusive webcams or surveillance. We simply ask 3 quick questions about the specific trade-offs in your submitted code so employers can trust your authentic understanding.'}
             </div>
           </div>
         </div>
@@ -350,9 +349,11 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
             <div className="py-12 text-center space-y-3">
               <div className="inline-block w-8 h-8 border-3 border-[#62B6E8] border-t-transparent rounded-full animate-spin" />
               <div className="text-sm font-bold text-[#173B67] dark:text-white">
-                Inspecting your submission code & generating 3 viva questions...
+                {isTa ? 'உங்கள் சமர்ப்பிப்பை ஆய்வு செய்து 3 கேள்விகளை உருவாக்குகிறது...' : 'Inspecting your submission code & generating 3 viva questions...'}
               </div>
-              <div className="text-xs text-[#526174]">Calling /api/viva with project evidence</div>
+              <div className="text-xs text-[#526174]">
+                {isTa ? 'திட்ட சான்றுகளுடன் ஆய்வு செய்யப்படுகிறது' : 'Calling /api/viva with project evidence'}
+              </div>
             </div>
           ) : isFinished ? (
             /* FINAL COMPLETED RESULT VIEW */
@@ -363,14 +364,11 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
 
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-[#526174]">
-                  Defense Evaluation Complete
+                  {isTa ? 'பாதுகாப்பு மதிப்பீடு முடிந்தது' : 'Defense Evaluation Complete'}
                 </div>
                 <h3 className="text-2xl font-bold text-[#173B67] dark:text-white mt-1">
-                  Viva Completed & Attached to Passport
+                  {isTa ? 'வாய்மொழித் தேர்வு முடிந்தது · கடவுச்சீட்டில் இணைக்கப்பட்டது' : 'Viva Completed & Attached to Passport'}
                 </h3>
-                <div className="font-tamil text-xs text-[#526174] mt-0.5">
-                  வாய்மொழித் தேர்வு முடிந்தது · திறன் கடவுச்சீட்டில் இணைக்கப்பட்டது
-                </div>
               </div>
 
               {/* Authenticity Confidence Indicator (NEVER CHEATER) */}
@@ -389,7 +387,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                       <HelpCircle className="w-5 h-5 text-amber-700 dark:text-amber-400" />
                     )}
                     <span className="text-xs font-extrabold uppercase tracking-wider text-[#526174]">
-                      Authenticity Confidence Indicator
+                      {isTa ? 'உண்மைத்தன்மை நம்பிக்கை அளவுகோல்' : 'Authenticity Confidence Indicator'}
                     </span>
                   </div>
 
@@ -400,37 +398,35 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                         : 'bg-amber-600 text-white'
                     }`}
                   >
-                    Authenticity confidence: {overallConfidence}
+                    {isTa ? `நம்பகத்தன்மை: ${overallConfidence === 'Consistent' ? 'நிலையானது' : 'பின்தொடர்தல் தேவை'}` : `Authenticity confidence: ${overallConfidence}`}
                   </span>
                 </div>
 
                 <div className="text-sm font-bold text-[#173B67] dark:text-white">
-                  {overallConfidence === 'Consistent'
-                    ? 'Consistent: Your explanations directly align with the submitted implementation.'
-                    : 'Needs follow-up: Some technical trade-offs were brief. A mentor check-in is recommended.'}
-                </div>
-
-                <div className="font-tamil text-xs text-[#526174] mt-0.5">
-                  {overallConfidence === 'Consistent'
-                    ? 'தங்களின் விளக்கங்கள் சமர்ப்பிக்கப்பட்ட படைப்புடன் முழுமையாகப் பொருந்துகின்றன.'
-                    : 'விளக்கங்கள் சுருக்கமாக உள்ளன. வழிகாட்டியுடன் கூடுதல் உரையாடல் பரிந்துரைக்கப்படுகிறது.'}
+                  {isTa
+                    ? (overallConfidence === 'Consistent'
+                        ? 'நிலையானது: தங்களின் விளக்கங்கள் சமர்ப்பிக்கப்பட்ட படைப்புடன் முழுமையாகப் பொருந்துகின்றன.'
+                        : 'விளக்கங்கள் சுருக்கமாக உள்ளன. வழிகாட்டியுடன் கூடுதல் உரையாடல் பரிந்துரைக்கப்படுகிறது.')
+                    : (overallConfidence === 'Consistent'
+                        ? 'Consistent: Your explanations directly align with the submitted implementation.'
+                        : 'Needs follow-up: Some technical trade-offs were brief. A mentor check-in is recommended.')}
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-[#E2E8F0] dark:border-night-border/60 flex items-center justify-between text-xs text-[#526174]">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-emerald-700 dark:text-emerald-400">Status in Passport:</span>
+                    <span className="font-bold text-emerald-700 dark:text-emerald-400">{isTa ? 'கடவுச்சீட்டில் நிலை:' : 'Status in Passport:'}</span>
                     <span className="px-2 py-0.5 rounded-btn bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 font-bold text-[11px]">
-                      Viva completed
+                      {isTa ? 'வாய்மொழி முடிந்தது' : 'Viva completed'}
                     </span>
                   </div>
-                  <div>Average Understanding: <span className="font-bold">{avgScore}%</span></div>
+                  <div>{isTa ? 'சராசரி புரிதல்:' : 'Average Understanding:'} <span className="font-bold">{avgScore}%</span></div>
                 </div>
               </div>
 
               {/* Question-by-Question Recap */}
               <div className="space-y-2 text-left">
                 <div className="text-xs font-bold uppercase tracking-wider text-[#526174]">
-                  Evaluated Answers Summary ({questions.length} questions)
+                  {isTa ? `மதிப்பீடு செய்யப்பட்ட பதில்கள் (${questions.length} கேள்விகள்)` : `Evaluated Answers Summary (${questions.length} questions)`}
                 </div>
                 {questions.map((q, idx) => (
                   <div
@@ -438,7 +434,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                     className="p-3 rounded-card bg-[#F8FAFC] dark:bg-night-100/60 border border-[#E2E8F0] dark:border-night-border text-xs space-y-1"
                   >
                     <div className="flex items-start justify-between gap-2 font-bold text-[#173B67] dark:text-night-ink">
-                      <span>Q{idx + 1}: {q.question}</span>
+                      <span>Q{idx + 1}: {isTa ? (q.questionTamil || q.question) : q.question}</span>
                       <span className="text-[#173B67] dark:text-sky-300 font-bold shrink-0">
                         {evaluations[idx]?.score}%
                       </span>
@@ -462,14 +458,14 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                   className="w-full sm:w-auto px-5 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4fa8dc] text-[#173B67] font-bold text-xs shadow-soft flex items-center justify-center gap-2 cursor-pointer transition-transform hover:scale-105"
                 >
                   <FileCheck2 className="w-4 h-4 text-[#173B67]" />
-                  <span>View in Verified Skill Passport →</span>
+                  <span>{isTa ? 'சரிபார்க்கப்பட்ட திறன் கடவுச்சீட்டில் காண்க →' : 'View in Verified Skill Passport →'}</span>
                 </button>
                 <button
                   type="button"
                   onClick={onClose}
                   className="w-full sm:w-auto px-4 py-2.5 rounded-btn bg-white dark:bg-night-100 border border-[#E2E8F0] text-[#173B67] dark:text-night-ink font-semibold text-xs hover:bg-[#F8FAFC] transition-colors cursor-pointer"
                 >
-                  Close & Return to Workspace
+                  {isTa ? 'மூடிவிட்டு பணிமனைக்குத் திரும்பு' : 'Close & Return to Workspace'}
                 </button>
               </div>
             </div>
@@ -495,7 +491,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                   </div>
 
                   <span className="text-xs font-bold text-[#526174]">
-                    Question {currentQuestionIndex + 1} of {questions.length}
+                    {isTa ? `கேள்வி ${currentQuestionIndex + 1} / ${questions.length}` : `Question ${currentQuestionIndex + 1} of ${questions.length}`}
                   </span>
                 </div>
 
@@ -503,20 +499,15 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                 <div className="p-4 sm:p-5 rounded-card bg-[#EAF5FC] dark:bg-night-100/80 border border-[#BAE6FD] dark:border-night-border shadow-soft space-y-2">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h4 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-white leading-snug">
-                        {currentQ.question}
+                      <h4 className="text-base sm:lg font-bold text-[#173B67] dark:text-white leading-snug">
+                        {isTa ? (currentQ.questionTamil || currentQ.question) : currentQ.question}
                       </h4>
-                      {currentQ.questionTamil && (
-                        <div className="font-tamil text-xs text-[#173B67]/90 dark:text-sky-300 mt-1">
-                          {currentQ.questionTamil}
-                        </div>
-                      )}
                     </div>
 
                     <button
                       type="button"
                       onClick={handleSpeakQuestion}
-                      title="Listen in Tamil or English"
+                      title={isTa ? 'கேள்வியைக் கேளுங்கள்' : 'Listen in Tamil or English'}
                       className="p-2 rounded-btn bg-white hover:bg-slate-50 text-[#173B67] border border-[#BAE6FD] transition-colors shrink-0 cursor-pointer"
                     >
                       <Volume2 className="w-4 h-4" />
@@ -525,7 +516,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
 
                   {currentQ.context && (
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white dark:bg-night-100/60 border border-[#BAE6FD] text-[10px] font-semibold text-[#526174]">
-                      <span>Focus:</span>
+                      <span>{isTa ? 'கவனம்:' : 'Focus:'}</span>
                       <span>{currentQ.context}</span>
                     </div>
                   )}
@@ -535,12 +526,12 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <label className="font-bold text-[#173B67] dark:text-white">
-                      Your Explanation (Text or Spoken Voice)
+                      {isTa ? 'உங்கள் விளக்கம் (எழுத்து வடிவம் அல்லது குரல் பதிவு)' : 'Your Explanation (Text or Spoken Voice)'}
                     </label>
 
                     {/* Language Switcher for Voice */}
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] text-[#526174]">Voice:</span>
+                      <span className="text-[10px] text-[#526174]">{isTa ? 'குரல்:' : 'Voice:'}</span>
                       <button
                         type="button"
                         onClick={() => {
@@ -583,7 +574,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                         }))
                       }
                       placeholder={
-                        voiceLang === 'ta-IN'
+                        isTa || voiceLang === 'ta-IN'
                           ? 'உங்கள் விளக்கத்தை இங்கே தட்டச்சு செய்யவும் அல்லது கீழே உள்ள மைக்ரோஃபோனை அழுத்திப் பேசவும்...'
                           : 'Explain the reason for this decision in your own words, or click the mic below to speak...'
                       }
@@ -594,7 +585,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                     {isRecording && (
                       <div className="absolute top-2 right-2 flex items-center gap-2 px-2.5 py-1 rounded-full bg-rose-600 text-white text-[10px] font-bold animate-pulse shadow-sm">
                         <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                        <span>Listening ({recordingSeconds}s)...</span>
+                        <span>{isTa ? `கேட்கிறது (${recordingSeconds}வி)...` : `Listening (${recordingSeconds}s)...`}</span>
                       </div>
                     )}
                   </div>
@@ -611,7 +602,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                       }`}
                     >
                       {isRecording ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5 text-[#173B67]" />}
-                      <span>{isRecording ? 'Stop Recording' : 'Speak Answer (Tamil/English)'}</span>
+                      <span>{isRecording ? (isTa ? 'பதிவை நிறுத்து' : 'Stop Recording') : (isTa ? 'பதிலை குரல் மூலம் பேசவும்' : 'Speak Answer (Tamil/English)')}</span>
                     </button>
 
                     {/* Rapid Evaluator Testing Buttons */}
@@ -620,17 +611,17 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                         type="button"
                         onClick={handleQuickFillAuthentic}
                         className="px-2.5 py-1 rounded-btn bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-300/60 cursor-pointer"
-                        title="Simulate high-understanding authentic learner response"
+                        title={isTa ? 'உயர் புரிதல் கொண்ட கற்றல் பதிலை உருவகப்படுத்துகிறது' : 'Simulate high-understanding authentic learner response'}
                       >
-                        ✨ Authentic Answer
+                        {isTa ? '✨ சரியான பதில்' : '✨ Authentic Answer'}
                       </button>
                       <button
                         type="button"
                         onClick={handleQuickFillVague}
                         className="px-2.5 py-1 rounded-btn bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 text-amber-800 dark:text-amber-300 font-semibold border border-amber-300/60 cursor-pointer"
-                        title="Simulate vague response triggering 'Needs follow-up'"
+                        title={isTa ? 'மேலோட்டமான பதிலை உருவகப்படுத்துகிறது' : 'Simulate vague response triggering \'Needs follow-up\''}
                       >
-                        ⚡ Vague Answer
+                        {isTa ? '⚡ மேலோட்டமான பதில்' : '⚡ Vague Answer'}
                       </button>
                     </div>
                   </div>
@@ -650,10 +641,10 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                     <div className="flex items-center justify-between font-bold">
                       <span className="flex items-center gap-1.5">
                         <CheckCircle2 className="w-4 h-4 text-emerald-700" />
-                        <span>Understanding Score: {currentEval.score}%</span>
+                        <span>{isTa ? `புரிதல் மதிப்பீடு: ${currentEval.score}%` : `Understanding Score: ${currentEval.score}%`}</span>
                       </span>
                       <span className="text-[10px] uppercase font-bold text-[#526174]">
-                        Evaluated via /api/viva
+                        {isTa ? 'சரிபார்க்கப்பட்டது: /api/viva' : 'Evaluated via /api/viva'}
                       </span>
                     </div>
                     <p className="text-[#173B67] dark:text-night-ink text-[11px]">
@@ -665,7 +656,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                 {/* Bottom Buttons */}
                 <div className="pt-3 border-t border-[#E2E8F0] dark:border-night-border flex items-center justify-between">
                   <div className="text-[11px] text-[#526174]">
-                    {currentQuestionIndex + 1} of {questions.length} completed
+                    {isTa ? `${currentQuestionIndex + 1} / ${questions.length} முடிந்தது` : `${currentQuestionIndex + 1} of ${questions.length} completed`}
                   </div>
 
                   {!currentEval ? (
@@ -678,12 +669,12 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                       {isScoringAnswer ? (
                         <>
                           <div className="w-3.5 h-3.5 border-2 border-[#173B67] border-t-transparent rounded-full animate-spin" />
-                          <span>Scoring Understanding...</span>
+                          <span>{isTa ? 'புரிதல் மதிப்பிடப்படுகிறது...' : 'Scoring Understanding...'}</span>
                         </>
                       ) : (
                         <>
                           <Sparkles className="w-3.5 h-3.5 text-[#173B67]" />
-                          <span>Submit Answer to /api/viva</span>
+                          <span>{isTa ? 'பதிலை சமர்ப்பிக்கவும்' : 'Submit Answer to /api/viva'}</span>
                         </>
                       )}
                     </button>
@@ -695,8 +686,8 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
                     >
                       <span>
                         {currentQuestionIndex < questions.length - 1
-                          ? 'Next Question →'
-                          : 'View Authenticity Confidence →'}
+                          ? (isTa ? 'அடுத்த கேள்வி →' : 'Next Question →')
+                          : (isTa ? 'நம்பகத்தன்மை மதிப்பீட்டைக் காண்க →' : 'View Authenticity Confidence →')}
                       </span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>

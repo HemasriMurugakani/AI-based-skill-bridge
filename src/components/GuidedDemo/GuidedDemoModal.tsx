@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkillBridgeStore } from '../../store/useSkillBridgeStore';
 import { priyaStory, lakshmiStory, DemoStep, PersonaStory } from './demoStepsData';
 import { ProofLoopTracker } from './ProofLoopTracker';
@@ -42,6 +43,9 @@ export const GuidedDemoModal: React.FC = () => {
     awardXp,
     unlockBadge
   } = useSkillBridgeStore();
+
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
 
   // Selected persona narrative (Priya by default, toggleable to Lakshmi)
   const [activeStory, setActiveStory] = useState<PersonaStory>(
@@ -302,7 +306,7 @@ export const GuidedDemoModal: React.FC = () => {
                     alt={priyaStory.personaName}
                     className="w-4 h-4 rounded-full object-cover border border-[#62B6E8]"
                   />
-                  <span>Priya (Tech)</span>
+                  <span>{isTa ? 'பிரியா (தொழில்நுட்பம்)' : 'Priya (Tech)'}</span>
                 </button>
                 <button
                   type="button"
@@ -318,7 +322,7 @@ export const GuidedDemoModal: React.FC = () => {
                     alt={lakshmiStory.personaName}
                     className="w-4 h-4 rounded-full object-cover border border-[#62B6E8]"
                   />
-                  <span>Lakshmi (Craft)</span>
+                  <span>{isTa ? 'லட்சுமி (கைவினை)' : 'Lakshmi (Craft)'}</span>
                 </button>
               </div>
             </div>
@@ -329,7 +333,7 @@ export const GuidedDemoModal: React.FC = () => {
                 <Clock className="w-3.5 h-3.5 text-[#173B67] dark:text-sky-300" />
                 <span>{formatTime(totalElapsedSeconds)} / {formatTime(totalDemoSeconds)}</span>
                 <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-sans ml-1">
-                  (&lt; 4 mins)
+                  ({isTa ? '< 4 நிமிடங்கள்' : '< 4 mins'})
                 </span>
               </div>
 
@@ -347,12 +351,12 @@ export const GuidedDemoModal: React.FC = () => {
                 {isOfflineDemo ? (
                   <>
                     <WifiOff className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span>Offline Demo: ON</span>
+                    <span>{isTa ? 'ஆஃப்லைன் செயல்முறை: இயக்கு' : 'Offline Demo: ON'}</span>
                   </>
                 ) : (
                   <>
                     <Wifi className="w-3.5 h-3.5 text-[#526174]" />
-                    <span>Live AI Mode</span>
+                    <span>{isTa ? 'நேரலை AI முறை' : 'Live AI Mode'}</span>
                   </>
                 )}
               </button>
@@ -408,18 +412,15 @@ export const GuidedDemoModal: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300">
-                    Step {currentStep.stepNumber} of 11 · {currentStep.stageName}
+                    {isTa ? `படி ${currentStep.stepNumber} / 11 · ${currentStep.stageName}` : `Step ${currentStep.stepNumber} of 11 · ${currentStep.stageName}`}
                   </span>
                   <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-[#EAF5FC] text-[#173B67] border border-[#62B6E8]/40">
                     XP +{currentStep.xpReward}
                   </span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-[#173B67] dark:text-white">
-                  {currentStep.title}
+                  {isTa ? (currentStep.titleTamil || currentStep.title) : currentStep.title}
                 </h3>
-                <div className="text-xs font-tamil text-[#526174] dark:text-night-muted font-medium">
-                  {currentStep.titleTamil}
-                </div>
               </div>
             </div>
 
@@ -436,39 +437,34 @@ export const GuidedDemoModal: React.FC = () => {
                 title={isAudioMuted ? 'Unmute Audio' : 'Mute Voice Narration'}
               >
                 {!isAudioMuted ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-                <span className="hidden sm:inline">{!isAudioMuted ? 'Voice ON' : 'Muted'}</span>
+                <span className="hidden sm:inline">{!isAudioMuted ? (isTa ? 'குரல் ஆன்' : 'Voice ON') : (isTa ? 'அமைதி' : 'Muted')}</span>
               </button>
             </div>
           </div>
 
-          {/* Bilingual Narration Captions Box */}
-          <div className="py-4 space-y-2.5">
-            {/* English Caption */}
-            <div className="p-3.5 rounded-2xl bg-[#EAF5FC]/60 dark:bg-night-100/80 border border-sky-100/60 text-xs sm:text-sm text-[#173B67] dark:text-white leading-relaxed">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#526174] dark:text-night-muted mb-0.5">
-                Story Narration (English)
+          {/* Single-Language Narration Caption Box */}
+          <div className="py-4">
+            <div className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+              isTa
+                ? 'bg-[#FCF3E5]/60 dark:bg-amber-950/30 border border-[#F2B66D]/40 dark:border-amber-800/60 text-[#173B67] dark:text-amber-200 font-tamil'
+                : 'bg-[#EAF5FC]/60 dark:bg-night-100/80 border border-sky-100/60 text-[#173B67] dark:text-white'
+            }`}>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#526174] dark:text-night-muted mb-1 font-sans">
+                {isTa ? 'கதை விளக்கம்' : 'Story Narration'}
               </div>
-              {currentStep.narrativeEn}
-            </div>
-
-            {/* Tamil Caption */}
-            <div className="p-3.5 rounded-2xl bg-[#FCF3E5]/60 dark:bg-amber-950/30 border border-[#F2B66D]/40 dark:border-amber-800/60 text-xs sm:text-sm text-[#173B67] dark:text-amber-200 font-tamil leading-relaxed">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#9C5E16] dark:text-amber-400 font-sans mb-0.5">
-                கதை விளக்கம் (தமிழ்)
-              </div>
-              {currentStep.narrativeTa}
+              {isTa ? (currentStep.narrativeTa || currentStep.narrativeEn) : currentStep.narrativeEn}
             </div>
           </div>
 
           {/* Step Action Pill Hint */}
           <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2 text-[#526174] dark:text-night-muted text-[11px]">
-              <span className="font-semibold text-[#173B67] dark:text-night-ink">Active Tab:</span>
+              <span className="font-semibold text-[#173B67] dark:text-night-ink">{isTa ? 'செயலில் உள்ள தாவல்:' : 'Active Tab:'}</span>
               <span className="capitalize px-2 py-0.5 rounded-md bg-[#EAF5FC] dark:bg-night-100 font-mono text-[#173B67] dark:text-sky-300">
                 /{currentStep.tab}
               </span>
               <span>•</span>
-              <span>Readiness: <strong className="text-[#10B981]">{currentStep.readinessScore}%</strong></span>
+              <span>{isTa ? 'தயார்நிலை:' : 'Readiness:'} <strong className="text-[#10B981]">{currentStep.readinessScore}%</strong></span>
             </div>
 
             {currentStep.actionType === 'phone_scan' && (
@@ -478,7 +474,7 @@ export const GuidedDemoModal: React.FC = () => {
                 className="px-3.5 py-1.5 rounded-full bg-[#F2B66D] hover:bg-[#e59f45] text-[#173B67] text-xs font-bold flex items-center gap-1.5 shadow-soft cursor-pointer"
               >
                 <Smartphone className="w-3.5 h-3.5" />
-                <span>Open Phone Scanner</span>
+                <span>{isTa ? 'மொபைல் ஸ்கேனரைத் திற' : 'Open Phone Scanner'}</span>
               </button>
             )}
           </div>
@@ -504,10 +500,12 @@ export const GuidedDemoModal: React.FC = () => {
             {/* Left: Step Info */}
             <div className="text-xs">
               <div className="font-bold text-[#F2B66D]">
-                Step {currentStep.stepNumber} of 11: {currentStep.stageName}
+                {isTa ? `படி ${currentStep.stepNumber} / 11: ${currentStep.stageName}` : `Step ${currentStep.stepNumber} of 11: ${currentStep.stageName}`}
               </div>
               <div className="text-[11px] text-sky-200">
-                Auto-advancing in {Math.max(0, currentStep.durationSeconds - stepSecondsElapsed)}s
+                {isTa
+                  ? `${Math.max(0, currentStep.durationSeconds - stepSecondsElapsed)}வி-ல் அடுத்த படிக்கு நகரும்`
+                  : `Auto-advancing in ${Math.max(0, currentStep.durationSeconds - stepSecondsElapsed)}s`}
               </div>
             </div>
 
@@ -545,7 +543,7 @@ export const GuidedDemoModal: React.FC = () => {
 
             {/* Right: Speed Multiplier */}
             <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl text-xs font-bold text-slate-300">
-              <span className="text-[10px] text-slate-500 uppercase px-1">Speed</span>
+              <span className="text-[10px] text-slate-500 uppercase px-1">{isTa ? 'வேகம்' : 'Speed'}</span>
               {([1, 1.5, 2] as const).map(s => (
                 <button
                   key={s}

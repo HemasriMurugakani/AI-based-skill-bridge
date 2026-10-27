@@ -1,0 +1,150 @@
+{
+  "hero": {
+    "eyebrow": "PLATEFORME CIVIQUE DE COMPÉTENCES",
+    "headline1": "Apprenez une compétence.",
+    "headline2": "Prouvez-la. Débloquez la suite.",
+    "subtext": "Le moteur IA reliant les talents académiques et professionnels du Tamil Nadu aux opportunités. Identifiez les lacunes, pratiquez de manière adaptative et prouvez vos compétences.",
+    "whatDoYouWant": "Que souhaitez-vous devenir ?",
+    "startJourney": "Commencer mon parcours",
+    "tryJd": "Tester l'analyseur d'offre",
+    "trustLine": "Aucune inscription requise · Aucune donnée personnelle collectée · Fonctionne hors-ligne ou avec IA"
+  },
+  "roles": {
+    "webDev": "Développeur Web",
+    "tailor": "Tailleur",
+    "electrician": "Électricien",
+    "dataAnalyst": "Analyste de données",
+    "designer": "Designer UI",
+    "solarTech": "Technicien solaire",
+    "autoMechanic": "Mécanicien automobile"
+  },
+  "howItWorks": {
+    "eyebrow": "Le moteur compétences vers opportunités",
+    "title": "Comment ça fonctionne",
+    "subtitle": "Des aspirations initiales jusqu'à l'emploi vérifié grâce à des preuves réelles.",
+    "step1Title": "Comprendre l'apprenant",
+    "step1Summary": "Capture votre temps disponible quotidien (30-90 min), votre district et vos compétences de base.",
+    "step2Title": "Détecter les lacunes",
+    "step2Summary": "Analyse les offres d'emploi en direct pour extraire les critères exacts et les deltas de compétences.",
+    "step3Title": "Feuille de route adaptative",
+    "step3Summary": "Réorganise dynamiquement les modules et génère des micro-défis ciblés sur les lacunes.",
+    "step4Title": "Prouver avec un travail réel",
+    "step4Summary": "Soumettez du code reproductible, des photos de vos réalisations et des soutenances orales.",
+    "step5Title": "Accéder aux opportunités",
+    "step5Summary": "Mise en relation directe avec des emplois locaux, des ateliers et des contrats d'apprentissage NATS."
+  },
+  "cycle": {
+    "eyebrow": "Boucle d'apprentissage continu",
+    "title": "Le cycle de la preuve au progrès",
+    "subtitle": "Cliquez sur une étape pour voir comment l'apprentissage s'adapte en continu.",
+    "stages": {
+      "identify": "1. Identifier",
+      "learn": "2. Apprendre",
+      "prove": "3. Prouver",
+      "adapt": "4. Progresser"
+    },
+    "details": {
+      "identifyTitle": "1. Identifier",
+      "identifyDesc": "Évaluez votre point de départ. Les compétences non évaluées restent neutres.",
+      "identifyAction": "Lancer l'analyseur",
+      "learnTitle": "2. Apprendre",
+      "learnDesc": "Micro-modules adaptés à votre rythme quotidien.",
+      "learnAction": "Voir la feuille de route",
+      "proveTitle": "3. Prouver",
+      "proveDesc": "Déposez vos dépôts de code, prenez des photos d'inspection et soutenez oralement vos choix.",
+      "proveAction": "Relever un défi",
+      "adaptTitle": "4. Progresser",
+      "adaptDesc": "L'IA réindexe votre parcours et met à jour votre Passeport de compétences.",
+      "adaptAction": "Vérifier la préparation"
+    }
+  },
+  "beyondMcq": {
+    "eyebrow": "Au-delà des simples QCM",
+    "title": "Conçu pour les compétences réelles",
+    "subtitle": "Les questionnaires à choix multiples ne prouvent pas votre savoir-faire pratique. SkillBridge évalue vos compétences authentiques.",
+    "cards": {
+      "jdGap": {
+        "title": "Analyse d'écart de poste",
+        "desc": "Compare votre portfolio vérifié aux descriptions d'emploi réelles.",
+        "badge": "Zéro bla-bla"
+      },
+      "photoTrade": {
+        "title": "Preuves photo pour artisans",
+        "desc": "La vision par ordinateur inspecte la régularité des coutures et les installations électriques.",
+        "badge": "Priorité aux métiers"
+      },
+      "aiViva": {
+        "title": "Soutenance orale par IA",
+        "desc": "Répondez aux questions techniques en langage naturel pour défendre vos décisions.",
+        "badge": "Maîtrise orale"
+      },
+      "voiceTamil": {
+        "title": "Support vocal bilingue",
+        "desc": "Les apprenants s'expriment librement dans leur langue maternelle. La langue n'est plus un frein.",
+        "badge": "Civique accessible"
+      },
+      "skillPassport": {
+        "title": "Passeport de compétences QR",
+        "desc": "Titre numérique vérifiable avec liens vers vos preuves consultables en un scan.",
+        "badge": "Inviolable"
+      },
+      "mentorSeal": {
+        "title": "Sceau de mentorat",
+        "desc": "Confiance à plusieurs niveaux : revu par IA, vérifié par des mentors certifiés.",
+        "badge": "Double confiance"
+      }
+    }
+  },
+  "personas": {
+    "eyebrow": "Explorer les profils",
+    "title": "Rencontrez nos apprenants",
+    "subtitle": "Des étudiants et artisans réels prouvant leurs compétences à travers le Tamil Nadu.",
+    "sampleStory": "Exemple de parcours",
+    "activeProfile": "Profil actif",
+    "testProfile": "Tester ce profil"
+  },
+  "cta": {
+    "title": "Prêt à prouver vos compétences et débloquer des opportunités ?",
+    "subtitle": "Rejoignez des milliers d'apprenants transformant leurs capacités manuelles et logiques en carrières vérifiées.",
+    "startFree": "Commencer gratuitement",
+    "tryJdDemo": "Essayer l'analyseur démo",
+    "trustLine": "100% Gratuit · Zéro collecte de données personnelles · Initiative civique ouverte"
+  },
+  "footer": {
+    "col1Title": "Apprendre & Prouver",
+    "col1Links": {
+      "roadmaps": "Parcours adaptatifs",
+      "challenges": "Défis de code",
+      "photoInspection": "Inspection photo",
+      "oralViva": "Soutenance orale",
+      "passports": "Passeports de compétences"
+    },
+    "col2Title": "Travail vérifié",
+    "col2Links": {
+      "jdAnalysis": "Analyse des offres",
+      "opportunities": "Opportunités locales",
+      "boutiques": "Contrats d'ateliers",
+      "nats": "Apprentissage NATS",
+      "resume": "CV certifié 1 page"
+    },
+    "col3Title": "Réseau civique",
+    "col3Links": {
+      "institutionHub": "Pôle institutionnel",
+      "districtMaps": "Cartes des compétences",
+      "lowData": "Mode faible débit",
+      "offlineEngine": "Moteur hors-ligne",
+      "zeroTracking": "Tech civique sans traçage"
+    },
+    "col4Title": "Patrimoine & Métiers",
+    "col4Links": {
+      "kanchipuram": "Soie de Kanchipuram",
+      "swamimalai": "Bronze de Swamimalai",
+      "salem": "Soie blanche de Salem",
+      "tiruppur": "Tricot de Tiruppur",
+      "madurai": "Tissage Sungudi"
+    },
+    "copyright": "SkillBridge IA · Initiative civique pour l'emploi au Tamil Nadu",
+    "craftedFor": "Créé pour les étudiants académiques et professionnels",
+    "privacy": "Zéro traçage · Technologie civique open source · Licence MIT"
+  }
+}

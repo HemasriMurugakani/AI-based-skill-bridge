@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { DemoStep } from './demoStepsData';
 import {
   Mic,
@@ -45,6 +46,8 @@ export const ProofLoopTracker: React.FC<ProofLoopTrackerProps> = ({
   onSelectStep,
   isCompact = false
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const currentStep = steps[currentStepIndex];
 
   // Calculate cumulative stats up to current step
@@ -63,10 +66,10 @@ export const ProofLoopTracker: React.FC<ProofLoopTrackerProps> = ({
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-[#62B6E8] animate-ping" />
           <span className="font-extrabold uppercase tracking-wider text-[11px] text-[#173B67] dark:text-sky-300">
-            Proof-to-Progress Loop
+            {isTa ? 'சான்று-வளர்ச்சி சுழற்சி' : 'Proof-to-Progress Loop'}
           </span>
           <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-deepblue-950/80 text-[#173B67] dark:text-sky-300 font-bold border border-[#62B6E8]/30">
-            Stage {currentStep.stepNumber} of 11: {currentStep.stageName}
+            {isTa ? `நிலை ${currentStep.stepNumber} / 11: ${currentStep.stageName}` : `Stage ${currentStep.stepNumber} of 11: ${currentStep.stageName}`}
           </span>
         </div>
 
@@ -79,12 +82,12 @@ export const ProofLoopTracker: React.FC<ProofLoopTrackerProps> = ({
 
           <div className="flex items-center gap-1.5 text-[#10B981] font-bold">
             <TrendingUp className="w-3.5 h-3.5" />
-            <span>Readiness: {currentReadiness}% {readinessGain > 0 ? `(+${readinessGain}%)` : ''}</span>
+            <span>{isTa ? 'தயார்நிலை:' : 'Readiness:'} {currentReadiness}% {readinessGain > 0 ? `(+${readinessGain}%)` : ''}</span>
           </div>
 
           <div className="hidden sm:flex items-center gap-1 text-[#62B6E8]">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            <span>Tamper-Evident</span>
+            <span>{isTa ? 'பாதுகாப்பானது' : 'Tamper-Evident'}</span>
           </div>
         </div>
       </div>

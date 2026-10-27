@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface PillChipProps {
   label: string;
@@ -19,6 +20,9 @@ export const PillChip: React.FC<PillChipProps> = ({
   className = '',
   onClick
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
+
   const sizeClasses = {
     sm: 'text-xs px-2.5 py-0.5 gap-1.5',
     md: 'text-xs md:text-sm px-3.5 py-1 gap-2',
@@ -40,6 +44,7 @@ export const PillChip: React.FC<PillChipProps> = ({
   };
 
   const isClickable = !!onClick;
+  const displayText = isTa ? (labelTamil || label) : label;
 
   return (
     <span
@@ -51,19 +56,10 @@ export const PillChip: React.FC<PillChipProps> = ({
         sizeClasses[size]
       } ${variantClasses[variant]} ${
         isClickable ? 'cursor-pointer hover:scale-105 active:scale-95 hover:shadow-soft' : ''
-      } ${className}`}
+      } ${isTa ? 'font-tamil' : ''} ${className}`}
     >
       {icon && <span className="inline-flex shrink-0 items-center justify-center">{icon}</span>}
-      <span className="truncate">
-        {labelTamil ? (
-          <span className="inline-flex flex-col text-left leading-normal py-0.5">
-            <span className="font-tamil text-[10px] text-[#526174] dark:text-night-muted font-normal leading-normal">{labelTamil}</span>
-            <span className="leading-tight">{label}</span>
-          </span>
-        ) : (
-          label
-        )}
-      </span>
+      <span className="truncate">{displayText}</span>
     </span>
   );
 };

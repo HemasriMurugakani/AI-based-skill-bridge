@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Sparkles, FileText, CheckCircle2, AlertCircle, ArrowRight, Upload } from 'lucide-react';
 import { fallbackJdExtract, JdExtractResponse } from '../data/fallbacks';
 import { AIThinking } from './AIThinking';
@@ -42,6 +43,8 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
   onClose,
   onNavigateToRoadmap
 }) => {
+  const { i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
   const [inputText, setInputText] = useState(sampleJds[0].text);
   const [isAnalysing, setIsAnalysing] = useState(false);
   const [result, setResult] = useState<JdExtractResponse | null>(null);
@@ -70,21 +73,23 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
         {/* Modal Header */}
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-sky-950/60 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] uppercase tracking-wider">
-            AI Job Description Gap Engine
+            {isTa ? 'AI வேலை விவர இடைவெளி பகுப்பாய்வி' : 'AI Job Description Gap Engine'}
           </span>
           <TrustLabel type="ai-disclaimer" />
         </div>
 
         <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-          Paste Any Job Description · Detect Concrete Gaps
+          {isTa ? 'எந்தவொரு வேலை விவரத்தையும் ஒட்டவும் · இடைவெளிகளைக் கண்டறியவும்' : 'Paste Any Job Description · Detect Concrete Gaps'}
         </h2>
         <p className="mt-1 text-xs text-[#526174] dark:text-night-muted leading-relaxed">
-          Our parser extracts required competency levels from real employer job posts and benchmarks them against your local verified proofs.
+          {isTa
+            ? 'எங்கள் பாகுபடுத்தி வேலைவாய்ப்பு விவரங்களிலிருந்து தேவையான திறன் நிலைகளைப் பிரித்தெடுத்து, உங்கள் சரிபார்க்கப்பட்ட சான்றுகளுடன் ஒப்பிடுகிறது.'
+            : 'Our parser extracts required competency levels from real employer job posts and benchmarks them against your local verified proofs.'}
         </p>
 
         {/* Quick Sample Selector */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="text-[11px] font-semibold text-[#526174]">Try sample:</span>
+          <span className="text-[11px] font-semibold text-[#526174]">{isTa ? 'மாதிரியை முயற்சிக்கவும்:' : 'Try sample:'}</span>
           {sampleJds.map((s, idx) => (
             <button
               key={idx}
@@ -105,7 +110,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             rows={5}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Paste raw JD text from LinkedIn, Naukri, or newspaper clipping..."
+            placeholder={isTa ? 'LinkedIn, Naukri போன்றவற்றிலிருந்து வேலை விவர உரையை ஒட்டவும்...' : 'Paste raw JD text from LinkedIn, Naukri, or newspaper clipping...'}
             className="w-full p-3 rounded-card font-mono text-xs bg-white dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border text-[#173B67] dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
           />
         </div>
@@ -113,7 +118,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
         {/* Action Button */}
         <div className="mt-3 flex items-center justify-between">
           <div className="text-[11px] text-[#526174]">
-            Strict Zod parsing • Private & local
+            {isTa ? 'கட்டாய Zod பாகுபடுத்தல் • தனிப்பட்ட மற்றும் உள்ளூர்' : 'Strict Zod parsing • Private & local'}
           </div>
 
           <button
@@ -122,7 +127,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             className="px-5 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#4fa8dc] disabled:opacity-50 text-[#173B67] font-bold text-xs flex items-center gap-2 shadow-soft transition-transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-[#173B67]" />
-            <span>{isAnalysing ? 'Extracting Skills...' : 'Extract & Analyse Gaps'}</span>
+            <span>{isAnalysing ? (isTa ? 'திறன்களைப் பிரித்தெடுக்கிறது...' : 'Extracting Skills...') : (isTa ? 'பிரித்தெடுத்து ஆய்வு செய்' : 'Extract & Analyse Gaps')}</span>
           </button>
         </div>
 
@@ -143,7 +148,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
             <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span className="text-[10px] font-bold text-[#173B67] dark:text-sky-400 uppercase">
-                  Target Role
+                  {isTa ? 'இலக்கு பணி' : 'Target Role'}
                 </span>
                 <h3 className="text-base font-bold text-[#173B67] dark:text-night-ink">
                   {result.jobTitle}
@@ -151,10 +156,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                 <div className="text-xs text-[#526174]">{result.companyName}</div>
 
                 <div className="mt-2 text-xs text-[#173B67] dark:text-night-ink">
-                  <span className="font-semibold">{result.summaryEnglish}</span>
-                </div>
-                <div className="mt-1 font-tamil text-xs text-[#173B67]/90 dark:text-sky-300">
-                  {result.summaryTamil}
+                  <span className="font-semibold">{isTa ? (result.summaryTamil || result.summaryEnglish) : result.summaryEnglish}</span>
                 </div>
               </div>
 
@@ -163,7 +165,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                   progress={result.readinessEstimate}
                   size={95}
                   strokeWidth={8}
-                  label="Match"
+                  label={isTa ? 'பொருத்தம்' : 'Match'}
                 />
               </div>
             </div>
@@ -174,7 +176,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
               <div className="p-4 rounded-card bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-200 uppercase tracking-wide mb-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Existing Verified Proofs ({result.matchedExistingSkills.length})</span>
+                  <span>{isTa ? `சரிபார்க்கப்பட்ட சான்றுகள் (${result.matchedExistingSkills.length})` : `Existing Verified Proofs (${result.matchedExistingSkills.length})`}</span>
                 </div>
                 <ul className="space-y-1.5 text-xs text-emerald-950 dark:text-emerald-300">
                   {result.matchedExistingSkills.map((sk, idx) => (
@@ -190,7 +192,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
               <div className="p-4 rounded-card bg-rose-50/70 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-rose-800 dark:text-rose-200 uppercase tracking-wide mb-2">
                   <AlertCircle className="w-4 h-4 text-rose-600" />
-                  <span>Actionable Skill Gaps ({result.detectedSkillGaps.length})</span>
+                  <span>{isTa ? `தீர்க்க வேண்டிய திறன் இடைவெளிகள் (${result.detectedSkillGaps.length})` : `Actionable Skill Gaps (${result.detectedSkillGaps.length})`}</span>
                 </div>
                 <ul className="space-y-1.5 text-xs text-rose-950 dark:text-rose-300">
                   {result.detectedSkillGaps.map((gap, idx) => (
@@ -209,7 +211,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                 onClick={onClose}
                 className="px-4 py-2 rounded-btn border border-[#E2E8F0] text-xs font-semibold text-[#173B67] dark:text-night-ink hover:bg-[#F8FAFC] transition-colors cursor-pointer"
               >
-                Close
+                {isTa ? 'மூடு' : 'Close'}
               </button>
               <button
                 onClick={() => {
@@ -218,7 +220,7 @@ export const JdAnalyserModal: React.FC<JdAnalyserModalProps> = ({
                 }}
                 className="px-5 py-2 rounded-btn bg-[#173B67] hover:bg-[#112C4E] text-white font-bold text-xs flex items-center gap-1.5 shadow-soft transition-transform hover:scale-105 cursor-pointer"
               >
-                <span>Bridge Gaps in Adaptive Roadmap</span>
+                <span>{isTa ? 'வழிகாட்டியில் இடைவெளிகளை நிரப்பவும்' : 'Bridge Gaps in Adaptive Roadmap'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

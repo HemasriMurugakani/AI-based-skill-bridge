@@ -37,7 +37,8 @@ interface SkillSelection {
 
 export const OnboardingView: React.FC = () => {
   const { pathways, setPersona, setActiveTab, updateSkillState } = useSkillBridgeStore();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
 
   const [step, setStep] = useState(1);
   const [voiceLang, setVoiceLang] = useState<SpeechLang>('ta-IN');
@@ -203,15 +204,15 @@ export const OnboardingView: React.FC = () => {
         <div className="flex items-center justify-between gap-4 mb-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67] uppercase tracking-wider">
-              Step {step} of 5
+              {isTa ? `படி ${step} / 5` : `Step ${step} of 5`}
             </span>
             <span className="text-xs font-semibold text-[#526174]">
-              {step === 1 && 'Learner Identity'}
-              {step === 2 && 'Career Goal'}
-              {step === 3 && 'Current Skills'}
-              {step === 4 && 'Daily Time Availability'}
-              {step === 5 && 'Work Preference'}
-              {step === 6 && 'AI Pathway Recommendation'}
+              {step === 1 && (isTa ? 'கற்பவர் அடையாளம்' : 'Learner Identity')}
+              {step === 2 && (isTa ? 'தொழில் இலக்கு' : 'Career Goal')}
+              {step === 3 && (isTa ? 'தற்போதைய திறன்கள்' : 'Current Skills')}
+              {step === 4 && (isTa ? 'தினசரி நேரம்' : 'Daily Time Availability')}
+              {step === 5 && (isTa ? 'பணி பாணி விருப்பம்' : 'Work Preference')}
+              {step === 6 && (isTa ? 'AI வழித்தட பரிந்துரை' : 'AI Pathway Recommendation')}
             </span>
           </div>
 
@@ -222,12 +223,12 @@ export const OnboardingView: React.FC = () => {
               className="px-2.5 py-1 rounded-btn text-xs font-semibold bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD] flex items-center gap-1.5 cursor-pointer transition-colors"
             >
               <Mic className="w-3.5 h-3.5 text-[#173B67]" />
-              <span>Test Voice</span>
+              <span>{isTa ? 'குரல் சோதனை' : 'Test Voice'}</span>
             </button>
             <ReadAloudButton
               text={getStepVoiceInstruction()}
               lang={voiceLang}
-              label="Read Aloud"
+              label={isTa ? 'கேளுங்கள்' : 'Read Aloud'}
             />
           </div>
         </div>
@@ -248,17 +249,14 @@ export const OnboardingView: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-[#173B67]">
-                What is your name?
+                {isTa ? 'உங்கள் பெயர் என்ன?' : 'What is your name?'}
               </h2>
-              <div className="font-tamil text-sm text-[#526174] mt-0.5">
-                உங்கள் பெயர் என்ன? (குரல் வழி உள்ளீடும் செய்யலாம்)
-              </div>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
-                  Your Full Name (English)
+                  {isTa ? 'உங்கள் முழு பெயர் (ஆங்கிலத்தில்)' : 'Your Full Name (English)'}
                 </label>
                 <div className="flex items-center gap-2">
                   <input
@@ -278,7 +276,7 @@ export const OnboardingView: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
-                  Tamil Name (Optional / தமிழில் பெயர்)
+                  {isTa ? 'தமிழில் பெயர் (விருப்பத்திற்குரியது)' : 'Tamil Name (Optional)'}
                 </label>
                 <div className="flex items-center gap-2">
                   <input
@@ -303,11 +301,8 @@ export const OnboardingView: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-[#173B67]">
-                What is your main career or learning goal?
+                {isTa ? 'நீங்கள் அடைய விரும்பும் தொழில் அல்லது கற்றல் இலக்கு என்ன?' : 'What is your main career or learning goal?'}
               </h2>
-              <div className="font-tamil text-sm text-[#526174] mt-0.5">
-                நீங்கள் அடைய விரும்பும் இலக்கு என்ன?
-              </div>
             </div>
 
             {/* Quick Pick Goal Cards */}
@@ -324,10 +319,7 @@ export const OnboardingView: React.FC = () => {
                   }`}
                 >
                   <div className="font-bold text-xs sm:text-sm text-[#173B67]">
-                    {qg.title}
-                  </div>
-                  <div className="font-tamil text-xs text-[#526174] mt-1">
-                    {qg.tamil}
+                    {isTa ? qg.tamil : qg.title}
                   </div>
                 </button>
               ))}
@@ -335,14 +327,14 @@ export const OnboardingView: React.FC = () => {
 
             <div>
               <label className="block text-xs font-bold text-[#173B67] mb-1.5 uppercase tracking-wide">
-                Or Type / Speak Your Custom Goal
+                {isTa ? 'அல்லது உங்கள் தனிப்பயன் இலக்கை உள்ளிடவும் / பேசவும்' : 'Or Type / Speak Your Custom Goal'}
               </label>
               <div className="flex items-center gap-2">
                 <input
                   type="text"
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
-                  placeholder="e.g. Master React and get a job in Coimbatore tech park..."
+                  placeholder={isTa ? 'எ.கா. கோயம்புத்தூர் தகவல் தொழில்நுட்ப பூங்காவில் வேலை பெற...' : 'e.g. Master React and get a job in Coimbatore tech park...'}
                   className="flex-1 px-4 py-3 rounded-btn text-sm bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8] font-medium"
                 />
                 <VoiceInputButton
@@ -360,11 +352,8 @@ export const OnboardingView: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-[#173B67]">
-                Select Your Existing Skills & Self-Rating
+                {isTa ? 'உங்களுக்கு ஏற்கனவே தெரிந்த திறன்களைத் தேர்வு செய்யவும்' : 'Select Your Existing Skills & Self-Rating'}
               </h2>
-              <div className="font-tamil text-sm text-[#526174] mt-0.5">
-                உங்களுக்கு ஏற்கனவே தெரிந்த திறன்களை தேர்வு செய்யவும் (1 முதல் 5 நட்சத்திரம்)
-              </div>
             </div>
 
             {/* Category Filter Pills */}
@@ -376,7 +365,7 @@ export const OnboardingView: React.FC = () => {
                   skillCategory === 'tech' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
-                Web & Software
+                {isTa ? 'வலை & மென்பொருள்' : 'Web & Software'}
               </button>
               <button
                 type="button"
@@ -385,7 +374,7 @@ export const OnboardingView: React.FC = () => {
                   skillCategory === 'tailor' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
-                Tailoring & Textiles
+                {isTa ? 'தையல் & ஆடை கலை' : 'Tailoring & Textiles'}
               </button>
               <button
                 type="button"
@@ -394,7 +383,7 @@ export const OnboardingView: React.FC = () => {
                   skillCategory === 'elec' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
-                Electrical Wiring
+                {isTa ? 'மின்சாரப் பணிகள்' : 'Electrical Wiring'}
               </button>
               <button
                 type="button"
@@ -403,14 +392,14 @@ export const OnboardingView: React.FC = () => {
                   skillCategory === 'data' ? 'bg-[#173B67] text-white shadow-sm ring-2 ring-[#62B6E8]' : 'bg-[#EAF5FC] text-[#173B67] hover:bg-[#D9EEFA]'
                 }`}
               >
-                Data & Spreadsheets
+                {isTa ? 'தரவு & அட்டவணைகள்' : 'Data & Spreadsheets'}
               </button>
             </div>
 
             {/* Quick Add Preset Chips */}
             <div className="p-3 rounded-card bg-[#F8FAFC] border border-[#E2E8F0]">
               <div className="text-[11px] font-bold text-[#526174] mb-2 uppercase">
-                Tap to add common skills:
+                {isTa ? 'பொதுவான திறன்களைச் சேர்க்க தட்டவும்:' : 'Tap to add common skills:'}
               </div>
               <div className="flex flex-wrap gap-2">
                 {categorySkillPresets[skillCategory].map((preset, idx) => (
@@ -421,7 +410,7 @@ export const OnboardingView: React.FC = () => {
                     className="flex items-center gap-1 px-3 py-1 rounded-full text-xs bg-white border border-[#E2E8F0] hover:border-[#62B6E8] text-[#173B67]"
                   >
                     <Plus className="w-3 h-3 text-[#173B67]" />
-                    <span>{preset.name}</span>
+                    <span>{isTa ? (preset.nameTamil || preset.name) : preset.name}</span>
                   </button>
                 ))}
               </div>
@@ -430,7 +419,7 @@ export const OnboardingView: React.FC = () => {
             {/* Added Skills with Self Rating */}
             <div className="space-y-2.5">
               <div className="text-xs font-bold text-[#173B67] uppercase tracking-wide">
-                Your Added Skills ({selectedSkills.length}):
+                {isTa ? `நீங்கள் சேர்த்த திறன்கள் (${selectedSkills.length}):` : `Your Added Skills (${selectedSkills.length}):`}
               </div>
               {selectedSkills.map((sk, idx) => (
                 <div
@@ -438,8 +427,7 @@ export const OnboardingView: React.FC = () => {
                   className="p-3 rounded-btn bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3 text-xs"
                 >
                   <div>
-                    <div className="font-bold text-[#173B67]">{sk.name}</div>
-                    {sk.nameTamil && <div className="font-tamil text-[10px] text-[#526174]">{sk.nameTamil}</div>}
+                    <div className="font-bold text-[#173B67]">{isTa ? (sk.nameTamil || sk.name) : sk.name}</div>
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -481,7 +469,7 @@ export const OnboardingView: React.FC = () => {
                 type="text"
                 value={customSkillInput}
                 onChange={(e) => setCustomSkillInput(e.target.value)}
-                placeholder="Type or speak a custom skill (e.g. Photoshop, Welding, Tamil typing)..."
+                placeholder={isTa ? 'தனிப்பயன் திறனை உள்ளிடவும் அல்லது பேசவும்...' : 'Type or speak a custom skill (e.g. Photoshop, Welding, Tamil typing)...'}
                 className="flex-1 px-4 py-2.5 rounded-btn text-xs bg-[#F8FAFC] border border-[#E2E8F0] text-[#173B67] focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
               />
               <VoiceInputButton
@@ -494,7 +482,7 @@ export const OnboardingView: React.FC = () => {
                 onClick={handleAddCustomSkill}
                 className="px-4 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] text-xs font-semibold shadow-soft"
               >
-                Add
+                {isTa ? 'சேர்' : 'Add'}
               </button>
             </div>
           </div>
@@ -505,11 +493,8 @@ export const OnboardingView: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-[#173B67]">
-                How much time can you commit each day?
+                {isTa ? 'தினமும் எவ்வளவு நேரம் ஒதுக்க முடியும்?' : 'How much time can you commit each day?'}
               </h2>
-              <div className="font-tamil text-sm text-[#526174] mt-0.5">
-                ஒரு நாளில் நீங்கள் எவ்வளவு நேரம் பயிற்சி செய்ய முடியும்?
-              </div>
             </div>
 
             {/* Visual Time Picker Cards */}
@@ -561,17 +546,14 @@ export const OnboardingView: React.FC = () => {
                         <Clock className={`w-5 h-5 ${isSelected ? 'text-[#173B67]' : 'text-[#526174]'}`} />
                         {isSelected && (
                           <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#62B6E8] text-[#173B67]">
-                            Selected
+                            {isTa ? 'தேர்ந்தெடுக்கப்பட்டது' : 'Selected'}
                           </span>
                         )}
                       </div>
 
                       <h3 className="text-base font-bold text-[#173B67]">
-                        {timeOpt.title}
+                        {isTa ? timeOpt.titleTamil : timeOpt.title}
                       </h3>
-                      <div className="font-tamil text-xs text-[#526174]">
-                        {timeOpt.titleTamil}
-                      </div>
 
                       <p className="text-xs text-[#526174] mt-2 leading-relaxed">
                         {timeOpt.desc}
@@ -593,11 +575,8 @@ export const OnboardingView: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-[#173B67]">
-                What style of work excites you most?
+                {isTa ? 'நீங்கள் விரும்பும் பணி பாணி எது?' : 'What style of work excites you most?'}
               </h2>
-              <div className="font-tamil text-sm text-[#526174] mt-0.5">
-                நீங்கள் விரும்பும் பணி பாணி எது?
-              </div>
             </div>
 
             {/* 4 Work Style Cards */}
@@ -655,16 +634,16 @@ export const OnboardingView: React.FC = () => {
                           <Icon className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] border border-[#BAE6FD] text-[#173B67]">
-                          {style.tag}
+                          {style.id === 'technical' ? (isTa ? 'கல்வி வழித்தடம்' : 'Academic Track') :
+                           style.id === 'creative' ? (isTa ? 'கைவினை வழித்தடம்' : 'Vocational Craft') :
+                           style.id === 'business' ? (isTa ? 'வணிக வழித்தடம்' : 'Business Track') :
+                           (isTa ? 'தொழில் வழித்தடம்' : 'Vocational Trade')}
                         </span>
                       </div>
 
                       <h3 className="text-base font-bold text-[#173B67]">
-                        {style.title}
+                        {isTa ? style.titleTamil : style.title}
                       </h3>
-                      <div className="font-tamil text-xs text-[#526174]">
-                        {style.titleTamil}
-                      </div>
 
                       <p className="text-xs text-[#526174] mt-2 leading-relaxed">
                         {style.desc}
@@ -674,7 +653,7 @@ export const OnboardingView: React.FC = () => {
                     {isSelected && (
                       <div className="mt-4 pt-2.5 border-t border-[#BAE6FD] text-[11px] font-bold text-[#173B67] flex items-center gap-1">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                        Selected as Primary Preference
+                        {isTa ? 'முதன்மையான விருப்பமாகத் தேர்ந்தெடுக்கப்பட்டது' : 'Selected as Primary Preference'}
                       </div>
                     )}
                   </div>
@@ -699,14 +678,13 @@ export const OnboardingView: React.FC = () => {
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
                     <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>AI Pathway Recommendation</span>
+                    <span>{isTa ? 'AI வழித்தட பரிந்துரை' : 'AI Pathway Recommendation'}</span>
                   </div>
                   <h2 className="text-2xl font-bold text-[#173B67]">
-                    We Recommend: {pathways.find(p => p.id === recommendedPathwayId)?.title}
+                    {isTa
+                      ? `நாங்கள் பரிந்துரைப்பது: ${pathways.find(p => p.id === recommendedPathwayId)?.titleTamil || pathways.find(p => p.id === recommendedPathwayId)?.title}`
+                      : `We Recommend: ${pathways.find(p => p.id === recommendedPathwayId)?.title}`}
                   </h2>
-                  <div className="font-tamil text-sm text-[#526174]">
-                    {pathways.find(p => p.id === recommendedPathwayId)?.titleTamil}
-                  </div>
                 </div>
 
                 {/* Primary Recommendation Card */}
@@ -717,15 +695,15 @@ export const OnboardingView: React.FC = () => {
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div>
                           <span className="text-xs font-bold uppercase tracking-wide text-[#173B67]">
-                            {rec.category.toUpperCase()} TRACK
+                            {rec.category.toUpperCase()} {isTa ? 'வழித்தடம்' : 'TRACK'}
                           </span>
                           <h3 className="text-xl font-extrabold text-[#173B67]">
-                            {rec.title}
+                            {isTa ? (rec.titleTamil || rec.title) : rec.title}
                           </h3>
                         </div>
 
                         <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#10B981] text-white self-start sm:self-auto shadow-xs">
-                          Best Match
+                          {isTa ? 'சிறந்த தேர்வு' : 'Best Match'}
                         </span>
                       </div>
 
@@ -737,16 +715,18 @@ export const OnboardingView: React.FC = () => {
                       <div className="p-3.5 rounded-btn bg-[#F8FAFC] border border-[#E2E8F0] text-xs space-y-1.5">
                         <div className="font-bold text-[#173B67] flex items-center gap-1.5">
                           <HelpCircle className="w-4 h-4 text-[#62B6E8]" />
-                          <span>Why this recommendation?</span>
+                          <span>{isTa ? 'ஏன் இந்த பரிந்துரை?' : 'Why this recommendation?'}</span>
                         </div>
                         <p className="text-[#526174] leading-relaxed">
-                          Tailored for <span className="font-semibold text-[#173B67]">{learnerName || 'you'}</span> with <span className="font-semibold text-[#173B67]">{dailyMinutes} mins/day</span> availability and a primary interest in <span className="font-semibold text-[#173B67]">{workPreference}</span> work. Aligns directly with {rec.targetRoles.join(', ')}.
+                          {isTa
+                            ? `${learnerTamilName || learnerName || 'உங்களுக்கு'} தினசரி ${dailyMinutes} நிமிடக் கற்றல் நேரத்திற்கும் உங்கள் பணி விருப்பத்திற்கும் ஏற்ப வடிவமைக்கப்பட்டது.`
+                            : `Tailored for ${learnerName || 'you'} with ${dailyMinutes} mins/day availability and a primary interest in ${workPreference} work. Aligns directly with ${rec.targetRoles.join(', ')}.`}
                         </p>
                       </div>
 
                       {/* Target Roles */}
                       <div className="flex flex-wrap items-center gap-2 pt-1">
-                        <span className="text-[11px] font-bold text-[#526174] uppercase">Target Jobs:</span>
+                        <span className="text-[11px] font-bold text-[#526174] uppercase">{isTa ? 'இலக்கு பணிகள்:' : 'Target Jobs:'}</span>
                         {rec.targetRoles.map((role, rIdx) => (
                           <span
                             key={rIdx}
@@ -763,7 +743,7 @@ export const OnboardingView: React.FC = () => {
                 {/* 2 Alternative Pathways */}
                 <div>
                   <div className="text-xs font-bold text-[#173B67] uppercase tracking-wider mb-2">
-                    Or Choose an Alternative Track:
+                    {isTa ? 'அல்லது மாற்று வழித்தடத்தை தேர்வு செய்யவும்:' : 'Or Choose an Alternative Track:'}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {pathways
@@ -780,11 +760,12 @@ export const OnboardingView: React.FC = () => {
                               {alt.category}
                             </span>
                             <span className="text-xs text-[#173B67] font-bold">
-                              Switch Track →
+                              {isTa ? 'மாற்று வழித்தடம் →' : 'Switch Track →'}
                             </span>
                           </div>
-                          <div className="font-bold text-sm text-[#173B67]">{alt.title}</div>
-                          <div className="font-tamil text-[11px] text-[#526174]">{alt.titleTamil}</div>
+                          <div className="font-bold text-sm text-[#173B67]">
+                            {isTa ? (alt.titleTamil || alt.title) : alt.title}
+                          </div>
                           <p className="text-[11px] text-[#526174] mt-1.5 line-clamp-2">{alt.tagline}</p>
                         </div>
                       ))}
@@ -797,7 +778,7 @@ export const OnboardingView: React.FC = () => {
                     onClick={handleFinishOnboarding}
                     className="w-full py-3.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] font-extrabold text-sm shadow-soft flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
-                    <span>Start My Adaptive Pathway</span>
+                    <span>{isTa ? 'எனது தனிப்பயன் கற்றல் பயணத்தைத் தொடங்கு' : 'Start My Adaptive Pathway'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -816,7 +797,7 @@ export const OnboardingView: React.FC = () => {
                 className="px-4 py-2 rounded-btn border border-[#E2E8F0] text-xs font-semibold text-[#526174] hover:text-[#173B67] hover:bg-[#F8FAFC] flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Back</span>
+                <span>{isTa ? 'பின்செல்' : 'Back'}</span>
               </button>
             ) : (
               <div />
@@ -827,7 +808,7 @@ export const OnboardingView: React.FC = () => {
               onClick={handleNextStep}
               className="px-6 py-2.5 rounded-btn bg-[#62B6E8] hover:bg-[#4ea8dc] text-[#173B67] text-xs font-bold shadow-soft flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span>{step === 5 ? 'Generate My AI Pathway' : 'Continue'}</span>
+              <span>{step === 5 ? (isTa ? 'எனது AI வழித்தடத்தை உருவாக்கு' : 'Generate My AI Pathway') : (isTa ? 'தொடர்க' : 'Continue')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -838,10 +819,12 @@ export const OnboardingView: React.FC = () => {
       <div className="p-4 rounded-card bg-[#F8FAFC] border border-[#E2E8F0] text-center">
         <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#173B67]">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>No login. No phone number. Stored only on your device.</span>
+          <span>{isTa ? 'உள்நுழைவு தேவையில்லை. தொலைபேசி எண் தேவையில்லை. உங்கள் சாதனத்தில் மட்டுமே சேமிக்கப்படுகிறது.' : 'No login. No phone number. Stored only on your device.'}</span>
         </div>
         <p className="text-[11px] text-[#526174] mt-0.5">
-          Your answers remain private in browser localStorage. You can reset or change your preferences at any time.
+          {isTa
+            ? 'உங்கள் பதில்கள் உலாவியில் மட்டுமே தனிப்பட்ட முறையில் சேமிக்கப்படும். எந்த நேரத்திலும் உங்கள் விருப்பங்களை மீட்டமைக்கலாம்.'
+            : 'Your answers remain private in browser localStorage. You can reset or change your preferences at any time.'}
         </p>
       </div>
 

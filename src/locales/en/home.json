@@ -1,0 +1,150 @@
+{
+  "hero": {
+    "eyebrow": "CIVIC · SKILLS PLATFORM",
+    "headline1": "Learn a skill.",
+    "headline2": "Prove it. Unlock the next step.",
+    "subtext": "The AI Skill-to-Opportunity engine bridging academic and vocational talent across Tamil Nadu. Identify precise skill gaps, practice adaptively, prove competence through verifiable code and craft inspections, and match verified opportunities.",
+    "whatDoYouWant": "What do you want to become?",
+    "startJourney": "Start my journey",
+    "tryJd": "Try the JD analyser",
+    "trustLine": "No login needed · No personal data · Works completely offline or with live AI"
+  },
+  "roles": {
+    "webDev": "Web developer",
+    "tailor": "Tailor",
+    "electrician": "Electrician",
+    "dataAnalyst": "Data analyst",
+    "designer": "Designer",
+    "solarTech": "Solar Technician",
+    "autoMechanic": "Automobile Mechanic"
+  },
+  "howItWorks": {
+    "eyebrow": "The Skill-to-Opportunity Engine",
+    "title": "How It Works",
+    "subtitle": "From initial aspirations to verified employment through real, evidence-backed milestones.",
+    "step1Title": "Understand Learner",
+    "step1Summary": "Captures your daily time commitment (30-90 mins), local district preference, and baseline skills without tedious logins.",
+    "step2Title": "Detect Gaps",
+    "step2Summary": "Parses live employer job descriptions with Claude AI to extract exact rubric criteria and diagnostic skill deltas.",
+    "step3Title": "Adaptive Roadmap",
+    "step3Summary": "Dynamically reorders modules and generates micro-challenges focused strictly on bridging detected skill gaps.",
+    "step4Title": "Prove Skills with Real Work",
+    "step4Summary": "Submit reproducible code, photo inspections of physical craft, and bilingual voice vivas graded against strict rubrics.",
+    "step5Title": "Match Opportunities",
+    "step5Summary": "Direct matching with verified district jobs, MSME boutique contracts, and Govt NATS apprenticeships backed by your QR Passport."
+  },
+  "cycle": {
+    "eyebrow": "Continuously Adaptive Learning Loop",
+    "title": "The Proof-to-Progress Cycle",
+    "subtitle": "Click any stage of the cycle to see how learning continuously verifies ability and adapts to employer expectations.",
+    "stages": {
+      "identify": "1. Identify",
+      "learn": "2. Learn & Practise",
+      "prove": "3. Prove",
+      "adapt": "4. Adapt"
+    },
+    "details": {
+      "identifyTitle": "1. Identify",
+      "identifyDesc": "Benchmark your starting point. Unassessed skills stay strictly neutral (\"Not assessed\"). Real job requirements are extracted automatically.",
+      "identifyAction": "Run JD Analyser",
+      "learnTitle": "2. Learn & Practise",
+      "learnDesc": "Micro-modules adapted to your daily time. Practice hands-on with real craft and code swatches.",
+      "learnAction": "View Roadmap",
+      "proveTitle": "3. Prove",
+      "proveDesc": "Upload code repositories, take photo reviews with measuring tape/coins, and explain concepts in natural voice viva.",
+      "proveAction": "Take Proof Challenge",
+      "adaptTitle": "4. Adapt",
+      "adaptDesc": "The AI re-indexes your pathway based on rubric feedback and upgrades your Skill Passport for direct workplace hiring.",
+      "adaptAction": "Check Readiness"
+    }
+  },
+  "beyondMcq": {
+    "eyebrow": "Beyond Basic MCQ Tests",
+    "title": "Built for Real-World Competence",
+    "subtitle": "Multiple-choice tests don't prove you can build accessible websites or tailor bridal garments. SkillBridge evaluates genuine ability.",
+    "cards": {
+      "jdGap": {
+        "title": "JD Gap Analysis",
+        "desc": "Compares your actual verified portfolio against real job descriptions using strict AI parsing—not a generic course syllabus.",
+        "badge": "Zero Fluff"
+      },
+      "photoTrade": {
+        "title": "Photo Evidence for Trades",
+        "desc": "Computer vision and rubric models inspect stitch density (10 SPI), seam margins, and wire conduits from your phone camera.",
+        "badge": "Vocational First"
+      },
+      "aiViva": {
+        "title": "AI Viva & Voice Defense",
+        "desc": "Answer conversational questions in natural language. Defend your code choices or craft decisions without written exam stress.",
+        "badge": "Oral Mastery"
+      },
+      "voiceTamil": {
+        "title": "Bilingual Voice Support",
+        "desc": "Rural and local learners explain technical ideas freely in their mother tongue. Language is never a barrier.",
+        "badge": "Accessible Civic"
+      },
+      "skillPassport": {
+        "title": "Skill Passport with QR",
+        "desc": "Cryptographically verifiable digital credential with live proof links and rubrics that employers can inspect in one scan.",
+        "badge": "Tamper Evident"
+      },
+      "mentorSeal": {
+        "title": "Mentor Verification Seal",
+        "desc": "Transparent multi-tier trust: AI-reviewed, Mentor-verified, and Pending mentor review. Transparent and honest.",
+        "badge": "Dual Trust"
+      }
+    }
+  },
+  "personas": {
+    "eyebrow": "Explore Personas",
+    "title": "Meet Our Learners",
+    "subtitle": "Real students and vocational practitioners proving skill competence across Tamil Nadu.",
+    "sampleStory": "Sample Story",
+    "activeProfile": "Active Profile",
+    "testProfile": "Test This Profile"
+  },
+  "cta": {
+    "title": "Ready to prove your skills and unlock opportunities?",
+    "subtitle": "Join thousands of academic and vocational learners across Tamil Nadu turning hands-on ability into verifiable careers.",
+    "startFree": "Create Free Account (or Start Free)",
+    "tryJdDemo": "Try JD Analyser Demo",
+    "trustLine": "100% Free for Learners · Zero personal data collection · Open Civic Initiative"
+  },
+  "footer": {
+    "col1Title": "Learn & Prove",
+    "col1Links": {
+      "roadmaps": "Adaptive Roadmaps",
+      "challenges": "Code Challenges",
+      "photoInspection": "Photo Inspection",
+      "oralViva": "Oral Viva Defense",
+      "passports": "Skill Passports"
+    },
+    "col2Title": "Verified Work",
+    "col2Links": {
+      "jdAnalysis": "JD Gap Analysis",
+      "opportunities": "District Opportunities",
+      "boutiques": "Boutique Contracts",
+      "nats": "NATS Apprenticeship",
+      "resume": "Verified 1-Page Resume"
+    },
+    "col3Title": "Civic Network",
+    "col3Links": {
+      "institutionHub": "Institutional Hub",
+      "districtMaps": "District Skill Maps",
+      "lowData": "Low-Data Mode",
+      "offlineEngine": "Offline-First Engine",
+      "zeroTracking": "Zero-Tracking Civic Tech"
+    },
+    "col4Title": "Tamil Nadu Heritage & Focus",
+    "col4Links": {
+      "kanchipuram": "Kanchipuram Silk Weave",
+      "swamimalai": "Swamimalai Bronze Craft",
+      "salem": "Salem White Silk Craft",
+      "tiruppur": "Tiruppur Knitwear Trade",
+      "madurai": "Madurai Sungudi Craft"
+    },
+    "copyright": "SkillBridge AI · Civic Skill & Opportunity Initiative for Tamil Nadu",
+    "craftedFor": "Crafted for Academic & Vocational Learners across all 38 districts",
+    "privacy": "Zero Personal Tracking · Open Source Civic Technology · MIT License"
+  }
+}

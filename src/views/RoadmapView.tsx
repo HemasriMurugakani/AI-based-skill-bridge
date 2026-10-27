@@ -271,32 +271,37 @@ export const RoadmapView: React.FC = () => {
     ]);
   };
 
-  return (
+    const { i18n } = useTranslation();
+    const currentLang = i18n.language || 'en';
+    const isTa = currentLang === 'ta';
+
+    return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 1. Header & Pathway Switcher */}
       <div className="p-6 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] dark:border-slate-800 shadow-soft flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-[#62B6E8]">
-              Adaptive Learning Roadmap
+              {isTa ? 'வளரும் கற்றல் வரைபடம்' : 'Adaptive Learning Roadmap'}
             </span>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] font-semibold border border-[#BAE6FD] capitalize">
-              {currentRoadmap.category} Track
+              {currentRoadmap.category} {isTa ? 'வழித்தடம்' : 'Track'}
             </span>
             <AboutThisData
-              title="About Roadmap Adaptation"
-              description="Milestones dynamically adapt based on diagnostic quiz scores, speed of completion, and transferred foundational skills. Nodes marked transferable can be preserved when pivoting career pathways."
+              title={isTa ? 'வரைபட தகவமைப்பு பற்றி' : 'About Roadmap Adaptation'}
+              description={isTa
+                ? 'உங்கள் வினாடி வினா மதிப்பெண்கள் மற்றும் வேகத்திற்கு ஏற்ப மைல்கற்கள் தகவமைக்கப்படுகின்றன.'
+                : 'Milestones dynamically adapt based on diagnostic quiz scores, speed of completion, and transferred foundational skills. Nodes marked transferable can be preserved when pivoting career pathways.'}
             />
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-bold text-[#173B67] dark:text-white">
-            {currentRoadmap.title}
+            {isTa ? (currentRoadmap.titleTamil || currentRoadmap.title) : currentRoadmap.title}
           </h1>
-          <div className="font-tamil text-sm text-[#526174] dark:text-slate-400">
-            {currentRoadmap.titleTamil}
-          </div>
           <p className="mt-2 text-xs sm:text-sm text-[#526174] dark:text-slate-300 max-w-xl leading-relaxed">
-            A flexible skill journey adapting to your diagnostic performance. Click any milestone to open interactive guided lessons with voice read-aloud and low-bandwidth mode.
+            {isTa
+              ? 'உங்கள் தேர்வுத் திறனுக்கு ஏற்ப மாறும் திறன் வரைபடம். பாடங்களைக் காண ஏதேனும் ஒரு மைல்கல்லைத் தேர்ந்தெடுக்கவும்.'
+              : 'A flexible skill journey adapting to your diagnostic performance. Click any milestone to open interactive guided lessons with voice read-aloud and low-bandwidth mode.'}
           </p>
         </div>
 
@@ -311,7 +316,7 @@ export const RoadmapView: React.FC = () => {
                   : 'text-[#526174] dark:text-slate-300 hover:text-[#173B67]'
               }`}
             >
-              Web Dev (Academic)
+              {isTa ? 'இணையதள உருவாக்கம் (கல்வி)' : 'Web Dev (Academic)'}
             </button>
             <button
               onClick={() => setSelectedPathwayKey('tailoring-craft')}
@@ -321,7 +326,7 @@ export const RoadmapView: React.FC = () => {
                   : 'text-[#526174] dark:text-slate-300 hover:text-[#173B67]'
               }`}
             >
-              Tailoring (Vocational)
+              {isTa ? 'ஆடைத் தையல் (தொழிற்கல்வி)' : 'Tailoring (Vocational)'}
             </button>
           </div>
 
@@ -335,7 +340,7 @@ export const RoadmapView: React.FC = () => {
                 className="px-3 py-1 rounded-btn text-xs font-semibold bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD] cursor-pointer flex items-center gap-1 transition-colors"
               >
                 <Zap className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>Take CSS Quiz</span>
+                <span>{isTa ? 'CSS தேர்வு எழுதுக' : 'Take CSS Quiz'}</span>
               </button>
             )}
 
@@ -345,16 +350,16 @@ export const RoadmapView: React.FC = () => {
               className="px-3 py-1 rounded-btn text-xs font-semibold bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] cursor-pointer flex items-center gap-1 transition-colors"
             >
               <Award className="w-3.5 h-3.5 text-[#F2B66D]" />
-              <span>Finished Early</span>
+              <span>{isTa ? 'முன்னதாக முடித்தேன்' : 'Finished Early'}</span>
             </button>
 
             <button
               type="button"
               onClick={handleChangeGoal}
-              className="px-3 py-1 rounded-btn text-xs font-semibold bg-white hover:bg-[#EAF5FC] text-[#173B67] border border-[#E2E8F0] cursor-pointer flex items-center gap-1 transition-colors"
+              className="px-3 py-1 rounded-btn text-xs font-semibold bg-[#EAF5FC] hover:bg-[#D9EFFB] text-[#173B67] border border-[#BAE6FD] cursor-pointer flex items-center gap-1 transition-colors"
             >
-              <RefreshCw className="w-3.5 h-3.5 text-[#526174]" />
-              <span>Change Goal</span>
+              <RefreshCw className="w-3.5 h-3.5 text-[#62B6E8]" />
+              <span>{isTa ? 'இலக்கை மாற்றுக' : 'Change Goal'}</span>
             </button>
 
             {/* Download Lessons for Offline Button */}
@@ -366,15 +371,15 @@ export const RoadmapView: React.FC = () => {
                   ? 'bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]'
                   : 'bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] shadow-soft'
               }`}
-              title="Pre-cache roadmap modules, code prompts, and transcripts for 100% offline learning"
+              title={isTa ? 'ஆஃப்லைன் கற்றலுக்காகப் பாடங்களை சேமிக்கவும்' : 'Pre-cache roadmap modules, code prompts, and transcripts for 100% offline learning'}
             >
               <Download className="w-3.5 h-3.5" />
               <span>
                 {isLessonsDownloaded
-                  ? 'Offline Ready (4.2 MB)'
+                  ? (isTa ? 'ஆஃப்லைனில் தயார் (4.2 MB)' : 'Offline Ready (4.2 MB)')
                   : lessonsDownloadProgress > 0 && lessonsDownloadProgress < 100
-                  ? `Caching ${lessonsDownloadProgress}%...`
-                  : 'Download Lessons for Offline'}
+                  ? `${isTa ? 'பதிவிறக்கம்' : 'Caching'} ${lessonsDownloadProgress}%...`
+                  : (isTa ? 'ஆஃப்லைனுக்காக பதிவிறக்குக' : 'Download Lessons for Offline')}
               </span>
             </button>
           </div>
@@ -470,7 +475,7 @@ export const RoadmapView: React.FC = () => {
                     <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-slate-800 text-[#173B67] dark:text-[#62B6E8] uppercase tracking-wide border border-[#BAE6FD] dark:border-slate-700">
-                          Station {milestone.stepNumber < 10 ? `0${milestone.stepNumber}` : milestone.stepNumber}
+                          {isTa ? 'நிலை' : 'Station'} {milestone.stepNumber < 10 ? `0${milestone.stepNumber}` : milestone.stepNumber}
                         </span>
                         <span className="text-[10px] font-semibold text-[#526174] dark:text-slate-400 flex items-center gap-1">
                           <Clock className="w-3 h-3 text-[#526174]" />
@@ -481,24 +486,21 @@ export const RoadmapView: React.FC = () => {
                       <div className="flex items-center gap-1">
                         {isNewlyAdded && (
                           <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#EF4444] text-white animate-pulse">
-                            ⚡ Just Added
+                            {isTa ? '⚡ இப்போது சேர்க்கப்பட்டது' : '⚡ Just Added'}
                           </span>
                         )}
 
                         {milestone.transferable && (
                           <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
-                            Transferable
+                            {isTa ? 'பரிமாற்றக்கூடியது' : 'Transferable'}
                           </span>
                         )}
                       </div>
                     </div>
 
                     <h3 className="text-base font-bold text-[#173B67] dark:text-white group-hover:text-[#62B6E8] transition-colors">
-                      {milestone.title}
+                      {isTa ? (milestone.titleTamil || milestone.title) : milestone.title}
                     </h3>
-                    <div className="font-tamil text-xs text-[#526174] dark:text-slate-400 mt-0.5">
-                      {milestone.titleTamil}
-                    </div>
 
                     <p className="mt-2 text-xs text-[#526174] dark:text-slate-300 leading-relaxed">
                       {milestone.activity}
@@ -506,7 +508,7 @@ export const RoadmapView: React.FC = () => {
 
                     {/* "Why this step" evidence line */}
                     <div className="mt-3 p-2.5 rounded-btn bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 text-[11px] leading-snug">
-                      <span className="font-bold text-[#173B67] dark:text-[#62B6E8]">Why this step: </span>
+                      <span className="font-bold text-[#173B67] dark:text-[#62B6E8]">{isTa ? 'ஏன் இந்த படி: ' : 'Why this step: '}</span>
                       <span className="text-[#526174] dark:text-slate-300">{milestone.whyThisStep}</span>
                     </div>
 
@@ -524,33 +526,33 @@ export const RoadmapView: React.FC = () => {
                         {isCompleted ? (
                           <span className="text-[#065F46] dark:text-[#10B981] flex items-center gap-1">
                             <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
-                            Completed ({milestone.score}%)
+                            {isTa ? 'முடிந்தது' : 'Completed'} ({milestone.score}%)
                           </span>
                         ) : isRemedial ? (
                           <span className="text-[#DC2626] dark:text-[#F87171] font-semibold flex items-center gap-1">
                             <Zap className="w-3.5 h-3.5" />
-                            Adaptive Practice Node
+                            {isTa ? 'தகவமைப்பு பயிற்சி நிலை' : 'Adaptive Practice Node'}
                           </span>
                         ) : isStretch ? (
                           <span className="text-[#B45309] dark:text-[#F2B66D] font-semibold flex items-center gap-1">
                             <Award className="w-3.5 h-3.5" />
-                            Bonus Stretch Station
+                            {isTa ? 'கூடுதல் சிறப்பு நிலை' : 'Bonus Stretch Station'}
                           </span>
                         ) : isCurrent ? (
                           <span className="text-[#173B67] dark:text-[#62B6E8] font-semibold flex items-center gap-1">
                             <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
-                            Current Focus Station
+                            {isTa ? 'தற்போதைய கவனம் நிலை' : 'Current Focus Station'}
                           </span>
                         ) : (
                           <span className="text-[#526174] dark:text-slate-400 flex items-center gap-1">
                             <Lock className="w-3.5 h-3.5" />
-                            Locked
+                            {isTa ? 'பூட்டப்பட்டுள்ளது' : 'Locked'}
                           </span>
                         )}
                       </span>
 
                       <span className="text-[#173B67] dark:text-[#62B6E8] font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-0.5">
-                        <span>Open Lesson</span>
+                        <span>{isTa ? 'பாடம் திறக்க' : 'Open Lesson'}</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </span>
                     </div>

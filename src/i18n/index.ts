@@ -8,6 +8,7 @@ import enCoach from '../locales/en/coach.json';
 import enCommon from '../locales/en/common.json';
 import enErrors from '../locales/en/errors.json';
 import enGapAnalysis from '../locales/en/gapAnalysis.json';
+import enHome from '../locales/en/home.json';
 import enOnboarding from '../locales/en/onboarding.json';
 import enOpportunities from '../locales/en/opportunities.json';
 import enPassport from '../locales/en/passport.json';
@@ -23,6 +24,7 @@ import taCoach from '../locales/ta/coach.json';
 import taCommon from '../locales/ta/common.json';
 import taErrors from '../locales/ta/errors.json';
 import taGapAnalysis from '../locales/ta/gapAnalysis.json';
+import taHome from '../locales/ta/home.json';
 import taOnboarding from '../locales/ta/onboarding.json';
 import taOpportunities from '../locales/ta/opportunities.json';
 import taPassport from '../locales/ta/passport.json';
@@ -38,6 +40,7 @@ import frCoach from '../locales/fr/coach.json';
 import frCommon from '../locales/fr/common.json';
 import frErrors from '../locales/fr/errors.json';
 import frGapAnalysis from '../locales/fr/gapAnalysis.json';
+import frHome from '../locales/fr/home.json';
 import frOnboarding from '../locales/fr/onboarding.json';
 import frOpportunities from '../locales/fr/opportunities.json';
 import frPassport from '../locales/fr/passport.json';
@@ -53,6 +56,7 @@ import hiCoach from '../locales/hi/coach.json';
 import hiCommon from '../locales/hi/common.json';
 import hiErrors from '../locales/hi/errors.json';
 import hiGapAnalysis from '../locales/hi/gapAnalysis.json';
+import hiHome from '../locales/hi/home.json';
 import hiOnboarding from '../locales/hi/onboarding.json';
 import hiOpportunities from '../locales/hi/opportunities.json';
 import hiPassport from '../locales/hi/passport.json';
@@ -65,6 +69,7 @@ import hiStreaks from '../locales/hi/streaks.json';
 export const resources = {
   en: {
     common: enCommon,
+    home: enHome,
     challenges: enChallenges,
     coach: enCoach,
     errors: enErrors,
@@ -81,6 +86,7 @@ export const resources = {
   },
   ta: {
     common: taCommon,
+    home: taHome,
     challenges: taChallenges,
     coach: taCoach,
     errors: taErrors,
@@ -97,6 +103,7 @@ export const resources = {
   },
   fr: {
     common: frCommon,
+    home: frHome,
     challenges: frChallenges,
     coach: frCoach,
     errors: frErrors,
@@ -113,6 +120,7 @@ export const resources = {
   },
   hi: {
     common: hiCommon,
+    home: hiHome,
     challenges: hiChallenges,
     coach: hiCoach,
     errors: hiErrors,
@@ -176,6 +184,7 @@ i18n
     fallbackLng: 'en',
     ns: [
       'common',
+      'home',
       'challenges',
       'coach',
       'errors',

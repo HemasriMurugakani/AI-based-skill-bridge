@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   districtOverviews,
   heatmapCohortGroups,
@@ -29,6 +30,9 @@ import {
 } from 'lucide-react';
 
 export const InstitutionView: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  const isTa = i18n.language === 'ta';
+
   // 1. District Filter State
   const [selectedDistrictKey, setSelectedDistrictKey] = useState<string>('all');
 
@@ -130,16 +134,13 @@ export const InstitutionView: React.FC = () => {
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-deepblue-950 text-[#173B67] dark:text-sky-300 border border-[#62B6E8]/30 text-xs font-bold flex items-center gap-1">
                 <Building2 className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>College & Skill Mission Portal</span>
+                <span>{isTa ? 'கல்லூரி & திறன் திட்ட தளம்' : 'College & Skill Mission Portal'}</span>
               </span>
             </div>
 
             <h1 className="text-xl sm:text-2xl font-extrabold text-[#173B67] dark:text-white">
-              Institutional Cohort Governance & Interventions
+              {isTa ? 'கல்லூரி மற்றும் மாவட்ட அளவிலான மாணவர்கள் முன்னேற்ற கண்காணிப்பு தளம்' : 'Institutional Cohort Governance & Interventions'}
             </h1>
-            <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
-              கல்லூரி மற்றும் மாவட்ட அளவிலான மாணவர்கள் முன்னேற்ற கண்காணிப்பு தளம்
-            </div>
           </div>
 
           {/* District Filter & CSV Export Controls */}
@@ -262,15 +263,12 @@ export const InstitutionView: React.FC = () => {
           <div>
             <h2 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-night-ink flex items-center gap-2">
               <Layers className="w-5 h-5 text-[#173B67] dark:text-sky-300" />
-              <span>Drop-Off Funnel by Roadmap Milestone</span>
+              <span>{isTa ? 'மைல்கல் வாரியான மாணவர்கள் தொடர்ச்சி மற்றும் இடைவெளி பகுப்பாய்வு' : 'Drop-Off Funnel by Roadmap Milestone'}</span>
             </h2>
-            <div className="text-xs text-[#526174] font-tamil">
-              மைல்கல் வாரியான மாணவர்கள் தொடர்ச்சி மற்றும் இடைவெளி பகுப்பாய்வு
-            </div>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] dark:border-night-border">
-              Demo data
+              {isTa ? 'மாதிரி தரவு' : 'Demo data'}
             </span>
           </div>
         </div>
@@ -292,10 +290,7 @@ export const InstitutionView: React.FC = () => {
                     </span>
                     <div>
                       <span className="font-bold text-xs sm:text-sm text-[#173B67] dark:text-night-ink">
-                        {stage.stageName}
-                      </span>
-                      <span className="font-tamil text-xs text-[#526174] ml-2">
-                        {stage.stageNameTamil}
+                        {isTa ? (stage.stageNameTamil || stage.stageName) : stage.stageName}
                       </span>
                     </div>
                   </div>
@@ -349,26 +344,23 @@ export const InstitutionView: React.FC = () => {
           <div>
             <h2 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-night-ink flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-[#62B6E8] dark:text-sky-300" />
-              <span>Skill-Gap Heatmap (Skills × Cohort Groups)</span>
+              <span>{isTa ? 'திறன் வாரியான தேர்ச்சி மற்றும் இடைவெளி வெப்ப வரைபடம்' : 'Skill-Gap Heatmap (Skills × Cohort Groups)'}</span>
             </h2>
-            <div className="text-xs text-[#526174] font-tamil">
-              திறன் வாரியான தேர்ச்சி மற்றும் இடைவெளி வெப்ப வரைபடம்
-            </div>
           </div>
 
           {/* Legend */}
           <div className="flex items-center gap-3 text-xs">
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-emerald-600" />
-              <span className="text-[11px] text-[#526174]">Strong (≥75%)</span>
+              <span className="text-[11px] text-[#526174]">{isTa ? 'வலுவானது (≥75%)' : 'Strong (≥75%)'}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-[#F2B66D]" />
-              <span className="text-[11px] text-[#526174]">Moderate (60-74%)</span>
+              <span className="text-[11px] text-[#526174]">{isTa ? 'மிதமானது (60-74%)' : 'Moderate (60-74%)'}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-rose-600" />
-              <span className="text-[11px] text-[#526174]">Skill Gap (&lt;60%)</span>
+              <span className="text-[11px] text-[#526174]">{isTa ? 'இடைவெளி (<60%)' : 'Skill Gap (<60%)'}</span>
             </span>
           </div>
         </div>
@@ -379,7 +371,7 @@ export const InstitutionView: React.FC = () => {
             <thead>
               <tr className="border-b border-[#E2E8F0] dark:border-night-border text-[#526174]">
                 <th className="p-2.5 font-bold uppercase tracking-wider text-[11px] min-w-[220px]">
-                  Competency Track & Skill
+                  {isTa ? 'திறன் & வழித்தடம்' : 'Competency Track & Skill'}
                 </th>
                 {filteredCohortGroups.map(cohort => (
                   <th
@@ -396,8 +388,9 @@ export const InstitutionView: React.FC = () => {
               {heatmapSkills.map(skill => (
                 <tr key={skill.id} className="hover:bg-[#F8FAFC] dark:hover:bg-night-100/40 transition-colors">
                   <td className="p-2.5">
-                    <div className="font-bold text-[#173B67] dark:text-night-ink">{skill.name}</div>
-                    <div className="font-tamil text-[10px] text-[#526174]">{skill.nameTamil}</div>
+                    <div className="font-bold text-[#173B67] dark:text-night-ink">
+                      {isTa ? (skill.nameTamil || skill.name) : skill.name}
+                    </div>
                     <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-md bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] dark:border-night-border">
                       {skill.track}
                     </span>
@@ -459,17 +452,14 @@ export const InstitutionView: React.FC = () => {
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-amber-600" />
               <h2 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-night-ink">
-                At-Risk Learners & Suggested Interventions ({filteredAtRiskLearners.length})
+                {isTa ? `பின்தங்கிய மாணவர்கள் & மேம்பாட்டு பரிந்துரைகள் (${filteredAtRiskLearners.length})` : `At-Risk Learners & Suggested Interventions (${filteredAtRiskLearners.length})`}
               </h2>
-            </div>
-            <div className="text-xs text-[#526174] font-tamil">
-              பின்தங்கிய மாணவர்களுக்கான வழிகாட்டல் மற்றும் மேம்பாட்டு பரிந்துரைகள்
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD] dark:border-night-border">
-              Demo data
+              {isTa ? 'மாதிரி தரவு' : 'Demo data'}
             </span>
           </div>
         </div>
@@ -478,12 +468,9 @@ export const InstitutionView: React.FC = () => {
         <div className="space-y-3 pt-1">
           {filteredAtRiskLearners.length === 0 ? (
             <EmptyState
-              title="All learners currently on track"
-              titleTamil="மாணவர்கள் அனைவரும் சீராக முன்னேறுகின்றனர்"
-              description="No at-risk learners identified for the selected district filter. Skill acquisition and viva scores are above threshold."
-              descriptionTamil="தேர்வு செய்த மாவட்ட வடிகட்டியில் பின்தங்கிய மாணவர்கள் எவருமில்லை. தேர்ச்சி நிலைகள் திருப்திகரமாக உள்ளன."
-              actionLabel="View all districts"
-              actionLabelTamil="அனைத்து மாவட்டங்களையும் காண்க"
+              title={isTa ? 'மாணவர்கள் அனைவரும் சீராக முன்னேறுகின்றனர்' : 'All learners currently on track'}
+              description={isTa ? 'தேர்வு செய்த மாவட்ட வடிகட்டியில் பின்தங்கிய மாணவர்கள் எவருமில்லை. தேர்ச்சி நிலைகள் திருப்திகரமாக உள்ளன.' : 'No at-risk learners identified for the selected district filter. Skill acquisition and viva scores are above threshold.'}
+              actionLabel={isTa ? 'அனைத்து மாவட்டங்களையும் காண்க' : 'View all districts'}
               onAction={() => setSelectedDistrictKey('all')}
             />
           ) : (
@@ -502,10 +489,7 @@ export const InstitutionView: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-bold text-sm text-[#173B67] dark:text-night-ink">
-                          {learner.name}
-                        </span>
-                        <span className="font-tamil text-xs text-[#526174]">
-                          {learner.nameTamil}
+                          {isTa ? (learner.nameTamil || learner.name) : learner.name}
                         </span>
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
@@ -514,7 +498,7 @@ export const InstitutionView: React.FC = () => {
                               : 'bg-amber-50 text-amber-900 border border-amber-200'
                           }`}
                         >
-                          {learner.riskLevel === 'high' ? 'High Risk · Stalled' : 'Moderate Risk · Gap'}
+                          {learner.riskLevel === 'high' ? (isTa ? 'அதிக ஆபத்து' : 'High Risk · Stalled') : (isTa ? 'மிதமான ஆபத்து' : 'Moderate Risk · Gap')}
                         </span>
                       </div>
                       <div className="text-[11px] text-[#526174] mt-0.5">
@@ -529,7 +513,7 @@ export const InstitutionView: React.FC = () => {
                         {learner.currentRubricScore}% Score
                       </div>
                       <div className="text-[10px] text-[#526174]">
-                        Stalled for {learner.daysStalled} days
+                        {isTa ? `${learner.daysStalled} நாட்களாக நிலுவையில்` : `Stalled for ${learner.daysStalled} days`}
                       </div>
                     </div>
                   </div>
@@ -540,11 +524,8 @@ export const InstitutionView: React.FC = () => {
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-bold text-[#173B67] dark:text-night-ink flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Stalled Milestone: {learner.stalledMilestone}</span>
+                      <span>{isTa ? 'பின்தங்கிய மைல்கல்: ' : 'Stalled Milestone: '}{isTa ? (learner.stalledMilestoneTamil || learner.stalledMilestone) : learner.stalledMilestone}</span>
                     </div>
-                    <span className="text-[10px] text-[#526174] font-tamil">
-                      {learner.stalledMilestoneTamil}
-                    </span>
                   </div>
 
                   {/* SUGGESTED INTERVENTION */}
@@ -597,13 +578,13 @@ export const InstitutionView: React.FC = () => {
             <div className="flex items-start justify-between pb-3 border-b border-[#E2E8F0] dark:border-night-border">
               <div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD] font-bold uppercase">
-                  Skill Gap Remediation Detail
+                  {isTa ? 'திறன் இடைவெளி சரிசெய்தல் விவரம்' : 'Skill Gap Remediation Detail'}
                 </span>
                 <h3 className="text-base font-bold text-[#173B67] dark:text-night-ink mt-1">
-                  {selectedHeatmapCell.skillName}
+                  {isTa ? (selectedHeatmapCell.skillNameTamil || selectedHeatmapCell.skillName) : selectedHeatmapCell.skillName}
                 </h3>
-                <div className="text-xs text-[#526174] font-tamil">
-                  {selectedHeatmapCell.skillNameTamil} • {selectedHeatmapCell.cohortName}
+                <div className="text-xs text-[#526174]">
+                  {selectedHeatmapCell.cohortName}
                 </div>
               </div>
               <button
@@ -617,26 +598,30 @@ export const InstitutionView: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="p-3 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border text-center">
-                <div className="text-[10px] uppercase font-bold text-[#526174]">Cohort Competency</div>
+                <div className="text-[10px] uppercase font-bold text-[#526174]">
+                  {isTa ? 'குழு திறன் நிலை' : 'Cohort Competency'}
+                </div>
                 <div className="font-extrabold text-2xl text-[#173B67] dark:text-sky-400">
                   {selectedHeatmapCell.score}%
                 </div>
-                <div className="text-[10px] text-[#526174]">Rubric Average</div>
+                <div className="text-[10px] text-[#526174]">{isTa ? 'ரூப்ரிக் சராசரி' : 'Rubric Average'}</div>
               </div>
 
               <div className="p-3 rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border text-center">
-                <div className="text-[10px] uppercase font-bold text-[#526174]">Affected Learners</div>
+                <div className="text-[10px] uppercase font-bold text-[#526174]">
+                  {isTa ? 'பாதிக்கப்பட்ட கற்பவர்கள்' : 'Affected Learners'}
+                </div>
                 <div className="font-extrabold text-2xl text-rose-700">
                   {selectedHeatmapCell.affectedCount}
                 </div>
-                <div className="text-[10px] text-[#526174]">Learners needing help</div>
+                <div className="text-[10px] text-[#526174]">{isTa ? 'உதவி தேவைப்படும் கற்பவர்கள்' : 'Learners needing help'}</div>
               </div>
             </div>
 
             <div className="p-3.5 rounded-card bg-[#EAF5FC] dark:bg-night-100/60 border border-[#BAE6FD] dark:border-night-border space-y-1.5">
               <div className="font-bold text-[#173B67] dark:text-sky-300 uppercase text-[11px] flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>Recommended Remediation Intervention:</span>
+                <span>{isTa ? 'பரிந்துரைக்கப்பட்ட சரிசெய்தல் நடவடிக்கை:' : 'Recommended Remediation Intervention:'}</span>
               </div>
               <p className="text-[#173B67] dark:text-night-ink leading-relaxed">
                 {selectedHeatmapCell.remediationAction}
@@ -649,18 +634,18 @@ export const InstitutionView: React.FC = () => {
                 onClick={() => setSelectedHeatmapCell(null)}
                 className="px-4 py-2 rounded-btn bg-[#F8FAFC] dark:bg-night-100 font-semibold text-[#173B67] border border-[#E2E8F0] dark:border-night-border hover:bg-[#EAF5FC]"
               >
-                Close
+                {isTa ? 'மூடு' : 'Close'}
               </button>
               <button
                 type="button"
                 onClick={() => {
-                  setToastMessage(`✓ Remediation task dispatched to ${selectedHeatmapCell.cohortName}.`);
+                  setToastMessage(isTa ? `✓ சரிசெய்தல் பணி ${selectedHeatmapCell.cohortName}-க்கு அனுப்பப்பட்டது.` : `✓ Remediation task dispatched to ${selectedHeatmapCell.cohortName}.`);
                   setSelectedHeatmapCell(null);
                   setTimeout(() => setToastMessage(null), 3500);
                 }}
                 className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold shadow-soft cursor-pointer"
               >
-                Dispatch Cohort Remediation
+                {isTa ? 'குழு சரிசெய்தலை அனுப்பு' : 'Dispatch Cohort Remediation'}
               </button>
             </div>
           </div>

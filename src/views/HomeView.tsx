@@ -1,39 +1,26 @@
 import React, { useState } from 'react';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { useTranslation } from 'react-i18next';
-import { KolamDivider } from '../components/KolamDivider';
-import { IndiaSkillsMap } from '../components/IndiaSkillsMap';
-import { LiveProofTicker } from '../components/LiveProofTicker';
 import { JdAnalyserModal } from '../components/JdAnalyserModal';
-import { SkillChip } from '../components/SkillChip';
-import { ProgressRing } from '../components/ProgressRing';
-import { BadgeMedal } from '../components/BadgeMedal';
 import { StatusPill } from '../components/StatusPill';
 import { TrustLabel } from '../components/TrustLabel';
+import { IndiaSkillsMap } from '../components/IndiaSkillsMap';
+import { LiveProofTicker } from '../components/LiveProofTicker';
 import {
-  ArrowRight,
-  Sparkles,
-  Flame,
-  Award,
-  ShieldCheck,
-  CheckCircle2,
-  Users,
   Compass,
-  FileCheck2,
+  Search,
   Camera,
   Mic,
-  Code,
-  Layers,
-  Search,
-  ExternalLink,
-  ChevronRight,
-  TrendingUp,
-  MapPin,
-  Clock,
+  Award,
+  ArrowRight,
+  ShieldCheck,
+  Sparkles,
+  Users,
   Briefcase,
-  UserCheck,
-  Info,
-  Check
+  FileCheck2,
+  CheckCircle2,
+  Lock,
+  Code
 } from 'lucide-react';
 
 export const HomeView: React.FC = () => {
@@ -41,139 +28,40 @@ export const HomeView: React.FC = () => {
     getPersona,
     getCurrentPathway,
     setActiveTab,
-    badges,
     personas,
-    setPersona,
-    pathways
+    setPersona
   } = useSkillBridgeStore();
 
   const { t, i18n } = useTranslation();
   const currentPersona = getPersona();
   const pathway = getCurrentPathway();
+  const currentLang = i18n.language || 'en';
+  const isTa = currentLang === 'ta';
 
   const [isJdModalOpen, setIsJdModalOpen] = useState(false);
-  const [selectedRolePill, setSelectedRolePill] = useState('Web developer');
+  const [selectedRolePill, setSelectedRolePill] = useState('webDev');
   const [activePipelineStep, setActivePipelineStep] = useState(1);
   const [activeLoopStep, setActiveLoopStep] = useState<'identify' | 'learn' | 'prove' | 'adapt'>('identify');
 
   const rolePills = [
-    { title: 'Web developer', id: 'junior-web-dev', category: 'academic' },
-    { title: 'Tailor', id: 'tailoring-craft', category: 'vocational' },
-    { title: 'Electrician', id: 'electrician-trade', category: 'vocational' },
-    { title: 'Data analyst', id: 'data-analyst', category: 'academic' },
-    { title: 'Designer', id: 'ui-design', category: 'academic' },
-    { title: 'Solar Technician', id: 'solar-tech', category: 'vocational' },
-    { title: 'Automobile Mechanic', id: 'auto-mechanic', category: 'vocational' },
+    { key: 'webDev', id: 'junior-web-dev', category: 'academic' },
+    { key: 'tailor', id: 'tailoring-craft', category: 'vocational' },
+    { key: 'electrician', id: 'electrician-trade', category: 'vocational' },
+    { key: 'dataAnalyst', id: 'data-analyst', category: 'academic' },
+    { key: 'designer', id: 'ui-design', category: 'academic' },
+    { key: 'solarTech', id: 'solar-tech', category: 'vocational' },
+    { key: 'autoMechanic', id: 'auto-mechanic', category: 'vocational' },
   ];
 
-  const pipelineSteps = [
-    {
-      step: 1,
-      title: 'Understand Learner',
-      titleTamil: 'கற்பவரின் நோக்கத்தை அறிதல்',
-      summary: 'Captures your daily time commitment (30-90 mins), local district preference, and baseline skills without tedious logins.',
-      icon: Users
-    },
-    {
-      step: 2,
-      title: 'Detect Gaps',
-      titleTamil: 'திறன் இடைவெளிகளைக் கண்டறிதல்',
-      summary: 'Parses live employer job descriptions with Claude AI to extract exact rubric criteria and diagnostic skill deltas.',
-      icon: Search
-    },
-    {
-      step: 3,
-      title: 'Adaptive Roadmap',
-      titleTamil: 'மாறும் வழிகாட்டி வரைபடம்',
-      summary: 'Dynamically reorders modules and generates micro-challenges focused strictly on bridging detected skill gaps.',
-      icon: Compass
-    },
-    {
-      step: 4,
-      title: 'Prove Skills with Real Work',
-      titleTamil: 'நடைமுறை சான்றுகளுடன் நிரூபித்தல்',
-      summary: 'Submit reproducible code, photo inspections of physical craft, and bilingual voice vivas graded against strict rubrics.',
-      icon: Camera
-    },
-    {
-      step: 5,
-      title: 'Match Opportunities',
-      titleTamil: 'நல்வாய்ப்புகளுடன் இணைத்தல்',
-      summary: 'Direct matching with verified district jobs, MSME boutique contracts, and Govt NATS apprenticeships backed by your QR Passport.',
-      icon: Briefcase
-    }
-  ];
+  const pipelineIcons = [Users, Search, Compass, Camera, Briefcase];
 
-  const loopDetails = {
-    identify: {
-      title: '1. Identify (அறி)',
-      desc: 'Benchmark your starting point. Unassessed skills stay strictly neutral ("Not assessed"). Real job requirements are extracted automatically.',
-      color: 'text-[#173B67] dark:text-sky-300',
-      action: 'Run JD Analyser'
-    },
-    learn: {
-      title: '2. Learn & Practise (பயில்)',
-      desc: 'Micro-modules adapted to your daily time. Practice hands-on with real craft and code swatches.',
-      color: 'text-[#173B67] dark:text-sky-300',
-      action: 'View Roadmap'
-    },
-    prove: {
-      title: '3. Prove (நிரூபி)',
-      desc: 'Upload code repositories, take photo reviews with measuring tape/coins, and explain concepts in Tamil or English voice viva.',
-      color: 'text-[#10B981] dark:text-emerald-400',
-      action: 'Take Proof Challenge'
-    },
-    adapt: {
-      title: '4. Adapt (உயர்)',
-      desc: 'The AI re-indexes your pathway based on rubric feedback and upgrades your Skill Passport for direct workplace hiring.',
-      color: 'text-[#173B67] dark:text-sky-300',
-      action: 'Check Readiness'
-    }
-  };
-
-  const beyondCards = [
-    {
-      title: 'JD Gap Analysis',
-      titleTamil: 'வேலை விவர இடைவெளி பகுப்பாய்வு',
-      desc: 'Compares your actual verified portfolio against real job descriptions using strict AI parsing—not a generic course syllabus.',
-      icon: Search,
-      badge: 'Zero Fluff'
-    },
-    {
-      title: 'Photo Evidence for Trades',
-      titleTamil: 'தொழில்முறை புகைப்பட சான்றுகள்',
-      desc: 'Computer vision and rubric models inspect stitch density (10 SPI), seam margins, and wire conduits from your phone camera.',
-      icon: Camera,
-      badge: 'Vocational First'
-    },
-    {
-      title: 'AI Viva & Voice Defense',
-      titleTamil: 'AI வாய்மொழித் தேர்வு முறை',
-      desc: 'Answer conversational questions in natural language. Defend your code choices or craft decisions without written exam stress.',
-      icon: Mic,
-      badge: 'Oral Mastery'
-    },
-    {
-      title: 'Voice & Nuance in Tamil',
-      titleTamil: 'தமிழ் மற்றும் தங்கிலீஷ் ஆதரவு',
-      desc: 'Rural and local learners explain technical ideas freely in Tamil (தூய தமிழ் அல்லது தங்கிலீஷ்). Language is never a barrier.',
-      icon: Sparkles,
-      badge: 'Bilingual Civic'
-    },
-    {
-      title: 'Skill Passport with QR',
-      titleTamil: 'QR குறியீட்டுடன் கூடிய கடவுச்சீட்டு',
-      desc: 'Cryptographically verifiable digital credential with live proof links and rubrics that employers can inspect in one scan.',
-      icon: FileCheck2,
-      badge: 'Tamper Evident'
-    },
-    {
-      title: 'Mentor Verification Seal',
-      titleTamil: 'வழிகாட்டி மற்றும் நிபுணர் சான்றளிப்பு',
-      desc: 'Transparent multi-tier trust: AI-reviewed, Mentor-verified, and Pending mentor review. Transparent and honest.',
-      icon: ShieldCheck,
-      badge: 'Dual Trust'
-    }
+  const beyondCardConfigs = [
+    { key: 'jdGap' as const, icon: Search },
+    { key: 'photoTrade' as const, icon: Camera },
+    { key: 'aiViva' as const, icon: Mic },
+    { key: 'voiceTamil' as const, icon: Sparkles },
+    { key: 'skillPassport' as const, icon: FileCheck2 },
+    { key: 'mentorSeal' as const, icon: ShieldCheck },
   ];
 
   return (
@@ -193,17 +81,17 @@ export const HomeView: React.FC = () => {
             {/* Small Eyebrow */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5FC] dark:bg-deepblue-950/70 text-[#173B67] dark:text-sky-200 border border-[#62B6E8]/40 text-xs font-extrabold uppercase tracking-widest shadow-xs">
               <span className="w-2 h-2 rounded-full bg-[#62B6E8] animate-pulse" />
-              <span>CIVIC · SKILLS PLATFORM</span>
+              <span>{t('home:hero.eyebrow')}</span>
             </div>
 
             {/* Localized Proverb / Motto (Single Language Display) */}
             <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-night-100/80 border border-sky-100 dark:border-night-border/70 shadow-soft">
               <div className="text-sm sm:text-base font-bold text-[#173B67] dark:text-sky-200">
-                {i18n.language === 'ta'
+                {currentLang === 'ta'
                   ? '"கற்றது கை மண் அளவு, கல்லாதது உலகளவு"'
-                  : i18n.language === 'fr'
+                  : currentLang === 'fr'
                   ? '"Ce que l\'on sait est une poignée de sable, ce que l\'on ignore est de la taille du monde."'
-                  : i18n.language === 'hi'
+                  : currentLang === 'hi'
                   ? '"जो हमने सीखा वह मुट्ठी भर रेत है; जो नहीं सीखा वह पूरे संसार के बराबर है।"'
                   : '"What you have learned is a mere handful of sand; what you haven\'t learned is the size of the world."'}
               </div>
@@ -214,37 +102,37 @@ export const HomeView: React.FC = () => {
 
             {/* Two-Tone Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#173B67] dark:text-white leading-[1.12]">
-              Learn a skill. <br />
+              {t('home:hero.headline1')} <br />
               <span className="text-[#62B6E8]">
-                Prove it. Unlock the next step.
+                {t('home:hero.headline2')}
               </span>
             </h1>
 
             {/* Subtext */}
             <p className="text-sm sm:text-base text-[#526174] dark:text-night-muted leading-relaxed max-w-xl">
-              The AI Skill-to-Opportunity engine bridging academic and vocational talent across Tamil Nadu. Identify precise skill gaps, practice adaptively, prove competence through verifiable code and craft inspections, and match verified opportunities.
+              {t('home:hero.subtext')}
             </p>
 
             {/* "What do you want to become?" Row */}
             <div className="pt-2">
               <div className="text-xs font-bold text-[#173B67] dark:text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
                 <Compass className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>What do you want to become?</span>
+                <span>{t('home:hero.whatDoYouWant')}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {rolePills.map((pill) => {
-                  const isSelected = selectedRolePill === pill.title;
+                  const isSelected = selectedRolePill === pill.key;
                   return (
                     <button
-                      key={pill.title}
-                      onClick={() => setSelectedRolePill(pill.title)}
+                      key={pill.key}
+                      onClick={() => setSelectedRolePill(pill.key)}
                       className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-[#173B67] text-white shadow-soft ring-2 ring-[#62B6E8] scale-105'
                           : 'bg-white dark:bg-night-100 text-[#173B67] dark:text-night-ink border border-sky-100 hover:border-[#62B6E8]'
                       }`}
                     >
-                      {pill.title}
+                      {t(`home:roles.${pill.key}`)}
                     </button>
                   );
                 })}
@@ -257,7 +145,7 @@ export const HomeView: React.FC = () => {
                 onClick={() => setActiveTab('onboarding')}
                 className="px-6 py-3 rounded-full bg-[#173B67] hover:bg-[#112C4E] text-white font-bold text-sm shadow-soft flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <span>Start my journey</span>
+                <span>{t('home:hero.startJourney')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -266,14 +154,14 @@ export const HomeView: React.FC = () => {
                 className="px-5 py-3 rounded-full bg-white dark:bg-night-100 border border-sky-200 dark:border-night-border hover:border-[#62B6E8] text-[#173B67] dark:text-white font-bold text-sm flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
               >
                 <Search className="w-4 h-4 text-[#62B6E8]" />
-                <span>Try the JD analyser</span>
+                <span>{t('home:hero.tryJd')}</span>
               </button>
             </div>
 
             {/* Trust Line */}
             <div className="text-[11px] text-[#526174] dark:text-night-muted flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
-              <span>No login needed · No personal data · Works completely offline or with live AI</span>
+              <span>{t('home:hero.trustLine')}</span>
             </div>
           </div>
 
@@ -290,26 +178,26 @@ export const HomeView: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-deepblue-950/70 text-[#173B67] dark:text-sky-200 text-xs font-bold uppercase tracking-wider mb-2 border border-[#62B6E8]/30">
             <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
-            <span>The Skill-to-Opportunity Engine</span>
+            <span>{t('home:howItWorks.eyebrow')}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-            How It Works
+            {t('home:howItWorks.title')}
           </h2>
           <p className="text-xs sm:text-sm text-[#526174] dark:text-night-muted mt-1 leading-relaxed">
-            From initial aspirations to verified employment through real, evidence-backed milestones.
+            {t('home:howItWorks.subtitle')}
           </p>
         </div>
 
         {/* 5-Step Pipeline */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3 mb-10">
-          {pipelineSteps.map((step) => {
-            const Icon = step.icon;
-            const isSelected = activePipelineStep === step.step;
+          {[1, 2, 3, 4, 5].map((stepNum) => {
+            const Icon = pipelineIcons[stepNum - 1];
+            const isSelected = activePipelineStep === stepNum;
 
             return (
               <div
-                key={step.step}
-                onClick={() => setActivePipelineStep(step.step)}
+                key={stepNum}
+                onClick={() => setActivePipelineStep(stepNum)}
                 className={`p-4 rounded-3xl border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'bg-[#EAF5FC] dark:bg-night-100 border-[#62B6E8] shadow-soft ring-2 ring-[#62B6E8]/40'
@@ -319,21 +207,18 @@ export const HomeView: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="w-7 h-7 rounded-2xl bg-[#173B67] text-white font-bold text-xs flex items-center justify-center">
-                      0{step.step}
+                      0{stepNum}
                     </span>
                     <Icon className={`w-4 h-4 ${isSelected ? 'text-[#62B6E8]' : 'text-[#526174]'}`} />
                   </div>
 
-                  <h3 className="text-xs font-bold text-[#173B67] dark:text-white">
-                    {step.title}
+                  <h3 className="text-xs font-bold text-[#173B67] dark:text-white leading-snug">
+                    {t(`home:howItWorks.step${stepNum}Title`)}
                   </h3>
-                  <div className="font-tamil text-[10px] text-[#526174] dark:text-night-muted mt-0.5 line-clamp-1">
-                    {step.titleTamil}
-                  </div>
                 </div>
 
                 <p className="text-[11px] text-[#526174] dark:text-night-muted mt-2 leading-relaxed">
-                  {step.summary}
+                  {t(`home:howItWorks.step${stepNum}Summary`)}
                 </p>
               </div>
             );
@@ -345,13 +230,13 @@ export const HomeView: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="max-w-md">
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#62B6E8] dark:text-sky-400">
-                Continuously Adaptive Learning Loop
+                {t('home:cycle.eyebrow')}
               </span>
               <h3 className="text-xl font-bold text-[#173B67] dark:text-white mt-0.5">
-                The Proof-to-Progress Cycle
+                {t('home:cycle.title')}
               </h3>
               <p className="text-xs text-[#526174] dark:text-night-muted mt-1 leading-relaxed">
-                Click any stage of the cycle to see how learning continuously verifies ability and adapts to employer expectations.
+                {t('home:cycle.subtitle')}
               </p>
             </div>
 
@@ -369,7 +254,7 @@ export const HomeView: React.FC = () => {
                         : 'bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 hover:bg-[#D9EFFB]'
                     }`}
                   >
-                    {stage}
+                    {t(`home:cycle.stages.${stage}`)}
                   </button>
                 );
               })}
@@ -378,11 +263,11 @@ export const HomeView: React.FC = () => {
 
           <div className="mt-6 p-5 rounded-card bg-white dark:bg-night-100/70 border border-[#E2E8F0] dark:border-night-border/70 shadow-soft flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h4 className={`text-sm font-bold ${loopDetails[activeLoopStep].color}`}>
-                {loopDetails[activeLoopStep].title}
+              <h4 className="text-sm font-bold text-[#173B67] dark:text-sky-300">
+                {t(`home:cycle.details.${activeLoopStep}Title`)}
               </h4>
               <p className="text-xs text-[#173B67] dark:text-night-ink mt-1 max-w-2xl leading-relaxed">
-                {loopDetails[activeLoopStep].desc}
+                {t(`home:cycle.details.${activeLoopStep}Desc`)}
               </p>
             </div>
 
@@ -395,7 +280,7 @@ export const HomeView: React.FC = () => {
               }}
               className="px-4 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] text-xs font-semibold shadow-soft flex items-center gap-1.5 shrink-0 transition-transform hover:scale-105 cursor-pointer"
             >
-              <span>{loopDetails[activeLoopStep].action}</span>
+              <span>{t(`home:cycle.details.${activeLoopStep}Action`)}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -407,23 +292,23 @@ export const HomeView: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5FC] dark:bg-deepblue-950 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD] text-xs font-bold uppercase tracking-wider mb-2">
             <Award className="w-3.5 h-3.5 text-[#62B6E8]" />
-            <span>Why SkillBridge Is Different</span>
+            <span>{t('home:beyondMcq.eyebrow')}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-            Beyond Standard Courses
+            {t('home:beyondMcq.title')}
           </h2>
           <p className="text-xs sm:text-sm text-[#526174] dark:text-night-muted mt-1 leading-relaxed">
-            Most platforms give paper completion certificates. SkillBridge delivers verifiable evidence of ability that employers trust.
+            {t('home:beyondMcq.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {beyondCards.map((card, idx) => {
-            const Icon = card.icon;
+          {beyondCardConfigs.map((cfg) => {
+            const Icon = cfg.icon;
 
             return (
               <div
-                key={idx}
+                key={cfg.key}
                 className="p-5 rounded-card bg-[#F8FAFC] dark:bg-night-100/50 border border-[#E2E8F0] dark:border-night-border/70 shadow-xs hover:shadow-soft hover:border-[#62B6E8] hover:-translate-y-0.5 transition-all flex flex-col justify-between"
               >
                 <div>
@@ -432,25 +317,24 @@ export const HomeView: React.FC = () => {
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-card text-[#173B67] dark:text-sky-200 border border-[#BAE6FD] uppercase tracking-wide">
-                      {card.badge}
+                      {t(`home:beyondMcq.cards.${cfg.key}.badge`)}
                     </span>
                   </div>
 
                   <h3 className="text-base font-bold text-[#173B67] dark:text-white">
-                    {card.title}
+                    {t(`home:beyondMcq.cards.${cfg.key}.title`)}
                   </h3>
-                  <div className="font-tamil text-xs text-[#526174] dark:text-night-muted mt-0.5">
-                    {card.titleTamil}
-                  </div>
 
                   <p className="text-xs text-[#526174] dark:text-night-muted mt-2 leading-relaxed">
-                    {card.desc}
+                    {t(`home:beyondMcq.cards.${cfg.key}.desc`)}
                   </p>
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-[#E2E8F0] dark:border-night-border/50 flex items-center justify-between text-xs">
                   <TrustLabel type="evidence-badge" />
-                  <span className="font-semibold text-[#62B6E8] hover:text-[#173B67] transition-colors">Verified →</span>
+                  <span className="font-semibold text-[#62B6E8] hover:text-[#173B67] transition-colors">
+                    {t('actions.viewDetails')} →
+                  </span>
                 </div>
               </div>
             );
@@ -464,25 +348,29 @@ export const HomeView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xs font-bold uppercase tracking-wider text-[#62B6E8] dark:text-sky-400">
-                Real-World Impact
+                {t('home:personas.eyebrow')}
               </span>
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#EAF5FC] dark:bg-night-100 text-[#173B67] dark:text-sky-200 border border-[#BAE6FD] uppercase">
                 Illustrative Persona Profiles
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-              Learner Stories from Tamil Nadu
+              {t('home:personas.title')}
             </h2>
           </div>
 
           <div className="text-xs text-[#526174] max-w-xs">
-            Switch persona to test the prototype with different career trajectories and daily time limits.
+            {t('home:personas.subtitle')}
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {personas.map((p) => {
             const isCurrentActive = p.id === currentPersona.id;
+            const displayName = isTa ? p.nameTamil : p.name;
+            const displayTag = isTa && p.tagTamil ? p.tagTamil : p.tag;
+            const displayBio = isTa && p.bioTamil ? p.bioTamil : p.bio;
+            const displayLocation = isTa && p.locationTamil ? p.locationTamil : p.location;
 
             return (
               <div
@@ -497,48 +385,45 @@ export const HomeView: React.FC = () => {
                   <div className="flex items-center gap-3 mb-3">
                     <img
                       src={p.avatar}
-                      alt={p.name}
+                      alt={displayName}
                       className="w-14 h-14 rounded-2xl object-cover border-2 border-[#62B6E8] shadow-soft shrink-0"
                     />
                     <div>
                       <h3 className="text-base font-bold text-[#173B67] dark:text-white">
-                        {p.name}
+                        {displayName}
                       </h3>
-                      <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
-                        {p.nameTamil}
-                      </div>
                       <div className="text-xs text-[#62B6E8] font-bold mt-0.5">
-                        {p.tag}
+                        {displayTag}
                       </div>
                     </div>
                   </div>
 
                   <p className="text-xs text-[#526174] dark:text-night-muted leading-relaxed line-clamp-3">
-                    "{p.bio}"
+                    "{displayBio}"
                   </p>
 
                   <div className="mt-4 p-3 rounded-2xl bg-[#EAF5FC]/50 dark:bg-night-card border border-sky-100/60 text-xs space-y-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-[#526174]">District:</span>
-                      <span className="font-semibold text-[#173B67] dark:text-night-ink">{p.location.split(',')[0]}</span>
+                      <span className="font-semibold text-[#173B67] dark:text-night-ink">{displayLocation.split(',')[0]}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-[#526174]">Time available:</span>
                       <span className="font-semibold text-[#10B981]">{p.dailyTimeAvailable}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-[#526174]">Readiness:</span>
+                      <span className="text-[#526174]">{t('persona.readiness')}:</span>
                       <span className="font-bold text-[#173B67] dark:text-sky-300">{p.readinessScore}%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-[#526174]">Practice Streak:</span>
+                      <span className="text-[#526174]">{t('persona.streak')}:</span>
                       <span className="font-bold text-[#F2B66D]">{p.streakDays} Days</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-sky-100/60 dark:border-night-border/60 flex items-center justify-between">
-                  <span className="text-[10px] text-[#526174] uppercase">Sample Story</span>
+                  <span className="text-[10px] text-[#526174] uppercase">{t('home:personas.sampleStory')}</span>
                   <button
                     onClick={() => {
                       setPersona(p.id);
@@ -550,7 +435,7 @@ export const HomeView: React.FC = () => {
                         : 'bg-[#EAF5FC] dark:bg-night-card text-[#173B67] dark:text-sky-200 hover:bg-sky-100'
                     }`}
                   >
-                    <span>{isCurrentActive ? 'Active Profile' : 'Test This Profile'}</span>
+                    <span>{isCurrentActive ? t('home:personas.activeProfile') : t('home:personas.testProfile')}</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -562,27 +447,26 @@ export const HomeView: React.FC = () => {
 
       {/* 5. DARK PHOTOGRAPHIC CTA BAND */}
       <section className="relative rounded-card bg-gradient-to-br from-[#0B1C33] via-[#173B67] to-[#112C4E] text-white overflow-hidden border-2 border-[#62B6E8]/40 p-8 sm:p-12 shadow-soft">
-        {/* Sky geometric radial background */}
         <div className="absolute inset-0 bg-[radial-gradient(#62B6E8_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
           {/* Localized Quote */}
           <div className="text-sm sm:text-base text-[#F2B66D] font-semibold">
-            {i18n.language === 'ta'
+            {currentLang === 'ta'
               ? '"தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு"'
-              : i18n.language === 'fr'
+              : currentLang === 'fr'
               ? '"Comme l\'eau sourd du puits sablonneux à mesure qu\'on creuse, ainsi jaillit le savoir à mesure qu\'on apprend."'
-              : i18n.language === 'hi'
+              : currentLang === 'hi'
               ? '"जैसे-जैसे रेत का कुआं खोदा जाता है पानी निकलता है, वैसे ही सीखने से ज्ञान बढ़ता है।"'
               : '"As the sand-well yields water as deep as it is dug, so wisdom flows as deep as one learns."'}
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Ready to prove your skills and unlock opportunities?
+            {t('home:cta.title')}
           </h2>
 
           <p className="text-xs sm:text-sm text-sky-100/90 max-w-xl mx-auto leading-relaxed">
-            Join thousands of academic and vocational learners across Tamil Nadu turning hands-on ability into verifiable careers.
+            {t('home:cta.subtitle')}
           </p>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
@@ -590,19 +474,19 @@ export const HomeView: React.FC = () => {
               onClick={() => setActiveTab('onboarding')}
               className="px-6 py-3 rounded-full bg-[#F2B66D] hover:bg-[#e59f45] text-[#173B67] font-extrabold text-sm shadow-soft transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
-              Create Free Account (or Start Free)
+              {t('home:cta.startFree')}
             </button>
             <button
               onClick={() => setIsJdModalOpen(true)}
               className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-colors cursor-pointer"
             >
-              Try JD Analyser Demo
+              {t('home:cta.tryJdDemo')}
             </button>
           </div>
 
           <div className="pt-2 text-[11px] text-sky-200/80 flex items-center justify-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
-            <span>100% Free for Learners · Zero personal data collection · Open Civic Initiative</span>
+            <span>{t('home:cta.trustLine')}</span>
           </div>
         </div>
       </section>
@@ -613,56 +497,56 @@ export const HomeView: React.FC = () => {
           {/* Column 1 */}
           <div>
             <h4 className="font-bold text-[#173B67] dark:text-white uppercase tracking-wider mb-3">
-              Learn & Prove
+              {t('home:footer.col1Title')}
             </h4>
             <ul className="space-y-2">
-              <li><button onClick={() => setActiveTab('roadmap')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Adaptive Roadmaps</button></li>
-              <li><button onClick={() => setActiveTab('challenges')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Code Challenges</button></li>
-              <li><button onClick={() => setActiveTab('challenges')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Photo Proof for Crafts</button></li>
-              <li><button onClick={() => setActiveTab('coach')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Voice Viva in Tamil</button></li>
-              <li><button onClick={() => setActiveTab('skills')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Rubric Library</button></li>
+              <li><button onClick={() => setActiveTab('roadmap')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col1Links.roadmaps')}</button></li>
+              <li><button onClick={() => setActiveTab('challenges')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col1Links.challenges')}</button></li>
+              <li><button onClick={() => setActiveTab('challenges')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col1Links.photoInspection')}</button></li>
+              <li><button onClick={() => setActiveTab('coach')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col1Links.oralViva')}</button></li>
+              <li><button onClick={() => setActiveTab('passport')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col1Links.passports')}</button></li>
             </ul>
           </div>
 
           {/* Column 2 */}
           <div>
             <h4 className="font-bold text-[#173B67] dark:text-white uppercase tracking-wider mb-3">
-              Opportunities
+              {t('home:footer.col2Title')}
             </h4>
             <ul className="space-y-2">
-              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">District Job Boards</button></li>
-              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Govt NATS Apprenticeships</button></li>
-              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Rural BPO & Tailoring Hubs</button></li>
-              <li><button onClick={() => setActiveTab('passport')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Verifiable Skill Passport</button></li>
-              <li><button onClick={() => setActiveTab('readiness')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Readiness Scorecards</button></li>
+              <li><button onClick={() => setActiveTab('gap-analysis')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col2Links.jdAnalysis')}</button></li>
+              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col2Links.opportunities')}</button></li>
+              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col2Links.boutiques')}</button></li>
+              <li><button onClick={() => setActiveTab('opportunities')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col2Links.nats')}</button></li>
+              <li><button onClick={() => setActiveTab('resume')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col2Links.resume')}</button></li>
             </ul>
           </div>
 
           {/* Column 3 */}
           <div>
             <h4 className="font-bold text-[#173B67] dark:text-white uppercase tracking-wider mb-3">
-              For Employers & Mentors
+              {t('home:footer.col3Title')}
             </h4>
             <ul className="space-y-2">
-              <li><button onClick={() => setActiveTab('passport')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Instant QR Verification</button></li>
-              <li><button onClick={() => setIsJdModalOpen(true)} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">Post Role for JD Parsing</button></li>
-              <li><span className="text-slate-400">District Skill Mission Hubs</span></li>
-              <li><span className="text-slate-400">Artisan Master Sign-Off</span></li>
-              <li><span className="text-slate-400">Evidence-Based Screening</span></li>
+              <li><button onClick={() => setActiveTab('institution')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col3Links.institutionHub')}</button></li>
+              <li><button onClick={() => setActiveTab('home')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col3Links.districtMaps')}</button></li>
+              <li><button onClick={() => setActiveTab('home')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col3Links.lowData')}</button></li>
+              <li><button onClick={() => setActiveTab('home')} className="hover:text-[#62B6E8] dark:hover:text-sky-300 transition-colors">{t('home:footer.col3Links.offlineEngine')}</button></li>
+              <li><span className="text-slate-400">{t('home:footer.col3Links.zeroTracking')}</span></li>
             </ul>
           </div>
 
           {/* Column 4 */}
           <div>
             <h4 className="font-bold text-[#173B67] dark:text-white uppercase tracking-wider mb-3">
-              Explore & Heritage
+              {t('home:footer.col4Title')}
             </h4>
             <ul className="space-y-2">
-              <li><span className="font-tamil">காஞ்சிபுரம் பட்டு நெசவு</span></li>
-              <li><span className="font-tamil">சுவாமிமலை வெண்கலச் சிற்பம்</span></li>
-              <li><span className="font-tamil">சேலம் வெண்பட்டு கைவினை</span></li>
-              <li><span className="font-tamil">திருப்பூர் பின்னலாடை கலை</span></li>
-              <li><span className="font-tamil">மதுரை சுங்குடிச் சேலை</span></li>
+              <li><span>{t('home:footer.col4Links.kanchipuram')}</span></li>
+              <li><span>{t('home:footer.col4Links.swamimalai')}</span></li>
+              <li><span>{t('home:footer.col4Links.salem')}</span></li>
+              <li><span>{t('home:footer.col4Links.tiruppur')}</span></li>
+              <li><span>{t('home:footer.col4Links.madurai')}</span></li>
             </ul>
           </div>
         </div>
@@ -671,10 +555,10 @@ export const HomeView: React.FC = () => {
         <div className="pt-6 border-t border-[#E2E8F0] dark:border-night-border/60 p-4 rounded-card bg-[#EAF5FC]/60 dark:bg-night-100/40 border border-[#BAE6FD] dark:border-night-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
             <span className="font-bold text-[#173B67] dark:text-white">
-              Planned Civic & National Integrations:
+              {isTa ? 'திட்டமிடப்பட்ட குடிமை & தேசிய இணைப்புகள்:' : 'Planned Civic & National Integrations:'}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A]">
-              Planned
+              {isTa ? 'திட்டமிடப்பட்டது' : 'Planned'}
             </span>
           </div>
 

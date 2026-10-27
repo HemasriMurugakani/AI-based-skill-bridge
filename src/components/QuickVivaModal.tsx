@@ -7,7 +7,7 @@ import {
   VivaScoreAnswerResponse
 } from '../services/api';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
-import { SpeechInputController, SpeechLang, isSpeechRecognitionSupported, speakText } from '../utils/speech';
+import { SpeechInputController, SpeechLang, isSpeechRecognitionSupported, speakText, mapLanguageToSpeechLang } from '../utils/speech';
 import { TrustLabel } from './TrustLabel';
 import { StatusPill } from './StatusPill';
 import {
@@ -64,7 +64,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
   submissionSummary,
   onComplete
 }) => {
-  const { isOfflineDemo, recordVivaCompletion, setActiveTab } = useSkillBridgeStore();
+  const { isOfflineDemo, recordVivaCompletion, setActiveTab, language: appLanguage } = useSkillBridgeStore();
 
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
   const [questions, setQuestions] = useState<VivaQuestion[]>([]);
@@ -77,7 +77,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
 
   // Voice recording state
   const [isRecording, setIsRecording] = useState(false);
-  const [voiceLang, setVoiceLang] = useState<SpeechLang>('en-IN');
+  const [voiceLang, setVoiceLang] = useState<SpeechLang>(mapLanguageToSpeechLang(appLanguage));
   const [recordingSeconds, setRecordingSeconds] = useState(0);
   const speechControllerRef = useRef<SpeechInputController | null>(null);
   const timerRef = useRef<any>(null);
@@ -138,7 +138,8 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
     generateVivaQuestions(
       {
         challengeId,
-        submission: submissionSummary
+        submission: submissionSummary,
+        language: appLanguage
       },
       isOfflineDemo
     )
@@ -183,7 +184,7 @@ export const QuickVivaModal: React.FC<QuickVivaModalProps> = ({
           questionId: currentQ.id,
           questionText: currentQ.question,
           answer: currentAnswer,
-          language: voiceLang
+          language: appLanguage
         },
         isOfflineDemo
       );

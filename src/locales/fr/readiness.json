@@ -1,0 +1,30 @@
+{
+  "title": "Indice d'Employabilité et de Préparation",
+  "subtitle": "Score déterministe multifactoriel validant vos preuves de code, l'authenticité orale et la conformité industrielle.",
+  "indexTitle": "Indice Global d'Employabilité",
+  "scoreLabel": "Score de Préparation",
+  "percentile": "Parmi les meilleurs {{percent}} % des candidats du Tamil Nadu",
+  "breakdown": {
+    "technicalProof": "Preuves Techniques & Critères d'Évaluation",
+    "codeAuthenticity": "Authenticité d'Auteur & Soutenance Orale",
+    "vivaDefense": "Profondeur Conceptuelle & Communication",
+    "marketAlignment": "Adéquation au Rôle & Marché Cible"
+  },
+  "audit": {
+    "auditTrailTitle": "Registre d'Audit Vérifiable",
+    "deterministicFormula": "Calculé par une formule pondérée déterministe (0 à 100 %)",
+    "verifiedClaims": "{{count}} compétence validée au registre",
+    "verifiedClaims_plural": "{{count}} compétences validées au registre",
+    "tamperProofNotice": "Empreinte infalsifiable enregistrée sur le passeport numérique local."
+  },
+  "tiers": {
+    "entryReady": "Prêt pour l'Emploi (80 % et +)",
+    "nearReady": "En Cours d'Acquisition (60 à 79 %)",
+    "foundational": "Stade Fondamental (< 60 %)"
+  },
+  "actions": {
+    "boostScore": "Relever un Défi pour Augmenter le Score",
+    "shareWithEmployers": "Partager le Rapport Vérifié avec les Recruteurs",
+    "downloadReport": "Télécharger le Rapport d'Audit PDF"
+  }
+}

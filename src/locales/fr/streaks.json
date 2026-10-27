@@ -1,0 +1,43 @@
+{
+  "title": "Série, Habitudes & Progression",
+  "subtitle": "Bâtissez une pratique quotidienne sans stress : Protégée par des gels de série et des pauses pour examens.",
+  "currentStreak": "{{count}} jour de série",
+  "currentStreak_plural": "{{count}} jours de série",
+  "longestStreak": "Meilleure série : {{count}} jours",
+  "totalXp": "{{xp}} XP au total",
+  "freeze": {
+    "freezesAvailable": "{{count}} gel de série disponible",
+    "freezesAvailable_plural": "{{count}} gels de série disponibles",
+    "useFreezeBtn": "Activer le Gel de Série",
+    "freezeActive": "Protection de Série Active",
+    "freezeTooltip": "Préserve votre série si vous manquez un jour en raison d'un imprévu."
+  },
+  "examPause": {
+    "pauseTitle": "Pause pour Examens Universitaires",
+    "pauseActive": "Mode Examen Actif (Série Préservée)",
+    "resumeDate": "Reprise prévue : dans {{days}} jours",
+    "examPauseDesc": "Mettez en pause vos obligations quotidiennes pendant vos sessions d'examens sans perdre votre élan.",
+    "enablePause": "Activer la Pause Examens",
+    "resumeNow": "Reprendre la Pratique Dès Maintenant"
+  },
+  "heatmap": {
+    "title": "Carte Thermique de Pratique Annuelle",
+    "months": "Jan,Fév,Mar,Avr,Mai,Juin,Juil,Août,Sep,Oct,Nov,Déc",
+    "activeDay": "Jour de Pratique Active",
+    "missedDay": "Jour Manqué",
+    "frozenDay": "Jour Protégé par Gel",
+    "legendaryDay": "Défi Majeur Validé"
+  },
+  "levels": {
+    "currentLevel": "Niveau {{level}} Apprenti",
+    "nextLevel": "Suivant : Niveau {{next}} Spécialiste",
+    "xpRemaining": "{{xp}} XP nécessaires pour monter de niveau",
+    "perks": "Débloque des recommandations d'employeurs et des revues de mentors prioritaires"
+  },
+  "catchUp": {
+    "taskTitle": "Mission de Rattrapage de Série",
+    "rewardLabel": "Restaurer la Série Manquée (+{{xp}} XP)",
+    "completeBtn": "Valider le Rattrapage",
+    "taskDesc": "Complétez cette micro-évaluation de 5 minutes pour récupérer votre série sans pénalité."
+  }
+}

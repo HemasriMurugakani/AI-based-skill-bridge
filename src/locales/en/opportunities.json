@@ -1,0 +1,32 @@
+{
+  "title": "Verified Opportunities & Apprenticeships",
+  "subtitle": "Direct career pathways from employers that prioritize validated skill proof over tier-1 college diplomas.",
+  "filterAll": "All Opportunities",
+  "filterTech": "Software & Web Tech",
+  "filterCraft": "Craft & Handloom",
+  "filterApprenticeship": "Green & Electrical",
+  "card": {
+    "matchScore": "Match Index",
+    "salary": "Stipend / Salary",
+    "location": "Location",
+    "verifiedBadge": "Direct Evidence Match",
+    "applyBtn": "Apply with Proof",
+    "viewRequirements": "View Matching Rubric"
+  },
+  "tracker": {
+    "title": "Application Pipeline Tracker",
+    "subtitle": "Track your submissions and live employer audit statuses in real time.",
+    "stagesReady": "Ready to Apply",
+    "stagesPreparing": "Preparing Proof",
+    "stagesApplied": "Application Submitted",
+    "stagesSaved": "Bookmarked for Later",
+    "interviewScheduled": "Viva/Interview Scheduled",
+    "offerExtended": "Offer Extended"
+  },
+  "detail": {
+    "jobDescription": "Role Overview & Responsibilities",
+    "requiredProof": "Required Evidence Submissions",
+    "employerContact": "Hiring Team & Cluster Location",
+    "equalOpportunity": "SkillBridge verified employer: Non-discriminatory, skills-first evaluation."
+  }
+}

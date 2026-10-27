@@ -1,0 +1,32 @@
+{
+  "notFound": {
+    "title": "404 — Page Introuvable",
+    "message": "Le parcours ou le certificat que vous recherchez n'existe pas ou a été déplacé.",
+    "returnHomeBtn": "Retour au Tableau de Bord",
+    "exploreRoadmapBtn": "Explorer les Parcours d'Apprentissage"
+  },
+  "errorBoundary": {
+    "title": "Une erreur inattendue est survenue",
+    "message": "Un problème est survenu lors de l'affichage de ce module. Votre progression validée reste en sécurité dans le cache local.",
+    "reloadBtn": "Recharger l'Interface",
+    "reportBug": "Signaler un Problème"
+  },
+  "offline": {
+    "offlineNotice": "Vous êtes en mode démo hors-ligne. Toutes les évaluations s'exécutent de façon déterministe dans le navigateur.",
+    "reconnectedNotice": "Connexion réseau rétablie. Synchronisation des preuves vérifiées avec le registre...",
+    "cachedDataWarning": "Affichage des données locales mises en cache pour une utilisation à faible débit."
+  },
+  "emptyState": {
+    "noData": "Aucun élément enregistré pour le moment",
+    "noResults": "Aucun résultat ne correspond à ces critères",
+    "searchAgain": "Essayez d'ajuster vos mots-clés ou vos filtres",
+    "resetFilters": "Réinitialiser Tous les Filtres"
+  },
+  "validation": {
+    "requiredField": "Ce champ est obligatoire.",
+    "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+    "minLength": "Ce champ doit contenir au moins {{min}} caractères.",
+    "selectOption": "Veuillez sélectionner une option pour continuer.",
+    "uploadValidFile": "Veuillez téléverser un fichier image valide (PNG, JPG, WebP)."
+  }
+}

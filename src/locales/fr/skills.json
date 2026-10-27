@@ -1,0 +1,58 @@
+{
+  "pathways": {
+    "juniorWebDev": {
+      "title": "Développeur Web Junior",
+      "tagline": "Du HTML sémantique aux applications réactives complètes avec preuves réelles"
+    },
+    "tailoringCraft": {
+      "title": "Couture & Confection de Vêtements",
+      "tagline": "Du mètre ruban à l'assemblage et à la finition de vêtements de qualité export"
+    },
+    "electricianTrade": {
+      "title": "Électricien Bâtiment & Tertiaire",
+      "tagline": "Câblage sécurisé sous conduit, tableaux de distribution, mise à la terre & dépannage"
+    },
+    "dataAnalyst": {
+      "title": "Analyste de Données & Spécialiste Décisionnel",
+      "tagline": "Extraire, nettoyer, analyser et concevoir des tableaux de bord stratégiques"
+    }
+  },
+  "categories": {
+    "frontendCore": "Socle Frontend",
+    "styling": "Styles & Responsive",
+    "coreLogic": "Logique Principale & DOM",
+    "modernUi": "Interface Moderne & État",
+    "dataState": "Données & Cache d'État",
+    "devTools": "Outillage d'Ingénierie",
+    "patternPrep": "Préparation des Patrons",
+    "cuttingCraft": "Coupe & Patronage",
+    "assembly": "Assemblage & Piqûre",
+    "finishing": "Finition & Passepoil",
+    "qualityControl": "Contrôle Qualité & Repassage",
+    "safetyStandard": "Normes de Sécurité & EPI",
+    "installation": "Câblage & Pose",
+    "safetyProtection": "Sécurité & Mise à la Terre",
+    "databaseQuerying": "Requêtes de Base de Données",
+    "spreadsheets": "Tableurs & Power Query",
+    "programming": "Programmation & Nettoyage de Données"
+  },
+  "names": {
+    "webHtmlSemantics": "HTML Sémantique & Accessibilité",
+    "webResponsiveCss": "CSS Responsive & Flex/Grid",
+    "webJavascriptDom": "JavaScript & Manipulation du DOM",
+    "webReactComponents": "Composants React & Hooks",
+    "webRestApis": "API REST & Mise en Cache d'État",
+    "webGitWorkflows": "Gestion de Versions Git & Pull Requests",
+    "tailorBodyMeasurement": "Prise de Mesures & Aisances",
+    "tailorBlouseDrafting": "Tracé de Patron Blouse Katori & 4 Pinces",
+    "tailorMachineStitching": "Point Noué & Réglage de Tension",
+    "tailorPipingFinishing": "Pose de Biais & Passepoil d'Encolure",
+    "tailorPressIroning": "Repassage Vapeur & Ouverture des Coutures",
+    "elecSafetyTools": "Sécurité Électrique & EPI (IS 5216)",
+    "elecConduitWiring": "Câblage Sous Conduit PVC",
+    "elecEarthingTesting": "Mise à la Terre & Test de Résistance",
+    "dataSqlQueries": "Agrégations SQL, Jointures & Fonctions Fenêtres",
+    "dataExcelPowerquery": "Excel Avancé & Automatisation Power Query",
+    "dataPythonPandas": "Nettoyage de Données Python & Restitution Visuelle"
+  }
+}

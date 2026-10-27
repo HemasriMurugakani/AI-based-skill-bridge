@@ -1,0 +1,36 @@
+{
+  "welcome": {
+    "title": "Bienvenue sur SkillBridge AI",
+    "subtitle": "Comblez le fossé entre la formation et l'emploi réel à travers le Tamil Nadu",
+    "getStarted": "Commencer"
+  },
+  "steps": {
+    "step1": "Choisir un Profil",
+    "step2": "Identifier les Écarts",
+    "step3": "Feuille de Route",
+    "step4": "Défis de Preuve",
+    "step5": "Opportunités Vérifiées"
+  },
+  "personaSelect": {
+    "title": "Choisissez votre parcours d'apprentissage",
+    "desc": "Sélectionnez un profil pour explorer des feuilles de route adaptées, des défis interactifs et des carrières ciblées.",
+    "priyaLabel": "Priya — Étudiante Universitaire",
+    "priyaDesc": "Étudiante en dernière année d'informatique se préparant aux rôles d'ingénierie web et cloud.",
+    "lakshmiLabel": "Lakshmi — Artisane Traditionnelle",
+    "lakshmiDesc": "Maître tisserande de soie à Salem recherchant l'accès aux boutiques modernes et des badges certifiés.",
+    "karthikLabel": "Karthik — Technicien Professionnel",
+    "karthikDesc": "Diplômé électricien ITI en transition vers les installations solaires et les bornes de recharge pour véhicules électriques."
+  },
+  "goals": {
+    "title": "Définissez votre objectif de carrière",
+    "academicTitle": "Technologies & Ingénierie Logicielle",
+    "vocationalTitle": "Artisanat & Industrie Verte",
+    "targetSalary": "Salaire Initial / Revenu Visé",
+    "targetTimeline": "Délai d'Achèvement Cible"
+  },
+  "complete": {
+    "title": "Votre parcours personnalisé est prêt !",
+    "desc": "Nous avons tracé votre itinéraire précis et vos premiers défis de preuve pratique.",
+    "launchDashboard": "Accéder au Tableau de Bord"
+  }
+}

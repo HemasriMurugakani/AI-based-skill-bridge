@@ -57,9 +57,10 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = ({
     setShowLangMenu(false);
   };
 
-  const langLabels = {
+  const langLabels: Record<SpeechLang, string> = {
     'ta-IN': 'தமிழ்',
     'hi-IN': 'हिन्दी',
+    'fr-FR': 'Français',
     'en-IN': 'English'
   };
 
@@ -73,7 +74,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = ({
           supported
             ? isListening
               ? 'Click to stop listening'
-              : `Click to speak (${langLabels[selectedLang]})`
+              : `Click to speak (${langLabels[selectedLang] || 'Voice'})`
             : 'Voice works best in Chrome'
         }
         className={`relative flex items-center justify-center rounded-btn transition-all duration-200 cursor-pointer ${
@@ -103,11 +104,11 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = ({
           onClick={() => setShowLangMenu(!showLangMenu)}
           className="px-2 py-1 rounded-btn text-[11px] font-bold bg-[#EAF5FC] hover:bg-[#D9EFFB] border border-[#BAE6FD] text-[#173B67] flex items-center gap-1"
         >
-          <span>{langLabels[selectedLang]}</span>
+          <span>{langLabels[selectedLang] || 'Lang'}</span>
         </button>
 
         {showLangMenu && (
-          <div className="absolute left-0 mt-1 w-28 p-1.5 rounded-card bg-white border border-[#E2E8F0] shadow-soft z-50 text-xs">
+          <div className="absolute left-0 mt-1 w-32 p-1.5 rounded-card bg-white border border-[#E2E8F0] shadow-soft z-50 text-xs">
             <button
               type="button"
               onClick={() => handleSelectLang('ta-IN')}
@@ -125,6 +126,15 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = ({
               }`}
             >
               हिन्दी (hi-IN)
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSelectLang('fr-FR')}
+              className={`w-full text-left px-2 py-1 rounded-btn ${
+                selectedLang === 'fr-FR' ? 'bg-[#173B67] text-white font-bold' : 'hover:bg-[#EAF5FC] text-[#173B67]'
+              }`}
+            >
+              Français (fr-FR)
             </button>
             <button
               type="button"

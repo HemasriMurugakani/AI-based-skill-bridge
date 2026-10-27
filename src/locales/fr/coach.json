@@ -1,0 +1,25 @@
+{
+  "title": "Coach IA SkillBridge",
+  "subtitle": "Posez vos questions techniques, entraînez-vous pour les soutenances orales ou levez vos doutes pratiques dans votre langue.",
+  "bilingualBadge": "Assistant Mentor IA",
+  "askPlaceholder": "Posez votre question dans votre langue... (ex. expliquer flexbox vs grid, ajuster la tension de couture)",
+  "sendBtn": "Envoyer la Question",
+  "thinking": "Le Coach SkillBridge analyse votre demande...",
+  "quickPrompts": {
+    "label1": "Expliquer le DOM Event Bubbling",
+    "prompt1": "Pouvez-vous expliquer le bubbling d'événements et la délégation dans le DOM avec un exemple de code concret ?",
+    "label2": "Comment éviter le plissement d'encolure ?",
+    "prompt2": "Mon biais d'encolure plisse sur tissu fin en mousseline. Quelle taille d'aiguille et quel réglage de tension utiliser ?",
+    "label3": "Bilan de Préparation à l'Emploi",
+    "prompt3": "Évaluez mon score de préparation pour les postes de développeur junior à Chennai et indiquez-moi les écarts à combler en priorité."
+  },
+  "aiDisclaimer": {
+    "label": "Avertissement IA",
+    "text": "Le Mentor IA SkillBridge fournit des explications techniques. Les décisions formelles de recrutement sont certifiées par des mentors humains."
+  },
+  "suggestions": {
+    "vivaCoaching": "Entraînement à la Soutenance Orale",
+    "debugCode": "Déboguer Ma Solution",
+    "explainConcept": "Expliquer un Concept Clé"
+  }
+}

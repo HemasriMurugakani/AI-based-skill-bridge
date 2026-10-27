@@ -47,7 +47,7 @@ export const HomeView: React.FC = () => {
     pathways
   } = useSkillBridgeStore();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentPersona = getPersona();
   const pathway = getCurrentPathway();
 
@@ -196,13 +196,19 @@ export const HomeView: React.FC = () => {
               <span>CIVIC · SKILLS PLATFORM</span>
             </div>
 
-            {/* Tamil Proverb (Avvaiyar) with Italic English Translation */}
+            {/* Localized Proverb / Motto (Single Language Display) */}
             <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-night-100/80 border border-sky-100 dark:border-night-border/70 shadow-soft">
-              <div className="font-tamil text-sm sm:text-base font-bold text-[#173B67] dark:text-sky-200">
-                "கற்றது கை மண் அளவு, கல்லாதது உலகளவு"
+              <div className="text-sm sm:text-base font-bold text-[#173B67] dark:text-sky-200">
+                {i18n.language === 'ta'
+                  ? '"கற்றது கை மண் அளவு, கல்லாதது உலகளவு"'
+                  : i18n.language === 'fr'
+                  ? '"Ce que l\'on sait est une poignée de sable, ce que l\'on ignore est de la taille du monde."'
+                  : i18n.language === 'hi'
+                  ? '"जो हमने सीखा वह मुट्ठी भर रेत है; जो नहीं सीखा वह पूरे संसार के बराबर है।"'
+                  : '"What you have learned is a mere handful of sand; what you haven\'t learned is the size of the world."'}
               </div>
-              <div className="text-xs sm:text-sm italic text-[#526174] dark:text-night-muted mt-0.5">
-                "What you have learned is a mere handful of sand; what you haven't learned is the size of the world."
+              <div className="text-xs text-[#526174] dark:text-night-muted mt-0.5 font-medium">
+                {t('brand.motto')}
               </div>
             </div>
 
@@ -560,9 +566,15 @@ export const HomeView: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(#62B6E8_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
-          {/* Tamil Line */}
-          <div className="font-tamil text-sm sm:text-base text-[#F2B66D] font-semibold">
-            "தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு"
+          {/* Localized Quote */}
+          <div className="text-sm sm:text-base text-[#F2B66D] font-semibold">
+            {i18n.language === 'ta'
+              ? '"தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு"'
+              : i18n.language === 'fr'
+              ? '"Comme l\'eau sourd du puits sablonneux à mesure qu\'on creuse, ainsi jaillit le savoir à mesure qu\'on apprend."'
+              : i18n.language === 'hi'
+              ? '"जैसे-जैसे रेत का कुआं खोदा जाता है पानी निकलता है, वैसे ही सीखने से ज्ञान बढ़ता है।"'
+              : '"As the sand-well yields water as deep as it is dug, so wisdom flows as deep as one learns."'}
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white">

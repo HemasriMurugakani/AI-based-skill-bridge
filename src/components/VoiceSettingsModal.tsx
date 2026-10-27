@@ -41,6 +41,7 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
     const sampleSentences: Record<SpeechLang, string> = {
       'ta-IN': 'வணக்கம்! திறன் பாலம் குரல் வழிகாட்டல் வெற்றிகரமாக இயங்குகிறது.',
       'hi-IN': 'नमस्ते! स्किलब्रिज एआई वॉइस सहायता ठीक से काम कर रही है।',
+      'fr-FR': 'Bonjour ! L\'assistant vocal SkillBridge fonctionne avec succès.',
       'en-IN': 'Hello! SkillBridge AI voice assistant is operating with full clarity.'
     };
 
@@ -129,11 +130,12 @@ export const VoiceSettingsModal: React.FC<VoiceSettingsModalProps> = ({ isOpen, 
           <label className="block text-xs font-bold text-[#173B67] uppercase tracking-wide mb-1.5">
             Select Voice Language
           </label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
+              { id: 'en-IN' as const, label: 'English', tag: 'Indian EN' },
               { id: 'ta-IN' as const, label: 'தமிழ்', tag: 'Tamil' },
-              { id: 'hi-IN' as const, label: 'हिन्दी', tag: 'Hindi' },
-              { id: 'en-IN' as const, label: 'English', tag: 'Indian EN' }
+              { id: 'fr-FR' as const, label: 'Français', tag: 'French' },
+              { id: 'hi-IN' as const, label: 'हिन्दी', tag: 'Hindi' }
             ].map((lg) => (
               <button
                 key={lg.id}

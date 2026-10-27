@@ -1,0 +1,29 @@
+{
+  "title": "Feuille de Route d'Apprentissage Adaptative",
+  "subtitle": "Des étapes personnalisées articulées autour de défis de preuve vérifiables plutôt que de simples cours magistraux passifs.",
+  "tagline": "Moteur Dynamique de Parcours",
+  "adaptiveBadge": "Adaptatif : Repriorise automatiquement selon les écarts détectés dans l'offre",
+  "focusSkills": "Compétences Prioritaires Actuelles",
+  "modules": {
+    "title": "Modules d'Apprentissage du Parcours",
+    "estimatedWeeks": "{{weeks}} semaines estimées",
+    "completedCount": "{{completed}} sur {{total}} modules complétés",
+    "totalCount": "{{count}} modules au total"
+  },
+  "milestones": {
+    "currentMilestone": "Étape Actuelle",
+    "nextMilestone": "Prochaine Étape",
+    "unlockedOpportunities": "{{count}} opportunité débloquée en validant cette étape",
+    "unlockedOpportunities_plural": "{{count}} opportunités débloquées en validant cette étape"
+  },
+  "actions": {
+    "startNextChallenge": "Lancer le Prochain Défi",
+    "viewRubric": "Consulter le Barème d'Évaluation",
+    "practiceInSandbox": "S'entraîner dans le Bac à Sable",
+    "requestMentorAudit": "Demander une Revue de Mentor"
+  },
+  "empty": {
+    "noSkillsFocus": "Aucune compétence prioritaire sélectionnée.",
+    "addSkillsPrompt": "Analysez une offre d'emploi pour intégrer automatiquement les compétences prioritaires."
+  }
+}

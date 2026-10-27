@@ -1,0 +1,58 @@
+{
+  "pathways": {
+    "juniorWebDev": {
+      "title": "Junior Web Developer",
+      "tagline": "From semantic HTML to full-stack reactive apps with real-world proof"
+    },
+    "tailoringCraft": {
+      "title": "Tailoring & Garment Construction",
+      "tagline": "From measurement tape to export-grade garment assembly and finishing"
+    },
+    "electricianTrade": {
+      "title": "Domestic & Commercial Electrician",
+      "tagline": "Safe conduit wiring, distribution boards, earthing & fault tracing"
+    },
+    "dataAnalyst": {
+      "title": "Data Analyst & BI Specialist",
+      "tagline": "Extract, clean, analyze, and build executive dashboards that drive action"
+    }
+  },
+  "categories": {
+    "frontendCore": "Frontend Core",
+    "styling": "Styling & Responsive",
+    "coreLogic": "Core Logic & DOM",
+    "modernUi": "Modern UI & State",
+    "dataState": "Data & State Caching",
+    "devTools": "Engineering Tooling",
+    "patternPrep": "Pattern Preparation",
+    "cuttingCraft": "Cutting Craft",
+    "assembly": "Assembly & Stitching",
+    "finishing": "Finishing & Piping",
+    "qualityControl": "Quality Control & Ironing",
+    "safetyStandard": "Safety Standard & PPE",
+    "installation": "Wiring & Installation",
+    "safetyProtection": "Safety & Protection",
+    "databaseQuerying": "Database Querying",
+    "spreadsheets": "Spreadsheets & Power Query",
+    "programming": "Programming & Data Cleaning"
+  },
+  "names": {
+    "webHtmlSemantics": "Semantic HTML & Accessibility",
+    "webResponsiveCss": "Responsive CSS & Flex/Grid",
+    "webJavascriptDom": "JavaScript & DOM Manipulation",
+    "webReactComponents": "React Components & Hooks",
+    "webRestApis": "REST API & State Caching",
+    "webGitWorkflows": "Git Version Control & PRs",
+    "tailorBodyMeasurement": "Body Measurement & Ease Allowances",
+    "tailorBlouseDrafting": "Katori & 4-Dart Blouse Drafting",
+    "tailorMachineStitching": "Lockstitch Sewing & Tension Control",
+    "tailorPipingFinishing": "Bias Binding & Neckline Piping",
+    "tailorPressIroning": "Steam Pressing & Seam Opening",
+    "elecSafetyTools": "Electrical Safety & PPE (IS 5216)",
+    "elecConduitWiring": "PVC Conduit & Loop-in Wiring",
+    "elecEarthingTesting": "Pipe/Plate Earthing & Earth Resistance Test",
+    "dataSqlQueries": "SQL Aggregations, Joins & Window Functions",
+    "dataExcelPowerquery": "Advanced Excel & Power Query Automation",
+    "dataPythonPandas": "Python Data Cleaning & Storytelling"
+  }
+}

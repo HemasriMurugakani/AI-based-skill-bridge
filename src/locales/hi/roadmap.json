@@ -1,0 +1,29 @@
+{
+  "title": "अनुकूली सीखने का रोडमैप",
+  "subtitle": "निष्क्रिय वीडियो व्याख्यानों के बजाय सत्यापित व्यावहारिक चुनौतियों के आसपास संरचित व्यक्तिगत मील के पत्थर।",
+  "tagline": "गतिशील मार्ग इंजन",
+  "adaptiveBadge": "अनुकूली: जॉब विवरण के आधार पर प्राथमिकताओं को स्वतः समायोजित करता है",
+  "focusSkills": "वर्तमान प्राथमिकता कौशल",
+  "modules": {
+    "title": "मार्ग सीखने के मॉड्यूल",
+    "estimatedWeeks": "अनुमानित समय: {{weeks}} सप्ताह",
+    "completedCount": "{{total}} में से {{completed}} मॉड्यूल पूर्ण",
+    "totalCount": "कुल {{count}} मॉड्यूल"
+  },
+  "milestones": {
+    "currentMilestone": "वर्तमान मील का पत्थर",
+    "nextMilestone": "अगला मील का पत्थर",
+    "unlockedOpportunities": "इसे पूरा करने पर {{count}} अवसर खुलेगा",
+    "unlockedOpportunities_plural": "इसे पूरा करने पर {{count}} अवसर खुलेंगे"
+  },
+  "actions": {
+    "startNextChallenge": "अगली चुनौती शुरू करें",
+    "viewRubric": "मूल्यांकन रूब्रिक देखें",
+    "practiceInSandbox": "सैंडबॉक्स में अभ्यास करें",
+    "requestMentorAudit": "मेंटर समीक्षा का अनुरोध करें"
+  },
+  "empty": {
+    "noSkillsFocus": "कोई प्राथमिकता कौशल चयनित नहीं।",
+    "addSkillsPrompt": "उच्च प्राथमिकता वाले अंतराल भरने के लिए नौकरी के विवरण का विश्लेषण करें।"
+  }
+}

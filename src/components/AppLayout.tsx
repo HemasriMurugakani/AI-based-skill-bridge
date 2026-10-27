@@ -29,15 +29,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const currentPersona = getPersona();
 
   const navigationItems = [
-    { id: 'home', label: t('nav.home'), tamil: 'முகப்பு', icon: Home },
-    { id: 'gap-analysis', label: 'JD Gap Analysis', tamil: 'வேலை பகுப்பாய்வு', icon: Search },
-    { id: 'roadmap', label: t('nav.roadmap'), tamil: 'வரைபடம்', icon: Map },
-    { id: 'skills', label: t('nav.skills'), tamil: 'திறன்கள்', icon: Layers },
-    { id: 'challenges', label: t('nav.challenges'), tamil: 'சவால்கள்', icon: Compass },
-    { id: 'passport', label: t('nav.passport'), tamil: 'கடவுச்சீட்டு', icon: FileCheck2 },
-    { id: 'readiness', label: t('nav.readiness'), tamil: 'தயார்நிலை', icon: Gauge },
-    { id: 'opportunities', label: t('nav.opportunities'), tamil: 'வாய்ப்புகள்', icon: Briefcase },
-    { id: 'coach', label: t('nav.coach'), tamil: 'AI வழிகாட்டி', icon: BotMessageSquare },
+    { id: 'home', label: t('nav.home'), icon: Home },
+    { id: 'gap-analysis', label: t('nav.gapAnalysis'), icon: Search },
+    { id: 'roadmap', label: t('nav.roadmap'), icon: Map },
+    { id: 'skills', label: t('nav.skills'), icon: Layers },
+    { id: 'challenges', label: t('nav.challenges'), icon: Compass },
+    { id: 'passport', label: t('nav.passport'), icon: FileCheck2 },
+    { id: 'readiness', label: t('nav.readiness'), icon: Gauge },
+    { id: 'opportunities', label: t('nav.opportunities'), icon: Briefcase },
+    { id: 'coach', label: t('nav.coach'), icon: BotMessageSquare },
   ];
 
   return (
@@ -47,7 +47,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#173B67] focus:text-white focus:font-semibold focus:rounded-btn focus:shadow-soft focus:outline-none focus:ring-2 focus:ring-[#62B6E8] text-xs font-poppins"
       >
-        Skip to main content • முக்கிய பகுதிக்குச் செல்
+        Skip to main content
       </a>
 
       {/* Background illustrations & soft glowing accents */}
@@ -78,9 +78,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 <h4 className="text-sm font-bold text-[#173B67] dark:text-white truncate">
                   {currentPersona.name}
                 </h4>
-                <div className="font-tamil text-[10px] text-[#526174] dark:text-slate-400 truncate leading-normal">
-                  {currentPersona.nameTamil}
-                </div>
                 <div className="text-[10px] font-semibold text-[#62B6E8] truncate">
                   {currentPersona.tag}
                 </div>
@@ -89,15 +86,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
             <div className="mt-3 pt-3 border-t border-[#E2E8F0] dark:border-slate-800 grid grid-cols-2 gap-2 text-center text-xs">
               <div className="p-1.5 rounded-btn bg-[#EAF5FC] dark:bg-slate-800">
-                <div className="text-[10px] text-[#526174] dark:text-slate-400 font-medium">Readiness</div>
+                <div className="text-[10px] text-[#526174] dark:text-slate-400 font-medium">{t('persona.readiness')}</div>
                 <div className="font-bold text-[#10B981]">
                   {currentPersona.readinessScore}%
                 </div>
               </div>
               <div className="p-1.5 rounded-btn bg-[#FCF3E5] dark:bg-slate-800">
-                <div className="text-[10px] text-[#526174] dark:text-slate-400 font-medium">Streak</div>
+                <div className="text-[10px] text-[#526174] dark:text-slate-400 font-medium">{t('persona.streak')}</div>
                 <div className="font-bold text-[#F2B66D]">
-                  {currentPersona.streakDays} Days
+                  {currentPersona.streakDays}
                 </div>
               </div>
             </div>
@@ -122,11 +119,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 >
                   <div className="flex items-center gap-3">
                     <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#62B6E8]' : 'text-[#526174] group-hover:text-[#173B67] dark:text-slate-400 dark:group-hover:text-[#62B6E8]'}`} />
-                    <span>{item.label}</span>
+                    <span className="truncate">{item.label}</span>
                   </div>
-                  <span className={`font-tamil text-[10px] font-normal leading-normal ${isActive ? 'text-white/80' : 'text-[#526174] dark:text-slate-400'}`}>
-                    {item.tamil}
-                  </span>
                 </button>
               );
             })}
@@ -172,13 +166,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5FC]/15 text-[#62B6E8] border border-[#62B6E8]/30 text-xs font-semibold mb-3">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Skill-to-Opportunity Engine for Tamil Nadu</span>
+                  <span>{t('brand.subtitle')}</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-poppins">
-                  கற்றனைத் தூறும் அறிவு — <span className="text-[#62B6E8]">Prove Your Skills.</span>
+                  {t('brand.tagline')}
                 </h2>
                 <p className="mt-2 text-sm sm:text-base text-white/90 leading-relaxed font-poppins">
-                  Whether you are an engineering student in Trichy or a vocational artisan in Tiruppur, SkillBridge provides evidence-backed validation that opens doors.
+                  {t('brand.motto')}
                 </p>
               </div>
 
@@ -188,14 +182,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   onClick={() => setActiveTab('challenges')}
                   className="w-full sm:w-auto px-6 py-3 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-sm shadow-soft transition-colors cursor-pointer"
                 >
-                  Start Free Proof Challenge
+                  {t('actions.takeChallenge')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab('passport')}
                   className="w-full sm:w-auto px-6 py-3 rounded-btn bg-white hover:bg-[#EAF5FC] text-[#173B67] font-semibold text-sm transition-colors cursor-pointer border border-[#E2E8F0]"
                 >
-                  View Skill Passport
+                  {t('actions.viewPassport')}
                 </button>
               </div>
             </div>
@@ -205,28 +199,26 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <footer role="contentinfo" className="bg-[#F8FAFC] dark:bg-[#0B1726] border-t border-[#E2E8F0] dark:border-slate-800 text-[#526174] dark:text-slate-400 text-xs py-8 px-4 sm:px-6 font-poppins">
             <div className="max-w-7xl mx-auto space-y-4">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="font-bold text-[#173B67] dark:text-white">
-                    SkillBridge AI
+                    {t('brand.name')}
                   </span>
                   <span>•</span>
-                  <span className="font-tamil font-semibold">திறன் பாலம்</span>
-                  <span>•</span>
-                  <span className="italic">"Learn a skill. Prove your ability. Unlock your next opportunity."</span>
+                  <span className="italic">{t('brand.tagline')}</span>
                 </div>
 
                 <div className="flex items-center gap-4 text-[11px]">
-                  <span>Demo mode</span>
+                  <span>{t('footer.demoMode')}</span>
                   <span>•</span>
                   <span className="flex items-center gap-1 text-[#173B67] dark:text-sky-300 font-medium">
-                    <Heart className="w-3 h-3 fill-current text-[#62B6E8]" /> Crafted for Tamil Nadu Learners
+                    <Heart className="w-3 h-3 fill-current text-[#62B6E8]" /> {t('footer.craftedWith')}
                   </span>
                 </div>
               </div>
 
               {/* Centralized Global Data Disclosure */}
               <div className="pt-3 border-t border-[#E2E8F0] dark:border-slate-800/80 text-[11px] text-[#526174] dark:text-slate-500 text-center md:text-left leading-relaxed">
-                <span className="font-semibold text-[#173B67] dark:text-slate-300">Data Transparency Disclosure:</span> Skill assessments, job matches, and career readiness scores are calculated deterministically to guide vocational and technical skill development. No personal data or private work samples are shared with third parties without learner consent.
+                <span className="font-semibold text-[#173B67] dark:text-slate-300">Data Transparency Disclosure:</span> {t('trust.dataTransparency')}
               </div>
             </div>
           </footer>

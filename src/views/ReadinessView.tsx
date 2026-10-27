@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { ProgressRing } from '../components/ProgressRing';
 import { calculateReadiness } from '../utils/readinessCalculator';
 import { PracticeHeatmap } from '../components/PracticeHeatmap';
 import { AboutThisData } from '../components/ui/AboutThisData';
+import { Language } from '../types';
 import {
   Flame,
   CheckCircle2,
@@ -27,7 +29,237 @@ import {
   Square
 } from 'lucide-react';
 
+const getStrings = (lang: string) => {
+  switch (lang) {
+    case 'ta':
+      return {
+        badge: 'வேலைத்தள தயார்நிலை குறியீடு',
+        evidenceBacked: 'சான்று அடிப்படையிலானது',
+        heading: 'முழுமையான வெளிப்படையான தயார்நிலை',
+        subheading: 'மறைக்கப்பட்ட சூத்திரங்கள் அல்லது தன்னிச்சையான சதவீதங்கள் இல்லை. உங்கள் சமர்ப்பிக்கப்பட்ட குறியீடு, மதிப்பீடுகள், திட்டப்பணிகள் மற்றும் வாய்மொழி பதில்களின் அடிப்படையில் மட்டுமே கணக்கிடப்படுகிறது.',
+        activeLearner: 'தற்போதைய பயனர்:',
+        verifiedProofs: 'நிரூபிக்கப்பட்ட சான்றுகள்',
+        missingCriteria: 'நிலுவை தேவைகள்',
+        guidancePolicy: 'வழிகாட்டல் கொள்கை',
+        aboutParagraph1: 'இந்தத் தயார்நிலைக் குறியீடு உங்கள் சரிபார்க்கப்பட்ட ரूब்ரிக் சான்றுகள், சமர்ப்பிக்கப்பட்ட குறியீடு மற்றும் வாய்மொழித் தேர்வுகளிலிருந்து கணக்கிடப்படும் வழிகாட்டும் கருவியாகும்.',
+        aboutParagraph2: 'நேர்மை உத்தரவாதம்: மதிப்பீடு செய்யப்படாத திறன்கள் நடுநிலையாக வைக்கப்படுகின்றன. இது வேலை உத்தரவாதம் அல்ல, பயிற்சி வழிகாட்டல் மட்டுமே.',
+        overallGuidance: 'ஒட்டுமொத்த தயார்நிலை வழிகாட்டி',
+        overallSub: 'கீழே உள்ள 5 கூறுகளின் எடையிடப்பட்ட கூட்டல் மட்டுமே இந்த மதிப்பெண்ணை உருவாக்குகிறது:',
+        weightsLabel: 'கூறு எடைகள் (மொத்தம் 100%):',
+        skills: 'திறன்கள்',
+        projects: 'திட்டப்பணிகள்',
+        assessments: 'தேர்வுகள்',
+        communication: 'தகவல்தொடர்பு',
+        requirements: 'மைல்கற்கள்',
+        hideFormula: 'கணக்கீட்டு சூத்திரத்தை மறைக்க',
+        showFormula: 'ஒட்டுமொத்த சூத்திரம் எவ்வாறு கணக்கிடப்படுகிறது?',
+        simulated: 'மாதிரி',
+        guidance: 'வழிகாட்டல்',
+        benchmarkNear: 'தயார்நிலை',
+        inProgress: 'வளர்ச்சி',
+        projectedGain: 'அதிகரிப்பு',
+        weightedComposite: 'எடையிடப்பட்ட கலவை',
+        exactFormulaTitle: 'கணித சூத்திரம் மற்றும் மாற்று எண்கள்',
+        nextStepBadge: 'உங்கள் அடுத்த சிறந்த நடவடிக்கை',
+        whyMatters: 'இது ஏன் முக்கியமானது (எளிய வார்த்தைகளில்):',
+        readinessGain: 'உடனடி தயார்நிலை உயர்வு',
+        startNextStep: 'சவாலை தொடங்குக →',
+        simulatingInWhatIf: 'மாதிரி இயக்கத்தில் உள்ளது',
+        simulateInWhatIf: 'மாதிரி உருவகப்படுத்துக',
+        whatIfTitle: 'என்ன நடக்கும்? மாதிரி உருவகப்படுத்துதல்',
+        whatIfSub: 'நேரத்தை செலவழிக்கும் முன் செயல்களின் தாக்கத்தை சோதிக்கவும். கீழேயுள்ள உருவகப்படுத்துதலைத் தேர்ந்தெடுத்து 5 கூறுகளின் மாற்றங்களைப் பார்க்கவும்.',
+        resetSim: 'உருவகப்படுத்துதலை மீட்டமைக்க',
+        simActive: 'மாதிரி உருவகப்படுத்துதல் இயங்குகிறது:',
+        profileUntouched: 'உங்கள் உண்மையான சுயவிவரம் மாறவில்லை.',
+        updatedBelow: 'கீழே உள்ள கூறுகள் புதுப்பிக்கப்பட்டுள்ளன ↓',
+        start: 'தொடங்க',
+        breakdownTitle: 'தயார்நிலையின் 5 முக்கிய கூறுகள்',
+        breakdownSub: 'ஒவ்வொரு கூறும் சரியான எண்ணிக்கை மற்றும் விரிவாக்கக்கூடிய சூத்திரத்துடன் காட்டப்பட்டுள்ளது.',
+        weight: 'எடை:',
+        missing: 'நிலுவை',
+        contribution: 'பங்களிப்பு:',
+        hideRowFormula: 'சூத்திரத்தை மறை',
+        showRowFormula: 'இது எவ்வாறு கணக்கிடப்படுகிறது?',
+        exactRowFormula: 'சரியான கணித சூத்திரம்:',
+        itemizedEvidence: 'சரிபார்க்கப்பட்ட சான்றுகளின் முழுப் பட்டியல்:',
+        verified: 'சரிபார்க்கப்பட்டது',
+        progress: 'செயலில்',
+        fulfillment: 'நிறைவு:',
+        progression: 'மதிப்பீடு:'
+      };
+    case 'fr':
+      return {
+        badge: 'Indice de préparation professionnelle',
+        evidenceBacked: '100% basé sur des preuves',
+        heading: 'Préparation professionnelle transparente',
+        subheading: 'Aucun pourcentage inexpliqué. Chaque score découle directement du décompte concret des critères de compétences vérifiés, évaluations réussies et soutenances orales.',
+        activeLearner: 'Apprenant actif :',
+        verifiedProofs: 'Preuves vérifiées',
+        missingCriteria: 'Critères manquants',
+        guidancePolicy: 'Politique d\'orientation',
+        aboutParagraph1: 'Cet indice de préparation est un outil d\'auto-évaluation calculé de manière déterministe à partir de vos grilles d\'évaluation validées, projets et soutenances orales.',
+        aboutParagraph2: 'Garantie d\'équité : Les compétences non évaluées restent strictement neutres. Cet indicateur fournit une orientation pratique et ne constitue pas une garantie d\'embauche.',
+        overallGuidance: 'Indicateur global d\'orientation',
+        overallSub: 'Calculé exclusivement comme la somme pondérée de vos 5 composantes vérifiées :',
+        weightsLabel: 'Pondérations des composantes (Total = 100%) :',
+        skills: 'Compétences',
+        projects: 'Projets',
+        assessments: 'Évaluations',
+        communication: 'Communication',
+        requirements: 'Exigences',
+        hideFormula: 'Masquer le détail de la formule',
+        showFormula: 'Comment est-ce calculé ? (Formule exacte)',
+        simulated: 'Simulé',
+        guidance: 'Orientation',
+        benchmarkNear: 'Proche du seuil',
+        inProgress: 'En cours',
+        projectedGain: 'gain projeté',
+        weightedComposite: 'Indicateur composite pondéré',
+        exactFormulaTitle: 'Formule exacte et substitution arithmétique',
+        nextStepBadge: 'Votre prochaine étape à fort impact',
+        whyMatters: 'Pourquoi c\'est important (en termes simples) :',
+        readinessGain: 'Gain de préparation',
+        startNextStep: 'Démarrer l\'étape suivante →',
+        simulatingInWhatIf: 'En cours de simulation',
+        simulateInWhatIf: 'Simuler dans What-If',
+        whatIfTitle: 'Simulateur d\'impact What-If : aperçu en direct',
+        whatIfSub: 'Activez les scénarios pour observer l\'impact direct sur vos formules de préparation :',
+        resetSim: 'Réinitialiser le simulateur',
+        simActive: 'Simulation active :',
+        profileUntouched: 'Votre profil enregistré reste inchangé.',
+        updatedBelow: 'Formules des composantes mises à jour ci-dessous ↓',
+        start: 'Démarrer',
+        breakdownTitle: 'Détail des 5 composantes de préparation',
+        breakdownSub: 'Chaque composante est directement liée à des preuves concrètes et des formules explicites :',
+        weight: 'Poids :',
+        missing: 'Manquant',
+        contribution: 'Contribution :',
+        hideRowFormula: 'Masquer la formule',
+        showRowFormula: 'Comment est-ce calculé ?',
+        exactRowFormula: 'Formule mathématique exacte :',
+        itemizedEvidence: 'Détail et statut des éléments de preuve :',
+        verified: 'Vérifié',
+        progress: 'En cours',
+        fulfillment: 'Accomplissement :',
+        progression: 'Progression :'
+      };
+    case 'hi':
+      return {
+        badge: 'कार्यस्थल तत्परता सूचकांक',
+        evidenceBacked: '100% साक्ष्य-आधारित',
+        heading: 'पारदर्शी कार्यस्थल तत्परता',
+        subheading: 'कोई अस्पष्ट प्रतिशत नहीं। प्रत्येक स्कोर सीधे सत्यापित कौशल रूब्रिक, उत्तीर्ण आकलन, कोड सबमिशन और मौखिक साक्षात्कारों से प्राप्त होता है।',
+        activeLearner: 'सक्रिय शिक्षार्थी:',
+        verifiedProofs: 'सत्यापित प्रमाण',
+        missingCriteria: 'शेष आवश्यकताएं',
+        guidancePolicy: 'मार्गदर्शन नीति',
+        aboutParagraph1: 'यह तत्परता सूचकांक आपके सत्यापित रूब्रिक प्रमाणों, प्रस्तुत कोड और मौखिक साक्षात्कारों से सटीक रूप से गणना किया गया एक स्व-मूल्यांकन उपकरण है।',
+        aboutParagraph2: 'निष्पक्षता गारंटी: असत्यापित कौशलों को तटस्थ रखा जाता है। यह सूचक अभ्यास मार्गदर्शन प्रदान करता है और रोजगार की गारंटी नहीं है।',
+        overallGuidance: 'समग्र तत्परता मार्गदर्शन सूचक',
+        overallSub: 'आपके 5 सत्यापित घटकों के भारित योग के रूप में सीधे गणना की गई:',
+        weightsLabel: 'घटक भार (कुल = 100%):',
+        skills: 'कौशल',
+        projects: 'प्रोजेक्ट्स',
+        assessments: 'आकलन',
+        communication: 'संचार',
+        requirements: 'आवश्यकताएं',
+        hideFormula: 'फॉर्मूला विवरण छिपाएं',
+        showFormula: 'इसकी गणना कैसे की जाती है? (सटीक फॉर्मूला)',
+        simulated: 'सिम्युलेटेड',
+        guidance: 'मार्गदर्शन',
+        benchmarkNear: 'मानक के करीब',
+        inProgress: 'प्रगति में',
+        projectedGain: 'अनुमानित लाभ',
+        weightedComposite: 'भारित समग्र सूचक',
+        exactFormulaTitle: 'सटीक गणितीय सूत्र और मान प्रतिस्थापन',
+        nextStepBadge: 'आपका अगला उच्चतम प्रभाव वाला कदम',
+        whyMatters: 'यह क्यों महत्वपूर्ण है (सरल शब्दों में):',
+        readinessGain: 'तत्परता में वृद्धि',
+        startNextStep: 'अगला चरण अभी शुरू करें →',
+        simulatingInWhatIf: 'सिम्युलेटर सक्रिय है',
+        simulateInWhatIf: 'सिम्युलेटर में देखें',
+        whatIfTitle: 'व्हाट-इफ़ सिम्युलेटर: सटीक फॉर्मूलों पर प्रभाव',
+        whatIfSub: 'यह देखने के लिए परिदृश्य चालू करें कि अभ्यास से आपका स्कोर कैसे बढ़ता है:',
+        resetSim: 'सिम्युलेटर रीसेट करें',
+        simActive: 'सिमुलेशन सक्रिय:',
+        profileUntouched: 'आपकी वास्तविक प्रोफ़ाइल सुरक्षित है।',
+        updatedBelow: 'घटक सूत्र नीचे अपडेट किए गए हैं ↓',
+        start: 'शुरू करें',
+        breakdownTitle: 'तत्परता के 5 प्रमुख घटकों का विवरण',
+        breakdownSub: 'प्रत्येक घटक स्पष्ट गणितीय सूत्र और सत्यापित साक्ष्यों से जुड़ा है:',
+        weight: 'भार:',
+        missing: 'शेष',
+        contribution: 'योगदान:',
+        hideRowFormula: 'फॉर्मूला छिपाएं',
+        showRowFormula: 'इसकी गणना कैसे की जाती है?',
+        exactRowFormula: 'सटीक गणितीय सूत्र:',
+        itemizedEvidence: 'सत्यापित साक्ष्यों की पूरी सूची और स्थिति:',
+        verified: 'सत्यापित',
+        progress: 'प्रगति में',
+        fulfillment: 'पूर्ति:',
+        progression: 'प्रगति:'
+      };
+    default: // en
+      return {
+        badge: 'Workplace Readiness Index',
+        evidenceBacked: '100% Evidence-Backed',
+        heading: 'Transparent Workplace Readiness',
+        subheading: 'Zero unexplained percentages. Every score is directly derived from concrete counts of verified skill rubrics, passed assessments, multi-file code submissions, and authenticated oral defenses.',
+        activeLearner: 'Active Learner:',
+        verifiedProofs: 'Verified Proofs',
+        missingCriteria: 'Missing Criteria',
+        guidancePolicy: 'About this guidance data',
+        aboutParagraph1: 'This readiness index is a self-assessment feedback tool calculated deterministically from your verified rubric proofs, submitted PRs, and oral defenses.',
+        aboutParagraph2: 'Fairness Guarantee: Unassessed skills are kept strictly neutral. This indicator provides practice guidance and is not a guarantee of employment.',
+        overallGuidance: 'Overall Readiness Guidance Indicator',
+        overallSub: 'Computed exclusively as the weighted sum of your 5 verified components. All component weights are fully transparent:',
+        weightsLabel: 'Component Weights (Sum = 100%):',
+        skills: 'Skills',
+        projects: 'Projects',
+        assessments: 'Assessments',
+        communication: 'Communication',
+        requirements: 'Requirements',
+        hideFormula: 'Hide overall formula breakdown',
+        showFormula: 'How is this calculated? (View exact formula)',
+        simulated: 'Simulated',
+        guidance: 'Guidance',
+        benchmarkNear: 'Benchmark Near',
+        inProgress: 'In Progress',
+        projectedGain: 'projected gain',
+        weightedComposite: 'Weighted composite indicator',
+        exactFormulaTitle: 'Exact Formula & Arithmetic Substitution',
+        nextStepBadge: 'Your Next Highest-Impact Step',
+        whyMatters: 'Why this matters (in plain words):',
+        readinessGain: 'Readiness Gain',
+        startNextStep: 'Start Next Step Now →',
+        simulatingInWhatIf: 'Simulating in What-If',
+        simulateInWhatIf: 'Simulate in What-If',
+        whatIfTitle: 'What-If Simulator: Preview Impact on Exact Formulas',
+        whatIfSub: 'Test hypothetical accomplishments before spending time. Click any action below to see real-time updates across all component counts and mathematical formulas.',
+        resetSim: 'Reset Simulator',
+        simActive: 'Simulation Active:',
+        profileUntouched: 'Your saved profile is untouched.',
+        updatedBelow: 'Component formulas updated below ↓',
+        start: 'Start',
+        breakdownTitle: 'Readiness Component Breakdown (All 5 Rows)',
+        breakdownSub: 'Each row displays exact counts, percentage, weight contribution, and step-by-step formula derivation.',
+        weight: 'Weight:',
+        missing: 'Missing',
+        contribution: 'Contribution:',
+        hideRowFormula: 'Hide Formula',
+        showRowFormula: 'How is this calculated?',
+        exactRowFormula: 'Exact Formula & Step-by-Step Derivation:',
+        itemizedEvidence: 'Itemized Evidence Breakdown & Status:',
+        verified: 'Verified',
+        progress: 'In Progress',
+        fulfillment: 'Fulfillment:',
+        progression: 'Progress:'
+      };
+  }
+};
+
 export const ReadinessView: React.FC = () => {
+  const { t } = useTranslation();
   const {
     getPersona,
     getCurrentPathway,
@@ -37,6 +269,10 @@ export const ReadinessView: React.FC = () => {
     setActiveTab,
     language
   } = useSkillBridgeStore();
+
+  const currentLang = (language || 'en') as Language;
+  const isTa = currentLang === 'ta';
+  const strings = getStrings(currentLang);
 
   const persona = getPersona();
   const pathway = getCurrentPathway();
@@ -84,8 +320,6 @@ export const ReadinessView: React.FC = () => {
     setActiveTab('challenges');
   };
 
-  const isTamil = language === 'ta';
-
   return (
     <div className="space-y-7 animate-in fade-in duration-300 max-w-6xl mx-auto pb-12">
       {/* ------------------------------------------------------------------ */}
@@ -96,31 +330,29 @@ export const ReadinessView: React.FC = () => {
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#EAF5FC] dark:bg-deepblue-950/80 text-[#173B67] dark:text-sky-300 border border-[#62B6E8]/40">
-                {isTamil ? 'வேலைத்தள தயார்நிலை குறியீடு' : 'Workplace Readiness Index'}
+                {strings.badge}
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EAF5FC] text-[#173B67] border border-[#62B6E8]/30 flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
-                <span>{isTamil ? 'சான்று அடிப்படையிலானது' : '100% Evidence-Backed'}</span>
+                <span>{strings.evidenceBacked}</span>
               </span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-              {isTamil ? 'முழுமையான வெளிப்படையான தயார்நிலை' : 'Transparent Workplace Readiness'}
+              {strings.heading}
             </h1>
 
             <p className="text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-2xl leading-relaxed">
-              {isTamil
-                ? 'மறைக்கப்பட்ட சூத்திரங்கள் அல்லது தன்னிச்சையான சதவீதங்கள் இல்லை. உங்கள் சமர்ப்பிக்கப்பட்ட குறியீடு, மதிப்பீடுகள், திட்டப்பணிகள் மற்றும் வாய்மொழி பதில்களின் அடிப்படையில் மட்டுமே கணக்கிடப்படுகிறது.'
-                : 'Zero unexplained percentages. Every score is directly derived from concrete counts of verified skill rubrics, passed assessments, multi-file code submissions, and authenticated oral defenses.'}
+              {strings.subheading}
             </p>
 
             <div className="pt-1 flex flex-wrap items-center gap-3 text-xs text-[#526174] dark:text-night-muted">
               <span className="font-semibold text-[#173B67] dark:text-night-ink">
-                {isTamil ? 'தற்போதைய பயனர்:' : 'Active Learner:'} {isTamil ? persona.nameTamil : persona.name}
+                {strings.activeLearner} {isTa ? persona.nameTamil : persona.name}
               </span>
               <span>•</span>
               <span className="text-[#173B67] dark:text-sky-300 font-medium">
-                {isTamil ? pathway.titleTamil : pathway.title}
+                {isTa ? pathway.titleTamil : pathway.title}
               </span>
               <span>•</span>
               <span className="italic">{persona.location}</span>
@@ -131,7 +363,7 @@ export const ReadinessView: React.FC = () => {
           <div className="flex flex-row lg:flex-col items-center justify-around lg:justify-center p-3.5 sm:p-4 rounded-card bg-[#F8FAFC] dark:bg-night-100/60 border border-[#E2E8F0] dark:border-night-border w-full lg:w-auto lg:min-w-[200px]">
             <div className="text-center">
               <div className="text-xs uppercase font-bold text-[#526174] dark:text-night-muted">
-                {isTamil ? 'நிரூபிக்கப்பட்ட சான்றுகள்' : 'Verified Proofs'}
+                {strings.verifiedProofs}
               </div>
               <div className="text-2xl font-extrabold text-[#173B67] dark:text-white mt-0.5">
                 {readiness.components[0].count + readiness.components[1].count + readiness.components[2].count}
@@ -140,7 +372,7 @@ export const ReadinessView: React.FC = () => {
             <div className="h-8 w-px bg-[#E2E8F0] dark:bg-night-border lg:w-full lg:h-px lg:my-2" />
             <div className="text-center">
               <div className="text-xs uppercase font-bold text-[#526174] dark:text-night-muted">
-                {isTamil ? 'நிலுவை தேவைகள்' : 'Missing Criteria'}
+                {strings.missingCriteria}
               </div>
               <div className="text-2xl font-extrabold text-rose-600 dark:text-rose-400 mt-0.5">
                 {readiness.components[4].count}
@@ -151,7 +383,7 @@ export const ReadinessView: React.FC = () => {
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 2. OVERALL GUIDANCE INDICATOR CARD (STRICT REQUIREMENT) */}
+      {/* 2. OVERALL GUIDANCE INDICATOR CARD */}
       {/* ------------------------------------------------------------------ */}
       <section className="p-6 sm:p-7 rounded-card bg-white dark:bg-[#0F2035] border border-[#BAE6FD] shadow-soft font-poppins">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -159,47 +391,45 @@ export const ReadinessView: React.FC = () => {
           <div className="space-y-3 flex-1">
             {/* Contextual "About this data" popover */}
             <div className="flex items-center gap-2">
-              <AboutThisData title={isTamil ? 'வழிகாட்டல் கொள்கை' : 'About this guidance data'}>
+              <AboutThisData title={strings.guidancePolicy}>
                 <p>
-                  This readiness index is a self-assessment feedback tool calculated deterministically from your verified rubric proofs, submitted PRs, and oral defenses.
+                  {strings.aboutParagraph1}
                 </p>
                 <p className="font-semibold text-[#173B67] dark:text-white">
-                  Fairness Guarantee: Unassessed skills are kept strictly neutral. This indicator provides practice guidance and is not a guarantee of employment.
+                  {strings.aboutParagraph2}
                 </p>
               </AboutThisData>
             </div>
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-                {isTamil ? 'ஒட்டுமொத்த தயார்நிலை வழிகாட்டி' : 'Overall Readiness Guidance Indicator'}
+                {strings.overallGuidance}
               </h2>
               <p className="text-xs text-[#526174] dark:text-slate-300 mt-1 max-w-xl">
-                {isTamil
-                  ? 'கீழே உள்ள 5 கூறுகளின் எடையிடப்பட்ட கூட்டல் மட்டுமே இந்த மதிப்பெண்ணை உருவாக்குகிறது:'
-                  : 'Computed exclusively as the weighted sum of your 5 verified components. All component weights are fully transparent:'}
+                {strings.overallSub}
               </p>
             </div>
 
-            {/* DISPLAY WEIGHTS CLEARLY (STRICT REQUIREMENT) */}
+            {/* Component Weights */}
             <div className="pt-1">
               <div className="text-[11px] font-bold uppercase tracking-wider text-[#526174] dark:text-slate-400 mb-2">
-                {isTamil ? 'கூறு எடைகள் (மொத்தம் 100%):' : 'Component Weights (Sum = 100%):'}
+                {strings.weightsLabel}
               </div>
               <div className="flex flex-wrap gap-2 text-xs">
                 <span className="px-2.5 py-1 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] font-medium text-[#173B67] dark:text-white">
-                  {isTamil ? 'திறன்கள்' : 'Skills'}: <strong className="text-[#173B67] dark:text-[#62B6E8]">30%</strong>
+                  {strings.skills}: <strong className="text-[#173B67] dark:text-[#62B6E8]">30%</strong>
                 </span>
                 <span className="px-2.5 py-1 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] font-medium text-[#173B67] dark:text-white">
-                  {isTamil ? 'திட்டப்பணிகள்' : 'Projects'}: <strong className="text-[#10B981]">25%</strong>
+                  {strings.projects}: <strong className="text-[#10B981]">25%</strong>
                 </span>
                 <span className="px-2.5 py-1 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] font-medium text-[#173B67] dark:text-white">
-                  {isTamil ? 'தேர்வுகள்' : 'Assessments'}: <strong className="text-[#F2B66D]">20%</strong>
+                  {strings.assessments}: <strong className="text-[#F2B66D]">20%</strong>
                 </span>
                 <span className="px-2.5 py-1 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] font-medium text-[#173B67] dark:text-white">
-                  {isTamil ? 'தகவல்தொடர்பு' : 'Communication'}: <strong className="text-[#173B67]">15%</strong>
+                  {strings.communication}: <strong className="text-[#173B67]">15%</strong>
                 </span>
                 <span className="px-2.5 py-1 rounded-btn bg-[#EAF5FC] dark:bg-slate-800 border border-[#BAE6FD] font-medium text-[#173B67] dark:text-white">
-                  {isTamil ? 'மைல்கற்கள்' : 'Requirements'}: <strong className="text-[#526174]">10%</strong>
+                  {strings.requirements}: <strong className="text-[#526174]">10%</strong>
                 </span>
               </div>
             </div>
@@ -213,9 +443,7 @@ export const ReadinessView: React.FC = () => {
               >
                 <Calculator className="w-3.5 h-3.5" />
                 <span>
-                  {isOverallFormulaOpen
-                    ? (isTamil ? 'கணக்கீட்டு சூத்திரத்தை மறைக்க' : 'Hide overall formula breakdown')
-                    : (isTamil ? 'ஒட்டுமொத்த சூத்திரம் எவ்வாறு கணக்கிடப்படுகிறது?' : 'How is this calculated? (View exact formula)')}
+                  {isOverallFormulaOpen ? strings.hideFormula : strings.showFormula}
                 </span>
                 {isOverallFormulaOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
               </button>
@@ -228,21 +456,21 @@ export const ReadinessView: React.FC = () => {
               progress={readiness.overallScore}
               size={140}
               strokeWidth={11}
-              label={readiness.isSimulated ? (isTamil ? 'மாதிரி' : 'Simulated') : (isTamil ? 'வழிகாட்டல்' : 'Guidance')}
-              sublabel={readiness.overallScore >= 70 ? (isTamil ? 'தயார்நிலை' : 'Benchmark Near') : (isTamil ? 'வளர்ச்சி' : 'In Progress')}
+              label={readiness.isSimulated ? strings.simulated : strings.guidance}
+              sublabel={readiness.overallScore >= 70 ? strings.benchmarkNear : strings.inProgress}
             />
 
             {readiness.isSimulated && (
               <div className="mt-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                 <Zap className="w-3.5 h-3.5" />
                 <span>
-                  +{readiness.overallScore - readiness.baseOverallScore}% {isTamil ? 'அதிகரிப்பு' : 'projected gain'}
+                  +{readiness.overallScore - readiness.baseOverallScore}% {strings.projectedGain}
                 </span>
               </div>
             )}
 
             <div className="text-[11px] text-[#526174] dark:text-night-muted mt-1 max-w-[150px]">
-              {isTamil ? 'எடையிடப்பட்ட கலவை' : 'Weighted composite indicator'}
+              {strings.weightedComposite}
             </div>
           </div>
         </div>
@@ -253,7 +481,7 @@ export const ReadinessView: React.FC = () => {
             <div className="flex items-center gap-2">
               <Calculator className="w-4 h-4 text-[#173B67] dark:text-sky-300" />
               <h4 className="text-xs sm:text-sm font-bold text-[#173B67] dark:text-night-ink">
-                {isTamil ? 'கணித சூத்திரம் மற்றும் மாற்று எண்கள்' : 'Exact Formula & Arithmetic Substitution'}
+                {strings.exactFormulaTitle}
               </h4>
             </div>
 
@@ -288,7 +516,7 @@ export const ReadinessView: React.FC = () => {
                   className="p-2.5 rounded-lg bg-[#F8FAFC] dark:bg-night-card border border-[#E2E8F0] dark:border-night-border"
                 >
                   <div className="font-bold text-[#173B67] dark:text-night-ink truncate">
-                    {comp.title}
+                    {isTa && comp.titleTamil ? comp.titleTamil : comp.title}
                   </div>
                   <div className="text-[#526174] dark:text-night-muted">
                     {comp.percentage}% × {comp.weightPercentage}%
@@ -304,7 +532,7 @@ export const ReadinessView: React.FC = () => {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 3. "YOUR NEXT STEP" CARD IN PLAIN LANGUAGE (STRICT REQUIREMENT) */}
+      {/* 3. "YOUR NEXT STEP" CARD IN PLAIN LANGUAGE */}
       {/* ------------------------------------------------------------------ */}
       <section className="p-6 sm:p-7 rounded-card bg-[#EAF5FC] dark:bg-[#0F2035] border border-[#BAE6FD] shadow-soft font-poppins">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
@@ -312,7 +540,7 @@ export const ReadinessView: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#173B67] border border-[#BAE6FD] flex items-center gap-1.5">
                 <Target className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>{isTamil ? 'உங்கள் அடுத்த சிறந்த நடவடிக்கை' : 'Your Next Highest-Impact Step'}</span>
+                <span>{strings.nextStepBadge}</span>
               </span>
               <span className="text-xs font-medium text-[#526174] dark:text-slate-300 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
@@ -321,22 +549,22 @@ export const ReadinessView: React.FC = () => {
             </div>
 
             <h3 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
-              {isTamil ? readiness.nextStep.plainLanguageTitleTamil : readiness.nextStep.plainLanguageTitle}
+              {isTa ? readiness.nextStep.plainLanguageTitleTamil : readiness.nextStep.plainLanguageTitle}
             </h3>
 
             {/* Plain language explanation */}
             <p className="text-xs sm:text-sm text-[#526174] dark:text-slate-300 leading-relaxed">
-              {isTamil ? readiness.nextStep.plainLanguageSummaryTamil : readiness.nextStep.plainLanguageSummary}
+              {isTa ? readiness.nextStep.plainLanguageSummaryTamil : readiness.nextStep.plainLanguageSummary}
             </p>
 
             {/* Why it matters in plain language */}
             <div className="p-3.5 rounded-btn bg-white/80 dark:bg-slate-800/80 border border-[#BAE6FD] text-xs space-y-1.5">
               <div className="font-bold text-[#173B67] dark:text-white flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#62B6E8]" />
-                <span>{isTamil ? 'இது ஏன் முக்கியமானது (எளிய வார்த்தைகளில்):' : 'Why this matters (in plain words):'}</span>
+                <span>{strings.whyMatters}</span>
               </div>
               <p className="text-[#526174] dark:text-slate-300 leading-relaxed">
-                {isTamil ? readiness.nextStep.whyItMattersTamil : readiness.nextStep.whyItMatters}
+                {isTa ? readiness.nextStep.whyItMattersTamil : readiness.nextStep.whyItMatters}
               </p>
             </div>
 
@@ -344,23 +572,23 @@ export const ReadinessView: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 text-xs pt-1">
               <span className="font-semibold text-[#10B981] flex items-center gap-1">
                 <Zap className="w-3.5 h-3.5 text-[#10B981]" />
-                <span>+{readiness.nextStep.impactGain}% {isTamil ? 'உடனடி தயார்நிலை உயர்வு' : 'Readiness Gain'}</span>
+                <span>+{readiness.nextStep.impactGain}% {strings.readinessGain}</span>
               </span>
               <span>•</span>
               <span className="text-[#526174] dark:text-slate-300">
-                {isTamil ? readiness.nextStep.expectedOutcomeTamil : readiness.nextStep.expectedOutcome}
+                {isTa ? readiness.nextStep.expectedOutcomeTamil : readiness.nextStep.expectedOutcome}
               </span>
             </div>
           </div>
 
-          {/* Action CTA Box (Max 1 primary button, supporting action secondary) */}
+          {/* Action CTA Box */}
           <div className="flex flex-col sm:flex-row md:flex-col items-stretch gap-2.5 shrink-0 min-w-[210px]">
             <button
               type="button"
               onClick={() => handleStartChallenge(readiness.nextStep.challengeId)}
               className="px-5 py-3 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-semibold text-xs sm:text-sm shadow-soft transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{isTamil ? 'சவாலை தொடங்குக →' : 'Start Next Step Now →'}</span>
+              <span>{strings.startNextStep}</span>
             </button>
 
             <button
@@ -375,8 +603,8 @@ export const ReadinessView: React.FC = () => {
               <Zap className="w-3.5 h-3.5 text-[#62B6E8]" />
               <span>
                 {activeSimulations.includes('sim-complete-js-challenge')
-                  ? (isTamil ? 'மாதிரி இயக்கத்தில் உள்ளது' : 'Simulating in What-If')
-                  : (isTamil ? 'மாதிரி உருவகப்படுத்துக' : 'Simulate in What-If')}
+                  ? strings.simulatingInWhatIf
+                  : strings.simulateInWhatIf}
               </span>
             </button>
           </div>
@@ -384,7 +612,7 @@ export const ReadinessView: React.FC = () => {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 4. WHAT-IF SIMULATOR ("complete JS challenge" -> see changes) */}
+      {/* 4. WHAT-IF SIMULATOR */}
       {/* ------------------------------------------------------------------ */}
       <section className="p-6 sm:p-7 rounded-card bg-white dark:bg-[#0F2035] border border-[#E2E8F0] shadow-soft font-poppins">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
@@ -394,13 +622,11 @@ export const ReadinessView: React.FC = () => {
                 <Zap className="w-4 h-4" />
               </span>
               <h3 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-white">
-                {isTamil ? 'என்ன நடக்கும்? மாதிரி உருவகப்படுத்துதல்' : 'What-If Simulator: Preview Impact on Exact Formulas'}
+                {strings.whatIfTitle}
               </h3>
             </div>
             <p className="text-xs text-[#526174] dark:text-slate-300 mt-1">
-              {isTamil
-                ? 'நேரத்தை செலவழிக்கும் முன் செயல்களின் தாக்கத்தை சோதிக்கவும். கீழேயுள்ள உருவகப்படுத்துதலைத் தேர்ந்தெடுத்து 5 கூறுகளின் மாற்றங்களைப் பார்க்கவும்.'
-                : 'Test hypothetical accomplishments before spending time. Click any action below to see real-time updates across all component counts and mathematical formulas.'}
+              {strings.whatIfSub}
             </p>
           </div>
 
@@ -411,7 +637,7 @@ export const ReadinessView: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn text-xs font-semibold text-[#173B67] hover:bg-[#D9EFFB] border border-[#E2E8F0] transition-colors cursor-pointer self-start md:self-center"
             >
               <RotateCcw className="w-3.5 h-3.5 text-[#62B6E8]" />
-              <span>{isTamil ? 'உருவகப்படுத்துதலை மீட்டமைக்க' : 'Reset Simulator'}</span>
+              <span>{strings.resetSim}</span>
             </button>
           )}
         </div>
@@ -423,14 +649,14 @@ export const ReadinessView: React.FC = () => {
               <Sparkles className="w-4 h-4 shrink-0 text-[#10B981]" />
               <div>
                 <span className="font-bold">
-                  {isTamil ? 'மாதிரி உருவகப்படுத்துதல் இயங்குகிறது:' : 'Simulation Active:'}
+                  {strings.simActive}
                 </span>{' '}
                 {readiness.baseOverallScore}% → <strong className="text-[#065F46] text-sm">{readiness.overallScore}%</strong>{' '}
-                (+{readiness.overallScore - readiness.baseOverallScore}% gain). {isTamil ? 'உங்கள் உண்மையான சுயவிவரம் மாறவில்லை.' : 'Your saved profile is untouched.'}
+                (+{readiness.overallScore - readiness.baseOverallScore}% gain). {strings.profileUntouched}
               </div>
             </div>
             <span className="text-[11px] text-[#065F46] font-semibold italic">
-              {isTamil ? 'கீழே உள்ள கூறுகள் புதுப்பிக்கப்பட்டுள்ளன' : 'Component formulas updated below ↓'}
+              {strings.updatedBelow}
             </span>
           </div>
         )}
@@ -452,7 +678,7 @@ export const ReadinessView: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span className="font-bold text-xs text-[#173B67] dark:text-white">
-                      {isTamil ? scenario.labelTamil : scenario.label}
+                      {isTa ? scenario.labelTamil : scenario.label}
                     </span>
                     {isSelected ? (
                       <CheckSquare className="w-4 h-4 text-[#10B981] shrink-0" />
@@ -478,7 +704,7 @@ export const ReadinessView: React.FC = () => {
                       }}
                       className="text-[#173B67] dark:text-[#62B6E8] hover:underline font-bold text-[11px]"
                     >
-                      {isTamil ? 'தொடங்க' : 'Start'} →
+                      {strings.start} →
                     </button>
                   )}
                 </div>
@@ -489,18 +715,16 @@ export const ReadinessView: React.FC = () => {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 5. COMPONENT ROWS (STRICT REQUIREMENT: 5 DISTINCT ROWS WITH COUNTS & FORMULA) */}
+      {/* 5. COMPONENT ROWS (ALL 5 ROWS) */}
       {/* ------------------------------------------------------------------ */}
       <section className="space-y-4 font-poppins">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-[#173B67] dark:text-white">
-              {isTamil ? 'தயார்நிலையின் 5 முக்கிய கூறுகள்' : 'Readiness Component Breakdown (All 5 Rows)'}
+              {strings.breakdownTitle}
             </h3>
             <p className="text-xs text-[#526174] dark:text-slate-300">
-              {isTamil
-                ? 'ஒவ்வொரு கூறும் சரியான எண்ணிக்கை மற்றும் விரிவாக்கக்கூடிய சூத்திரத்துடன் காட்டப்பட்டுள்ளது.'
-                : 'Each row displays exact counts, percentage, weight contribution, and step-by-step formula derivation.'}
+              {strings.breakdownSub}
             </p>
           </div>
         </div>
@@ -545,25 +769,25 @@ export const ReadinessView: React.FC = () => {
                     <div className="space-y-1 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-xs font-bold text-[#526174] uppercase">
-                          {idx + 1}. {isTamil ? comp.titleTamil : comp.title}
+                          {idx + 1}. {isTa && comp.titleTamil ? comp.titleTamil : comp.title}
                         </span>
                         <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
-                          {isTamil ? 'எடை:' : 'Weight:'} {comp.weightPercentage}%
+                          {strings.weight} {comp.weightPercentage}%
                         </span>
                         {comp.id === 'missingRequirements' && comp.count > 0 && (
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FEF2F2] text-[#991B1B] border border-[#FECACA]">
-                            {comp.count} {isTamil ? 'நிலுவை' : 'Missing'}
+                            {comp.count} {strings.missing}
                           </span>
                         )}
                       </div>
 
-                      {/* Explicit Counts (STRICT REQUIREMENT) */}
+                      {/* Explicit Counts */}
                       <div className="flex flex-wrap items-baseline gap-2">
                         <span className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-white">
                           {comp.count} / {comp.total}
                         </span>
                         <span className="text-xs text-[#526174] dark:text-slate-300">
-                          {isTamil ? comp.unitTamil : comp.unit}
+                          {isTa ? comp.unitTamil : comp.unit}
                         </span>
 
                         {hasSimulatedDiff && (
@@ -574,7 +798,7 @@ export const ReadinessView: React.FC = () => {
                       </div>
 
                       <p className="text-xs text-[#526174] dark:text-slate-300 leading-relaxed max-w-xl">
-                        {isTamil ? comp.explanationTamil : comp.explanationEnglish}
+                        {isTa ? comp.explanationTamil : comp.explanationEnglish}
                       </p>
                     </div>
                   </div>
@@ -584,9 +808,7 @@ export const ReadinessView: React.FC = () => {
                     <div className="w-full sm:w-44 md:w-48 space-y-1 text-right">
                       <div className="flex items-center justify-between text-xs font-bold">
                         <span className="text-[#526174] dark:text-slate-300">
-                          {comp.id === 'missingRequirements'
-                            ? (isTamil ? 'நிறைவு:' : 'Fulfillment:')
-                            : (isTamil ? 'மதிப்பீடு:' : 'Progress:')}
+                          {comp.id === 'missingRequirements' ? strings.fulfillment : strings.progression}
                         </span>
                         <span className="text-[#173B67] dark:text-white text-sm">
                           {comp.percentage}%
@@ -602,14 +824,14 @@ export const ReadinessView: React.FC = () => {
                       </div>
 
                       <div className="text-[11px] text-[#526174] dark:text-slate-300 text-right">
-                        {isTamil ? 'பங்களிப்பு:' : 'Contribution:'}{' '}
+                        {strings.contribution}{' '}
                         <strong className="text-[#173B67] dark:text-[#62B6E8]">
                           +{comp.weightedContribution} pts
                         </strong>
                       </div>
                     </div>
 
-                    {/* EXPANDABLE "HOW IS THIS CALCULATED?" BUTTON (STRICT REQUIREMENT) */}
+                    {/* EXPANDABLE "HOW IS THIS CALCULATED?" BUTTON */}
                     <button
                       type="button"
                       onClick={() => toggleRowExpansion(comp.id)}
@@ -617,9 +839,7 @@ export const ReadinessView: React.FC = () => {
                     >
                       <HelpCircle className="w-3.5 h-3.5 text-[#62B6E8]" />
                       <span>
-                        {isExpanded
-                          ? (isTamil ? 'சூத்திரத்தை மறை' : 'Hide Formula')
-                          : (isTamil ? 'இது எவ்வாறு கணக்கிடப்படுகிறது?' : 'How is this calculated?')}
+                        {isExpanded ? strings.hideRowFormula : strings.showRowFormula}
                       </span>
                       {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     </button>
@@ -633,7 +853,7 @@ export const ReadinessView: React.FC = () => {
                     <div className="p-3.5 rounded-btn bg-white dark:bg-[#0F2035] border border-[#BAE6FD] font-mono text-xs space-y-1.5 overflow-x-auto">
                       <div className="text-[#526174] dark:text-slate-300 font-sans font-bold flex items-center gap-1.5">
                         <Calculator className="w-3.5 h-3.5 text-[#62B6E8]" />
-                        <span>{isTamil ? 'சரியான கணித சூத்திரம்:' : 'Exact Formula & Step-by-Step Derivation:'}</span>
+                        <span>{strings.exactRowFormula}</span>
                       </div>
                       <div className="text-[#173B67] dark:text-[#62B6E8] font-semibold">
                         {comp.formulaStr}
@@ -649,7 +869,7 @@ export const ReadinessView: React.FC = () => {
                     {/* Itemized Evidence List */}
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wider text-[#526174] dark:text-slate-300 mb-2">
-                        {isTamil ? 'சரிபார்க்கப்பட்ட சான்றுகளின் முழுப் பட்டியல்:' : 'Itemized Evidence Breakdown & Status:'}
+                        {strings.itemizedEvidence}
                       </div>
 
                       <div className="space-y-2">
@@ -668,10 +888,10 @@ export const ReadinessView: React.FC = () => {
                               )}
                               <div>
                                 <div className="font-bold text-[#173B67] dark:text-white">
-                                  {isTamil && item.nameTamil ? item.nameTamil : item.name}
+                                  {isTa && item.nameTamil ? item.nameTamil : item.name}
                                 </div>
                                 <div className="text-[#526174] dark:text-slate-400 text-[11px] mt-0.5">
-                                  {isTamil && item.detailsTamil ? item.detailsTamil : item.details}
+                                  {isTa && item.detailsTamil ? item.detailsTamil : item.details}
                                 </div>
                               </div>
                             </div>
@@ -692,10 +912,10 @@ export const ReadinessView: React.FC = () => {
                                 }`}
                               >
                                 {item.status === 'completed'
-                                  ? (isTamil ? 'சரிபார்க்கப்பட்டது' : 'Verified')
+                                  ? strings.verified
                                   : item.status === 'missing'
-                                  ? (isTamil ? 'நிலுவை' : 'Missing')
-                                  : (isTamil ? 'செயலில்' : 'In Progress')}
+                                  ? strings.missing
+                                  : strings.progress}
                               </span>
                             </div>
                           </div>
@@ -713,7 +933,7 @@ export const ReadinessView: React.FC = () => {
       {/* ------------------------------------------------------------------ */}
       {/* 6. 16-WEEK PRACTICE HABIT CONSISTENCY HEATMAP */}
       {/* ------------------------------------------------------------------ */}
-      <PracticeHeatmap isTamil={isTamil} streakDays={persona.streakDays} />
+      <PracticeHeatmap streakDays={persona.streakDays} />
     </div>
   );
 };

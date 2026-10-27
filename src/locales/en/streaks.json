@@ -1,0 +1,43 @@
+{
+  "title": "Streak, Habit & Skill Advancement",
+  "subtitle": "Build consistent daily practice without anxiety: Protected by streak freezes and exam pause buffers.",
+  "currentStreak": "{{count}} Day Streak",
+  "currentStreak_plural": "{{count}} Days Streak",
+  "longestStreak": "Longest Streak: {{count}} Days",
+  "totalXp": "{{xp}} Total XP",
+  "freeze": {
+    "freezesAvailable": "{{count}} Streak Freeze Available",
+    "freezesAvailable_plural": "{{count}} Streak Freezes Available",
+    "useFreezeBtn": "Activate Streak Freeze",
+    "freezeActive": "Streak Freeze Safeguard Active",
+    "freezeTooltip": "Protects your streak if you miss a single day due to sudden obligations."
+  },
+  "examPause": {
+    "pauseTitle": "Academic Exam Pause",
+    "pauseActive": "Exam Buffer Active (Streak Preserved)",
+    "resumeDate": "Scheduled Resume: in {{days}} Days",
+    "examPauseDesc": "Pause daily requirements during Anna University or vocational semester examinations without losing streak momentum.",
+    "enablePause": "Enable Exam Pause",
+    "resumeNow": "Resume Daily Practice Now"
+  },
+  "heatmap": {
+    "title": "Year-to-Date Practice Heatmap",
+    "months": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+    "activeDay": "Active Practice Day",
+    "missedDay": "Missed Day",
+    "frozenDay": "Streak Freeze Protected",
+    "legendaryDay": "Mastery Challenge Cleared"
+  },
+  "levels": {
+    "currentLevel": "Level {{level}} Apprentice",
+    "nextLevel": "Next: Level {{next}} Specialist",
+    "xpRemaining": "{{xp}} XP needed to level up",
+    "perks": "Unlocks verified employer recommendations and faster review turnaround"
+  },
+  "catchUp": {
+    "taskTitle": "Streak Recovery Catch-Up Assignment",
+    "rewardLabel": "Restore Missed Streak (+{{xp}} XP)",
+    "completeBtn": "Complete Catch-Up Task",
+    "taskDesc": "Complete this 5-minute micro-assessment to restore your missed streak without penalty."
+  }
+}

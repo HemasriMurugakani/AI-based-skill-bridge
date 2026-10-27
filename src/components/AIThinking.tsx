@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export interface AIThinkingProps {
+  label?: string;
   labelEnglish?: string;
   labelTamil?: string;
   stage?: 'analyzing' | 'evaluating_proof' | 'synthesizing_bridge' | 'adapting';
@@ -9,10 +11,18 @@ export interface AIThinkingProps {
 }
 
 export const AIThinking: React.FC<AIThinkingProps> = ({
+  label,
   labelEnglish = "SkillBridge AI is evaluating rubric criteria...",
   labelTamil = "திறன் பாலம் AI சான்றுகளை ஆய்வு செய்கிறது...",
   className = ''
 }) => {
+  const { i18n } = useTranslation();
+  const activeLabel =
+    label ||
+    (i18n.language === 'ta' && labelTamil
+      ? labelTamil
+      : labelEnglish);
+
   return (
     <div className={`flex flex-col items-center justify-center p-6 text-center select-none ${className}`}>
       {/* Animated Bridge Structure */}
@@ -101,15 +111,10 @@ export const AIThinking: React.FC<AIThinkingProps> = ({
         <span className="text-amber-700 dark:text-amber-400">3. Opportunity</span>
       </div>
 
-      {/* Bilingual Text */}
+      {/* Single Language Status Text */}
       <div className="mt-3">
-        {labelTamil && (
-          <div className="font-tamil text-xs font-semibold text-[#173B67] dark:text-sky-300">
-            {labelTamil}
-          </div>
-        )}
-        <div className="text-xs text-[#526174] dark:text-night-muted mt-0.5 animate-pulse font-medium">
-          {labelEnglish}
+        <div className="text-xs text-[#173B67] dark:text-sky-300 animate-pulse font-medium">
+          {activeLabel}
         </div>
       </div>
     </div>

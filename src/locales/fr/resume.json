@@ -1,0 +1,28 @@
+{
+  "title": "CV en 1 Page Fondé sur les Preuves",
+  "subtitle": "Format compact optimisé pour les ATS avec liens de vérification cryptographiques et extraits de grilles d'évaluation.",
+  "onePageNotice": "Garantie stricte 1 page A4 · Conçu pour tenir exactement sur une feuille sans débordement",
+  "atsScore": "Fidélité de Lecture ATS : {{score}} %",
+  "printBtn": "Imprimer / Exporter en PDF Épuré",
+  "sections": {
+    "contact": "Coordonnées & Liens",
+    "summary": "Profil Professionnel",
+    "verifiedSkills": "Compétences Vérifiées sur Preuves",
+    "practicalProjects": "Défis & Projets Pratiques",
+    "educationCertifications": "Formation & Certifications Civiques",
+    "verificationProof": "Registre d'Audit & Preuves"
+  },
+  "labels": {
+    "portfolioLink": "Registre Public des Preuves",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "location": "Localisation",
+    "targetRole": "Rôle Visé",
+    "generatedBy": "Généré par la plateforme civique SkillBridge AI"
+  },
+  "printNotice": {
+    "printReady": "Aperçu Prêt pour Impression",
+    "cleanLayout": "Typographie soignée : Titres bien contrastés et aucune perte d'espace.",
+    "verifiedBadgesIncluded": "Les QR codes et liens restent cliquables dans le fichier PDF exporté."
+  }
+}

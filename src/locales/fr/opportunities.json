@@ -1,0 +1,32 @@
+{
+  "title": "Opportunités Vérifiées & Apprentissages",
+  "subtitle": "Accès direct auprès d'entreprises qui valorisent les compétences prouvées plutôt que les diplômes universitaires de prestige.",
+  "filterAll": "Toutes les Opportunités",
+  "filterTech": "Logiciels & Web",
+  "filterCraft": "Artisanat & Textile",
+  "filterApprenticeship": "Énergie Verte & Électricité",
+  "card": {
+    "matchScore": "Indice d'Adéquation",
+    "salary": "Indemnité / Salaire",
+    "location": "Localisation",
+    "verifiedBadge": "Correspondance Directe sur Preuves",
+    "applyBtn": "Postuler avec Preuves",
+    "viewRequirements": "Consulter les Critères de Correspondance"
+  },
+  "tracker": {
+    "title": "Suivi des Candidatures",
+    "subtitle": "Suivez vos candidatures et l'état des revues de recruteurs en temps réel.",
+    "stagesReady": "Prêt à Postuler",
+    "stagesPreparing": "Constitution des Preuves",
+    "stagesApplied": "Candidature Envoyée",
+    "stagesSaved": "Enregistré pour Plus Tard",
+    "interviewScheduled": "Entretien / Soutenance Programmé",
+    "offerExtended": "Offre Reçue"
+  },
+  "detail": {
+    "jobDescription": "Présentation du Poste & Responsabilités",
+    "requiredProof": "Livrables et Preuves Demandés",
+    "employerContact": "Équipe de Recrutement & Pôle Industriel",
+    "equalOpportunity": "Employeur partenaire SkillBridge : Évaluation équitable axée d'abord sur les compétences."
+  }
+}

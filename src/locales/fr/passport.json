@@ -1,0 +1,32 @@
+{
+  "title": "Passeport Numérique de Compétences",
+  "subtitle": "Registre infalsifiable et cryptographiquement vérifiable de vos compétences pratiques, revues de code et attestations artisanales.",
+  "badgeCount": "{{count}} certification vérifiée",
+  "badgeCount_plural": "{{count}} certifications vérifiées",
+  "xpTotal": "{{xp}} XP de compétences cumulés",
+  "verifiedClaims": "{{count}} compétence auditée",
+  "verifiedClaims_plural": "{{count}} compétences auditées",
+  "credentials": {
+    "title": "Micro-Certifications & Badges Délivrés",
+    "issuedBy": "Délivré par le moteur civique SkillBridge",
+    "cryptographicHash": "Empreinte de Vérification",
+    "verificationUrl": "URL Publique de Contrôle",
+    "viewProofChain": "Inspecter la Chaîne de Preuves"
+  },
+  "qrCode": {
+    "scanToVerify": "Scanner le QR Code pour Vérifier l'Authenticité",
+    "sharePublicUrl": "Copier le Lien Public du Portfolio",
+    "validCredential": "Valide & Inscrit au Registre des Talents du Tamil Nadu"
+  },
+  "skillsMatrix": {
+    "title": "Matrice de Maîtrise & Preuves Évaluées",
+    "verifiedAt": "Vérifié le {{date}}",
+    "proficiencyLevel": "Niveau {{level}} sur 5",
+    "mentorSignature": "Cachet de Validation Mentor"
+  },
+  "export": {
+    "exportJson": "Exporter les Identifiants JSON-LD",
+    "exportPdf": "Exporter le Passeport Officiel en PDF",
+    "shareLinkedIn": "Ajouter au Profil Professionnel"
+  }
+}

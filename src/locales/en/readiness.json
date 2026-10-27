@@ -1,0 +1,30 @@
+{
+  "title": "Workplace Readiness Index",
+  "subtitle": "Deterministic multi-factor score validating code proof, viva authenticity, and industry compliance.",
+  "indexTitle": "Overall Readiness Index",
+  "scoreLabel": "Readiness Score",
+  "percentile": "Top {{percent}}% of Tamil Nadu candidates",
+  "breakdown": {
+    "technicalProof": "Technical Proof & Rubric Evidence",
+    "codeAuthenticity": "Code Authorship & Viva Defense",
+    "vivaDefense": "Conceptual Depth & Communication",
+    "marketAlignment": "Target Role & JD Alignment"
+  },
+  "audit": {
+    "auditTrailTitle": "Verifiable Audit Log",
+    "deterministicFormula": "Calculated via weighted deterministic rubric (0–100%)",
+    "verifiedClaims": "{{count}} verified claim on record",
+    "verifiedClaims_plural": "{{count}} verified claims on record",
+    "tamperProofNotice": "Tamper-evident hash logged to local digital passport."
+  },
+  "tiers": {
+    "entryReady": "Workplace Ready (80%+)",
+    "nearReady": "Developing Capability (60–79%)",
+    "foundational": "Foundational Stage (<60%)"
+  },
+  "actions": {
+    "boostScore": "Take Challenge to Boost Readiness",
+    "shareWithEmployers": "Share Verified Report with Employers",
+    "downloadReport": "Download Readiness Audit PDF"
+  }
+}

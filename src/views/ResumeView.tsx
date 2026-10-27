@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { QRCodeSVG } from 'qrcode.react';
 import { buildVerifiedResumeData } from '../utils/resumeTransformer';
@@ -19,6 +20,7 @@ import {
 } from 'lucide-react';
 
 export const ResumeView: React.FC = () => {
+  const { t } = useTranslation();
   const {
     getPersona,
     getCurrentPathway,
@@ -29,21 +31,18 @@ export const ResumeView: React.FC = () => {
     setActiveTab
   } = useSkillBridgeStore();
 
+  const isTamil = appLanguage === 'ta';
   const persona = getPersona();
   const pathway = getCurrentPathway();
 
   // 1. Template switcher state: 'heritage-classic' | 'modern-minimal'
   const [template, setTemplate] = useState<'heritage-classic' | 'modern-minimal'>('heritage-classic');
 
-  // 2. Heading Language toggle: 'en' | 'ta'
-  const [headingLang, setHeadingLang] = useState<'en' | 'ta'>(appLanguage === 'ta' ? 'ta' : 'en');
-  const isTamil = headingLang === 'ta';
-
-  // 3. Audit inclusion/exclusion drawer state
+  // 2. Audit inclusion/exclusion drawer state
   const [isAuditOpen, setIsAuditOpen] = useState(false);
   const [auditTab, setAuditTab] = useState<'all' | 'included' | 'excluded'>('all');
 
-  // 4. Download PDF hint notification
+  // 3. Download PDF hint notification
   const [showPrintHint, setShowPrintHint] = useState(false);
 
   // Compute verified-only resume data
@@ -56,28 +55,160 @@ export const ResumeView: React.FC = () => {
     }, 250);
   };
 
-  // Section headings dictionary
+  // Section headings dictionary supporting en, ta, fr, and hi
   const headings = {
-    docTitle: isTamil ? 'சரிபார்க்கப்பட்ட திறன் ரெஸ்யூமே' : 'Verified SkillBridge Resume & Portfolio',
-    credentialNotice: isTamil
-      ? 'தமிழ்நாடு திறன் முயற்சி: சரிபார்க்கப்பட்ட சான்றுகளிலிருந்து தானாக உருவாக்கப்பட்டது'
-      : 'Tamil Nadu Civic Skill Initiative • Auto-generated strictly from verified passport proofs',
-    summary: isTamil ? 'தொழில்முறை சுயவிவரம் & சுருக்கம்' : 'Professional Profile & Evidence Summary',
-    skills: isTamil ? 'சரிபார்க்கப்பட்ட திறன்கள்' : 'Verified Competencies',
-    projects: isTamil ? 'சரிபார்க்கப்பட்ட திட்டப்பணிகள் & சான்றுகள்' : 'Verified Portfolio & Project Proofs',
-    communication: isTamil ? 'வாய்மொழி விளக்கம் & தகவல்தொடர்பு' : 'Oral Defense & Viva Articulation',
-    credentials: isTamil ? 'சான்றளிக்கப்பட்ட நற்சான்றிதழ்கள்' : 'Verified Micro-Credentials',
-    education: isTamil ? 'கல்வி & பின்னணி' : 'Education & Civic Background',
-    endorsement: isTamil ? 'வழிகாட்டி சான்றளிப்பு' : 'Mentor Verification & Attestation',
-    verifiedPill: isTamil ? 'வழிகாட்டியால் சரிபார்க்கப்பட்டது' : 'Mentor-Verified & Tamper-Evident',
-    authenticity: isTamil ? 'உறுதித்தன்மை' : 'Authenticity',
-    outcomes: isTamil ? 'முக்கிய சாதனைகள்' : 'Verified Rubric Criteria Met',
-    scanToVerify: isTamil ? 'சான்றுகளை சரிபார்க்க ஸ்கேன் செய்க' : 'SCAN TO VERIFY PROOFS',
-    auditButton: isTamil ? 'தணிக்கை அறிக்கை' : 'Audit Verification Log',
-    downloadPdf: isTamil ? 'PDF பதிவிறக்கு' : 'Download PDF',
-    printResume: isTamil ? 'அச்சிடு' : 'Print',
-    templateClassic: isTamil ? 'தஞ்சாவூர் ஹெரிடேஜ் (Classic)' : 'Thanjavur Classic (Heritage)',
-    templateModern: isTamil ? 'நவீன கலைஞர் (Modern)' : 'Modern Minimalist (Artisan)'
+    docTitle:
+      appLanguage === 'ta'
+        ? 'சரிபார்க்கப்பட்ட திறன் ரெஸ்யூமே'
+        : appLanguage === 'fr'
+        ? 'CV & Portfolio certifié SkillBridge'
+        : appLanguage === 'hi'
+        ? 'सत्यापित स्किलब्रिज बायोडाटा और पोर्टफोलियो'
+        : 'Verified SkillBridge Resume & Portfolio',
+    credentialNotice:
+      appLanguage === 'ta'
+        ? 'தமிழ்நாடு திறன் முயற்சி: சரிபார்க்கப்பட்ட சான்றுகளிலிருந்து தானாக உருவாக்கப்பட்டது'
+        : appLanguage === 'fr'
+        ? 'Initiative de compétences civiques du Tamil Nadu • Généré automatiquement à partir de preuves certifiées'
+        : appLanguage === 'hi'
+        ? 'तमिलनाडु कौशल पहल • सीधे सत्यापित पासपोर्ट प्रमाणों से स्वतः जनरेट'
+        : 'Tamil Nadu Civic Skill Initiative • Auto-generated strictly from verified passport proofs',
+    summary:
+      appLanguage === 'ta'
+        ? 'தொழில்முறை சுயவிவரம் & சுருக்கம்'
+        : appLanguage === 'fr'
+        ? 'Profil professionnel & Synthèse des preuves'
+        : appLanguage === 'hi'
+        ? 'व्यावसायिक प्रोफ़ाइल और साक्ष्य सारांश'
+        : 'Professional Profile & Evidence Summary',
+    skills:
+      appLanguage === 'ta'
+        ? 'சரிபார்க்கப்பட்ட திறன்கள்'
+        : appLanguage === 'fr'
+        ? 'Compétences certifiées'
+        : appLanguage === 'hi'
+        ? 'सत्यापित क्षमताएं'
+        : 'Verified Competencies',
+    projects:
+      appLanguage === 'ta'
+        ? 'சரிபார்க்கப்பட்ட திட்டப்பணிகள் & சான்றுகள்'
+        : appLanguage === 'fr'
+        ? 'Portfolio vérifié & Projets concrets'
+        : appLanguage === 'hi'
+        ? 'सत्यापित पोर्टफोलियो और प्रोजेक्ट प्रमाण'
+        : 'Verified Portfolio & Project Proofs',
+    communication:
+      appLanguage === 'ta'
+        ? 'வாய்மொழி விளக்கம் & தகவல்தொடர்பு'
+        : appLanguage === 'fr'
+        ? 'Épreuve orale Viva & Élocution'
+        : appLanguage === 'hi'
+        ? 'मौखिक रक्षा और वाइवा अभिव्यक्ति'
+        : 'Oral Defense & Viva Articulation',
+    credentials:
+      appLanguage === 'ta'
+        ? 'சான்றளிக்கப்பட்ட நற்சான்றிதழ்கள்'
+        : appLanguage === 'fr'
+        ? 'Micro-titres de compétences vérifiés'
+        : appLanguage === 'hi'
+        ? 'सत्यापित माइक्रो-क्रेडेंशियल्स'
+        : 'Verified Micro-Credentials',
+    education:
+      appLanguage === 'ta'
+        ? 'கல்வி & பின்னணி'
+        : appLanguage === 'fr'
+        ? 'Formation & Parcours'
+        : appLanguage === 'hi'
+        ? 'शिक्षा और पृष्ठभूमि'
+        : 'Education & Civic Background',
+    endorsement:
+      appLanguage === 'ta'
+        ? 'வழிகாட்டி சான்றளிப்பு'
+        : appLanguage === 'fr'
+        ? 'Attestation & Validation de mentor'
+        : appLanguage === 'hi'
+        ? 'मेंटर सत्यापन और अभिप्रमाणन'
+        : 'Mentor Verification & Attestation',
+    verifiedPill:
+      appLanguage === 'ta'
+        ? 'வழிகாட்டியால் சரிபார்க்கப்பட்டது'
+        : appLanguage === 'fr'
+        ? 'Vérifié par mentor & Inviolable'
+        : appLanguage === 'hi'
+        ? 'मेंटर-सत्यापित और सुरक्षित'
+        : 'Mentor-Verified & Tamper-Evident',
+    authenticity:
+      appLanguage === 'ta'
+        ? 'உறுதித்தன்மை'
+        : appLanguage === 'fr'
+        ? 'Authenticité'
+        : appLanguage === 'hi'
+        ? 'प्रामाणिकता'
+        : 'Authenticity',
+    outcomes:
+      appLanguage === 'ta'
+        ? 'முக்கிய சாதனைகள்'
+        : appLanguage === 'fr'
+        ? 'Critères de grille validés'
+        : appLanguage === 'hi'
+        ? 'सत्यापित रूब्रिक मानदंड पूर्ण'
+        : 'Verified Rubric Criteria Met',
+    scanToVerify:
+      appLanguage === 'ta'
+        ? 'சான்றுகளை சரிபார்க்க ஸ்கேன் செய்க'
+        : appLanguage === 'fr'
+        ? 'SCANNER POUR VÉRIFIER LES PREUVES'
+        : appLanguage === 'hi'
+        ? 'प्रमाण सत्यापित करने के लिए स्कैन करें'
+        : 'SCAN TO VERIFY PROOFS',
+    auditButton:
+      appLanguage === 'ta'
+        ? 'தணிக்கை அறிக்கை'
+        : appLanguage === 'fr'
+        ? 'Journal d\'audit de vérification'
+        : appLanguage === 'hi'
+        ? 'ऑडिट सत्यापन लॉग'
+        : 'Audit Verification Log',
+    downloadPdf:
+      appLanguage === 'ta'
+        ? 'PDF பதிவிறக்கு'
+        : appLanguage === 'fr'
+        ? 'Télécharger le PDF'
+        : appLanguage === 'hi'
+        ? 'PDF डाउनलोड करें'
+        : 'Download PDF',
+    printResume:
+      appLanguage === 'ta'
+        ? 'அச்சிடு'
+        : appLanguage === 'fr'
+        ? 'Imprimer'
+        : appLanguage === 'hi'
+        ? 'प्रिंट करें'
+        : 'Print',
+    templateClassic:
+      appLanguage === 'ta'
+        ? 'தஞ்சாவூர் கிளாசிக் (ஹெரிடேஜ்)'
+        : appLanguage === 'fr'
+        ? 'Classique Thanjavur (Héritage)'
+        : appLanguage === 'hi'
+        ? 'तंजावुर क्लासिक (हेरिटेज)'
+        : 'Thanjavur Classic (Heritage)',
+    templateModern:
+      appLanguage === 'ta'
+        ? 'நவீன கலைஞர் (மினிமல்)'
+        : appLanguage === 'fr'
+        ? 'Minimaliste moderne (Artisan)'
+        : appLanguage === 'hi'
+        ? 'आधुनिक मिनिमलिस्ट (कारीगर)'
+        : 'Modern Minimalist (Artisan)',
+    reproducibleCode:
+      appLanguage === 'ta'
+        ? 'சான்றளிக்கப்பட்ட குறியீடு'
+        : appLanguage === 'fr'
+        ? 'Code et preuves vérifiables'
+        : appLanguage === 'hi'
+        ? 'सत्यापित कोड और प्रमाण'
+        : 'Reproducible Code & Proofs'
   };
 
   return (
@@ -98,11 +229,11 @@ export const ResumeView: React.FC = () => {
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-[#173B67] dark:text-night-ink">
-              1-Page Resume & Portfolio Generator
+              {t('resume.title')}
             </h1>
-            <div className="font-tamil text-xs text-[#526174] dark:text-night-muted">
-              சரிபார்க்கப்பட்ட திறன் கடவுச்சீட்டுப் பதிவுகளிலிருந்து தானாக உருவாக்கப்படும் ஒற்றைப் பக்க ரெஸ்யூமே
-            </div>
+            <p className="text-xs text-[#526174] dark:text-night-muted">
+              {t('resume.subtitle')}
+            </p>
           </div>
 
           {/* Action CTAs */}
@@ -150,32 +281,6 @@ export const ResumeView: React.FC = () => {
                 title="Single-page clean modern artisan layout"
               >
                 {headings.templateModern}
-              </button>
-            </div>
-
-            {/* English / Tamil Headings Toggle */}
-            <div className="flex items-center rounded-btn bg-[#F8FAFC] dark:bg-night-100 p-1 border border-[#E2E8F0]">
-              <button
-                type="button"
-                onClick={() => setHeadingLang('en')}
-                className={`px-2.5 py-1.5 rounded-btn text-xs font-semibold transition-all cursor-pointer ${
-                  headingLang === 'en'
-                    ? 'bg-white dark:bg-night-card text-[#173B67] dark:text-night-ink shadow-soft'
-                    : 'text-[#526174] hover:text-[#173B67]'
-                }`}
-              >
-                English
-              </button>
-              <button
-                type="button"
-                onClick={() => setHeadingLang('ta')}
-                className={`px-2.5 py-1.5 rounded-btn text-xs font-semibold font-tamil transition-all cursor-pointer ${
-                  headingLang === 'ta'
-                    ? 'bg-white dark:bg-night-card text-[#173B67] dark:text-night-ink shadow-soft'
-                    : 'text-[#526174] hover:text-[#173B67]'
-                }`}
-              >
-                தமிழ்
               </button>
             </div>
 
@@ -412,10 +517,10 @@ export const ResumeView: React.FC = () => {
                   <span>{headings.docTitle}</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                  {persona.name}
+                  {isTamil ? persona.nameTamil : persona.name}
                 </h2>
-                <div className="font-tamil text-sm text-sky-200/90 font-medium">
-                  {persona.nameTamil} • {isTamil ? pathway.titleTamil : pathway.title}
+                <div className={`text-sm text-sky-200/90 font-medium ${isTamil ? 'font-tamil' : ''}`}>
+                  {isTamil ? pathway.titleTamil : pathway.title}
                 </div>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[11px] text-sky-100/80 pt-1">
                   <span className="flex items-center gap-1">
@@ -582,7 +687,7 @@ export const ResumeView: React.FC = () => {
                       {headings.projects}
                     </h3>
                     <span className="text-[9px] text-[#526174]">
-                      {isTamil ? 'சான்றளிக்கப்பட்ட குறியீடு' : 'Reproducible Code & Proofs'}
+                      {headings.reproducibleCode}
                     </span>
                   </div>
 
@@ -681,10 +786,10 @@ export const ResumeView: React.FC = () => {
                   <span className="text-xs font-mono text-[#526174]">{data.verificationId}</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#173B67]">
-                  {persona.name}
+                  {isTamil ? persona.nameTamil : persona.name}
                 </h2>
-                <div className="font-tamil text-sm text-[#173B67] font-semibold">
-                  {persona.nameTamil} • {isTamil ? pathway.titleTamil : pathway.title}
+                <div className={`text-sm text-[#173B67] font-semibold ${isTamil ? 'font-tamil' : ''}`}>
+                  {isTamil ? pathway.titleTamil : pathway.title}
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[#526174] pt-1">
                   <span className="flex items-center gap-1">

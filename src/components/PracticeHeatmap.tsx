@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Award, Sparkles, Flame, CheckCircle2 } from 'lucide-react';
 
 export interface HeatmapDayRecord {
@@ -23,13 +24,19 @@ interface PracticeHeatmapProps {
 export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
   days,
   streakDays = 18,
-  isTamil = false,
   onSelectDay,
   showCardWrapper = true,
 }) => {
-  const dayOfWeekLabels = isTamil
-    ? ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச']
-    : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
+  const isTamil = lang === 'ta';
+
+  const dayOfWeekLabels = useMemo(() => {
+    return [0, 1, 2, 3, 4, 5, 6].map(day => {
+      const d = new Date(2023, 0, 1 + day);
+      return new Intl.DateTimeFormat(lang, { weekday: 'narrow' }).format(d);
+    });
+  }, [lang]);
 
   // Default generation if days not provided
   const heatmapDays = useMemo(() => {
@@ -40,6 +47,38 @@ export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
     const today = new Date();
     const totalDays = 112; // 16 weeks * 7 days
 
+    const getRestTitle = (l: string) => {
+      if (l === 'ta') return 'ஓய்வு நாள் / பயிற்சி பதிவு இல்லை';
+      if (l === 'fr') return 'Jour de repos / Aucune pratique enregistrée';
+      if (l === 'hi') return 'विश्राम दिवस / कोई अभ्यास दर्ज नहीं';
+      return 'Rest day / No deliberate practice recorded';
+    };
+
+    const getTaskTitle = (tier: number, l: string) => {
+      if (tier === 4) {
+        if (l === 'ta') return 'அணுகல்தன்மை சுயவிவரம் மற்றும் வாய்மொழி விளக்கம் (92%)';
+        if (l === 'fr') return 'Page de profil accessible & épreuve orale Viva (Score 92%)';
+        if (l === 'hi') return 'सुलभ प्रोफाइल पृष्ठ और मौखिक वाइवा (स्कोर 92%)';
+        return 'Submitted Accessible Profile Page & Viva Voce (Score 92%)';
+      }
+      if (tier === 3) {
+        if (l === 'ta') return 'DOM வணிக கூடை நிகழ்வு பரிமாற்ற சவால்';
+        if (l === 'fr') return 'Panier d\'achat DOM interactif avec délégation d\'événements';
+        if (l === 'hi') return 'इवेंट डेलिगेशन के साथ इंटरएक्टिव DOM शॉपिंग कार्ट';
+        return 'Interactive DOM Shopping Cart with Event Delegation';
+      }
+      if (tier === 2) {
+        if (l === 'ta') return 'நெகிழ்வான CSS வடிவமைப்பு & 320px திரை சோதனை';
+        if (l === 'fr') return 'Mise en page fluide CSS clamp() & vérification 320px';
+        if (l === 'hi') return 'रिस्पॉन्सिव CSS clamp() फ्लुइड लेआउट और 320px परीक्षण';
+        return 'Responsive CSS clamp() Fluid Layout & 320px Check';
+      }
+      if (l === 'ta') return '15-நிமிட விசைப்பலகை வழிசெலுத்தல் பயிற்சி';
+      if (l === 'fr') return 'Pratique de 15 min : repères sémantiques HTML et lien d\'évitement';
+      if (l === 'hi') return '15-मिनट अभ्यास: सिमेंटिक HTML लैंडमार्क और स्किप-लिंक';
+      return '15-min practice: Semantic HTML landmarks & WCAG skip-link';
+    };
+
     for (let i = totalDays - 1; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
@@ -47,14 +86,13 @@ export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
       const dayOfWeek = d.getDay();
       const weekIndex = Math.floor((totalDays - 1 - i) / 7);
 
-      // Consistent practice in recent 35 days, with occasional rest days
       const isRecent = i <= 35;
       const isRestDay = isRecent ? i % 9 === 0 : i % 3 === 0;
 
       let level: 0 | 1 | 2 | 3 | 4 = 0;
       let minutesSpent = 0;
       let xpEarned = 0;
-      let taskTitle = isTamil ? 'ஓய்வு நாள் / பயிற்சி பதிவு இல்லை' : 'Rest day / No deliberate practice recorded';
+      let taskTitle = getRestTitle(lang);
       let proofType: 'code' | 'photo_qc' | 'viva' | 'practice' | undefined = undefined;
 
       if (!isRestDay) {
@@ -62,33 +100,25 @@ export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
           level = 4;
           minutesSpent = 80;
           xpEarned = 160;
-          taskTitle = isTamil
-            ? 'அணுகல்தன்மை சுயவிவரம் மற்றும் வாய்மொழி விளக்கம் (92%)'
-            : 'Submitted Accessible Profile Page & Viva Voce (Score 92%)';
+          taskTitle = getTaskTitle(4, lang);
           proofType = 'code';
         } else if (i % 4 === 0) {
           level = 3;
           minutesSpent = 60;
           xpEarned = 100;
-          taskTitle = isTamil
-            ? 'DOM வணிக கூடை நிகழ்வு பரிமாற்ற சவால்'
-            : 'Interactive DOM Shopping Cart with Event Delegation';
+          taskTitle = getTaskTitle(3, lang);
           proofType = 'code';
         } else if (i % 2 === 0) {
           level = 2;
           minutesSpent = 35;
           xpEarned = 50;
-          taskTitle = isTamil
-            ? 'நெகிழ்வான CSS வடிவமைப்பு & 320px திரை சோதனை'
-            : 'Responsive CSS clamp() Fluid Layout & 320px Check';
+          taskTitle = getTaskTitle(2, lang);
           proofType = 'practice';
         } else {
           level = 1;
           minutesSpent = 15;
           xpEarned = 25;
-          taskTitle = isTamil
-            ? '15-நிமிட விசைப்பலகை வழிசெலுத்தல் பயிற்சி'
-            : '15-min practice: Semantic HTML landmarks & WCAG skip-link';
+          taskTitle = getTaskTitle(1, lang);
           proofType = 'practice';
         }
       }
@@ -106,7 +136,7 @@ export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
     }
 
     return generated;
-  }, [days, isTamil]);
+  }, [days, lang]);
 
   const [selectedDay, setSelectedDay] = useState<HeatmapDayRecord | null>(
     heatmapDays[heatmapDays.length - 1] || null
@@ -271,7 +301,7 @@ export const PracticeHeatmap: React.FC<PracticeHeatmapProps> = ({
 
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]">
-                    {active.minutesSpent} {isTamil ? 'நிமிடம்' : 'mins'}
+                    {active.minutesSpent} {lang === 'ta' ? 'நிமிடம்' : lang === 'fr' ? 'min' : lang === 'hi' ? 'मिनट' : 'mins'}
                   </span>
                   {active.xpEarned > 0 && (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFBEB] text-[#92400E] border border-[#FDE68A]">

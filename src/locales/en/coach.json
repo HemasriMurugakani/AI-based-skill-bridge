@@ -1,0 +1,25 @@
+{
+  "title": "SkillBridge AI Coach",
+  "subtitle": "Ask technical questions, get viva coaching, or troubleshoot craft doubts in your preferred language.",
+  "bilingualBadge": "AI Mentor Assistant",
+  "askPlaceholder": "Ask a question in your preferred language... (e.g. explain flexbox vs grid, troubleshoot blouse tension)",
+  "sendBtn": "Send Query",
+  "thinking": "SkillBridge Coach is analyzing your query...",
+  "quickPrompts": {
+    "label1": "Explain DOM Event Bubbling",
+    "prompt1": "Can you explain DOM event bubbling and delegation with a clear real-world code example?",
+    "label2": "How to fix neckline puckering?",
+    "prompt2": "My blouse neckline bias binding is puckering on chiffon fabric. What needle size and thread tension should I adjust?",
+    "label3": "Job Readiness Check",
+    "prompt3": "Review my readiness score for Junior Frontend roles in Chennai and tell me the fastest way to bridge my missing gaps."
+  },
+  "aiDisclaimer": {
+    "label": "AI Disclaimer",
+    "text": "SkillBridge AI Mentor provides technical guidance and conceptual explanations. High-stakes employment decisions are verified by industry mentors."
+  },
+  "suggestions": {
+    "vivaCoaching": "Practice Viva Defense",
+    "debugCode": "Debug My Solution",
+    "explainConcept": "Explain Core Concepts"
+  }
+}

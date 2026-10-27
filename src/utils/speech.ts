@@ -1,6 +1,7 @@
 // Web Speech API utility for Speech-to-Text and Text-to-Speech
+import { Language } from '../types';
 
-export type SpeechLang = 'ta-IN' | 'hi-IN' | 'en-IN';
+export type SpeechLang = 'ta-IN' | 'en-IN' | 'fr-FR' | 'hi-IN';
 
 // Speech Recognition Type Definitions
 declare global {
@@ -20,12 +21,29 @@ export const isSpeechSynthesisSupported = (): boolean => {
   return 'speechSynthesis' in window;
 };
 
+/**
+ * Map app Language ('en' | 'ta' | 'fr' | 'hi') to standard BCP-47 speech recognition & synthesis locale.
+ */
+export const mapLanguageToSpeechLang = (lang: Language): SpeechLang => {
+  switch (lang) {
+    case 'ta':
+      return 'ta-IN';
+    case 'fr':
+      return 'fr-FR';
+    case 'hi':
+      return 'hi-IN';
+    case 'en':
+    default:
+      return 'en-IN';
+  }
+};
+
 export class SpeechInputController {
   private recognition: any = null;
   private isListening = false;
 
   constructor(
-    private lang: SpeechLang = 'ta-IN',
+    private lang: SpeechLang = 'en-IN',
     private onResult: (text: string) => void = () => {},
     private onStateChange: (listening: boolean) => void = () => {},
     private onError: (err: string) => void = () => {}
@@ -103,33 +121,76 @@ export class SpeechInputController {
   }
 }
 
-// Text to speech helper
-export const speakInstruction = (text: string, lang: SpeechLang = 'ta-IN', onEnd?: () => void) => {
+/**
+ * Text to speech helper with graceful voice fallback.
+ */
+export const speakInstruction = (
+  text: string,
+  lang: SpeechLang = 'en-IN',
+  onEnd?: () => void
+) => {
   if (!isSpeechSynthesisSupported()) return;
 
-  // Cancel any ongoing speech
-  window.speechSynthesis.cancel();
+  try {
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
-  utterance.rate = 0.95; // slightly slower for maximum clarity
-  utterance.pitch = 1.0;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    utterance.rate = 0.95; // slightly slower for maximum clarity
+    utterance.pitch = 1.0;
 
-  if (onEnd) {
-    utterance.onend = onEnd;
+    // Gracefully select available voice for requested locale if available
+    const voices = window.speechSynthesis.getVoices();
+    if (voices && voices.length > 0) {
+      const exactMatch = voices.find((v) => v.lang === lang || v.lang.replace('_', '-') === lang);
+      if (exactMatch) {
+        utterance.voice = exactMatch;
+      } else {
+        const prefix = lang.split('-')[0];
+        const prefixMatch = voices.find((v) => v.lang.startsWith(prefix));
+        if (prefixMatch) {
+          utterance.voice = prefixMatch;
+        }
+      }
+    }
+
+    if (onEnd) {
+      utterance.onend = onEnd;
+      utterance.onerror = () => onEnd();
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    // Graceful fallback if speech synthesis throws
+    if (onEnd) onEnd();
   }
-
-  window.speechSynthesis.speak(utterance);
 };
 
 export const stopSpeaking = () => {
   if (isSpeechSynthesisSupported()) {
-    window.speechSynthesis.cancel();
+    try {
+      window.speechSynthesis.cancel();
+    } catch (err) {
+      // ignored
+    }
   }
 };
 
-export const speakText = (text: string, lang: 'ta' | 'en' | SpeechLang = 'en-IN', onEnd?: () => void) => {
-  const speechLang: SpeechLang = lang === 'ta' ? 'ta-IN' : lang === 'en' ? 'en-IN' : (lang as SpeechLang);
+export const speakText = (
+  text: string,
+  lang: Language | SpeechLang = 'en-IN',
+  onEnd?: () => void
+) => {
+  const speechLang: SpeechLang =
+    lang === 'ta'
+      ? 'ta-IN'
+      : lang === 'en'
+        ? 'en-IN'
+        : lang === 'fr'
+          ? 'fr-FR'
+          : lang === 'hi'
+            ? 'hi-IN'
+            : (lang as SpeechLang);
   speakInstruction(text, speechLang, onEnd);
 };
-

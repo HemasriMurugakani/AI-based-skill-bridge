@@ -1,0 +1,93 @@
+{
+  "brand": {
+    "name": "SkillBridge AI",
+    "subtitle": "Civic Skills-to-Opportunity Platform",
+    "tagline": "Learn a skill. Prove your ability. Unlock opportunities.",
+    "motto": "Evidence over claims · Real-world skills for Tamil Nadu"
+  },
+  "nav": {
+    "home": "Home",
+    "gapAnalysis": "JD Gap Analysis",
+    "roadmap": "Roadmap",
+    "skills": "Skills",
+    "challenges": "Challenges",
+    "passport": "Passport",
+    "progress": "Streak & XP",
+    "readiness": "Readiness",
+    "opportunities": "Opportunities",
+    "interview": "AI Interview",
+    "resume": "1-Page Resume",
+    "employer": "Employer",
+    "institution": "Institution",
+    "coach": "AI Coach",
+    "signIn": "Sign In",
+    "joinFree": "Join Free",
+    "offlineDemo": "Offline Demo",
+    "liveAi": "Live AI",
+    "cachedDemo": "Cached Demo",
+    "resetDemo": "Reset Demo",
+    "switchPersona": "Switch Persona",
+    "guidedDemo": "Guided Demo",
+    "liveTicker": "Tamil Nadu Civic Skill Engine • 50,320 learners • 81.4% verified hire rate"
+  },
+  "actions": {
+    "start": "Start",
+    "continue": "Continue",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "close": "Close",
+    "viewDetails": "View Details",
+    "download": "Download",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "retry": "Retry",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "exportPdf": "Export PDF",
+    "copyLink": "Copy Link",
+    "takeChallenge": "Take Challenge",
+    "viewRoadmap": "View Roadmap",
+    "viewPassport": "View Passport",
+    "startJourney": "Start Journey",
+    "tryDemo": "Try Demo"
+  },
+  "statuses": {
+    "aiReviewed": "AI-Reviewed",
+    "mentorVerified": "Mentor-Verified",
+    "pendingMentor": "Pending Mentor",
+    "ready": "Ready to Apply",
+    "preparing": "In Preparation",
+    "applied": "Applied",
+    "saved": "Saved",
+    "notStarted": "Not Started",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "strong": "Strong",
+    "develop": "Develop",
+    "notAssessed": "Not Assessed",
+    "gap": "Skill Gap"
+  },
+  "trust": {
+    "evidenceBacked": "Evidence-backed validation, not a self-attested claim",
+    "sampleOpportunity": "Simulated opportunity for prototype evaluation",
+    "aiDisclaimer": "AI assists evaluation; mentor audits verify high-stakes outcomes",
+    "proofProgressLoop": "Proof-to-Progress Loop: Identify → Learn & Practise → Prove → Adapt",
+    "dataTransparency": "Deterministic rubric calculations. No private learner data is shared without consent."
+  },
+  "persona": {
+    "switchTitle": "Switch Active Persona",
+    "currentPersona": "Current Persona",
+    "readiness": "Readiness",
+    "streak": "Streak"
+  },
+  "footer": {
+    "copyright": "SkillBridge AI · Civic Skill & Opportunity Initiative for Tamil Nadu",
+    "craftedWith": "Crafted for Academic & Vocational Learners",
+    "dataNotice": "Deterministic calculations guide career readiness. Work samples are never shared without permission.",
+    "demoMode": "Interactive Demo Mode"
+  }
+}

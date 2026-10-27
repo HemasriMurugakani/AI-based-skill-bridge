@@ -1,0 +1,36 @@
+{
+  "welcome": {
+    "title": "Welcome to SkillBridge AI",
+    "subtitle": "Bridge the gap between education and real-world employment across Tamil Nadu",
+    "getStarted": "Get Started"
+  },
+  "steps": {
+    "step1": "Select Persona",
+    "step2": "Identify Gaps",
+    "step3": "Adaptive Roadmap",
+    "step4": "Proof Challenges",
+    "step5": "Verified Opportunities"
+  },
+  "personaSelect": {
+    "title": "Choose your learning pathway",
+    "desc": "Select a profile to explore tailored roadmaps, interactive challenges, and matching careers.",
+    "priyaLabel": "Priya — Academic Student",
+    "priyaDesc": "Final-year Computer Science student preparing for frontend and cloud engineering roles.",
+    "lakshmiLabel": "Lakshmi — Vocational Artisan",
+    "lakshmiDesc": "Master silk handloom weaver in Salem seeking boutique market integration and verified export badges.",
+    "karthikLabel": "Karthik — Vocational Technician",
+    "karthikDesc": "ITI electrical graduate transitioning into solar power installation and EV charging infrastructure."
+  },
+  "goals": {
+    "title": "Set your career objective",
+    "academicTitle": "Technology & Software Engineering",
+    "vocationalTitle": "Craftsmanship & Green Industry",
+    "targetSalary": "Target Starting Salary / Revenue",
+    "targetTimeline": "Target Completion Timeline"
+  },
+  "complete": {
+    "title": "Your personalized bridge is ready!",
+    "desc": "We have mapped out your precise learning path and initial proof challenges.",
+    "launchDashboard": "Enter Dashboard"
+  }
+}

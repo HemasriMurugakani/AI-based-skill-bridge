@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { interviewRoles, InterviewRole, InterviewQuestion } from '../data/interviewRoles';
 import {
   SpeechInputController,
   speakInstruction,
   stopSpeaking,
-  SpeechLang
+  SpeechLang,
+  mapLanguageToSpeechLang
 } from '../utils/speech';
 import { scoreInterviewTranscript, InterviewScoreResponse } from '../services/api';
-import { VivaProofRecord } from '../types';
+import { VivaProofRecord, Language } from '../types';
 import {
   Mic,
   MicOff,
@@ -38,9 +40,10 @@ export const InterviewView: React.FC = () => {
     setActiveTab
   } = useSkillBridgeStore();
 
+  const { t } = useTranslation();
   const persona = getPersona();
   const pathway = getCurrentPathway();
-  const isTamil = language === 'ta';
+  const currentLang = language as Language;
 
   // 1. Role Selection
   const initialRole =
@@ -52,8 +55,8 @@ export const InterviewView: React.FC = () => {
   const currentQuestion: InterviewQuestion =
     selectedRole.questions[currentQuestionIndex] || selectedRole.questions[0];
 
-  // 3. Speech and Voice Settings
-  const [speechLanguage, setSpeechLanguage] = useState<'en-IN' | 'ta-IN' | 'hi-IN'>('en-IN');
+  // 3. Speech and Voice Settings - strictly mapped from active app language
+  const speechLanguage: SpeechLang = mapLanguageToSpeechLang(currentLang);
   const [isAiSpeaking, setIsAiSpeaking] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -130,6 +133,27 @@ export const InterviewView: React.FC = () => {
     setSavedToPassport(false);
   };
 
+  const getQuestionText = (q: InterviewQuestion) => {
+    if (currentLang === 'ta' && q.questionTamil) return q.questionTamil;
+    if (currentLang === 'hi' && q.questionHindi) return q.questionHindi;
+    return q.questionText;
+  };
+
+  const getQuestionContext = (q: InterviewQuestion) => {
+    if (currentLang === 'ta' && q.contextTamil) return q.contextTamil;
+    return q.context;
+  };
+
+  const getRoleTitle = (r: InterviewRole) => {
+    if (currentLang === 'ta' && r.titleTamil) return r.titleTamil;
+    return r.title;
+  };
+
+  const getSampleAnswer = (q: InterviewQuestion) => {
+    if (currentLang === 'ta' && q.sampleAnswerTamil) return q.sampleAnswerTamil;
+    return q.sampleAnswerEnglish;
+  };
+
   // Play question via speechSynthesis
   const handlePlayQuestionAudio = () => {
     if (isAiSpeaking) {
@@ -138,19 +162,10 @@ export const InterviewView: React.FC = () => {
       return;
     }
 
-    let textToSpeak = currentQuestion.questionText;
-    let voiceLang: SpeechLang = 'en-IN';
-
-    if (speechLanguage === 'ta-IN') {
-      textToSpeak = currentQuestion.questionTamil;
-      voiceLang = 'ta-IN';
-    } else if (speechLanguage === 'hi-IN') {
-      textToSpeak = currentQuestion.questionHindi;
-      voiceLang = 'hi-IN';
-    }
+    const textToSpeak = getQuestionText(currentQuestion);
 
     setIsAiSpeaking(true);
-    speakInstruction(textToSpeak, voiceLang, () => {
+    speakInstruction(textToSpeak, speechLanguage, () => {
       setIsAiSpeaking(false);
     });
   };
@@ -174,7 +189,15 @@ export const InterviewView: React.FC = () => {
   // Submit transcript to /api/interview-score
   const handleSubmitAnswer = async () => {
     if (!transcript.trim()) {
-      setSpeechError(isTamil ? 'தயவுசெய்து முதலில் உங்கள் பதிலை பேசவும் அல்லது தட்டச்சு செய்யவும்.' : 'Please record or type an answer before submitting.');
+      setSpeechError(
+        currentLang === 'ta'
+          ? 'தயவுசெய்து முதலில் உங்கள் பதிலை பேசவும் அல்லது தட்டச்சு செய்யவும்.'
+          : currentLang === 'fr'
+          ? 'Veuillez d\'abord enregistrer ou saisir votre réponse.'
+          : currentLang === 'hi'
+          ? 'कृपया सबमिट करने से पहले अपना उत्तर बोलें या टाइप करें।'
+          : 'Please record or type an answer before submitting.'
+      );
       return;
     }
 
@@ -186,16 +209,14 @@ export const InterviewView: React.FC = () => {
     setIsEvaluating(true);
     setSpeechError(null);
 
-    const langCode = speechLanguage === 'ta-IN' ? 'ta' : speechLanguage === 'hi-IN' ? 'hi' : 'en';
-
     try {
       const response = await scoreInterviewTranscript(
         {
           roleId: selectedRole.id,
           roleTitle: selectedRole.title,
-          question: currentQuestion.questionText,
+          question: getQuestionText(currentQuestion),
           transcript,
-          language: langCode,
+          language: currentLang,
           durationSeconds: Math.max(12, recordingSeconds)
         },
         isOfflineDemo
@@ -215,7 +236,7 @@ export const InterviewView: React.FC = () => {
 
     const newRecord: VivaProofRecord = {
       challengeId: `interview-${selectedRole.id}-${Date.now()}`,
-      challengeTitle: `AI Mock Interview: ${selectedRole.title}`,
+      challengeTitle: `AI Mock Interview: ${getRoleTitle(selectedRole)}`,
       pathwayId: selectedRole.pathwayId,
       vivaStatus: 'Viva completed',
       authenticityConfidence: 'Consistent',
@@ -223,7 +244,7 @@ export const InterviewView: React.FC = () => {
       completedAt: 'Today, Just now',
       qa: [
         {
-          question: currentQuestion.questionText,
+          question: getQuestionText(currentQuestion),
           questionTamil: currentQuestion.questionTamil,
           answer: transcript,
           score: evaluationResult.overallScore || 88,
@@ -262,49 +283,80 @@ export const InterviewView: React.FC = () => {
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#EAF5FC] dark:bg-deepblue-950/80 text-[#173B67] dark:text-sky-300 border border-[#BAE6FD]">
-                {isTamil ? 'AI வாய்மொழி நேர்காணல் பயிற்சி' : 'AI Speech Mock Interview'}
+                {currentLang === 'ta'
+                  ? 'AI வாய்மொழி நேர்காணல் பயிற்சி'
+                  : currentLang === 'fr'
+                  ? 'Entretien blanc vocal IA'
+                  : currentLang === 'hi'
+                  ? 'AI मौखिक साक्षात्कार अभ्यास'
+                  : 'AI Speech Mock Interview'}
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EAF5FC] text-[#173B67] border border-[#BAE6FD]">
-                Web Speech API • EN / TA / HI
+                Web Speech API • {speechLanguage}
               </span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-              {isTamil ? 'குரல்வழி தொழில்முறை நேர்காணல்' : 'Interactive Voice Interview Practice'}
+              {currentLang === 'ta'
+                ? 'குரல்வழி தொழில்முறை நேர்காணல்'
+                : currentLang === 'fr'
+                ? 'Pratique d\'entretien professionnel vocal'
+                : currentLang === 'hi'
+                ? 'इंटरएक्टिव वॉयस इंटरव्यू अभ्यास'
+                : 'Interactive Voice Interview Practice'}
             </h1>
 
             <p className="text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-2xl leading-relaxed">
-              {isTamil
-                ? 'ஒரு குறிப்பிட்ட பணியை தேர்ந்தெடுங்கள், AI கேள்விகளைக் கேட்கும் (உரை + ஒலி). உங்கள் குரல் மூலம் தாய்மொழியில் பதிலளித்து பேச்சு வேகம், தயக்கம் மற்றும் உடனடி ஆலோசனைகளைப் பெறுங்கள்.'
+              {currentLang === 'ta'
+                ? 'ஒரு குறிப்பிட்ட பணியை தேர்ந்தெடுங்கள், AI கேள்விகளைக் கேட்கும். உங்கள் குரல் மூலம் பதிலளித்து பேச்சு வேகம், தயக்கம் மற்றும் உடனடி ஆலோசனைகளைப் பெறுங்கள்.'
+                : currentLang === 'fr'
+                ? 'Sélectionnez un rôle cible, écoutez l\'intervieweur IA poser des questions et répondez naturellement à la voix pour obtenir un diagnostic instantané.'
+                : currentLang === 'hi'
+                ? 'लक्षित भूमिका चुनें, AI साक्षात्कारकर्ता के प्रश्नों को सुनें और स्वाभाविक रूप से बोलकर उत्तर दें। तुरंत गति और भाषा पर डायग्नोस्टिक प्रतिक्रिया पाएं।'
                 : 'Select a target job, listen to the AI interviewer speak questions, and answer naturally by voice. Receive instant diagnostic feedback on speech pace, filler frequency, and evidence-backed articulation.'}
             </p>
           </div>
 
           <div className="p-3.5 sm:p-4 rounded-btn bg-[#EAF5FC] dark:bg-night-100/60 border border-[#BAE6FD] text-xs space-y-1 w-full lg:w-auto lg:min-w-[200px]">
             <div className="text-[11px] uppercase font-bold text-[#526174] dark:text-night-muted">
-              {isTamil ? 'பயிற்சி பயனர்' : 'Active Learner'}
+              {currentLang === 'ta' ? 'பயிற்சி பயனர்' : currentLang === 'fr' ? 'Profil actif' : currentLang === 'hi' ? 'सक्रिय शिक्षार्थी' : 'Active Learner'}
             </div>
             <div className="font-bold text-[#173B67] dark:text-white">
-              {isTamil ? persona.nameTamil : persona.name}
+              {currentLang === 'ta' ? persona.nameTamil : persona.name}
             </div>
             <div className="text-[#62B6E8] font-medium">
-              {selectedRole.title}
+              {getRoleTitle(selectedRole)}
             </div>
           </div>
         </div>
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 2. ROLE SELECTOR (STRICT REQUIREMENT: LEARNER PICKS A ROLE) */}
+      {/* 2. ROLE SELECTOR */}
       {/* ------------------------------------------------------------------ */}
       <div className="p-5 sm:p-6 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft space-y-3">
         <div className="flex items-center justify-between">
           <div className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 flex items-center gap-1.5">
             <Briefcase className="w-4 h-4 text-[#62B6E8]" />
-            <span>{isTamil ? '1. நேர்காணல் பணியைத் தேர்ந்தெடுங்கள்:' : '1. Choose Target Role for Interview:'}</span>
+            <span>
+              {currentLang === 'ta'
+                ? '1. நேர்காணல் பணியைத் தேர்ந்தெடுங்கள்:'
+                : currentLang === 'fr'
+                ? '1. Choisissez le poste cible pour l\'entretien :'
+                : currentLang === 'hi'
+                ? '1. साक्षात्कार के लिए लक्षित भूमिका चुनें:'
+                : '1. Choose Target Role for Interview:'}
+            </span>
           </div>
           <span className="text-[11px] text-[#526174]">
-            {interviewRoles.length} {isTamil ? 'பணிகள் உள்ளன' : 'Roles Available'}
+            {interviewRoles.length}{' '}
+            {currentLang === 'ta'
+              ? 'பணிகள் உள்ளன'
+              : currentLang === 'fr'
+              ? 'postes disponibles'
+              : currentLang === 'hi'
+              ? 'भूमिकाएं उपलब्ध'
+              : 'Roles Available'}
           </span>
         </div>
 
@@ -333,7 +385,7 @@ export const InterviewView: React.FC = () => {
                     {role.category === 'technical' ? 'Tech' : 'Craft'}
                   </span>
                   <div className="font-bold text-xs leading-snug line-clamp-2">
-                    {isTamil && role.titleTamil ? role.titleTamil : role.title}
+                    {getRoleTitle(role)}
                   </div>
                 </div>
 
@@ -349,9 +401,6 @@ export const InterviewView: React.FC = () => {
       {/* ------------------------------------------------------------------ */}
       {/* 3. AI QUESTION CARD (TEXT + SPEECH SYNTHESIS) */}
       {/* ------------------------------------------------------------------ */}
-      {/* ------------------------------------------------------------------ */}
-      {/* 3. AI QUESTION CARD (TEXT + SPEECH SYNTHESIS) */}
-      {/* ------------------------------------------------------------------ */}
       <div className="p-6 sm:p-7 rounded-card bg-white dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-soft space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E2E8F0] dark:border-night-border/60">
           <div className="flex items-center gap-2">
@@ -360,50 +409,17 @@ export const InterviewView: React.FC = () => {
             </span>
             <div>
               <div className="font-bold text-xs uppercase tracking-wider text-[#173B67] dark:text-white">
-                {isTamil ? 'கேள்வி' : 'Interview Question'} {currentQuestionIndex + 1} of {selectedRole.questions.length}
+                {currentLang === 'ta' ? 'கேள்வி' : currentLang === 'fr' ? 'Question' : currentLang === 'hi' ? 'प्रश्न' : 'Interview Question'} {currentQuestionIndex + 1} / {selectedRole.questions.length}
               </div>
               <div className="text-xs text-[#62B6E8] font-medium">
-                {selectedRole.title}
+                {getRoleTitle(selectedRole)}
               </div>
             </div>
           </div>
 
-          {/* Voice Language Selector for Learner Response and TTS */}
-          <div className="flex items-center gap-1.5 bg-[#EAF5FC] dark:bg-night-100 p-1 rounded-btn border border-[#BAE6FD] dark:border-night-border self-start sm:self-center">
-            <span className="text-[11px] font-bold text-[#526174] px-2">Language:</span>
-            <button
-              type="button"
-              onClick={() => setSpeechLanguage('en-IN')}
-              className={`px-2.5 py-1 rounded-btn text-xs font-bold transition-colors cursor-pointer ${
-                speechLanguage === 'en-IN'
-                  ? 'bg-[#173B67] text-white shadow-xs'
-                  : 'text-[#173B67] dark:text-night-ink hover:bg-sky-200/50'
-              }`}
-            >
-              English
-            </button>
-            <button
-              type="button"
-              onClick={() => setSpeechLanguage('ta-IN')}
-              className={`px-2.5 py-1 rounded-btn text-xs font-bold transition-colors cursor-pointer ${
-                speechLanguage === 'ta-IN'
-                  ? 'bg-[#173B67] text-white shadow-xs'
-                  : 'text-[#173B67] dark:text-night-ink hover:bg-sky-200/50'
-              }`}
-            >
-              தமிழ்
-            </button>
-            <button
-              type="button"
-              onClick={() => setSpeechLanguage('hi-IN')}
-              className={`px-2.5 py-1 rounded-btn text-xs font-bold transition-colors cursor-pointer ${
-                speechLanguage === 'hi-IN'
-                  ? 'bg-[#173B67] text-white shadow-xs'
-                  : 'text-[#173B67] dark:text-night-ink hover:bg-sky-200/50'
-              }`}
-            >
-              हिंदी
-            </button>
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#526174] bg-[#EAF5FC] dark:bg-night-100 px-3 py-1.5 rounded-full border border-[#BAE6FD] dark:border-night-border">
+            <span>Voice Locale:</span>
+            <span className="font-mono text-[#173B67] dark:text-sky-300 font-bold">{speechLanguage}</span>
           </div>
         </div>
 
@@ -411,11 +427,7 @@ export const InterviewView: React.FC = () => {
         <div className="space-y-3">
           <div className="flex items-start justify-between gap-4">
             <h2 className="text-lg sm:text-xl font-bold text-[#173B67] dark:text-white leading-relaxed flex-1">
-              {speechLanguage === 'ta-IN'
-                ? currentQuestion.questionTamil
-                : speechLanguage === 'hi-IN'
-                ? currentQuestion.questionHindi
-                : currentQuestion.questionText}
+              {getQuestionText(currentQuestion)}
             </h2>
 
             {/* Read Question Audio Button (Speech Synthesis) */}
@@ -443,14 +455,14 @@ export const InterviewView: React.FC = () => {
             </button>
           </div>
 
-          {/* Bilingual Context Card */}
+          {/* Context Card */}
           <div className="p-3 rounded-btn bg-[#F8FAFC] dark:bg-night-100/70 border border-[#E2E8F0] text-xs text-[#526174] dark:text-night-muted flex items-start gap-2.5">
             <HelpCircle className="w-4 h-4 text-[#62B6E8] shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-[#173B67] dark:text-white">
-                {isTamil ? 'நேர்காணல் பின்னணி & நோக்கம்:' : 'Interviewer Intent & Context:'}
+                {currentLang === 'ta' ? 'நேர்காணல் பின்னணி & நோக்கம்:' : currentLang === 'fr' ? 'Intention du recruteur :' : currentLang === 'hi' ? 'साक्षात्कारकर्ता का उद्देश्य:' : 'Interviewer Intent & Context:'}
               </span>{' '}
-              {isTamil ? currentQuestion.contextTamil : currentQuestion.context}
+              {getQuestionContext(currentQuestion)}
             </div>
           </div>
         </div>
@@ -462,7 +474,15 @@ export const InterviewView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-white">
               <Mic className="w-4 h-4 text-[#62B6E8]" />
-              <span>{isTamil ? 'உங்கள் வாய்மொழி பதில்:' : 'Your Voice Response:'}</span>
+              <span>
+                {currentLang === 'ta'
+                  ? 'உங்கள் வாய்மொழி பதில்:'
+                  : currentLang === 'fr'
+                  ? 'Votre réponse vocale :'
+                  : currentLang === 'hi'
+                  ? 'आपका मौखिक उत्तर:'
+                  : 'Your Voice Response:'}
+              </span>
               <span className="text-[11px] font-semibold text-[#526174] lowercase">
                 ({speechLanguage})
               </span>
@@ -479,7 +499,8 @@ export const InterviewView: React.FC = () => {
               </span>
               <span>•</span>
               <span>
-                {transcript.trim() ? transcript.trim().split(/\s+/).length : 0} {isTamil ? 'சொற்கள்' : 'words'}
+                {transcript.trim() ? transcript.trim().split(/\s+/).length : 0}{' '}
+                {currentLang === 'ta' ? 'சொற்கள்' : currentLang === 'fr' ? 'mots' : currentLang === 'hi' ? 'शब्द' : 'words'}
               </span>
             </div>
           </div>
@@ -492,8 +513,20 @@ export const InterviewView: React.FC = () => {
               onChange={(e) => setTranscript(e.target.value)}
               placeholder={
                 isRecording
-                  ? (isTamil ? 'பேசுங்கள்... உரை தானாக பதிவாகிறது...' : 'Listening... Speak clearly into your microphone...')
-                  : (isTamil ? 'மைக்கை இயக்கி பேசவும் அல்லது இங்கே தட்டச்சு செய்யவும்...' : 'Click the microphone button to answer by voice, or type your response here...')
+                  ? (currentLang === 'ta'
+                      ? 'பேசுங்கள்... உரை தானாக பதிவாகிறது...'
+                      : currentLang === 'fr'
+                      ? 'À l\'écoute... Parlez distinctement dans votre micro...'
+                      : currentLang === 'hi'
+                      ? 'सुन रहा है... माइक्रोफ़ोन में स्पष्ट रूप से बोलें...'
+                      : 'Listening... Speak clearly into your microphone...')
+                  : (currentLang === 'ta'
+                      ? 'மைக்கை இயக்கி பேசவும் அல்லது இங்கே தட்டச்சு செய்யவும்...'
+                      : currentLang === 'fr'
+                      ? 'Cliquez sur le microphone pour répondre à la voix, ou saisissez votre réponse ici...'
+                      : currentLang === 'hi'
+                      ? 'माइक दबाकर बोलें या यहाँ उत्तर टाइप करें...'
+                      : 'Click the microphone button to answer by voice, or type your response here...')
               }
               className={`w-full p-4 rounded-btn text-xs sm:text-sm bg-white dark:bg-night-card border text-[#173B67] dark:text-white focus:outline-none transition-all leading-relaxed ${
                 isRecording
@@ -506,10 +539,16 @@ export const InterviewView: React.FC = () => {
             <div className="flex flex-wrap items-center justify-between gap-2 mt-2 text-xs">
               <button
                 type="button"
-                onClick={() => setTranscript(speechLanguage === 'ta-IN' ? currentQuestion.sampleAnswerTamil : currentQuestion.sampleAnswerEnglish)}
+                onClick={() => setTranscript(getSampleAnswer(currentQuestion))}
                 className="text-[#62B6E8] hover:underline font-semibold text-xs cursor-pointer"
               >
-                {isTamil ? 'மாதிரி பதிலை நிரப்புக (Quick Demo)' : 'Insert Sample Prepared Response (Quick Demo)'}
+                {currentLang === 'ta'
+                  ? 'மாதிரி பதிலை நிரப்புக (Quick Demo)'
+                  : currentLang === 'fr'
+                  ? 'Insérer un exemple de réponse (Démo rapide)'
+                  : currentLang === 'hi'
+                  ? 'तैयार नमूना उत्तर भरें (त्वरित डेमो)'
+                  : 'Insert Sample Prepared Response (Quick Demo)'}
               </button>
 
               {transcript && (
@@ -518,7 +557,7 @@ export const InterviewView: React.FC = () => {
                   onClick={() => setTranscript('')}
                   className="text-[#526174] hover:text-[#173B67] text-xs cursor-pointer"
                 >
-                  {isTamil ? 'அழிக்க' : 'Clear'}
+                  {currentLang === 'ta' ? 'அழிக்க' : currentLang === 'fr' ? 'Effacer' : currentLang === 'hi' ? 'साफ़ करें' : 'Clear'}
                 </button>
               )}
             </div>
@@ -546,12 +585,28 @@ export const InterviewView: React.FC = () => {
               {isRecording ? (
                 <>
                   <MicOff className="w-4 h-4" />
-                  <span>{isTamil ? 'பதிவை நிறுத்துக' : 'Stop Recording'}</span>
+                  <span>
+                    {currentLang === 'ta'
+                      ? 'பதிவை நிறுத்துக'
+                      : currentLang === 'fr'
+                      ? 'Arrêter l\'enregistrement'
+                      : currentLang === 'hi'
+                      ? 'रिकॉर्डिंग रोकें'
+                      : 'Stop Recording'}
+                  </span>
                 </>
               ) : (
                 <>
                   <Mic className="w-4 h-4" />
-                  <span>{isTamil ? 'குரல் மூலம் பதிலளிக்க' : 'Answer by Voice'}</span>
+                  <span>
+                    {currentLang === 'ta'
+                      ? 'குரல் மூலம் பதிலளிக்க'
+                      : currentLang === 'fr'
+                      ? 'Répondre à la voix'
+                      : currentLang === 'hi'
+                      ? 'आवाज़ द्वारा उत्तर दें'
+                      : 'Answer by Voice'}
+                  </span>
                 </>
               )}
             </button>
@@ -570,12 +625,28 @@ export const InterviewView: React.FC = () => {
               {isEvaluating ? (
                 <>
                   <Sparkles className="w-4 h-4 animate-spin text-[#173B67]" />
-                  <span>{isTamil ? 'மதிப்பீடு செய்கிறது...' : 'Scoring Transcript...'}</span>
+                  <span>
+                    {currentLang === 'ta'
+                      ? 'மதிப்பீடு செய்கிறது...'
+                      : currentLang === 'fr'
+                      ? 'Évaluation en cours...'
+                      : currentLang === 'hi'
+                      ? 'मूल्यांकन जारी है...'
+                      : 'Scoring Transcript...'}
+                  </span>
                 </>
               ) : (
                 <>
                   <Send className="w-4 h-4" />
-                  <span>{isTamil ? 'பதிலை சமர்ப்பிக்க (/api/interview-score)' : 'Submit Answer for AI Scoring'}</span>
+                  <span>
+                    {currentLang === 'ta'
+                      ? 'பதிலை சமர்ப்பிக்க'
+                      : currentLang === 'fr'
+                      ? 'Soumettre la réponse'
+                      : currentLang === 'hi'
+                      ? 'उत्तर जमा करें'
+                      : 'Submit Answer for AI Scoring'}
+                  </span>
                 </>
               )}
             </button>
@@ -583,7 +654,7 @@ export const InterviewView: React.FC = () => {
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* 5. DIAGNOSTIC RESULTS DISPLAY (STRICT REQUIREMENT) */}
+        {/* 5. DIAGNOSTIC RESULTS DISPLAY */}
         {/* ------------------------------------------------------------------ */}
         {evaluationResult && (
           <div className="p-6 sm:p-7 rounded-card bg-white dark:bg-night-card border border-[#BAE6FD] dark:border-night-border shadow-soft space-y-6 animate-in fade-in duration-300">
@@ -591,7 +662,13 @@ export const InterviewView: React.FC = () => {
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
                 <h3 className="text-base sm:text-lg font-bold text-[#173B67] dark:text-white">
-                  {isTamil ? 'AI நேர்காணல் பகுப்பாய்வு முடிவுகள்' : 'AI Interview Scoring & Transcript Diagnostic'}
+                  {currentLang === 'ta'
+                    ? 'AI நேர்காணல் பகுப்பாய்வு முடிவுகள்'
+                    : currentLang === 'fr'
+                    ? 'Résultats du diagnostic d\'entretien IA'
+                    : currentLang === 'hi'
+                    ? 'AI साक्षात्कार स्कोरिंग और डायग्नोस्टिक'
+                    : 'AI Interview Scoring & Transcript Diagnostic'}
                 </h3>
               </div>
 
@@ -602,27 +679,27 @@ export const InterviewView: React.FC = () => {
 
             {/* Metrics Triad & Pacing Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {/* Pace Estimate Card (STRICT REQUIREMENT: PACE ESTIMATE WORDS/MIN) */}
+              {/* Pace Estimate Card */}
               <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-xs space-y-1">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#526174]">
-                  {isTamil ? 'பேச்சு வேகம்' : 'Speech Pace'}
+                  {currentLang === 'ta' ? 'பேச்சு வேகம்' : currentLang === 'fr' ? 'Débit de parole' : currentLang === 'hi' ? 'बोलने की गति' : 'Speech Pace'}
                 </div>
                 <div className="text-2xl font-extrabold text-[#10B981]">
                   {evaluationResult.paceWpm} <span className="text-xs font-sans font-bold">WPM</span>
                 </div>
                 <div className="text-[10px] text-[#526174]">
                   {evaluationResult.paceWpm >= 115 && evaluationResult.paceWpm <= 145
-                    ? (isTamil ? 'சிறந்த வேகம் (115-145 WPM)' : 'Optimal Cadence (115-145 WPM)')
+                    ? (currentLang === 'ta' ? 'சிறந்த வேகம் (115-145 WPM)' : currentLang === 'fr' ? 'Cadence optimale (115-145 MPM)' : currentLang === 'hi' ? 'उत्तम गति (115-145 WPM)' : 'Optimal Cadence (115-145 WPM)')
                     : evaluationResult.paceWpm < 115
-                    ? (isTamil ? 'சற்று மெதுவான வேகம்' : 'Measured Cadence (<115 WPM)')
-                    : (isTamil ? 'அதிவேகம்' : 'Fast Cadence (>145 WPM)')}
+                    ? (currentLang === 'ta' ? 'சற்று மெதுவான வேகம்' : currentLang === 'fr' ? 'Cadence mesurée (<115 MPM)' : currentLang === 'hi' ? 'धीमी गति (<115 WPM)' : 'Measured Cadence (<115 WPM)')
+                    : (currentLang === 'ta' ? 'அதிவேகம்' : currentLang === 'fr' ? 'Cadence rapide (>145 MPM)' : currentLang === 'hi' ? 'तेज़ गति (>145 WPM)' : 'Fast Cadence (>145 WPM)')}
                 </div>
               </div>
 
-              {/* Filler Word Count Card (STRICT REQUIREMENT: FILLER WORD COUNT) */}
+              {/* Filler Word Count Card */}
               <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-xs space-y-1">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#526174]">
-                  {isTamil ? 'தயக்கச் சொற்கள்' : 'Filler Word Count'}
+                  {currentLang === 'ta' ? 'தயக்கச் சொற்கள்' : currentLang === 'fr' ? 'Mots de remplissage' : currentLang === 'hi' ? 'भराव शब्द' : 'Filler Word Count'}
                 </div>
                 <div className="text-2xl font-extrabold text-[#D97706]">
                   {evaluationResult.fillerWordCount}{' '}
@@ -638,7 +715,7 @@ export const InterviewView: React.FC = () => {
               {/* Linguistic Clarity */}
               <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-xs space-y-1">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#526174]">
-                  {isTamil ? 'தெளிவு' : 'Articulation Clarity'}
+                  {currentLang === 'ta' ? 'தெளிவு' : currentLang === 'fr' ? 'Clarté linguistique' : currentLang === 'hi' ? 'भाषाई स्पष्टता' : 'Articulation Clarity'}
                 </div>
                 <div className="text-2xl font-extrabold text-[#173B67] dark:text-sky-300">
                   {evaluationResult.clarity}%
@@ -651,7 +728,7 @@ export const InterviewView: React.FC = () => {
               {/* Relevance */}
               <div className="p-4 rounded-card bg-[#F8FAFC] dark:bg-night-card border border-[#E2E8F0] dark:border-night-border shadow-xs space-y-1">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#526174]">
-                  {isTamil ? 'பொருத்தம்' : 'Role Relevance'}
+                  {currentLang === 'ta' ? 'பொருத்தம்' : currentLang === 'fr' ? 'Pertinence au rôle' : currentLang === 'hi' ? 'भूमिका प्रासंगिकता' : 'Role Relevance'}
                 </div>
                 <div className="text-2xl font-extrabold text-[#173B67] dark:text-white">
                   {evaluationResult.relevance}%
@@ -662,27 +739,36 @@ export const InterviewView: React.FC = () => {
               </div>
             </div>
 
-            {/* MANDATORY CONFIDENCE SCORING NOTE (STRICT REQUIREMENT) */}
+            {/* MANDATORY CONFIDENCE SCORING NOTE */}
             <div className="p-4 rounded-card bg-[#EAF5FC] dark:bg-deepblue-950/40 border border-[#BAE6FD] text-xs space-y-1">
               <div className="font-bold text-[#173B67] dark:text-sky-200 flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-[#62B6E8]" />
                 <span>
-                  {isTamil
-                    ? 'மொழிசார் தன்னம்பிக்கை மதிப்பீடு குறிப்பு (முக்கிய அறிவிப்பு):'
+                  {currentLang === 'ta'
+                    ? 'மொழிசார் தன்னம்பிக்கை மதிப்பீடு அறிவிப்பு:'
+                    : currentLang === 'fr'
+                    ? 'Politique d\'évaluation linguistique de confiance :'
+                    : currentLang === 'hi'
+                    ? 'भाषाई आत्मविश्वास स्कोरिंग नीति:'
                     : 'Linguistic Confidence Scoring Policy (Important Notice):'}
                 </span>
               </div>
               <p className="text-[#526174] dark:text-night-muted leading-relaxed">
-                {isTamil
-                  ? 'தன்னம்பிக்கை மதிப்பெண் உங்கள் உரை அமைப்பின் நேரடி மொழி மற்றும் செயலில் உள்ள சொற்களின் (Active Verbs) அடிப்படையில் மட்டுமே பெறப்படுகிறது. இது ஒருபோதும் உங்கள் தனிப்பட்ட குணத்தையோ மனித மாண்பையோ மதிப்பிடுவது அல்ல.'
-                  : 'Confidence scoring is derived <strong>strictly from the linguistic transcript</strong> (assertive vocabulary, direct answer structures, and active technical verbs). It is <strong>NOT a psychological assessment, personality judgment, or character evaluation of you as a person</strong>.'}
+                {evaluationResult.disclaimer ||
+                  'Confidence scoring is derived strictly from linguistic transcript structure and assertive vocabulary. It is not a psychological assessment or judgment of the person.'}
               </p>
             </div>
 
-            {/* 3 SPECIFIC TIPS (STRICT REQUIREMENT) */}
+            {/* 3 SPECIFIC TIPS */}
             <div className="space-y-2.5">
               <div className="text-xs font-bold uppercase tracking-wider text-[#526174] dark:text-night-muted">
-                {isTamil ? '3 குறிப்பிட்ட முன்னேற்ற ஆலோசனைகள்:' : '3 Specific Actionable Tips for Next Round:'}
+                {currentLang === 'ta'
+                  ? '3 குறிப்பிட்ட முன்னேற்ற ஆலோசனைகள்:'
+                  : currentLang === 'fr'
+                  ? '3 conseils concrets pour le tour suivant :'
+                  : currentLang === 'hi'
+                  ? 'अगले दौर के लिए 3 विशिष्ट सुझाव:'
+                  : '3 Specific Actionable Tips for Next Round:'}
               </div>
 
               <div className="space-y-2">
@@ -700,15 +786,25 @@ export const InterviewView: React.FC = () => {
               </div>
             </div>
 
-            {/* SAVE TO PASSPORT CTA (STRICT REQUIREMENT) */}
+            {/* SAVE TO PASSPORT CTA */}
             <div className="pt-3 border-t border-[#E2E8F0] dark:border-night-border/60 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <div className="font-bold text-xs text-[#173B67] dark:text-white">
-                  {isTamil ? 'திறன் கடவுச்சீட்டில் சேர்க்க' : 'Add Proof to Verifiable Credential'}
+                  {currentLang === 'ta'
+                    ? 'திறன் கடவுச்சீட்டில் சேர்க்க'
+                    : currentLang === 'fr'
+                    ? 'Ajouter la preuve au passeport'
+                    : currentLang === 'hi'
+                    ? 'सत्यापनीय क्रेडेंशियल में प्रमाण जोड़ें'
+                    : 'Add Proof to Verifiable Credential'}
                 </div>
                 <div className="text-[11px] text-[#526174]">
-                  {isTamil
+                  {currentLang === 'ta'
                     ? 'இது உங்கள் தயார்நிலை குறியீட்டில் "தகவல்தொடர்பு" கூறில் சேர்க்கப்படும்.'
+                    : currentLang === 'fr'
+                    ? 'Incrémente la composante "Communication" sur votre indice de préparation.'
+                    : currentLang === 'hi'
+                    ? 'यह आपके तैयारी सूचकांक में संचार घटक को अपडेट करता है।'
                     : 'Increments the "Communication assessed" component on your /readiness index.'}
                 </div>
               </div>
@@ -718,14 +814,30 @@ export const InterviewView: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="px-3.5 py-2 rounded-btn bg-[#ECFDF5] text-[#065F46] font-bold text-xs flex items-center gap-1.5 border border-[#A7F3D0]">
                       <Check className="w-4 h-4 text-[#10B981]" />
-                      <span>{isTamil ? 'கடவுச்சீட்டில் சேமிக்கப்பட்டது!' : 'Saved to Skill Passport!'}</span>
+                      <span>
+                        {currentLang === 'ta'
+                          ? 'கடவுச்சீட்டில் சேமிக்கப்பட்டது!'
+                          : currentLang === 'fr'
+                          ? 'Enregistré dans le passeport !'
+                          : currentLang === 'hi'
+                          ? 'कौशल पासपोर्ट में सहेजा गया!'
+                          : 'Saved to Skill Passport!'}
+                      </span>
                     </span>
                     <button
                       type="button"
                       onClick={() => setActiveTab('passport')}
                       className="px-3.5 py-2 rounded-btn bg-[#62B6E8] hover:bg-[#50a7dc] text-[#173B67] font-bold text-xs cursor-pointer flex items-center gap-1 shadow-soft"
                     >
-                      <span>{isTamil ? 'கடவுச்சீட்டைக் காண்க' : 'View Passport'}</span>
+                      <span>
+                        {currentLang === 'ta'
+                          ? 'கடவுச்சீட்டைக் காண்க'
+                          : currentLang === 'fr'
+                          ? 'Voir le passeport'
+                          : currentLang === 'hi'
+                          ? 'पासपोर्ट देखें'
+                          : 'View Passport'}
+                      </span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -737,9 +849,13 @@ export const InterviewView: React.FC = () => {
                   >
                     <FileCheck2 className="w-4 h-4" />
                     <span>
-                      {isTamil
-                        ? 'கடவுச்சீட்டில் "தகவல்தொடர்பு சான்றாக" சேமிக்க'
-                        : 'Save "Communication assessed" Entry to Passport'}
+                      {currentLang === 'ta'
+                        ? 'கடவுச்சீட்டில் சேமிக்க'
+                        : currentLang === 'fr'
+                        ? 'Enregistrer dans le passeport'
+                        : currentLang === 'hi'
+                        ? 'पासपोर्ट में प्रमाण सहेजें'
+                        : 'Save to Verifiable Passport'}
                     </span>
                   </button>
                 )}
@@ -749,7 +865,15 @@ export const InterviewView: React.FC = () => {
                   onClick={handleNextQuestion}
                   className="px-4 py-2.5 rounded-btn bg-white hover:bg-[#EAF5FC] border border-[#E2E8F0] text-[#173B67] font-semibold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
                 >
-                  <span>{isTamil ? 'அடுத்த கேள்வி' : 'Next Question'}</span>
+                  <span>
+                    {currentLang === 'ta'
+                      ? 'அடுத்த கேள்வி'
+                      : currentLang === 'fr'
+                      ? 'Question suivante'
+                      : currentLang === 'hi'
+                      ? 'अगला प्रश्न'
+                      : 'Next Question'}
+                  </span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>

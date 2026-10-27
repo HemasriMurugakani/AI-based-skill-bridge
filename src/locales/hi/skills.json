@@ -1,0 +1,58 @@
+{
+  "pathways": {
+    "juniorWebDev": {
+      "title": "जूनियर वेब डेवलपर",
+      "tagline": "व्यावहारिक प्रमाण के साथ सेमेंटिक HTML से पूर्ण रिएक्ट ऐप्स तक"
+    },
+    "tailoringCraft": {
+      "title": "सिलाई और परिधान निर्माण",
+      "tagline": "माप से लेकर निर्यात-स्तरीय परिधान निर्माण और फिनिशिंग तक"
+    },
+    "electricianTrade": {
+      "title": "घरेलू और वाणिज्यिक इलेक्ट्रीशियन",
+      "tagline": "सुरक्षित कंड्यूट वायरिंग, वितरण बोर्ड, अर्थिंग और फॉल्ट सुधार"
+    },
+    "dataAnalyst": {
+      "title": "डेटा विश्लेषक और बीआई विशेषज्ञ",
+      "tagline": "डेटा निष्कर्षण, स्वच्छता, विश्लेषण और कार्यकारी डैशबोर्ड निर्माण"
+    }
+  },
+  "categories": {
+    "frontendCore": "फ्रंटएंड कोर",
+    "styling": "स्टाइलिंग और रिस्पॉन्सिव",
+    "coreLogic": "कोर लॉजिक और DOM",
+    "modernUi": "आधुनिक यूआई और स्टेट",
+    "dataState": "डेटा और स्टेट कैशिंग",
+    "devTools": "इंजीनियरिंग टूल्स",
+    "patternPrep": "पैटर्न तैयारी",
+    "cuttingCraft": "कटिंग क्राफ्ट",
+    "assembly": "सिलाई और संयोजन",
+    "finishing": "फिनिशिंग और पाइपिंग",
+    "qualityControl": "गुणवत्ता नियंत्रण और इस्त्री",
+    "safetyStandard": "सुरक्षा मानक और पीपीई",
+    "installation": "तार लगाना और स्थापना",
+    "safetyProtection": "सुरक्षा और अर्थिंग",
+    "databaseQuerying": "डेटाबेस क्वेरी",
+    "spreadsheets": "स्प्रेडशीट और पावर क्वेरी",
+    "programming": "प्रोग्रामिंग और डेटा स्वच्छता"
+  },
+  "names": {
+    "webHtmlSemantics": "सेमेंटिक HTML और पहुंच-योग्यता",
+    "webResponsiveCss": "रिस्पॉन्सिव CSS और फ्लेक्स/ग्रिड",
+    "webJavascriptDom": "जावास्क्रिप्ट और DOM मैनिपुलेशन",
+    "webReactComponents": "रिएक्ट घटक और हुक्स",
+    "webRestApis": "REST एपीआई और स्टेट कैशिंग",
+    "webGitWorkflows": "गिट संस्करण नियंत्रण और पीआर",
+    "tailorBodyMeasurement": "शरीर का माप और सिलाई ढिलाई",
+    "tailorBlouseDrafting": "कटोरी और 4-डार्ट ब्लाउज ड्राफ्टिंग",
+    "tailorMachineStitching": "लॉकस्टिच सिलाई और धागा तनाव",
+    "tailorPipingFinishing": "बायस बाइंडिंग और नेकलाइन पाइपिंग",
+    "tailorPressIroning": "स्टीम प्रेसिंग और सीम खोलना",
+    "elecSafetyTools": "विद्युत सुरक्षा और पीपीई (IS 5216)",
+    "elecConduitWiring": "पीवीसी कंड्यूट और लूप-इन वायरिंग",
+    "elecEarthingTesting": "पाइप/प्लेट अर्थिंग और प्रतिरोध परीक्षण",
+    "dataSqlQueries": "एसक्यूएल एकत्रीकरण, जॉइन और विंडो फ़ंक्शंस",
+    "dataExcelPowerquery": "उन्नत एक्सेल और पावर क्वेरी स्वचालन",
+    "dataPythonPandas": "पायथन डेटा स्वच्छता और दृश्य विश्लेषण"
+  }
+}

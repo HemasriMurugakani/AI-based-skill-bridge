@@ -293,10 +293,10 @@ export const ProgressView: React.FC = () => {
               <span className="text-base">{currentLevel.badgeIcon}</span>
             </div>
             <div className="text-base font-bold text-white truncate">
-              L{currentLevel.level}: {currentLevel.title.split(' ')[0]}
+              L{currentLevel.level}: {language === 'ta' ? currentLevel.titleTamil : currentLevel.title}
             </div>
-            <div className="text-[10px] text-sky-200 font-tamil truncate">
-              {currentLevel.titleTamil}
+            <div className="text-[10px] text-sky-200 truncate">
+              {currentPersona.name}
             </div>
           </div>
 
@@ -359,10 +359,7 @@ export const ProgressView: React.FC = () => {
 
             <div>
               <p className="text-sm font-semibold text-[#173B67] dark:text-night-ink leading-relaxed">
-                {currentCatchUpTask.question}
-              </p>
-              <p className="text-xs text-[#526174] dark:text-night-muted font-tamil mt-1">
-                {currentCatchUpTask.questionTamil}
+                {language === 'ta' ? currentCatchUpTask.questionTamil : currentCatchUpTask.question}
               </p>
             </div>
 
@@ -469,7 +466,7 @@ export const ProgressView: React.FC = () => {
       )}
 
       {/* SECTION: 16-Week Heatmap Calendar */}
-      <PracticeHeatmap isTamil={isTamil} streakDays={currentPersona.streakDays} />
+      <PracticeHeatmap streakDays={currentPersona.streakDays} />
 
       {/* SECTION: Activity vs Mastery Progress Chart */}
       <section className="bg-white rounded-card p-6 sm:p-8 border border-[#E2E8F0] shadow-soft space-y-6">
@@ -630,10 +627,10 @@ export const ProgressView: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#173B67] flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Explicit Requirements to Unlock Level {nextLevel.level} ({nextLevel.title}):
+                Explicit Requirements to Unlock Level {nextLevel.level}:
               </h3>
-              <span className="text-xs text-[#526174] font-tamil">
-                {nextLevel.titleTamil}
+              <span className="text-xs font-bold text-[#173B67]">
+                {language === 'ta' ? nextLevel.titleTamil : nextLevel.title}
               </span>
             </div>
 
@@ -649,7 +646,7 @@ export const ProgressView: React.FC = () => {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-xs font-semibold text-[#173B67] leading-snug">
-                      {req.label}
+                      {language === 'ta' ? req.labelTamil : req.label}
                     </span>
                     {req.met ? (
                       <span className="text-emerald-600 shrink-0 font-bold text-xs">✓ Done</span>
@@ -658,9 +655,6 @@ export const ProgressView: React.FC = () => {
                         Pending
                       </span>
                     )}
-                  </div>
-                  <div className="text-[10px] text-[#526174] font-tamil">
-                    {req.labelTamil}
                   </div>
                 </div>
               ))}
@@ -684,7 +678,6 @@ export const ProgressView: React.FC = () => {
               <thead>
                 <tr className="border-b border-[#E2E8F0] text-[#526174]">
                   <th className="py-2 font-semibold">Demonstrated Action</th>
-                  <th className="py-2 font-semibold">Tamil</th>
                   <th className="py-2 font-semibold">Category</th>
                   <th className="py-2 font-semibold">Rubric Validation Rule</th>
                   <th className="py-2 font-semibold text-right">Points</th>
@@ -694,10 +687,7 @@ export const ProgressView: React.FC = () => {
                 {xpRewardRules.map((rule, idx) => (
                   <tr key={idx} className="hover:bg-[#EAF5FC]/50">
                     <td className="py-2.5 font-bold text-[#173B67]">
-                      {rule.action}
-                    </td>
-                    <td className="py-2.5 font-tamil text-[#526174]">
-                      {rule.actionTamil}
+                      {language === 'ta' ? rule.actionTamil : rule.action}
                     </td>
                     <td className="py-2.5">
                       <span className="px-2 py-0.5 rounded-full bg-[#EAF5FC] text-[#173B67] uppercase font-bold text-[9px]">

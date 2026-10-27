@@ -1,0 +1,32 @@
+{
+  "notFound": {
+    "title": "404 — Page Not Found",
+    "message": "The pathway or credential you are looking for does not exist or has been relocated.",
+    "returnHomeBtn": "Return to Dashboard",
+    "exploreRoadmapBtn": "Explore Learning Pathways"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong in this module",
+    "message": "An unexpected error occurred while rendering this interface. Your verified progress is safely stored in local cache.",
+    "reloadBtn": "Reload Interface",
+    "reportBug": "Report Issue"
+  },
+  "offline": {
+    "offlineNotice": "You are working in resilient offline demo mode. All evaluations run deterministically in browser.",
+    "reconnectedNotice": "Network connection restored. Syncing verified proofs with ledger...",
+    "cachedDataWarning": "Showing cached offline data for low-bandwidth operation."
+  },
+  "emptyState": {
+    "noData": "No items recorded yet",
+    "noResults": "No matching records found for this criteria",
+    "searchAgain": "Try adjusting your search keywords or filters",
+    "resetFilters": "Reset All Filters"
+  },
+  "validation": {
+    "requiredField": "This field is required.",
+    "invalidEmail": "Please enter a valid email address.",
+    "minLength": "Must be at least {{min}} characters long.",
+    "selectOption": "Please select an option to continue.",
+    "uploadValidFile": "Please upload a valid image file (PNG, JPG, WebP)."
+  }
+}

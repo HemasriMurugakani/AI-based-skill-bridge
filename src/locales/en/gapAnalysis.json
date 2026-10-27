@@ -1,0 +1,46 @@
+{
+  "title": "Job Description (JD) Gap Analysis",
+  "subtitle": "Paste any job posting or select an employer sample to detect missing skills and map an instant recovery pathway.",
+  "badge": "AI Skill-to-Role Comparator",
+  "inputPlaceholder": "Paste full Job Description text here... (e.g. required technologies, qualifications, core responsibilities)",
+  "analyzeBtn": "Analyze Skill Gaps",
+  "analyzing": "Analyzing Job Requirements...",
+  "samples": {
+    "title": "Or select verified Tamil Nadu industry samples:",
+    "webDev": "Chennai Web Dev Intern",
+    "boutiqueTailor": "Tiruppur Boutique Tailor",
+    "electrician": "Salem Solar Electrician"
+  },
+  "results": {
+    "roleMatched": "Target Role",
+    "company": "Hiring Organization",
+    "overallMatch": "Overall Match Score",
+    "matchScore": "Match Index",
+    "readinessImpact": "Projected Readiness Gain"
+  },
+  "radar": {
+    "title": "Skill Competency vs. Role Requirement Radar",
+    "desc": "Blue outline represents your verified skill proof; dashed line shows employer expectations."
+  },
+  "matchedSkills": {
+    "title": "Verified Matching Competencies",
+    "count": "{{count}} matching skill verified",
+    "count_plural": "{{count}} matching skills verified"
+  },
+  "missingGaps": {
+    "title": "Identified Skill Gaps",
+    "count": "{{count}} gap detected",
+    "count_plural": "{{count}} gaps detected",
+    "priorityMust": "Critical Must-Have",
+    "priorityNice": "Helpful Nice-to-Have",
+    "addToRoadmapBtn": "Add Missing Skills to Roadmap",
+    "addedToast": "Added {{count}} gap to your adaptive roadmap focus!",
+    "addedToast_plural": "Added {{count}} gaps to your adaptive roadmap focus!"
+  },
+  "marketDemand": {
+    "title": "Tamil Nadu Market Demand",
+    "salaryRange": "Average Starting Package",
+    "openPositions": "Active Openings in TN",
+    "locationDemand": "Primary Industrial Clusters"
+  }
+}

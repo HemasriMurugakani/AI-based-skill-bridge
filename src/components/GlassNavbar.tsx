@@ -56,20 +56,20 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { id: 'home', label: t('nav.home'), tamil: 'முகப்பு' },
-    { id: 'gap-analysis', label: 'JD Gaps', tamil: 'வேலை ஆய்வு' },
-    { id: 'roadmap', label: t('nav.roadmap'), tamil: 'வரைபடம்' },
-    { id: 'skills', label: t('nav.skills'), tamil: 'திறன்கள்' },
-    { id: 'challenges', label: t('nav.challenges'), tamil: 'சவால்கள்' },
-    { id: 'passport', label: t('nav.passport'), tamil: 'கடவுச்சீட்டு' },
-    { id: 'progress', label: 'Streak & XP', tamil: 'முன்னேற்றம்' },
-    { id: 'readiness', label: t('nav.readiness'), tamil: 'தயார்நிலை' },
-    { id: 'opportunities', label: t('nav.opportunities'), tamil: 'வாய்ப்புகள்' },
-    { id: 'interview', label: t('nav.interview', 'AI Interview'), tamil: 'நேர்காணல்' },
-    { id: 'resume', label: t('nav.resume', '1-Page Resume'), tamil: 'ரெஸ்யூமே' },
-    { id: 'employer', label: t('nav.employer', 'Employer'), tamil: 'பணியமர்த்துநர்' },
-    { id: 'institution', label: t('nav.institution', 'Institution'), tamil: 'கல்வி நிறுவனம்' },
-    { id: 'coach', label: t('nav.coach'), tamil: 'AI வழிகாட்டி' },
+    { id: 'home', label: t('nav.home') },
+    { id: 'gap-analysis', label: t('nav.gapAnalysis') },
+    { id: 'roadmap', label: t('nav.roadmap') },
+    { id: 'skills', label: t('nav.skills') },
+    { id: 'challenges', label: t('nav.challenges') },
+    { id: 'passport', label: t('nav.passport') },
+    { id: 'progress', label: t('nav.progress') },
+    { id: 'readiness', label: t('nav.readiness') },
+    { id: 'opportunities', label: t('nav.opportunities') },
+    { id: 'interview', label: t('nav.interview') },
+    { id: 'resume', label: t('nav.resume') },
+    { id: 'employer', label: t('nav.employer') },
+    { id: 'institution', label: t('nav.institution') },
+    { id: 'coach', label: t('nav.coach') },
   ];
 
   const handleLanguageChange = (lang: Language) => {
@@ -93,11 +93,8 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
               <span className="w-1.5 h-1.5 rounded-full bg-sky-300 animate-ping" />
               LIVE
             </span>
-            <span className="hidden sm:inline truncate text-white/90 font-medium">
-              Tamil Nadu Civic Skill Engine • <span className="text-[#F2B66D] font-bold">50,320</span> learners • <span className="text-[#F2B66D] font-bold">81.4%</span> verified hire rate
-            </span>
-            <span className="sm:hidden truncate text-white/90 font-medium text-[10px]">
-              Civic Engine • <span className="text-[#F2B66D] font-bold">50k+</span>
+            <span className="truncate text-white/90 font-medium">
+              {t('nav.liveTicker')}
             </span>
           </div>
 
@@ -254,8 +251,8 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   AI
                 </span>
               </div>
-              <div className="font-tamil text-[10px] sm:text-[11px] font-semibold text-[#526174] dark:text-night-muted leading-normal">
-                திறன் பாலம்
+              <div className="text-[10px] sm:text-[11px] font-semibold text-[#526174] dark:text-night-muted leading-normal truncate max-w-[140px]">
+                {t('brand.subtitle')}
               </div>
             </div>
           </div>
@@ -326,9 +323,11 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                 aria-expanded={isLangMenuOpen}
                 aria-haspopup="true"
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white dark:bg-night-100 border border-sky-100 dark:border-night-border text-xs font-semibold text-[#173B67] dark:text-night-ink hover:border-[#62B6E8] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-night-100 border border-sky-100 dark:border-night-border text-xs font-semibold text-[#173B67] dark:text-night-ink hover:border-[#62B6E8] transition-colors"
               >
-                <span className="font-tamil">{language === 'ta' ? 'தமிழ்' : language === 'hi' ? 'हिन्दी' : 'EN'}</span>
+                <span>
+                  {language === 'ta' ? 'தமிழ்' : language === 'fr' ? 'Français' : language === 'hi' ? 'हिन्दी' : 'English'}
+                </span>
                 <ChevronDown className="w-3 h-3 opacity-60" />
               </button>
 
@@ -336,7 +335,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                 <div
                   role="menu"
                   aria-label="Language options"
-                  className="absolute right-0 mt-1 w-28 p-1.5 rounded-2xl bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft z-50"
+                  className="absolute right-0 mt-1 w-36 p-1.5 rounded-2xl bg-white dark:bg-night-card border border-sky-100 dark:border-night-border shadow-soft z-50 text-[#173B67] dark:text-night-ink"
                 >
                   <button
                     role="menuitem"
@@ -355,6 +354,15 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                     }`}
                   >
                     தமிழ் (TA)
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={() => handleLanguageChange('fr')}
+                    className={`w-full px-2.5 py-1 text-xs rounded-xl text-left font-medium ${
+                      language === 'fr' ? 'bg-[#173B67] text-white font-bold' : 'hover:bg-[#EAF5FC] dark:hover:bg-night-100'
+                    }`}
+                  >
+                    Français (FR)
                   </button>
                   <button
                     role="menuitem"
@@ -430,7 +438,6 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                 }`}
               >
                 <span>{link.label}</span>
-                <span className="font-tamil text-[10px] opacity-70">{link.tamil}</span>
               </button>
             ))}
           </div>

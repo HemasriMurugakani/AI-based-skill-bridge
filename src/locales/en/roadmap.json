@@ -1,0 +1,29 @@
+{
+  "title": "Adaptive Learning Roadmap",
+  "subtitle": "Personalized milestones structured around verifiable proof challenges rather than passive video lectures.",
+  "tagline": "Dynamic Pathway Engine",
+  "adaptiveBadge": "Adaptive: Automatically reprioritizes based on JD gap analysis",
+  "focusSkills": "Current Priority Focus Skills",
+  "modules": {
+    "title": "Pathway Learning Modules",
+    "estimatedWeeks": "{{weeks}} Weeks Estimated",
+    "completedCount": "{{completed}} of {{total}} modules completed",
+    "totalCount": "{{count}} Modules Total"
+  },
+  "milestones": {
+    "currentMilestone": "Current Milestone",
+    "nextMilestone": "Next Milestone",
+    "unlockedOpportunities": "{{count}} opportunity unlocked by completing this milestone",
+    "unlockedOpportunities_plural": "{{count}} opportunities unlocked by completing this milestone"
+  },
+  "actions": {
+    "startNextChallenge": "Start Next Challenge",
+    "viewRubric": "View Evaluation Rubric",
+    "practiceInSandbox": "Practice in Sandbox",
+    "requestMentorAudit": "Request Mentor Review"
+  },
+  "empty": {
+    "noSkillsFocus": "No priority skills selected.",
+    "addSkillsPrompt": "Analyze a job posting to automatically populate high-priority gaps."
+  }
+}

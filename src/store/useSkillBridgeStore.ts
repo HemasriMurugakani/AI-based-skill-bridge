@@ -183,6 +183,13 @@ export const useSkillBridgeStore = create<SkillBridgeState>()(
       setLanguage: (lang: Language) => {
         i18n.changeLanguage(lang);
         set({ language: lang });
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem('skillbridge-language', lang);
+          } catch (e) {
+            // ignore
+          }
+        }
         if (typeof document !== 'undefined') {
           document.documentElement.lang = lang;
         }

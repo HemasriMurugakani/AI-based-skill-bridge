@@ -1,204 +1,207 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { Language } from '../types';
+
+// EN namespaces
+import enChallenges from '../locales/en/challenges.json';
+import enCoach from '../locales/en/coach.json';
+import enCommon from '../locales/en/common.json';
+import enErrors from '../locales/en/errors.json';
+import enGapAnalysis from '../locales/en/gapAnalysis.json';
+import enOnboarding from '../locales/en/onboarding.json';
+import enOpportunities from '../locales/en/opportunities.json';
+import enPassport from '../locales/en/passport.json';
+import enReadiness from '../locales/en/readiness.json';
+import enResume from '../locales/en/resume.json';
+import enRoadmap from '../locales/en/roadmap.json';
+import enSkills from '../locales/en/skills.json';
+import enStreaks from '../locales/en/streaks.json';
+
+// TA namespaces
+import taChallenges from '../locales/ta/challenges.json';
+import taCoach from '../locales/ta/coach.json';
+import taCommon from '../locales/ta/common.json';
+import taErrors from '../locales/ta/errors.json';
+import taGapAnalysis from '../locales/ta/gapAnalysis.json';
+import taOnboarding from '../locales/ta/onboarding.json';
+import taOpportunities from '../locales/ta/opportunities.json';
+import taPassport from '../locales/ta/passport.json';
+import taReadiness from '../locales/ta/readiness.json';
+import taResume from '../locales/ta/resume.json';
+import taRoadmap from '../locales/ta/roadmap.json';
+import taSkills from '../locales/ta/skills.json';
+import taStreaks from '../locales/ta/streaks.json';
+
+// FR namespaces
+import frChallenges from '../locales/fr/challenges.json';
+import frCoach from '../locales/fr/coach.json';
+import frCommon from '../locales/fr/common.json';
+import frErrors from '../locales/fr/errors.json';
+import frGapAnalysis from '../locales/fr/gapAnalysis.json';
+import frOnboarding from '../locales/fr/onboarding.json';
+import frOpportunities from '../locales/fr/opportunities.json';
+import frPassport from '../locales/fr/passport.json';
+import frReadiness from '../locales/fr/readiness.json';
+import frResume from '../locales/fr/resume.json';
+import frRoadmap from '../locales/fr/roadmap.json';
+import frSkills from '../locales/fr/skills.json';
+import frStreaks from '../locales/fr/streaks.json';
+
+// HI namespaces
+import hiChallenges from '../locales/hi/challenges.json';
+import hiCoach from '../locales/hi/coach.json';
+import hiCommon from '../locales/hi/common.json';
+import hiErrors from '../locales/hi/errors.json';
+import hiGapAnalysis from '../locales/hi/gapAnalysis.json';
+import hiOnboarding from '../locales/hi/onboarding.json';
+import hiOpportunities from '../locales/hi/opportunities.json';
+import hiPassport from '../locales/hi/passport.json';
+import hiReadiness from '../locales/hi/readiness.json';
+import hiResume from '../locales/hi/resume.json';
+import hiRoadmap from '../locales/hi/roadmap.json';
+import hiSkills from '../locales/hi/skills.json';
+import hiStreaks from '../locales/hi/streaks.json';
 
 export const resources = {
   en: {
-    translation: {
-      brand: {
-        name: "SkillBridge AI",
-        tamilName: "திறன் பாலம்",
-        tagline: "Learn a skill. Prove your ability. Unlock your next opportunity.",
-        proverb: "தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு",
-        proverbTranslation: "In sandy soil, when deep you delve, springs yield water; as far you learn, knowledge will flow from your mind.",
-      },
-      nav: {
-        home: "Home",
-        roadmap: "Roadmap",
-        skills: "Skills",
-        challenges: "Challenges",
-        passport: "Passport",
-        progress: "Streak & XP",
-        readiness: "Readiness",
-        opportunities: "Opportunities",
-        interview: "AI Interview",
-        resume: "1-Page Resume",
-        employer: "Employer",
-        institution: "Institution",
-        coach: "AI Coach",
-        signIn: "Sign in",
-        joinFree: "Join Free",
-        offlineDemo: "Offline Demo",
-        liveAi: "Live AI",
-        cachedDemo: "Cached Demo",
-        resetDemo: "Reset Demo",
-        switchPersona: "Switch Persona",
-      },
-      skills: {
-        strong: "Strong",
-        develop: "Develop",
-        notAssessed: "Not assessed",
-        gap: "Skill Gap",
-        howCalculated: "How is this calculated?",
-        howCalculatedExplanation: "Scores are computed from your submitted project code, photo proofs, viva answers, and rubric evidence. Unassessed skills are kept neutral.",
-      },
-      statuses: {
-        aiReviewed: "AI-reviewed",
-        mentorVerified: "Mentor-verified",
-        pendingMentor: "Pending mentor review",
-      },
-      trust: {
-        evidenceBacked: "Evidence-backed, not a formal certification",
-        sampleOpportunity: "Sample opportunity",
-        aiDisclaimer: "AI supports decisions, never guarantees outcomes",
-        proofProgressLoop: "Proof-to-Progress Loop: Identify → Learn & Practise → Prove → Adapt",
-      },
-      common: {
-        streak: "Day Streak",
-        points: "XP Points",
-        explore: "Explore Pathway",
-        proveSkill: "Prove Skill",
-        startChallenge: "Start Challenge",
-        viewRoadmap: "View Roadmap",
-        viewPassport: "View Skill Passport",
-        allRightsReserved: "Tamil Nadu Civic Skill & Opportunity Initiative",
-      }
-    }
+    common: enCommon,
+    challenges: enChallenges,
+    coach: enCoach,
+    errors: enErrors,
+    gapAnalysis: enGapAnalysis,
+    onboarding: enOnboarding,
+    opportunities: enOpportunities,
+    passport: enPassport,
+    readiness: enReadiness,
+    resume: enResume,
+    roadmap: enRoadmap,
+    skills: enSkills,
+    streaks: enStreaks,
+    translation: enCommon, // backwards compatibility
   },
   ta: {
-    translation: {
-      brand: {
-        name: "திறன் பாலம் (SkillBridge)",
-        tamilName: "திறன் பாலம்",
-        tagline: "திறனைக் கற்றுக்கொள். நிரூபித்துக் காட்டு. நல்வாய்ப்பைப் பெறு.",
-        proverb: "தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு",
-        proverbTranslation: "தோண்டும் அளவிற்கு மணற்கேணியில் நீர் ஊறும்; கற்கும் அளவிற்கு மனிதருக்கு அறிவு வளரும்.",
-      },
-      nav: {
-        home: "முகப்பு",
-        roadmap: "வழிகாட்டி வரைபடம்",
-        skills: "திறன்கள்",
-        challenges: "சவால்கள்",
-        passport: "திறன் கடவுச்சீட்டு",
-        progress: "முன்னேற்றம் & ஸ்டிரீக்",
-        readiness: "தயார்நிலை",
-        opportunities: "வாய்ப்புகள்",
-        interview: "நேர்காணல்",
-        resume: "ரெஸ்யூமே",
-        employer: "பணியமர்த்துநர்",
-        institution: "கல்வி நிறுவனம்",
-        coach: "AI வழிகாட்டி",
-        signIn: "உள்நுழை",
-        joinFree: "இலவசமாக சேர",
-        offlineDemo: "ஆஃப்லைன் மாதிரி",
-        liveAi: "நேரலை AI",
-        cachedDemo: "சேமித்த மாதிரி",
-        resetDemo: "மீட்டமை",
-        switchPersona: "நபரை மாற்று",
-      },
-      skills: {
-        strong: "வலிமையானது",
-        develop: "வளர்க்க வேண்டும்",
-        notAssessed: "மதிப்பிடப்படவில்லை",
-        gap: "திறன் இடைவெளி",
-        howCalculated: "இது எவ்வாறு கணக்கிடப்படுகிறது?",
-        howCalculatedExplanation: "உங்கள் திட்டக் குறியீடு, பணி புகைப்படங்கள், வாய்மொழித் தேர்வுகள் மூலம் சான்றுகளுடன் கணக்கிடப்படுகிறது. மதிப்பீடு செய்யப்படாதவை நடுநிலையாக வைக்கப்படுகின்றன.",
-      },
-      statuses: {
-        aiReviewed: "AI-ஆல் ஆராயப்பட்டது",
-        mentorVerified: "வழிகாட்டியால் சரிபார்க்கப்பட்டது",
-        pendingMentor: "வழிகாட்டி ஆய்வுக்கு காத்திருக்கிறது",
-      },
-      trust: {
-        evidenceBacked: "சான்றுகளுடன் நிரூபிக்கப்பட்டது, வெறும் சான்றிதழ் அல்ல",
-        sampleOpportunity: "மாதிரி வேலை வாய்ப்பு",
-        aiDisclaimer: "AI முடிவுகளுக்கு வழிகாட்டுகிறது, உத்தரவாதம் அளிக்காது",
-        proofProgressLoop: "நிரூபிப்பு முன்னேற்ற சுழற்சி: அறி → பயில் → நிரூபி → உயர்",
-      },
-      common: {
-        streak: "நாள் தொடர்ச்சி",
-        points: "திறன் புள்ளிகள்",
-        explore: "வழியைப் பார்",
-        proveSkill: "திறனை நிரூபி",
-        startChallenge: "சவாலைத் தொடங்கு",
-        viewRoadmap: "வரைபடத்தைப் பார்",
-        viewPassport: "கடவுச்சீட்டைப் பார்",
-        allRightsReserved: "தமிழ்நாடு திறன் மற்றும் நல்வாய்ப்பு முயற்சி",
-      }
-    }
+    common: taCommon,
+    challenges: taChallenges,
+    coach: taCoach,
+    errors: taErrors,
+    gapAnalysis: taGapAnalysis,
+    onboarding: taOnboarding,
+    opportunities: taOpportunities,
+    passport: taPassport,
+    readiness: taReadiness,
+    resume: taResume,
+    roadmap: taRoadmap,
+    skills: taSkills,
+    streaks: taStreaks,
+    translation: taCommon,
+  },
+  fr: {
+    common: frCommon,
+    challenges: frChallenges,
+    coach: frCoach,
+    errors: frErrors,
+    gapAnalysis: frGapAnalysis,
+    onboarding: frOnboarding,
+    opportunities: frOpportunities,
+    passport: frPassport,
+    readiness: frReadiness,
+    resume: frResume,
+    roadmap: frRoadmap,
+    skills: frSkills,
+    streaks: frStreaks,
+    translation: frCommon,
   },
   hi: {
-    translation: {
-      brand: {
-        name: "स्किलब्रिज एआई (SkillBridge)",
-        tamilName: "திறன் பாலம்",
-        tagline: "कौशल सीखें। क्षमता साबित करें। नए अवसर प्राप्त करें।",
-        proverb: "தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக் கற்றனைத் தூறும் அறிவு",
-        proverbTranslation: "जितना गहरा खोदेंगे उतना जल निकलेगा; जितना सीखेंगे उतना ज्ञान बढ़ेगा।",
-      },
-      nav: {
-        home: "होम",
-        roadmap: "रोडमैप",
-        skills: "कौशल",
-        challenges: "चुनौतियां",
-        passport: "स्किल पासपोर्ट",
-        progress: "प्रगति और स्ट्रीक",
-        readiness: "तैयारी स्कोर",
-        opportunities: "अवसर",
-        interview: "एआई साक्षात्कार",
-        resume: "1-पेज रिज्यूमे",
-        employer: "नियोक्ता",
-        institution: "संस्थान",
-        coach: "एआई कोच",
-        signIn: "लॉग इन",
-        joinFree: "मुफ़्त जुड़ें",
-        offlineDemo: "ऑफ़लाइन डेमो",
-        liveAi: "लाइव एआई",
-        cachedDemo: "कैश्ड डेमो",
-        resetDemo: "रीसेट करें",
-        switchPersona: "व्यक्ति बदलें",
-      },
-      skills: {
-        strong: "मजबूत",
-        develop: "विकासशील",
-        notAssessed: "मूल्यांकन नहीं",
-        gap: "कौशल अंतर",
-        howCalculated: "इसकी गणना कैसे की जाती है?",
-        howCalculatedExplanation: "आपके कोड, व्यावहारिक कार्य फोटो और मौखिक परीक्षा के साक्ष्यों पर आधारित। अनिर्धारित कौशल निष्पक्ष रहते हैं।",
-      },
-      statuses: {
-        aiReviewed: "एआई-समीक्षित",
-        mentorVerified: "मेंटर द्वारा सत्यापित",
-        pendingMentor: "मेंटर समीक्षा लंबित",
-      },
-      trust: {
-        evidenceBacked: "साक्ष्य-आधारित, केवल कागजी प्रमाण नहीं",
-        sampleOpportunity: "नमूना अवसर",
-        aiDisclaimer: "एआई निर्णय में सहायता करता है, गारंटी नहीं देता",
-        proofProgressLoop: "प्रमाण-से-प्रगति चक्र: पहचानें → सीखें → साबित करें → आगे बढ़ें",
-      },
-      common: {
-        streak: "दिन की लय",
-        points: "अंक",
-        explore: "मार्ग देखें",
-        proveSkill: "कौशल साबित करें",
-        startChallenge: "चुनौती शुरू करें",
-        viewRoadmap: "रोडमैप देखें",
-        viewPassport: "पासपोर्ट देखें",
-        allRightsReserved: "तमिलनाडु कौशल और अवसर पहल",
+    common: hiCommon,
+    challenges: hiChallenges,
+    coach: hiCoach,
+    errors: hiErrors,
+    gapAnalysis: hiGapAnalysis,
+    onboarding: hiOnboarding,
+    opportunities: hiOpportunities,
+    passport: hiPassport,
+    readiness: hiReadiness,
+    resume: hiResume,
+    roadmap: hiRoadmap,
+    skills: hiSkills,
+    streaks: hiStreaks,
+    translation: hiCommon,
+  },
+};
+
+/**
+ * Detect initial language from localStorage, zustand persistence, or browser navigator.
+ */
+export function getInitialLanguage(): Language {
+  if (typeof window === 'undefined') return 'en';
+
+  try {
+    const saved = localStorage.getItem('skillbridge-language');
+    if (saved && (saved === 'en' || saved === 'ta' || saved === 'fr' || saved === 'hi')) {
+      return saved as Language;
+    }
+
+    const rawPersist = localStorage.getItem('skillbridge-storage');
+    if (rawPersist) {
+      const parsed = JSON.parse(rawPersist);
+      const stateLang = parsed?.state?.language;
+      if (stateLang && (stateLang === 'en' || stateLang === 'ta' || stateLang === 'fr' || stateLang === 'hi')) {
+        return stateLang as Language;
       }
     }
+  } catch (e) {
+    // ignore parsing errors
   }
-};
+
+  // Detect from browser navigator on first visit
+  const navLang = (navigator.language || (navigator as any).userLanguage || '').toLowerCase();
+  if (navLang.startsWith('ta')) return 'ta';
+  if (navLang.startsWith('fr')) return 'fr';
+  if (navLang.startsWith('hi')) return 'hi';
+
+  return 'en';
+}
+
+const initialLang = getInitialLanguage();
+
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = initialLang;
+}
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
+    lng: initialLang,
     fallbackLng: 'en',
+    ns: [
+      'common',
+      'challenges',
+      'coach',
+      'errors',
+      'gapAnalysis',
+      'onboarding',
+      'opportunities',
+      'passport',
+      'readiness',
+      'resume',
+      'roadmap',
+      'skills',
+      'streaks',
+      'translation',
+    ],
+    defaultNS: 'common',
+    fallbackNS: 'common',
     interpolation: {
       escapeValue: false,
     },
+    missingKeyHandler: (lngs, ns, key) => {
+      // In development, log any missing key for fast developer debugging
+      if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
+        console.warn(`[i18n:dev] Missing translation key "${key}" in namespace "${ns}" for language(s): ${Array.isArray(lngs) ? lngs.join(', ') : lngs}`);
+      }
+    },
+    saveMissing: true,
   });
 
 export default i18n;

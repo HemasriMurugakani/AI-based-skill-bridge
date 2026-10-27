@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { Language, Persona } from '../types';
+import i18n from '../i18n';
 
 // Strict Zod schema for /api/jd-extract
 export const JdSkillItemSchema = z.object({
@@ -87,12 +89,67 @@ export const sampleJdPayloads: Record<string, JdExtractPayload> = {
 };
 
 /**
+ * Localize JD extract payload soft skills and eligibility for chosen language
+ */
+function localizeJdPayload(payload: JdExtractPayload, lang: Language): JdExtractPayload {
+  if (lang === 'ta') {
+    return {
+      ...payload,
+      softSkills: [
+        "இருமொழி தொடர்புத் திறன் (தமிழ் / ஆங்கிலம்)",
+        "வடிவமைப்பு நுணுக்கங்களில் துல்லியம்",
+        "குறியீட்டு முடிவுகளை விவரிக்கும் திறன்"
+      ],
+      eligibility: [
+        "டிப்ளமோ அல்லது BCA / B.Sc / B.E. பட்டதாரி (அல்லது சுயகற்றல் சான்று)",
+        "கல்லூரி அடுக்குக்கு பதிலாக சான்றளிக்கப்பட்ட போர்ட்ஃபோலியோ முன்னுரிமை",
+        "சென்னை ஹைபிரிட் அல்லது மாவட்ட அளவிலான தொலைதூரப் பணி"
+      ]
+    };
+  }
+  if (lang === 'fr') {
+    return {
+      ...payload,
+      softSkills: [
+        "Communication bilingue claire et professionnelle",
+        "Sens du détail et fidélité au design",
+        "Capacité à expliquer ses choix techniques lors des revues de code"
+      ],
+      eligibility: [
+        "Diplôme universitaire ou équivalent autodidacte vérifiable",
+        "Portfolio prouvé par des réalisations concrètes priorisé",
+        "Travail hybride ou à distance"
+      ]
+    };
+  }
+  if (lang === 'hi') {
+    return {
+      ...payload,
+      softSkills: [
+        "द्विभाषी संचार और टीम समन्वय",
+        "डिजाइन विवरण और सटीकता पर ध्यान",
+        "कोड समीक्षा में तकनीकी निर्णयों को समझाने की क्षमता"
+      ],
+      eligibility: [
+        "डिप्लोमा, बीसीए, बी.एससी, बी.ई. या समकक्ष स्व-अध्ययन प्रमाण",
+        "कॉलेज टियर के बजाय सत्यापित प्रोजेक्ट पोर्टफोलियो को प्राथमिकता",
+        "हाइब्रिड या दूरस्थ कार्य विकल्प"
+      ]
+    };
+  }
+  return payload;
+}
+
+/**
  * Call /api/jd-extract or fall back to cached validated response
  */
 export async function extractJobDescription(
   jdText: string,
-  isOfflineDemo: boolean = true
+  isOfflineDemo: boolean = true,
+  language?: Language
 ): Promise<{ data: JdExtractPayload; isLive: boolean }> {
+  const currentLang: Language = language || (i18n.language as Language) || 'en';
+
   // If offline mode is toggled, return cached sample immediately
   if (isOfflineDemo) {
     await new Promise((res) => setTimeout(res, 900)); // natural simulation delay
@@ -103,7 +160,7 @@ export async function extractJobDescription(
     } else if (lower.includes('electric') || lower.includes('wire') || lower.includes('conduit')) {
       sample = sampleJdPayloads.electrician;
     }
-    const validated = JdExtractSchema.parse(sample);
+    const validated = JdExtractSchema.parse(localizeJdPayload(sample, currentLang));
     return { data: validated, isLive: false };
   }
 
@@ -115,7 +172,7 @@ export async function extractJobDescription(
     const response = await fetch('/api/jd-extract', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ jdText }),
+      body: JSON.stringify({ jdText, language: currentLang }),
       signal: controller.signal
     });
 
@@ -138,7 +195,7 @@ export async function extractJobDescription(
     } else if (lower.includes('electric') || lower.includes('wire') || lower.includes('conduit')) {
       fallback = sampleJdPayloads.electrician;
     }
-    const validated = JdExtractSchema.parse(fallback);
+    const validated = JdExtractSchema.parse(localizeJdPayload(fallback, currentLang));
     return { data: validated, isLive: false };
   }
 }
@@ -179,39 +236,127 @@ export async function adaptRoadmap(
     pathwayId: string;
     quizScore: number;
     quizTopic?: string;
+    language?: Language;
   },
   isOfflineDemo: boolean = false
 ): Promise<{ data: RoadmapAdaptResponse; isLive: boolean }> {
+  const currentLang: Language = params.language || (i18n.language as Language) || 'en';
   const score = params.quizScore !== undefined ? params.quizScore : 40;
   const topic = params.quizTopic || 'Flexbox';
+
+  const localizedDetails: Record<Language, {
+    title: string;
+    titleTamil: string;
+    activity: string;
+    whyThisStep: string;
+    overview: string;
+    overviewTamil: string;
+    transcript: string;
+    transcriptTamil: string;
+    prompt: string;
+    takeaways: string[];
+    changelog: string;
+    reasoning: string;
+  }> = {
+    en: {
+      title: 'CSS Layout Practice',
+      titleTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
+      activity: 'Targeted Flexbox sandbox: alignment, axis orientation, and auto-fit responsive patterns.',
+      whyThisStep: `Added because you scored ${score}% on ${topic}. Reinforces alignment fundamentals before starting production projects.`,
+      overview: 'This targeted practice module reinforces Flexbox alignment, cross-axis distribution, and responsive fluid layouts without media queries.',
+      overviewTamil: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
+      transcript: 'Welcome to CSS Layout Practice. Let us master Flexbox main and cross axes with interactive hands-on drills.',
+      transcriptTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
+      prompt: 'Build a 3-item navigation bar using justify-content: space-between and align-items: center.',
+      takeaways: [
+        'flex-direction: row sets main axis horizontal; align-items aligns vertical cross axis.',
+        'justify-content: space-between spaces child items across main axis.',
+        'flex: 1 1 auto allows fluid expansion without overflow.'
+      ],
+      changelog: `Added remedial practice because you scored ${score}% on ${topic}`,
+      reasoning: `Diagnostic score of ${score}% indicates need for foundational Flexbox alignment drills.`
+    },
+    ta: {
+      title: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
+      titleTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
+      activity: 'Flexbox பயிற்சி: சீரமைப்பு, அச்சு திசை மற்றும் தானியங்கி பதிலளிப்பு முறைகள்.',
+      whyThisStep: `${topic} தேர்வில் நீங்கள் ${score}% பெற்றதால் சேர்க்கப்பட்டது. அச்சு சீரமைப்பை வலுப்படுத்துகிறது.`,
+      overview: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
+      overviewTamil: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
+      transcript: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
+      transcriptTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
+      prompt: 'justify-content: space-between மற்றும் align-items: center பயன்படுத்தி 3-உறுப்பு வழிசெலுத்தல் பட்டியை உருவாக்கவும்.',
+      takeaways: [
+        'flex-direction: row முதன்மை அச்சை கிடைமட்டமாக்குகிறது; align-items செங்குத்து அச்சை சீரமைக்கிறது.',
+        'justify-content: space-between உறுப்புகளுக்கு இடையே சம இடைவெளி அமைக்கிறது.',
+        'flex: 1 1 auto வழிதல் இன்றி இயல்பான விரிவை அனுமதிக்கிறது.'
+      ],
+      changelog: `${topic} தேர்வில் ${score}% பெற்றதால் சிறப்புப் பயிற்சி சேர்க்கப்பட்டது`,
+      reasoning: `${score}% மதிப்பெண் அடிப்படை Flexbox பயிற்சி அவசியத்தை காட்டுகிறது.`
+    },
+    fr: {
+      title: 'Pratique de mise en page CSS',
+      titleTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
+      activity: 'Atelier ciblé Flexbox : alignement, orientation des axes et motifs réactifs auto-fit.',
+      whyThisStep: `Ajouté car votre score est de ${score}% sur ${topic}. Renforce les fondamentaux d'alignement.`,
+      overview: 'Ce module ciblé renforce l\'alignement Flexbox, la distribution transversale et les mises en page fluides.',
+      overviewTamil: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
+      transcript: 'Bienvenue dans la pratique Flexbox. Maîtrisons les axes principal et transversal avec des exercices.',
+      transcriptTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
+      prompt: 'Créez une barre de navigation à 3 éléments avec justify-content: space-between et align-items: center.',
+      takeaways: [
+        'flex-direction: row définit l\'axe principal horizontal ; align-items gère l\'axe transversal.',
+        'justify-content: space-between espace harmonieusement les éléments enfants.',
+        'flex: 1 1 auto permet une expansion fluide sans débordement.'
+      ],
+      changelog: `Module de rattrapage ajouté suite au score de ${score}% sur ${topic}`,
+      reasoning: `Le score diagnostic de ${score}% indique un besoin d'exercices d'alignement Flexbox.`
+    },
+    hi: {
+      title: 'CSS लेआउट विशेष अभ्यास',
+      titleTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
+      activity: 'लक्षित Flexbox अभ्यास: अलाइनमेंट, अक्ष ओरिएंटेशन और ऑटो-फिट रिस्पॉन्सिव पैटर्न।',
+      whyThisStep: `${topic} पर आपका स्कोर ${score}% होने के कारण जोड़ा गया। बुनियादी अलाइनमेंट को मजबूत करता है।`,
+      overview: 'यह मॉड्यूल Flexbox अलाइनमेंट, क्रॉस-अक्ष वितरण और फ्लुइड लेआउट को सुदृढ़ करता है।',
+      overviewTamil: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
+      transcript: 'CSS लेआउट अभ्यास में आपका स्वागत है। आइए Flexbox अक्षों पर व्यावहारिक अभ्यास करें।',
+      transcriptTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
+      prompt: 'justify-content: space-between और align-items: center का उपयोग करके 3-आइटम नेवबार बनाएं।',
+      takeaways: [
+        'flex-direction: row मुख्य अक्ष को क्षैतिज करता है; align-items ऊर्ध्वाधर अक्ष को संरेखित करता है।',
+        'justify-content: space-between चाइल्ड आइटम्स को मुख्य अक्ष पर समान दूरी देता है।',
+        'flex: 1 1 auto बिना ओवरफ्लो के सहज विस्तार प्रदान करता है।'
+      ],
+      changelog: `${topic} पर ${score}% स्कोर के कारण सुधारात्मक अभ्यास जोड़ा गया`,
+      reasoning: `${score}% का नैदानिक स्कोर बुनियादी Flexbox अलाइनमेंट अभ्यास की आवश्यकता दर्शाता है।`
+    }
+  };
+
+  const chosen = localizedDetails[currentLang] || localizedDetails.en;
 
   const defaultFallback: RoadmapAdaptResponse = {
     action: 'insert_node',
     insertedNode: {
       id: `remedial-css-layout-${Date.now()}`,
       stepNumber: 2.5,
-      title: 'CSS Layout Practice',
-      titleTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சி',
-      activity: 'Targeted Flexbox sandbox: alignment, axis orientation, and auto-fit responsive patterns.',
+      title: chosen.title,
+      titleTamil: chosen.titleTamil,
+      activity: chosen.activity,
       timeEstimate: '35 mins',
-      whyThisStep: `Added because you scored ${score}% on ${topic}. Reinforces alignment fundamentals before starting production projects.`,
+      whyThisStep: chosen.whyThisStep,
       status: 'adaptive_remedial',
-      adaptiveReason: `Added because you scored ${score}% on ${topic}`,
+      adaptiveReason: chosen.changelog,
       lessonContent: {
-        overview: 'This targeted practice module reinforces Flexbox alignment, cross-axis distribution, and responsive fluid layouts without media queries.',
-        overviewTamil: 'இந்த சிறப்புப் பயிற்சி Flexbox அச்சு வரிசைப்படுத்துதலை எளிய செய்முறை மூலம் வலுப்படுத்துகிறது.',
-        keyTakeaways: [
-          'flex-direction: row sets main axis horizontal; align-items aligns vertical cross axis.',
-          'justify-content: space-between spaces child items across main axis.',
-          'flex: 1 1 auto allows fluid expansion without overflow.'
-        ],
-        audioTranscript: 'Welcome to CSS Layout Practice. Let us master Flexbox main and cross axes with interactive hands-on drills.',
-        audioTranscriptTamil: 'CSS கட்டமைப்பு சிறப்புப் பயிற்சிக்கு நல்வரவு. இதில் Flexbox தத்துவங்களை தெளிவாக கற்போம்.',
-        handsOnPrompt: 'Build a 3-item navigation bar using justify-content: space-between and align-items: center.'
+        overview: chosen.overview,
+        overviewTamil: chosen.overviewTamil,
+        keyTakeaways: chosen.takeaways,
+        audioTranscript: chosen.transcript,
+        audioTranscriptTamil: chosen.transcriptTamil,
+        handsOnPrompt: chosen.prompt
       }
     },
-    changelogEntry: `Added because you scored ${score}% on ${topic}`,
-    reasoning: `Diagnostic score of ${score}% indicates need for foundational Flexbox alignment drills.`
+    changelogEntry: chosen.changelog,
+    reasoning: chosen.reasoning
   };
 
   if (isOfflineDemo) {
@@ -226,7 +371,7 @@ export async function adaptRoadmap(
     const response = await fetch('/api/roadmap-adapt', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ ...params, language: currentLang }),
       signal: controller.signal
     });
 
@@ -275,11 +420,93 @@ export async function evaluateRubricFeedback(
       audioTranscript?: string;
       version?: number;
     };
+    language?: Language;
   },
   isOfflineDemo: boolean = false
 ): Promise<{ data: RubricFeedback; isLive: boolean }> {
+  const currentLang: Language = params.language || (i18n.language as Language) || 'en';
   const version = params.submission.version || 1;
   const isComm = params.challengeId === 'challenge-comm-intro';
+
+  const localizedCommStrengths: Record<Language, string[]> = {
+    en: [
+      "Warm, respectful bilingual opening with clear Tamil pronunciation",
+      "Demonstrates genuine enthusiasm for craftsmanship and digital products"
+    ],
+    ta: [
+      "தெளிவான உச்சரிப்புடன் கூடிய மரியாதையான தொடக்கம்",
+      "தொழில்நுட்பம் மற்றும் கைவினைக் கலை மீதான உண்மையான ஆர்வம்"
+    ],
+    fr: [
+      "Ouverture chaleureuse et respectueuse avec une élocution nette",
+      "Enthousiasme manifeste pour l'artisanat et les produits numériques"
+    ],
+    hi: [
+      "स्पष्ट उच्चारण के साथ सम्मानजनक और आत्मविश्वास से भरी शुरुआत",
+      "शिल्पकला और डिजिटल उत्पादों के प्रति वास्तविक उत्साह"
+    ]
+  };
+
+  const localizedCommImprovements: Record<Language, string[]> = {
+    en: [
+      "Cite concrete verified rubric scores (92% CSS proof) rather than vague self-ratings",
+      "Keep duration strictly under 45 seconds for recruiter screening",
+      "Conclude with a specific, actionable career objective"
+    ],
+    ta: [
+      "பொதுவான கூற்றுக்கு பதிலாக சரிபார்க்கப்பட்ட மதிப்பெண்களை (92% CSS சான்று) குறிப்பிடவும்",
+      "45 வினாடிகளுக்குள் பேச்சை முடிக்கவும்",
+      "தெளிவான தொழில் இலக்குடன் முடிக்கவும்"
+    ],
+    fr: [
+      "Citez des scores vérifiés de grille d'évaluation (ex: preuve CSS 92%) plutôt que des auto-évaluations",
+      "Maintenez la durée strictement sous 45 secondes pour le tri recruteur",
+      "Concluez par un objectif professionnel clair et précis"
+    ],
+    hi: [
+      "सामान्य दावों के बजाय ठोस सत्यापित रूब्रिक स्कोर (92% CSS प्रमाण) का उल्लेख करें",
+      "अवधि को 45 सेकंड के भीतर सीमित रखें",
+      "एक स्पष्ट और केंद्रित करियर लक्ष्य के साथ समापन करें"
+    ]
+  };
+
+  const localizedTechStrengths: Record<Language, string[]> = {
+    en: [
+      "Eliminated 320px mobile overflow; cards scale smoothly with clamp() and minmax()",
+      "Exemplary keyboard navigation with visible focus rings",
+      "High-contrast WCAG 2.1 AA certified color tokens across light and dark modes"
+    ],
+    ta: [
+      "320 பிக்சல் மொபைல் வழிதல் நீக்கப்பட்டது; அட்டைகள் சீராக அளவிடப்படுகின்றன",
+      "தெளிவான ஃபோகஸ் வளையங்களுடன் கூடிய சிறந்த விசைப்பலகை வழிசெலுத்தல்",
+      "WCAG 2.1 AA தரநிலைக்கு ஏற்ப உயர் மாறுபட்ட வண்ண அமைப்புகள்"
+    ],
+    fr: [
+      "Suppression du débordement mobile à 320px ; cartes fluides avec clamp() et minmax()",
+      "Navigation au clavier exemplaire avec anneaux de focus visibles",
+      "Jetons de couleurs certifiés WCAG 2.1 AA à fort contraste"
+    ],
+    hi: [
+      "320px मोबाइल ओवरफ्लो समाप्त किया गया; कार्ड clamp() और minmax() के साथ सुचारू रूप से स्केल होते हैं",
+      "दिखने वाले फोकस रिंग्स के साथ अनुकरणीय कीबोर्ड नेविगेशन",
+      "लाइट और डार्क मोड में उच्च-कंट्रास्ट WCAG 2.1 AA प्रमाणित रंग टोकन"
+    ]
+  };
+
+  const localizedTechImprovements: Record<Language, string[]> = {
+    en: [
+      "Consider adding subtle micro-interaction transitions on active button states"
+    ],
+    ta: [
+      "செயல்பாட்டு பொத்தான் நிலைகளில் மென்மையான அனிமேஷன்களைச் சேர்க்கலாம்"
+    ],
+    fr: [
+      "Envisagez d'ajouter de subtiles micro-animations sur les états de boutons actifs"
+    ],
+    hi: [
+      "सक्रिय बटन स्थितियों पर सूक्ष्म माइक्रो-इंटरैक्शन ट्रांज़िशन जोड़ने पर विचार करें"
+    ]
+  };
 
   const defaultFeedback: RubricFeedback = isComm
     ? (version === 1
@@ -315,15 +542,8 @@ export async function evaluateRubricFeedback(
               }
             ],
             overall: 72,
-            strengths: [
-              "Warm, respectful bilingual opening with clear Tamil pronunciation",
-              "Demonstrates genuine enthusiasm for craftsmanship and digital products"
-            ],
-            improvements: [
-              "Cite concrete verified rubric scores (92% CSS proof) rather than vague self-ratings",
-              "Keep duration strictly under 45 seconds for recruiter screening",
-              "Conclude with a specific, actionable career objective"
-            ],
+            strengths: localizedCommStrengths[currentLang] || localizedCommStrengths.en,
+            improvements: localizedCommImprovements[currentLang] || localizedCommImprovements.en,
             version: 1
           }
         : {
@@ -358,13 +578,15 @@ export async function evaluateRubricFeedback(
               }
             ],
             overall: 96,
-            strengths: [
-              "Mastered 38-second high-density elevator pitch with zero filler words",
-              "Evidence-backed skill claim citing verified 92% rubric proof",
-              "Strong cultural grounding and clear civic motivation"
-            ],
+            strengths: localizedCommStrengths[currentLang] || localizedCommStrengths.en,
             improvements: [
-              "Fully validated; ready for live recruiter and mentor viva presentations"
+              currentLang === 'ta'
+                ? "முழுமையாக சரிபார்க்கப்பட்டது; நேரடி நேர்காணலுக்கு தயார் நிலை"
+                : currentLang === 'fr'
+                ? "Totalement validé ; prêt pour les entretiens de recrutement"
+                : currentLang === 'hi'
+                ? "पूरी तरह से मान्य; लाइव भर्ती साक्षात्कारों के लिए तैयार"
+                : "Fully validated; ready for live recruiter and mentor viva presentations"
             ],
             version: 2
           })
@@ -401,15 +623,8 @@ export async function evaluateRubricFeedback(
               }
             ],
             overall: 74,
-            strengths: [
-              "Clean landmark hierarchy without redundant <div> wrappers",
-              "Relative REM units used consistently for headings and icons"
-            ],
-            improvements: [
-              "Eliminate horizontal scrollbar on 320px mobile viewport caused by rigid min-width",
-              "Upgrade secondary text contrast ratio from 3.2:1 to >= 4.5:1",
-              "Make flex child elements fluid using flex: 1 1 280px and min-width: 0"
-            ],
+            strengths: localizedTechStrengths[currentLang] || localizedTechStrengths.en,
+            improvements: localizedTechImprovements[currentLang] || localizedTechImprovements.en,
             version: 1
           }
         : {
@@ -444,14 +659,8 @@ export async function evaluateRubricFeedback(
               }
             ],
             overall: 98,
-            strengths: [
-              "Eliminated 320px mobile overflow; cards scale smoothly with clamp() and minmax()",
-              "Exemplary keyboard navigation with visible focus rings",
-              "High-contrast WCAG 2.1 AA certified color tokens across light and dark modes"
-            ],
-            improvements: [
-              "Consider adding subtle micro-interaction transitions on active button states"
-            ],
+            strengths: localizedTechStrengths[currentLang] || localizedTechStrengths.en,
+            improvements: localizedTechImprovements[currentLang] || localizedTechImprovements.en,
             version: 2
           });
 
@@ -467,7 +676,7 @@ export async function evaluateRubricFeedback(
     const response = await fetch('/api/rubric-feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ ...params, language: currentLang }),
       signal: controller.signal
     });
 
@@ -519,9 +728,11 @@ export async function generateVivaQuestions(
       writtenExplanation?: string;
       audioTranscript?: string;
     };
+    language?: Language;
   },
   isOfflineDemo: boolean = false
 ): Promise<{ data: VivaGenerateQuestionsResponse; isLive: boolean }> {
+  const currentLang: Language = params.language || (i18n.language as Language) || 'en';
   const challengeId = params.challengeId;
 
   // Curated fallbacks matching distinct challenge pathways
@@ -530,19 +741,40 @@ export async function generateVivaQuestions(
     fallbackQuestions = [
       {
         id: 'q1',
-        question: 'Why did you choose to cite your verified 92% rubric score instead of general credentials?',
+        question:
+          currentLang === 'ta'
+            ? 'பொதுவான தகுதிக்குப் பதிலாக 92% சரிபார்க்கப்பட்ட மதிப்பெண்ணை ஏன் குறிப்பிட்டீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Pourquoi avoir choisi de citer votre score de 92% certifié plutôt que des diplômes généraux ?'
+            : currentLang === 'hi'
+            ? 'सामान्य क्रेडेंशियल्स के बजाय आपने अपने सत्यापित 92% रूब्रिक स्कोर को क्यों चुना?'
+            : 'Why did you choose to cite your verified 92% rubric score instead of general credentials?',
         questionTamil: 'பொதுவான தகுதிக்குப் பதிலாக 92% சரிபார்க்கப்பட்ட மதிப்பெண்ணை ஏன் குறிப்பிட்டீர்கள்?',
         context: 'Inspects your evidence-based pitch strategy.'
       },
       {
         id: 'q2',
-        question: 'How did you structure the 40-second pacing between greeting, skills, and the closing ask?',
+        question:
+          currentLang === 'ta'
+            ? '40 வினாடிகளுக்குள் வாழ்த்து, திறன்கள், மற்றும் வாய்ப்பு கேட்பதை எவ்வாறு அமைத்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Comment avez-vous structuré le rythme de 40 secondes entre salutation, compétences et conclusion ?'
+            : currentLang === 'hi'
+            ? 'आपने अभिवादन, कौशल और अंतिम मांग के बीच 40-सेकंड की गति को कैसे संरचित किया?'
+            : 'How did you structure the 40-second pacing between greeting, skills, and the closing ask?',
         questionTamil: '40 வினாடிகளுக்குள் வாழ்த்து, திறன்கள், மற்றும் வாய்ப்பு கேட்பதை எவ்வாறு அமைத்தீர்கள்?',
         context: 'Examines your information density and elevator pitch cadence.'
       },
       {
         id: 'q3',
-        question: "Why is beginning with a culturally respectful Tamil greeting like 'வணக்கம்' impactful for local employers?",
+        question:
+          currentLang === 'ta'
+            ? "'வணக்கம்' போன்ற மரியாதையான அறிமுகம் உள்ளூர் நிறுவனங்களிடம் ஏற்படுத்தும் தாக்கம் என்ன?"
+            : currentLang === 'fr'
+            ? "Quel impact apporte une salutation respectueuse et authentique auprès des employeurs régionaux ?"
+            : currentLang === 'hi'
+            ? "'नमस्ते' जैसे सांस्कृतिक रूप से सम्मानजनक अभिवादन का स्थानीय नियोक्ताओं पर क्या प्रभाव पड़ता है?"
+            : "Why is beginning with a culturally respectful Tamil greeting like 'வணக்கம்' impactful for local employers?",
         questionTamil: "'வணக்கம்' போன்ற மரியாதையான அறிமுகம் உள்ளூர் நிறுவனங்களிடம் ஏற்படுத்தும் தாக்கம் என்ன?",
         context: 'Verifies cultural warmth and civic connection in your communication.'
       }
@@ -556,19 +788,40 @@ export async function generateVivaQuestions(
     fallbackQuestions = [
       {
         id: 'q1',
-        question: 'Why did you select a 1.5-inch ease allowance for the chest and armhole curve?',
+        question:
+          currentLang === 'ta'
+            ? 'மார்பு மற்றும் கைவளைவுக்கு 1.5 அங்குல தளர்வு அளவை ஏன் தேர்ந்தெடுத்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Pourquoi avoir choisi une aisance de 1,5 pouce pour la courbe de poitrine et d\'emmanchure ?'
+            : currentLang === 'hi'
+            ? 'आपने छाती और आर्महोल वक्र के लिए 1.5 इंच की ईज अलाउंस क्यों चुनी?'
+            : 'Why did you select a 1.5-inch ease allowance for the chest and armhole curve?',
         questionTamil: 'மார்பு மற்றும் கைவளைவுக்கு 1.5 அங்குல தளர்வு அளவை ஏன் தேர்ந்தெடுத்தீர்கள்?',
         context: 'Verifies your pattern ease calculation for breathing room and drape.'
       },
       {
         id: 'q2',
-        question: 'How did you check stitch balance at 10 stitches per inch to avoid seam puckering?',
+        question:
+          currentLang === 'ta'
+            ? 'தையல் சுருக்கம் ஏற்படாமல் இருக்க 10 தையல் அடர்த்தியை எவ்வாறு சோதித்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Comment avez-vous contrôlé l\'équilibre à 10 points par pouce pour éviter les fronces ?'
+            : currentLang === 'hi'
+            ? 'सीम सिकुड़न से बचने के लिए आपने 10 टांके प्रति इंच पर सिलाई संतुलन की जांच कैसे की?'
+            : 'How did you check stitch balance at 10 stitches per inch to avoid seam puckering?',
         questionTamil: 'தையல் சுருக்கம் ஏற்படாமல் இருக்க 10 தையல் அடர்த்தியை எவ்வாறு சோதித்தீர்கள்?',
         context: 'Evaluates needle thread tension calibration on the bobbin.'
       },
       {
         id: 'q3',
-        question: 'What method did you use to cut the bias binding tape at an exact 45-degree angle?',
+        question:
+          currentLang === 'ta'
+            ? 'கழுத்து பைப்பிங் நாடாவை சரியான 45 பாகை கோணத்தில் எவ்வாறு வெட்டினீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Quelle méthode avez-vous utilisée pour couper le biais à un angle exact de 45 degrés ?'
+            : currentLang === 'hi'
+            ? 'सटीक 45 डिग्री के कोण पर बायस बाइंडिंग टेप काटने के लिए आपने किस विधि का उपयोग किया?'
+            : 'What method did you use to cut the bias binding tape at an exact 45-degree angle?',
         questionTamil: 'கழுத்து பைப்பிங் நாடாவை சரியான 45 பாகை கோணத்தில் எவ்வாறு வெட்டினீர்கள்?',
         context: 'Confirms true bias fabric stretch for smooth curved necklines.'
       }
@@ -577,19 +830,40 @@ export async function generateVivaQuestions(
     fallbackQuestions = [
       {
         id: 'q1',
-        question: 'Why is earth resistance testing with a Megger fall-of-potential test required below 5 ohms?',
+        question:
+          currentLang === 'ta'
+            ? 'புவித் தொடுப்பு மின்தடை 5 ஓம்களுக்கு குறைவாக இருக்க வேண்டும் என்று ஏன் சோதிக்கப்படுகிறது?'
+            : currentLang === 'fr'
+            ? 'Pourquoi le test de résistance de terre avec un mégohmmètre doit-il être inférieur à 5 ohms ?'
+            : currentLang === 'hi'
+            ? 'मेगर फॉल-ऑफ-पोटेंशियल टेस्ट के साथ अर्थ प्रतिरोध 5 ओम से नीचे क्यों आवश्यक है?'
+            : 'Why is earth resistance testing with a Megger fall-of-potential test required below 5 ohms?',
         questionTamil: 'புவித் தொடுப்பு மின்தடை 5 ஓம்களுக்கு குறைவாக இருக்க வேண்டும் என்று ஏன் சோதிக்கப்படுகிறது?',
         context: 'Tests compliance with IS 3043 grounding standards.'
       },
       {
         id: 'q2',
-        question: 'How did you ensure phase, neutral, and earth wires strictly adhere to IS 5216 color codes?',
+        question:
+          currentLang === 'ta'
+            ? 'மின் கம்பிகளின் வண்ணக் குறியீடுகள் IS 5216 விதிகளுக்கு உட்பட்டு இருப்பதை எவ்வாறு உறுதி செய்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Comment avez-vous assuré la conformité des couleurs de câblage selon les normes de sécurité ?'
+            : currentLang === 'hi'
+            ? 'आपने कैसे सुनिश्चित किया कि फेज, न्यूट्रल और अर्थ वायर IS 5216 रंग कोड का पालन करते हैं?'
+            : 'How did you ensure phase, neutral, and earth wires strictly adhere to IS 5216 color codes?',
         questionTamil: 'மின் கம்பிகளின் வண்ணக் குறியீடுகள் IS 5216 விதிகளுக்கு உட்பட்டு இருப்பதை எவ்வாறு உறுதி செய்தீர்கள்?',
         context: 'Inspects safety wiring color verification.'
       },
       {
         id: 'q3',
-        question: 'What safety isolation steps did you follow before tightening terminal connections?',
+        question:
+          currentLang === 'ta'
+            ? 'இணைப்புகளை இறுக்கும் முன் என்ன பாதுகாப்பு நடைமுறைகளைப் பின்பற்றினீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Quelles étapes de consignation de sécurité avez-vous suivies avant de serrer les bornes ?'
+            : currentLang === 'hi'
+            ? 'टर्मिनल कनेक्शन कसने से पहले आपने किन सुरक्षा अलगाव चरणों का पालन किया?'
+            : 'What safety isolation steps did you follow before tightening terminal connections?',
         questionTamil: 'இணைப்புகளை இறுக்கும் முன் என்ன பாதுகாப்பு நடைமுறைகளைப் பின்பற்றினீர்கள்?',
         context: 'Validates LOTO and de-energized line testing protocol.'
       }
@@ -598,19 +872,40 @@ export async function generateVivaQuestions(
     fallbackQuestions = [
       {
         id: 'q1',
-        question: 'Why did you choose flex over grid for the header and navigation links?',
+        question:
+          currentLang === 'ta'
+            ? 'தலைப்பு மற்றும் வழிசெலுத்தல் இணைப்புகளுக்கு கிரிட்டிற்குப் பதிலாக ஃப்ளெக்ஸ் அமைப்பை ஏன் தேர்ந்தெடுத்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Pourquoi avoir choisi Flexbox plutôt que Grid pour l\'en-tête et les liens de navigation ?'
+            : currentLang === 'hi'
+            ? 'हेडर और नेविगेशन लिंक के लिए ग्रिड के बजाय फ्लेक्स को क्यों चुना?'
+            : 'Why did you choose flex over grid for the header and navigation links?',
         questionTamil: 'தலைப்பு மற்றும் வழிசெலுத்தல் இணைப்புகளுக்கு கிரிட்டிற்குப் பதிலாக ஃப்ளெக்ஸ் அமைப்பை ஏன் தேர்ந்தெடுத்தீர்கள்?',
         context: 'Inspects your 1D vs 2D layout choice in the header.'
       },
       {
         id: 'q2',
-        question: "How did you ensure the profile layout doesn't horizontally scroll on a 320px mobile viewport?",
+        question:
+          currentLang === 'ta'
+            ? '320 பிக்சல் மொபைல் திரையில் கிடைமட்டமாக உருளாமல் இருக்க என்ன செய்தீர்கள்?'
+            : currentLang === 'fr'
+            ? 'Comment avez-vous garanti l\'absence de défilement horizontal sur un écran mobile de 320px ?'
+            : currentLang === 'hi'
+            ? 'आपने यह कैसे सुनिश्चित किया कि प्रोफाइल लेआउट 320px मोबाइल स्क्रीन पर क्षैतिज रूप से स्क्रॉल न हो?'
+            : "How did you ensure the profile layout doesn't horizontally scroll on a 320px mobile viewport?",
         questionTamil: '320 பிக்சல் மொபைல் திரையில் கிடைமட்டமாக உருளாமல் இருக்க என்ன செய்தீர்கள்?',
         context: 'Examines your clamp() and fluid flex-basis implementation.'
       },
       {
         id: 'q3',
-        question: 'What role does the visible :focus-visible skip-link play for accessibility and screen reader users?',
+        question:
+          currentLang === 'ta'
+            ? 'விசைப்பலகை வழிசெலுத்தலில் skip-link இணைப்பின் முக்கிய பங்கு என்ன?'
+            : currentLang === 'fr'
+            ? 'Quel rôle joue le lien skip-link visible pour l\'accessibilité au clavier et les lecteurs d\'écran ?'
+            : currentLang === 'hi'
+            ? 'एक्सेसिबिलिटी और स्क्रीन रीडर उपयोगकर्ताओं के लिए विज़िबल :focus-visible स्किप-लिंक की क्या भूमिका है?'
+            : 'What role does the visible :focus-visible skip-link play for accessibility and screen reader users?',
         questionTamil: 'விசைப்பலகை வழிசெலுத்தலில் skip-link இணைப்பின் முக்கிய பங்கு என்ன?',
         context: 'Tests your understanding of WCAG 2.1 AA keyboard accessibility.'
       }
@@ -632,7 +927,8 @@ export async function generateVivaQuestions(
       body: JSON.stringify({
         action: 'generate_questions',
         challengeId: params.challengeId,
-        submission: params.submission
+        submission: params.submission,
+        language: currentLang
       }),
       signal: controller.signal
     });
@@ -661,10 +957,11 @@ export async function scoreVivaAnswer(
     questionId: string;
     questionText: string;
     answer: string;
-    language?: string;
+    language?: Language;
   },
   isOfflineDemo: boolean = false
 ): Promise<{ data: VivaScoreAnswerResponse; isLive: boolean }> {
+  const currentLang: Language = params.language || (i18n.language as Language) || 'en';
   const answer = (params.answer || '').trim();
   const lower = answer.toLowerCase();
 
@@ -674,16 +971,32 @@ export async function scoreVivaAnswer(
     lower.includes("don't know") ||
     lower.includes('dunno') ||
     lower.includes('copied') ||
-    lower.includes('no idea');
+    lower.includes('no idea') ||
+    lower.includes('தெரியாது') ||
+    lower.includes('पता नहीं');
+
+  const notesVague: Record<Language, string> = {
+    en: 'Response lacks specific architectural or technical reasoning from your submitted work.',
+    ta: 'உங்கள் பதிலில் சமர்ப்பித்த படைப்பின் குறிப்பிட்ட தொழில்நுட்ப அல்லது கட்டமைப்பு காரணங்கள் போதுமானதாக இல்லை.',
+    fr: 'La réponse manque de raisonnement technique ou architectural spécifique issu de votre travail soumis.',
+    hi: 'आपके उत्तर में आपके प्रस्तुत कार्य से संबंधित विशिष्ट तकनीकी या संरचनात्मक तर्क की कमी है।'
+  };
+
+  const notesAuthentic: Record<Language, string> = {
+    en: 'Demonstrates authentic understanding of architectural decisions, trade-offs, and implementation.',
+    ta: 'கட்டமைப்பு முடிவுகள், நடைமுறை பரிசீலனைகள் மற்றும் அமலாக்கம் பற்றிய உண்மையான புரிதலை வெளிப்படுத்துகிறது.',
+    fr: 'Démontre une compréhension authentique des choix architecturaux, des compromis et de la réalisation.',
+    hi: 'संरचनात्मक निर्णयों, तकनीकी ट्रेड-ऑफ और वास्तविक कार्यान्वयन की प्रामाणिक समझ प्रदर्शित करता है।'
+  };
 
   const fallbackScore: VivaScoreAnswerResponse = isVague
     ? {
         score: 55,
-        note: 'Response lacks specific architectural or technical reasoning from your submitted work.'
+        note: notesVague[currentLang] || notesVague.en
       }
     : {
         score: 92,
-        note: 'Demonstrates authentic understanding of architectural decisions, trade-offs, and implementation.'
+        note: notesAuthentic[currentLang] || notesAuthentic.en
       };
 
   if (isOfflineDemo) {
@@ -704,7 +1017,7 @@ export async function scoreVivaAnswer(
         questionId: params.questionId,
         questionText: params.questionText,
         answer: params.answer,
-        language: params.language
+        language: currentLang
       }),
       signal: controller.signal
     });
@@ -746,7 +1059,7 @@ export interface InterviewScoreRequest {
   roleTitle: string;
   question: string;
   transcript: string;
-  language: 'en' | 'ta' | 'hi';
+  language: Language;
   durationSeconds: number;
 }
 
@@ -754,10 +1067,41 @@ export async function scoreInterviewTranscript(
   params: InterviewScoreRequest,
   isOfflineDemo: boolean = false
 ): Promise<{ data: InterviewScoreResponse; isLive: boolean }> {
+  const currentLang: Language = params.language || (i18n.language as Language) || 'en';
   const words = (params.transcript || '').trim().split(/\s+/).filter(Boolean);
   const wordCount = words.length;
   const durationMin = Math.max(0.2, (params.durationSeconds || 30) / 60);
   const paceWpm = Math.round(wordCount / durationMin);
+
+  const tipsByLanguage: Record<Language, string[]> = {
+    en: [
+      `Pacing (${paceWpm || 122} WPM): Maintained an accessible conversational rhythm close to the 120 WPM benchmark.`,
+      "Linguistic Clarity: Aim to replace filler sounds with a deliberate 1-second pause before introducing technical tradeoffs.",
+      `Evidence Citation: Strengthen your response for ${params.roleTitle} by mentioning your verified rubric score and hands-on portfolio proof.`
+    ],
+    ta: [
+      `பேச்சு வேகம் (${paceWpm || 122} WPM): 120 WPM வழிகாட்டுதலுக்கு அருகில் இயல்பான உரையாடல் வேகத்தைக் காட்டியுள்ளது.`,
+      "மொழித் தெளிவு: தயக்க ஒலிகளுக்குப் பதிலாக 1 வினாடி அமைதி காத்து தொழில்நுட்ப காரணங்களை முன்வையுங்கள்.",
+      `${params.roleTitle} பணிக்கு உங்கள் சரிபார்க்கப்பட்ட மதிப்பெண் மற்றும் செயல்முறை சான்றுகளை குறிப்பிடுவது கூடுதல் பலம் தரும்.`
+    ],
+    fr: [
+      `Débit (${paceWpm || 122} MPM) : Rythme conversationnel fluide proche du repère optimal de 120 mots par minute.`,
+      "Clarté linguistique : Remplacez les hésitations par une pause délibérée d'une seconde avant d'aborder les compromis techniques.",
+      `Citation de preuves : Renforcez votre réponse pour ${params.roleTitle} en mentionnant votre score certifié et vos projets concrets.`
+    ],
+    hi: [
+      `बोलने की गति (${paceWpm || 122} WPM): 120 WPM मानक के निकट एक सुलभ और संतुलित लय बनाए रखी।`,
+      "भाषाई स्पष्टता: तकनीकी पहलुओं को समझाते समय भराव शब्दों की जगह 1 सेकंड का ठहराव लें।",
+      `${params.roleTitle} के लिए अपने सत्यापित रूब्रिक स्कोर और हैंड्स-ऑन प्रोजेक्ट प्रमाण का उल्लेख करके उत्तर को मजबूत करें।`
+    ]
+  };
+
+  const disclaimerByLanguage: Record<Language, string> = {
+    en: 'Confidence scoring is derived strictly from linguistic transcript structure and assertive vocabulary. It is not a psychological assessment or judgment of the person.',
+    ta: 'நம்பிக்கை மதிப்பீடு உரையின் சொற்கள் மற்றும் வாக்கிய அமைப்பை அடிப்படையாகக் கொண்டது; இது மனித மனோபாவ மதிப்பீடு அல்ல.',
+    fr: 'L\'évaluation de confiance repose strictement sur la structure linguistique de la transcription et le vocabulaire affirmatif. Il ne s\'agit pas d\'un jugement psychologique.',
+    hi: 'आत्मविश्वास स्कोरिंग विशुद्ध रूप से भाषाई प्रतिलेख संरचना और मुखर शब्दावली पर आधारित है। यह किसी व्यक्ति का मनोवैज्ञानिक मूल्यांकन नहीं है।'
+  };
 
   // Fallback calculation for offline / resilience
   const fallbackScore: InterviewScoreResponse = {
@@ -768,12 +1112,8 @@ export async function scoreInterviewTranscript(
     paceWpm: paceWpm || 122,
     fillerWordCount: Math.max(1, Math.min(4, Math.round(wordCount * 0.05))),
     matchedFillers: ['um', 'like'],
-    tips: [
-      `Pacing (${paceWpm || 122} WPM): Maintained an accessible conversational rhythm close to the 120 WPM benchmark.`,
-      "Linguistic Clarity: Aim to replace filler sounds with a deliberate 1-second pause before introducing technical tradeoffs.",
-      `Evidence Citation: Strengthen your response for ${params.roleTitle} by mentioning your verified rubric score and hands-on portfolio proof.`
-    ],
-    disclaimer: 'Confidence scoring is derived strictly from linguistic transcript structure and assertive vocabulary. It is not a psychological assessment or judgment of the person.'
+    tips: tipsByLanguage[currentLang] || tipsByLanguage.en,
+    disclaimer: disclaimerByLanguage[currentLang] || disclaimerByLanguage.en
   };
 
   if (isOfflineDemo) {
@@ -788,7 +1128,7 @@ export async function scoreInterviewTranscript(
     const response = await fetch('/api/interview-score', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ ...params, language: currentLang }),
       signal: controller.signal
     });
 
@@ -805,6 +1145,47 @@ export async function scoreInterviewTranscript(
     console.warn('API call to /api/interview-score failed. Falling back to diagnostic scorer.', err);
     return { data: fallbackScore, isLive: false };
   }
+}
+
+/**
+ * AI Coach Response Generator with localized answers across en, ta, fr, and hi
+ */
+export function getCoachAnswer(
+  query: string,
+  persona: Persona,
+  language?: Language
+): { text: string } {
+  const currentLang = language || (i18n.language as Language) || 'en';
+  const q = query.toLowerCase();
+
+  if (q.includes('bubbling') || q.includes('dom') || q.includes('நிகழ்வு') || q.includes('इवेंट') || q.includes('bouillonnement')) {
+    const answers: Record<Language, string> = {
+      en: 'DOM Event Delegation works through event bubbling: instead of adding 500 event listeners on each item, you attach 1 listener to the parent <ul> container. When a user clicks, the event bubbles upward through parent elements. In event.target you read which exact item was clicked. This saves device memory, prevents memory leaks, and handles dynamically added items automatically!',
+      ta: 'பெற்றோர் <ul> பட்டியலில் ஒரே ஒரு listener வைப்பதன் மூலம் 500 உறுப்புகளுக்கும் நினைவகப் பயன்பாடு மிச்சமாகிறது. நிகழ்வு மேல்நோக்கி பரவுவதால் (bubbling) புதிய உறுப்புகள் சேர்க்கப்பட்டாலும் தானாகவே செயல்படும்! event.target மூலம் எந்த உறுப்பு கிளிக் செய்யப்பட்டது என்பதை துல்லியமாக அறியலாம்.',
+      fr: 'La délégation d\'événements DOM s\'appuie sur le bouillonnement (bubbling) : au lieu d\'attacher 500 écouteurs sur chaque élément, vous en attachez 1 seul au conteneur parent <ul>. Lors du clic, l\'événement remonte l\'arborescence. Grâce à event.target, vous identifiez l\'élément cliqué, économisant la mémoire et gérant dynamiquement les nouveaux nœuds !',
+      hi: 'DOM इवेंट डेलिगेशन इवेंट बबलिंग के जरिए काम करता है: हर एलिमेंट पर 500 अलग-अलग लिसनर लगाने के बजाय पैरेंट <ul> कंटेनर पर केवल 1 लिसनर लगाते हैं। क्लिक करने पर इवेंट ऊपर बबल होता है और event.target से पता चलता है कि किस आइटम पर क्लिक किया गया। इससे मेमोरी बचती है!'
+    };
+    return { text: answers[currentLang] || answers.en };
+  }
+
+  if (q.includes('puckering') || q.includes('blouse') || q.includes('stitching') || q.includes('தையல்') || q.includes('சுருக்கம்') || q.includes('सिलाई') || q.includes('plis')) {
+    const answers: Record<Language, string> = {
+      en: 'To eliminate neck puckering in lightweight silk/chiffon: 1) Switch from standard 14/16 needle down to size 9 or 11 ball-point needle. 2) Cut the bias strip at strictly 45 degrees so the weave expands uniformly. 3) Loosen your upper thread tension dial by 1 full number, and place tissue paper beneath delicate fabric while stitching!',
+      ta: 'மெல்லிய பட்டு மற்றும் சிஃப்பான் துணிகளில் கழுத்து சுருக்கத்தை தவிர்க்க: 1) ஊசி அளவை 9 அல்லது 11 ஆக மாற்றவும். 2) கழுத்து பைப்பிங் நாடாவை சரியான 45 பாகை கோணத்தில் வெட்டவும். 3) மேல் நூல் அழுத்தத்தை குறைத்து, தையல் போடும்போது துணியின் கீழ் மெல்லிய காகிதம் வைத்து தைக்கவும்!',
+      fr: 'Pour éliminer les plis au col sur mousseline ou soie : 1) Remplacez l\'aiguille standard par une aiguille fine taille 9 ou 11 à pointe bille. 2) Coupez la bande de biais strictement à 45 degrés pour une élasticité uniforme. 3) Desserrez la tension du fil supérieur d\'un cran et placez du papier de soie sous le tissu délicat pendant la couture !',
+      hi: 'हल्के सिल्क या शिफॉन पर नेकलाइन सिकुड़न हटाने के लिए: 1) सुई का आकार 9 या 11 बॉल-पॉइंट में बदलें। 2) बायस पट्टी को ठीक 45 डिग्री पर काटें ताकि खिंचाव एकसमान रहे। 3) ऊपरी धागे का तनाव 1 नंबर कम करें और सिलाई के दौरान नाजुक कपड़े के नीचे टिशू पेपर रखें!'
+    };
+    return { text: answers[currentLang] || answers.en };
+  }
+
+  // General readiness / career guidance answer
+  const answers: Record<Language, string> = {
+    en: `Based on your verified ${persona.readinessScore}% readiness score, your strongest assets are semantic accessibility and core craft accuracy. Your single immediate action is to bridge REST API caching with challenge #3 to push your match above 90% for local employers!`,
+    ta: `உங்கள் சரிபார்க்கப்பட்ட ${persona.readinessScore}% தயார்நிலை மதிப்பெண் அடிப்படையில், சிமென்டிக் கட்டமைப்பு மற்றும் அடிப்படைக் கைவினை உங்கள் சிறந்த பலங்கள். சவால் #3 (REST API கேஷிங்) முடித்தால் உங்கள் வாய்ப்பு 90% க்கும் மேல் உயரும்!`,
+    fr: `D'après votre score de préparation vérifié de ${persona.readinessScore}%, vos atouts majeurs sont l'accessibilité sémantique et la rigueur technique. Votre action prioritaire est de valider le défi #3 pour propulser votre profil au-dessus de 90% de correspondance !`,
+    hi: `आपके सत्यापित ${persona.readinessScore}% तैयारी स्कोर के आधार पर, सिमेंटिक एक्सेसिबिलिटी और कोर शिल्प आपकी मुख्य ताकतें हैं। स्थानीय नियोक्ताओं के साथ 90%+ मैच हासिल करने के लिए चुनौती #3 पूरी करें!`
+  };
+  return { text: answers[currentLang] || answers.en };
 }
 
 

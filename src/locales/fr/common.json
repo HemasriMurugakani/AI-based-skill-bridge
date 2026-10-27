@@ -1,0 +1,93 @@
+{
+  "brand": {
+    "name": "SkillBridge AI",
+    "subtitle": "Plateforme Civique de Compétences et d'Opportunités",
+    "tagline": "Apprenez une compétence. Prouvez votre talent. Débloquez des opportunités.",
+    "motto": "Des preuves réelles plutôt que de simples déclarations · Pour les talents du Tamil Nadu"
+  },
+  "nav": {
+    "home": "Accueil",
+    "gapAnalysis": "Analyse des Écarts d'Emploi",
+    "roadmap": "Feuille de Route",
+    "skills": "Compétences",
+    "challenges": "Défis",
+    "passport": "Passeport",
+    "progress": "Série & XP",
+    "readiness": "Préparation",
+    "opportunities": "Opportunités",
+    "interview": "Entretien IA",
+    "resume": "CV en 1 Page",
+    "employer": "Employeur",
+    "institution": "Établissement",
+    "coach": "Coach IA",
+    "signIn": "Se Connecter",
+    "joinFree": "S'inscrire Gratuitement",
+    "offlineDemo": "Démo Hors-Ligne",
+    "liveAi": "IA en Direct",
+    "cachedDemo": "Démo en Cache",
+    "resetDemo": "Réinitialiser",
+    "switchPersona": "Changer de Profil",
+    "guidedDemo": "Visite Guidée",
+    "liveTicker": "Moteur civique du Tamil Nadu • 50 320 apprenants • 81,4 % de taux de recrutement vérifié"
+  },
+  "actions": {
+    "start": "Commencer",
+    "continue": "Continuer",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "viewDetails": "Voir Détails",
+    "download": "Télécharger",
+    "back": "Retour",
+    "next": "Suivant",
+    "finish": "Terminer",
+    "retry": "Réessayer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "exportPdf": "Exporter en PDF",
+    "copyLink": "Copier le Lien",
+    "takeChallenge": "Relever un Défi",
+    "viewRoadmap": "Voir la Feuille de Route",
+    "viewPassport": "Voir le Passeport",
+    "startJourney": "Démarrer le Parcours",
+    "tryDemo": "Essayer la Démo"
+  },
+  "statuses": {
+    "aiReviewed": "Examiné par l'IA",
+    "mentorVerified": "Vérifié par un Mentor",
+    "pendingMentor": "En Attente de Validation",
+    "ready": "Prêt à Postuler",
+    "preparing": "En Préparation",
+    "applied": "Candidaté",
+    "saved": "Enregistré",
+    "notStarted": "Non Commencé",
+    "inProgress": "En Cours",
+    "completed": "Terminé",
+    "strong": "Maîtrisé",
+    "develop": "À Développer",
+    "notAssessed": "Non Évalué",
+    "gap": "Compétence Manquante"
+  },
+  "trust": {
+    "evidenceBacked": "Validation fondée sur des preuves concrètes, sans simple auto-déclaration",
+    "sampleOpportunity": "Opportunité simulée pour l'évaluation du prototype",
+    "aiDisclaimer": "L'IA assiste l'évaluation ; les mentors confirment les décisions finales",
+    "proofProgressLoop": "Boucle Preuve-Progrès : Identifier → Apprendre & Pratiquer → Prouver → Adapter",
+    "dataTransparency": "Calculs transparents et déterministes. Aucune donnée privée n'est transmise sans accord."
+  },
+  "persona": {
+    "switchTitle": "Changer de Profil Actif",
+    "currentPersona": "Profil Actuel",
+    "readiness": "Préparation",
+    "streak": "Série"
+  },
+  "footer": {
+    "copyright": "SkillBridge AI · Initiative Civique de Compétences du Tamil Nadu",
+    "craftedWith": "Conçu pour les Apprenants Académiques et Professionnels",
+    "dataNotice": "Des calculs rigoureux guident votre employabilité sans partage abusif de données.",
+    "demoMode": "Mode Démonstration Interactif"
+  }
+}

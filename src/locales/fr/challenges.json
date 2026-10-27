@@ -1,0 +1,57 @@
+{
+  "title": "Défis de Preuve Vérifiables",
+  "subtitle": "Réalisez des projets techniques ou pratiques concrets. Chaque soumission est évaluée selon des barèmes professionnels transparents.",
+  "activeChallenge": "Défi Actif",
+  "difficulty": "Difficulté",
+  "timeEstimate": "Temps Estimé",
+  "points": "Récompense XP",
+  "tabs": {
+    "instructions": "Consignes & Instructions",
+    "codeEditor": "Espace de Code",
+    "preview": "Aperçu en Direct",
+    "photoUpload": "Contrôle Photo",
+    "quiz": "Quiz Rapide",
+    "quickViva": "Soutenance Viva (30 s)"
+  },
+  "workspace": {
+    "runCode": "Exécuter & Valider le Code",
+    "runTests": "Lancer les Tests Automatisés",
+    "inspectAccessibility": "Auditer l'Accessibilité WCAG",
+    "submitForReview": "Soumettre la Preuve",
+    "passingScore": "Seuil de Réussite : {{score}} %"
+  },
+  "rubric": {
+    "title": "Grille d'Évaluation Professionnelle",
+    "criteriaHeader": "Critère",
+    "weightHeader": "Pondération",
+    "scoreHeader": "Score",
+    "evidenceHeader": "Constat Automatisé",
+    "fixHeader": "Amélioration Recommandée"
+  },
+  "vivaModal": {
+    "title": "Soutenance Orale IA (Viva Defense)",
+    "subtitle": "Répondez à 3 courtes questions techniques pour prouver l'authenticité de votre code et votre compréhension profonde.",
+    "questionCounter": "Question {{current}} sur {{total}}",
+    "voiceBtn": "Répondre à la Voix",
+    "typeAnswerPlaceholder": "Parlez ou écrivez votre explication ici...",
+    "evaluateBtn": "Évaluer la Réponse",
+    "confidenceLabel": "Confiance d'Auteur",
+    "authenticScore": "Score Oral"
+  },
+  "quizModal": {
+    "title": "Quiz de Validation des Connaissances",
+    "score": "Score au Quiz : {{score}} %",
+    "question": "Question {{current}} sur {{total}}",
+    "nextQuestion": "Question Suivante",
+    "submitQuiz": "Soumettre les Réponses",
+    "explanation": "Pourquoi cette réponse est correcte :"
+  },
+  "photoInspection": {
+    "uploadTitle": "Inspection Visuelle du Travail Artisanal",
+    "dragDrop": "Glissez-déposez des photos de votre travail ou échantillon",
+    "takePhoto": "Prendre une Photo",
+    "analyzingPhoto": "Vision par IA en cours d'analyse des coutures et de la tension...",
+    "detectedSeams": "Coutures & Alignement Détectés",
+    "tensionScore": "Indice de Tension du Fil"
+  }
+}

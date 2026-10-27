@@ -1,0 +1,46 @@
+{
+  "title": "Analyse des Écarts par rapport à l'Offre (JD)",
+  "subtitle": "Collez une offre d'emploi ou choisissez un exemple pour détecter vos lacunes et tracer un parcours de rattrapage immédiat.",
+  "badge": "Comparateur IA Compétences-Poste",
+  "inputPlaceholder": "Collez le texte complet de la fiche de poste ici... (technologies requises, qualifications, missions principales)",
+  "analyzeBtn": "Analyser les Écarts de Compétences",
+  "analyzing": "Analyse des exigences du poste...",
+  "samples": {
+    "title": "Ou sélectionnez des exemples d'entreprises du Tamil Nadu :",
+    "webDev": "Stagiaire Développeur Web à Chennai",
+    "boutiqueTailor": "Tailleur Styliste à Tiruppur",
+    "electrician": "Électricien Solaire à Salem"
+  },
+  "results": {
+    "roleMatched": "Rôle Ciblé",
+    "company": "Entreprise Recruteuse",
+    "overallMatch": "Score Global de Correspondance",
+    "matchScore": "Indice d'Adéquation",
+    "readinessImpact": "Gain Prévisionnel d'Employabilité"
+  },
+  "radar": {
+    "title": "Radar Compétences Vérifiées vs Exigences du Poste",
+    "desc": "Le trait bleu représente vos preuves validées ; la ligne en pointillés illustre les attentes du recruteur."
+  },
+  "matchedSkills": {
+    "title": "Compétences Vérifiées et Correspondantes",
+    "count": "{{count}} compétence correspondante validée",
+    "count_plural": "{{count}} compétences correspondantes validées"
+  },
+  "missingGaps": {
+    "title": "Écarts de Compétences Identifiés",
+    "count": "{{count}} écart détecté",
+    "count_plural": "{{count}} écarts détectés",
+    "priorityMust": "Indispensable (Must-have)",
+    "priorityNice": "Atout Supplémentaire",
+    "addToRoadmapBtn": "Ajouter les Compétences Manquantes à la Feuille de Route",
+    "addedToast": "{{count}} compétence ajoutée à votre feuille de route prioritaire !",
+    "addedToast_plural": "{{count}} compétences ajoutées à votre feuille de route prioritaire !"
+  },
+  "marketDemand": {
+    "title": "Demande du Marché au Tamil Nadu",
+    "salaryRange": "Rémunération Moyenne de Début",
+    "openPositions": "Postes Ouverts Actifs",
+    "locationDemand": "Principaux Bassins Industriels"
+  }
+}

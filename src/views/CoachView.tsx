@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSkillBridgeStore } from '../store/useSkillBridgeStore';
 import { useTranslation } from 'react-i18next';
 import { AIThinking } from '../components/AIThinking';
-import { StreamingText } from '../components/StreamingText';
 import { StatusPill } from '../components/StatusPill';
 import { TrustLabel } from '../components/TrustLabel';
+import { getCoachAnswer } from '../services/api';
+import { Language } from '../types';
 import {
-  BotMessageSquare,
   Send,
   Sparkles,
-  MessageSquare,
-  HelpCircle,
-  Lightbulb,
-  CornerDownLeft
+  Lightbulb
 } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
   sender: 'user' | 'assistant';
   text: string;
-  tamilText?: string;
   timestamp: string;
 }
 
 export const CoachView: React.FC = () => {
-  const { getPersona, getCurrentPathway, isOfflineDemo } = useSkillBridgeStore();
-  const { t } = useTranslation();
+  const { getPersona, getCurrentPathway } = useSkillBridgeStore();
+  const { t, i18n } = useTranslation();
   const persona = getPersona();
   const pathway = getCurrentPathway();
+  const currentLang = (i18n.language as Language) || 'en';
+
+  const getGreeting = (lang: string) => {
+    const firstName = lang === 'ta' ? persona.nameTamil.split(' ')[0] : persona.name.split(' ')[0];
+    if (lang === 'ta') {
+      return `வணக்கம் ${firstName}! நான் உங்கள் AI வழிகாட்டி. ${pathway.titleTamil || pathway.title} கற்றலில் உங்கள் திறன் இடைவெளிகளை நீக்கி நல்ல வேலை வாய்ப்பைப் பெற நான் எவ்வாறு உதவட்டும்?`;
+    }
+    if (lang === 'fr') {
+      return `Bonjour ${firstName} ! Je suis votre coach technique SkillBridge IA. Comment puis-je vous aider à développer vos compétences et préparer vos opportunités dans ${pathway.title} aujourd'hui ?`;
+    }
+    if (lang === 'hi') {
+      return `नमस्ते ${firstName}! मैं आपका SkillBridge AI करियर और तकनीकी कोच हूँ। ${pathway.title} में आपकी क्षमताओं को साबित करने और कौशल अंतरालों को पाटने में मैं कैसे मदद कर सकता हूँ?`;
+    }
+    return `Hello ${firstName}! I am your SkillBridge AI Career & Technical Coach. How can I help you prove your abilities or bridge skill gaps in ${pathway.title} today?`;
+  };
 
   const [inputMessage, setInputMessage] = useState('');
   const [isThinking, setIsThinking] = useState(false);
@@ -35,27 +46,40 @@ export const CoachView: React.FC = () => {
     {
       id: 'm-1',
       sender: 'assistant',
-      text: `Vanakkam ${persona.name.split(' ')[0]}! I am your SkillBridge AI Career & Technical Coach. How can I help you prove your abilities or bridge skill gaps in ${pathway.title} today?`,
-      tamilText: `வணக்கம் ${persona.nameTamil.split(' ')[0]}! உங்கள் திறன் இடைவெளிகளை நீக்கி நல்ல வேலை வாய்ப்பைப் பெற நான் எவ்வாறு உதவட்டும்?`,
+      text: getGreeting(currentLang),
       timestamp: 'Just now'
     }
   ]);
 
+  // Update greeting when language changes if no user messages yet
+  useEffect(() => {
+    setMessages(prev => {
+      if (prev.length === 1 && prev[0].sender === 'assistant') {
+        return [
+          {
+            id: 'm-1',
+            sender: 'assistant',
+            text: getGreeting(currentLang),
+            timestamp: 'Just now'
+          }
+        ];
+      }
+      return prev;
+    });
+  }, [currentLang]);
+
   const quickPrompts = [
     {
-      label: 'Explain DOM Event Bubbling in Tamil',
-      tamil: 'DOM நிகழ்வு பரிமாற்றம் தமிழில் விளக்கம்',
-      prompt: 'Can you explain DOM event bubbling and delegation in simple Tamil with a real-world example?'
+      label: t('coach.quickPrompts.label1', 'Explain DOM Event Bubbling'),
+      prompt: t('coach.quickPrompts.prompt1', 'Can you explain DOM event bubbling and delegation with a clear real-world code example?')
     },
     {
-      label: 'How to fix blouse neckline puckering?',
-      tamil: 'ரவிக்கை கழுத்து சுருக்கம் நீக்குவது எப்படி?',
-      prompt: 'My neckline bias binding is puckering on chiffon fabric. What needle size and tension adjustments should I make?'
+      label: t('coach.quickPrompts.label2', 'How to fix neckline puckering?'),
+      prompt: t('coach.quickPrompts.prompt2', 'My blouse neckline bias binding is puckering on chiffon fabric. What needle size and thread tension should I adjust?')
     },
     {
-      label: 'Job Readiness Check for Chennai Trainee roles',
-      tamil: 'சென்னை வேலைக்கு தயார்நிலை ஆய்வு',
-      prompt: 'Check my readiness score for Junior Frontend Trainee roles in Chennai and tell me the fastest way to bridge gaps.'
+      label: t('coach.quickPrompts.label3', 'Job Readiness Check'),
+      prompt: t('coach.quickPrompts.prompt3', 'Review my readiness score for Junior Frontend roles in Chennai and tell me the fastest way to bridge my missing gaps.')
     }
   ];
 
@@ -76,30 +100,17 @@ export const CoachView: React.FC = () => {
 
     setTimeout(() => {
       setIsThinking(false);
-      let reply = '';
-      let replyTamil = '';
-
-      if (query.toLowerCase().includes('bubbling') || query.toLowerCase().includes('dom')) {
-        reply = 'DOM Event Delegation works through event bubbling: instead of adding 500 event listeners on each item, you attach 1 listener to the parent <ul> container. When a user clicks, the event bubbles upward through parent elements. In event.target you read which exact item was clicked. This saves device memory, prevents memory leaks, and handles dynamically added items automatically!';
-        replyTamil = 'பெற்றோர் <ul> பட்டியலில் ஒரே ஒரு listener வைப்பதன் மூலம் 500 உறுப்புகளுக்கும் மெமரி மிச்சமாகிறது. நிகழ்வு மேல்நோக்கி பரவுவதால் (bubbling) புதிய உறுப்புகள் வந்தாலும் தானாகவே செயல்படும்!';
-      } else if (query.toLowerCase().includes('puckering') || query.toLowerCase().includes('blouse') || query.toLowerCase().includes('stitching')) {
-        reply = 'To eliminate neck puckering in lightweight silk/chiffon: 1) Switch from standard 14/16 needle down to size 9 or 11 ball-point needle. 2) Cut the bias strip at strictly 45 degrees so the weave expands uniformly. 3) Loosen your upper thread tension dial by 1 full number, and place tissue paper beneath delicate fabric while stitching!';
-        replyTamil = 'சுருக்கத்தை தவிர்க்க: ஊசி அளவு 9 அல்லது 11 ஆக மாற்றவும். துணியை சரியாக 45 டிகிரி கோணத்தில் வெட்டவும். நூல் அழுத்தத்தை குறைத்து, மெல்லிய காகிதத்தை அடியில் வைத்து தைக்கவும்!';
-      } else {
-        reply = `Based on your verified ${persona.readinessScore}% readiness score, your strongest assets are semantic accessibility and core craft accuracy. Your single immediate action is to bridge REST API caching with challenge #3 to push your match above 90% for Vaigai Digital Solutions!`;
-        replyTamil = `உங்கள் ${persona.readinessScore}% தயார்நிலை சென்னை நிறுவனங்களுக்கு போதுமானது. REST API சவாலை முடித்தால் உங்கள் வாய்ப்பு 90% க்கும் மேல் உயரும்!`;
-      }
+      const { text: reply } = getCoachAnswer(query, persona, currentLang);
 
       const aiMsg: ChatMessage = {
         id: `a-${Date.now()}`,
         sender: 'assistant',
         text: reply,
-        tamilText: replyTamil,
         timestamp: 'Just now'
       };
 
       setMessages(prev => [...prev, aiMsg]);
-    }, 1500);
+    }, 1200);
   };
 
   return (
@@ -109,15 +120,15 @@ export const CoachView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="text-xs font-bold uppercase tracking-wider text-[#173B67] dark:text-sky-300 px-2.5 py-0.5 rounded-full bg-[#EAF5FC] border border-[#62B6E8]/30">
-              Bilingual AI Mentor
+              {t('coach.bilingualBadge', 'AI Mentor Assistant')}
             </span>
             <StatusPill status="ai_reviewed" size="sm" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#173B67] dark:text-white">
-            SkillBridge AI Coach
+            {t('coach.title', 'SkillBridge AI Coach')}
           </h1>
           <p className="mt-1 text-xs sm:text-sm text-[#526174] dark:text-night-muted max-w-xl">
-            Ask technical questions, get viva coaching, or troubleshoot craft doubts in Tamil (தூய தமிழ் / தங்கிலீஷ்) or English.
+            {t('coach.subtitle', 'Ask technical questions, get viva coaching, or troubleshoot craft doubts in your preferred language.')}
           </p>
         </div>
 
@@ -136,8 +147,8 @@ export const CoachView: React.FC = () => {
               <Lightbulb className="w-3.5 h-3.5 text-[#F2B66D] shrink-0" />
               <span className="truncate">{qp.label}</span>
             </div>
-            <div className="font-tamil text-[11px] text-[#526174] dark:text-night-muted truncate">
-              {qp.tamil}
+            <div className="text-[11px] text-[#526174] dark:text-night-muted line-clamp-2">
+              {qp.prompt}
             </div>
           </button>
         ))}
@@ -175,11 +186,6 @@ export const CoachView: React.FC = () => {
                   }`}
                 >
                   <p>{msg.text}</p>
-                  {msg.tamilText && (
-                    <div className="mt-2 pt-2 border-t border-sky-200/50 dark:border-white/5 font-tamil text-xs text-[#173B67] dark:text-sky-300 font-medium">
-                      {msg.tamilText}
-                    </div>
-                  )}
                   <div
                     className={`mt-1 text-[10px] text-right ${
                       isAI ? 'text-[#526174]' : 'text-white/70'
@@ -195,8 +201,7 @@ export const CoachView: React.FC = () => {
           {isThinking && (
             <div className="p-4 max-w-md mr-auto rounded-card bg-[#F8FAFC] dark:bg-night-100 border border-[#E2E8F0] dark:border-night-border shadow-soft">
               <AIThinking
-                labelEnglish="SkillBridge Coach is analyzing your query..."
-                labelTamil="AI வழிகாட்டி ஆலோசனை தயாரிக்கிறது..."
+                label={t('coach.thinking', 'SkillBridge Coach is analyzing your query...')}
               />
             </div>
           )}
@@ -215,7 +220,7 @@ export const CoachView: React.FC = () => {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask in English or தமிழில் கேளுங்கள்... (e.g. explain flexbox vs grid)"
+              placeholder={t('coach.askPlaceholder', 'Ask a question in your preferred language...')}
               className="flex-1 px-4 py-2.5 rounded-full text-xs sm:text-sm bg-[#EAF5FC]/50 dark:bg-night-card border border-sky-200 dark:border-night-border text-[#173B67] dark:text-night-ink focus:outline-none focus:ring-2 focus:ring-[#62B6E8]"
             />
 
@@ -224,7 +229,7 @@ export const CoachView: React.FC = () => {
               disabled={!inputMessage.trim() || isThinking}
               className="px-5 py-2.5 rounded-full bg-[#173B67] hover:bg-[#112C4E] disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 shadow-soft transition-all cursor-pointer"
             >
-              <span>Send</span>
+              <span>{t('coach.sendBtn', 'Send')}</span>
               <Send className="w-3.5 h-3.5" />
             </button>
           </form>

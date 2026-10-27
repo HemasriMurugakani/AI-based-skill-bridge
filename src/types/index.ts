@@ -1,7 +1,7 @@
 export type SkillState = 'strong' | 'develop' | 'not_assessed' | 'gap';
 export type VerificationStatus = 'ai_reviewed' | 'mentor_verified' | 'pending_mentor';
 export type PathwayCategory = 'academic' | 'vocational';
-export type Language = 'en' | 'ta' | 'hi';
+export type Language = 'en' | 'ta' | 'fr' | 'hi';
 
 export interface SkillItem {
   id: string;

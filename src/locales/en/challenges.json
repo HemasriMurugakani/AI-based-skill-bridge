@@ -1,0 +1,57 @@
+{
+  "title": "Verifiable Proof Challenges",
+  "subtitle": "Complete hands-on technical or vocational assignments. Each submission is evaluated against transparent industry rubrics.",
+  "activeChallenge": "Active Challenge",
+  "difficulty": "Difficulty",
+  "timeEstimate": "Time Estimate",
+  "points": "XP Reward",
+  "tabs": {
+    "instructions": "Brief & Instructions",
+    "codeEditor": "Code Workspace",
+    "preview": "Live Preview",
+    "photoUpload": "Photo Inspection",
+    "quiz": "Rapid Quiz",
+    "quickViva": "30-Sec Viva Defense"
+  },
+  "workspace": {
+    "runCode": "Run Code & Validate",
+    "runTests": "Run Automated Tests",
+    "inspectAccessibility": "Audit WCAG Accessibility",
+    "submitForReview": "Submit Proof to Review",
+    "passingScore": "Passing Threshold: {{score}}%"
+  },
+  "rubric": {
+    "title": "Industrial Evaluation Rubric",
+    "criteriaHeader": "Criterion",
+    "weightHeader": "Weight",
+    "scoreHeader": "Score",
+    "evidenceHeader": "Automated Observation",
+    "fixHeader": "Recommended Improvement"
+  },
+  "vivaModal": {
+    "title": "AI Viva Voice Defense",
+    "subtitle": "Answer 3 short technical questions to prove authentic code authorship and conceptual depth.",
+    "questionCounter": "Question {{current}} of {{total}}",
+    "voiceBtn": "Speak Answer",
+    "typeAnswerPlaceholder": "Speak or type your explanation here...",
+    "evaluateBtn": "Evaluate Viva Answer",
+    "confidenceLabel": "Authorship Confidence",
+    "authenticScore": "Viva Score"
+  },
+  "quizModal": {
+    "title": "Knowledge Check Quiz",
+    "score": "Quiz Score: {{score}}%",
+    "question": "Question {{current}} of {{total}}",
+    "nextQuestion": "Next Question",
+    "submitQuiz": "Submit Quiz Answers",
+    "explanation": "Why this is correct:"
+  },
+  "photoInspection": {
+    "uploadTitle": "Physical Craft & Seam Inspection",
+    "dragDrop": "Drag & drop photos of your physical project or work sample",
+    "takePhoto": "Capture with Camera",
+    "analyzingPhoto": "AI Computer Vision checking seam alignment and tension...",
+    "detectedSeams": "Detected Seams & Alignment",
+    "tensionScore": "Thread Tension Index"
+  }
+}

@@ -73,19 +73,19 @@
   *,
   *::before,
   *::after {
-    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
+    font-family: 'Poppins', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif !important;
   }
 
   body {
     background-color: #FFFFFF;
     color: var(--color-text-primary);
-    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
+    font-family: 'Poppins', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   button, input, optgroup, select, textarea {
-    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, -apple-system, sans-serif !important;
+    font-family: 'Poppins', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif !important;
   }
 
   code, pre, kbd, samp, .font-mono, .font-mono * {
@@ -94,28 +94,32 @@
 
   /* Headings with Poppins */
   h1, h2, h3, h4, h5, h6, .heading-tight {
-    font-family: 'Poppins', 'Noto Sans Tamil', sans-serif !important;
+    font-family: 'Poppins', 'Noto Sans Tamil', 'Noto Sans Devanagari', sans-serif !important;
     letter-spacing: -0.02em;
   }
 
-  /* Robust Tamil Typography & Anti-clipping rules */
+  /* Robust Typography & Anti-clipping rules for taller Indic scripts (Tamil, Hindi) */
   .font-tamil,
   [lang="ta"],
-  .tamil-text {
-    font-family: 'Noto Sans Tamil', 'Poppins', system-ui, sans-serif;
+  .tamil-text,
+  .font-hindi,
+  [lang="hi"],
+  .hindi-text {
     letter-spacing: normal !important;
-    line-height: 1.55;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
     font-feature-settings: normal;
-  }
-
-  /* Prevent vertical clipping of Tamil vowel signs (kombu, kaal, pulli) */
-  .font-tamil,
-  .tamil-safe {
     padding-top: 0.05em;
     padding-bottom: 0.05em;
     overflow-wrap: break-word;
     word-break: normal;
+  }
+
+  /* Robust layout resilience for longer French strings and localized text */
+  [lang="fr"],
+  .lang-fr {
+    hyphens: auto;
+    overflow-wrap: break-word;
   }
 }
 

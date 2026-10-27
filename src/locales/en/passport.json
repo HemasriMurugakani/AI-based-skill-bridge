@@ -1,0 +1,32 @@
+{
+  "title": "Digital Skill Passport",
+  "subtitle": "Cryptographically verifiable ledger of your practical competencies, code reviews, and physical craft certifications.",
+  "badgeCount": "{{count}} Verified Credential",
+  "badgeCount_plural": "{{count}} Verified Credentials",
+  "xpTotal": "{{xp}} Lifetime Skill XP",
+  "verifiedClaims": "{{count}} Audited Skill Claim",
+  "verifiedClaims_plural": "{{count}} Audited Skill Claims",
+  "credentials": {
+    "title": "Issued Micro-Credentials & Badges",
+    "issuedBy": "Issued by SkillBridge Civic Engine",
+    "cryptographicHash": "Verification Hash",
+    "verificationUrl": "Public Verification URL",
+    "viewProofChain": "Inspect Proof Chain"
+  },
+  "qrCode": {
+    "scanToVerify": "Scan QR Code to Verify Authenticity",
+    "sharePublicUrl": "Copy Shareable Portfolio Link",
+    "validCredential": "Valid & Verified on Tamil Nadu Skill Ledger"
+  },
+  "skillsMatrix": {
+    "title": "Mastery Matrix & Assessed Evidence",
+    "verifiedAt": "Verified on {{date}}",
+    "proficiencyLevel": "Level {{level}} of 5",
+    "mentorSignature": "Mentor Verification Stamp"
+  },
+  "export": {
+    "exportJson": "Export JSON-LD Credentials",
+    "exportPdf": "Export Official Passport PDF",
+    "shareLinkedIn": "Add to Professional Profile"
+  }
+}
